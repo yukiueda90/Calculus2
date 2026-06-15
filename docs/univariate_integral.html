@@ -54,8 +54,17 @@
                             x_i \le t_i \le x_{i+1}
                         \] を満たす点 $t_0, \dots, t_{N-1}$ に対し, 
                         \[
-                            S = \sum_{i=0}^{N-1}f(t_i)\Delta x_i 
-                        \] を関数 $f$ の <b>リーマン和</b> (<b>Riemann sum</b>) という. 
+                            \sum_{i=0}^{N-1}f(t_i)\Delta x_i 
+                        \] を関数 $f$ の (区間 $[a, b]$ の分割 $x_0, \dots, x_n$ と 点 $t_0, \dots, t_{N-1}$ に関する) <b>リーマン和</b> (<b>Riemann sum</b>) という. 
+                    </li>
+                    <li>区間 $[a, b]$ 上の関数 $f$ に対し, リーマン和の極限 
+                        \[
+                            \lim_{\Delta x\to 0}\sum_{i=0}^{N-1}f(t_i)\Delta x_i 
+                        \] が存在するならば, 関数 $f$ は区間 $[a, b]$ 上で <b>リーマン積分可能</b> であるという. 
+                        また, その極限を <b>リーマン積分</b> (<b>Riemann integral</b>) もしくは <b>定積分</b> (<b>definite integral</b>) と呼び, 
+                        \[
+                            \int_a^b f(x)~dx = \lim_{\Delta x\to 0}\sum_{i=0}^{N-1}f(t_i)\Delta x_i 
+                        \] と表記する. 
                     </li>
                 </ul>
             </div>
