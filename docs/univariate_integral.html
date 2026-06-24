@@ -241,14 +241,17 @@
             
             <div class="lemma" data-name="不連続点を持つ関数の積分">
                 <p>区間 $[a, b]$ 上の有界な関数 $f(x)$ が, 端点 $x=a, b$ でのみ不連続であるとする. 
-                    このとき $f(x)$ は区間 $[a, b]$ 上でリーマン積分可能であり, また連続な関数 
+                    また, 端点における片側極限 
+                    \[
+                        \lim_{x\searrow a}f(x),\qquad \lim_{x\nearrow b}f(x)
+                    \] が存在するとする. このとき, 関数
                     \[
                         \widetilde{f}(x) = \left\{\begin{array}{rl} 
                             \displaystyle\lim_{x\searrow a}f(x) & (x=a), \cr 
                             f(x) & (a\lt x\lt b), \cr 
                             \displaystyle\lim_{x\nearrow b}f(x) & (x=b)
                         \end{array}\right.
-                    \] について, ($\widetilde{f}(x)$ も区間 $[a, b]$ 上でリーマン積分可能であり) 
+                    \] は連続であり (従ってリーマン積分可能であり), さらに $f(x)$ も区間 $[a, b]$ 上でリーマン積分可能であり, 
                     \[
                         \int_a^b f(x)~dx = \int_a^b \widetilde{f}(x)~dx 
                     \] が成立する. 
@@ -257,10 +260,13 @@
 
             <div class="remark">
                 <ul>
-                    <li>積分区間の分割と組み合わせると, 関数 $f(x)$ が区間 $[a, b]$ 内部の点 $c$ で不連続であるとき, 
+                    <li>積分区間の分割と組み合わせると, 関数 $f(x)$ が区間 $[a, b]$ 内部の点 $c$ が &quot;おとなしい&quot; 不連続点であるとき, 
                         \[
                             \int_a^b f(x)~dx = \int_a^c f(x)~dx + \int_c^b f(x)~dx
                         \] などと分割することで, 分割された各区間上では連続な関数の積分であると見なすことができる, ただし上の表記において区間 $[a, c]$ 上の関数 $f(x)$ および区間 $[c, b]$ 上の関数 $f(x)$ の $x=c$ における値は適当に取り替えられている. 
+                    </li>
+                    <li>不連続点における片側極限が存在しない場合には, この性質は利用できない. 例えば, $\sin (1/x)$ は $x=0$ で振動するため片側極限を持たず, 実は $0$ を含む区間上で (通常の) リーマン積分はできない. 
+                        ただし, 実は後に述べる <b>広義積分</b> は可能である. 
                     </li>
                     <li>以下に述べるいくつかの性質は, 被積分関数が連続であることを仮定する必要があるが, 実際には不連続であったとしても適当に区間を分割することで、分割された各区間上に適用することができる. 
                     </li>
@@ -934,7 +940,7 @@
                             \dfrac{x^5+2x^4+x^3+2x^2+x+1}{x^2(x^2+1)^2} &= \dfrac{A_1}{x} + \dfrac{A_2}{x^2} + \dfrac{B_1x+C_1}{x^2+1} + \dfrac{B_2x+C_2}{(x^2+1)^2} \cr 
                             &= \dfrac{A_1x(x^2+1)^2 + A_2(x^2+1)^2 + (B_1x+C_1)x^2(x^2+1) + (B_2x+C_2)x^2}{x^2(x^2+1)^2}
                         \end{array}
-                    \] 両辺の分子の同次項の係数を比較すると, まず定数項 $x$ の係数の比較から $A_2=1$, $A_1=1$ は簡単にわかる. 
+                    \] 両辺の分子の同次項の係数を比較すると, まず定数項および $x$ の係数の比較から $A_2=1$, $A_1=1$ は簡単にわかる. 
                     これを用いて整理すると 
                     \[
                         x^4 - x^3 = x^2((B_1x+C_1)(x^2+1)+B_2x+C_2)
@@ -980,6 +986,33 @@
             <p>が, こうした置換積分は有理関数の積分に帰着されることになる. 
                 実際には, 有理関数の積分 (というより部分分数分解) は現実的な労力で手計算できるとは限らないが, うまく利用すれば様々な関数の積分計算に応用可能な, 非常に強力なテクニックである. 
             </p>
+
+            <div class="exercise">
+                <p>$|a|\lt 1$ とする. 
+                    このとき, 不定積分 
+                    \[
+                        \int\dfrac{1}{1+a\cos x}~dx 
+                    \] を計算せよ. 
+                </p>
+            </div>
+
+            <div class="answer">
+                <p>被積分関数の分母に三角関数が現れているが, このような場合には $t=\tan(x/2)$ と変数変換すると良い. 
+                    このとき, 
+                    \[
+                        \dfrac{dt}{dx} = \dfrac{1}{2}\dfrac{1}{\cos^2 (x/2)} = \dfrac{1+t^2}{2},\qquad \cos x = 2\cos^2(x/2) - 1 = \dfrac{1-t^2}{1+t^2}
+                    \] であることを用いると, 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int\dfrac{1}{1+a\cos x}~dx &= \displaystyle\int \dfrac{1}{1+a\frac{1-t^2}{1+t^2}}\dfrac{2}{1+t^2}~dt \cr 
+                            &= \displaystyle\int\dfrac{2}{(1+a)+(1-a)t^2}~dt \cr 
+                            &= \dfrac{2}{1-a}\displaystyle\int \dfrac{1}{\left(\sqrt{\frac{1+a}{1-a}}\right)^2 + t^2}~dt \quad (\because |a|\lt 1) \cr 
+                            &= \dfrac{2}{1-a}\dfrac{1}{\sqrt{\frac{1+a}{1-a}}}\tan^{-1}\dfrac{t}{\sqrt{\frac{1+a}{1-a}}} \cr 
+                            &= \dfrac{2}{\sqrt{1-a^2}}\tan^{-1}\left(\sqrt{\dfrac{1-a}{1+a}}\tan\dfrac{x}{2}\right).
+                        \end{array}
+                    \]
+                </p>
+            </div>
 
         </section>
 
