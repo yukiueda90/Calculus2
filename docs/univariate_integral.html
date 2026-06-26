@@ -42,20 +42,20 @@
             <div class="definition" data-name="リーマン積分">
                 <p>区間 $[a, b]$ 上の関数 $f(x)$ を考える. </p>
                 <ul>
-                    <li>$a = x_0 \lt x_1 \lt \dots\lt x_{n-1}\lt x_N = b$ を満たす点列 $x_0, \dots, x_N$ を区間 $[a, b]$ の <b>分割</b> (<b>区間分割</b>) もしくは <b>メッシュ</b> という. </li>
-                    <li>区間 $[a, b]$ の分割 $x_0, \dots, x_n$ に対し, 各 $[x_k, x_{k+1}]$ を <b>小区間</b> といい, この小区間の長さを $\Delta x_k = x_{k+1} - x_k$ と表記する.</li> 
-                    <li>区間 $[a, b]$ の分割 $x_0, \dots, x_n$ に対し, 
+                    <li>$a = x_0 \lt x_1 \lt \dots\lt x_{N-1}\lt x_N = b$ を満たす点列 $x_0, \dots, x_N$ を区間 $[a, b]$ の <b>分割</b> (<b>区間分割</b>) もしくは <b>メッシュ</b> という. </li>
+                    <li>区間 $[a, b]$ の分割 $x_0, \dots, x_N$ に対し, 各 $[x_k, x_{k+1}]$ を <b>小区間</b> といい, この小区間の長さを $\Delta x_k = x_{k+1} - x_k$ と表記する.</li> 
+                    <li>区間 $[a, b]$ の分割 $x_0, \dots, x_N$ に対し, 
                         \[
                             \Delta x = \max_{k=0,\dots, N-1}\Delta x_k 
                         \] を <b>分割のサイズ</b> もしくは <b>メッシュサイズ</b> という. 
                     </li>
-                    <li>区間 $[a, b]$ の分割 $x_0, \dots, x_n$ と, 各 $x_k$ について 
+                    <li>区間 $[a, b]$ の分割 $x_0, \dots, x_N$ と, 各 $x_k$ について 
                         \[
                             x_k \le t_k \le x_{k+1}
                         \] を満たす点 $t_0, \dots, t_{N-1}$ に対し, 
                         \[
                             \sum_{k=0}^{N-1}f(t_k)\Delta x_k 
-                        \] を関数 $f$ の (区間 $[a, b]$ の分割 $x_0, \dots, x_n$ と 点 $t_0, \dots, t_{N-1}$ に関する) <b>リーマン和</b> (<b>Riemann sum</b>) という. 
+                        \] を関数 $f$ の (区間 $[a, b]$ の分割 $x_0, \dots, x_N$ と 点 $t_0, \dots, t_{N-1}$ に関する) <b>リーマン和</b> (<b>Riemann sum</b>) という. 
                     </li>
                     <li>区間 $[a, b]$ 上の関数 $f$ に対し, リーマン和の極限 
                         \[
