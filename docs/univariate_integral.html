@@ -83,7 +83,7 @@
                 つまり, 分割のサイズをどのように $0$ に近づけたか (および点 $t_k$ の選び方) に依らず, リーマン和が一定の値に近づく場合にのみ定まるものである. 
                 厳密な証明はここではしないが, 実は関数 $f(x)$ が連続ならば, $f$ はリーマン積分可能である. 
                 また, 不連続点が有限個の有界な関数もリーマン積分可能である. 
-                一方で, 例えば不連続点が無限に存在するような病的な関数はリーマン積分可能でないことがある. とはいえ, 応用上はそれほど問題ない. 
+                一方で, 例えば不連続点が無限に存在するような関数はリーマン積分可能でないことがある. とはいえ, 応用上はそれほど問題ない. 
             </div>
 
             <div class="example">
@@ -276,7 +276,7 @@
                     </li>
                     <li>なお, 全ての不連続点において左右からの片側極限がそれぞれ存在する関数を <b>区分的連続</b> であるという. </li>
                     <li>不連続点における片側極限が存在しない場合には, この性質は利用できない. 例えば, $\sin (1/x)$ は $x=0$ で振動するため片側極限を持たず, 実は $0$ を含む区間上で (通常の) リーマン積分はできない. 
-                        ただし, 実は後に述べる <b>広義積分</b> は可能である. 
+                        ただし, 実は後に述べる <b>広義積分</b> は可能であり, 広義積分の意味での積分値を定めることができる. 
                     </li>
                     <li>以下に述べるいくつかの性質は, 被積分関数が連続であることを仮定する必要があるが, 実際には区分的連続であれば, 適切に分割された各区間上に適用することができる. 
                     </li>
@@ -476,6 +476,38 @@
             </div>
 
             <div class="exercise">
+                <p>関数 $f(x)$ を 
+                    \[
+                        f(x) =\left\{\begin{array}{rl} 
+                            \sqrt{-x} & (x\lt 0), \cr 
+                            1-\sqrt{x} & (x\ge 0) 
+                        \end{array}\right.
+                    \] により定める. 
+                    このとき, 積分 
+                    \[
+                        \int_{-1}^1 f(x)~dx
+                    \] を求めよ. 
+                </p>
+            </div>
+
+            <div class="answer">
+                <p>関数 $f(x)$ は $x=0$ で不連続ではあるが, 左右からの片側極限は存在するため, 積分区間を分割することで ($x=0$ での値を適当に取り替えて)
+                    \[
+                        \int_{-1}^1f(x)~dx = \int_{-1}^0 \sqrt{-x} ~dx + \int_0^1(1-\sqrt{x})~dx 
+                    \] と変形できる. 
+                    あとは右辺 $2$ つの積分をそれぞれ求めればよい: 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int_{-1}^1f(x)~dx &= \displaystyle\int_{-1}^0 \sqrt{-x} ~dx + \int_0^1(1-\sqrt{x})~dx \cr 
+                            &= \left[-\dfrac{2}{3}(-x)^{\frac{3}{2}}\right]_{-1}^0 + \left[x - \dfrac{2}{3}x^{\frac{3}{2}}\right]_0^1 \cr 
+                            &= 1. 
+                        \end{array}
+                    \] この結果は, 積分を図形の面積と対応付けると直感的に理解しやすいだろう: 
+                </p>
+                <div class="resize"><img src='./images/riemann_integral_discontinuous2-1.png'></div>
+            </div>
+
+            <div class="exercise">
                 <p>区間 $[a, b]$ 上で連続な関数 $f(x)$ に対し, 
                     \[
                         \dfrac{d}{dx} \int_a^{x}f(s)~ds, \qquad \dfrac{d}{dx} \int_a^{x^2}f(s)~ds 
@@ -500,7 +532,7 @@
             <hr>
 
             <p>さて, 微積分学の基本定理は, 直感的には『積分とは微分の逆である』ということを意味するものである. 
-                従って, 微分における様々な公式, 計算テクニックに対して, 対応する積分の公式や計算テクニックが存在する. 
+                従って, 微分における様々な公式, 計算テクニックに対応する積分の公式や計算テクニックが存在する. 
                 ここでは特に <b>部分積分</b> (<b>integration by part</b>) と <b>置換積分</b> (<b>integration by substitution</b>) について確認しておこう. 
             </p>
 
@@ -710,7 +742,7 @@
 
             <div class="answer">
                 <p>被積分関数の定義域が $[-a, a]$ であることから $x = a\sin t$ とおいて置換積分を計算する, という解法が標準的だろう. 
-                    この解法は $t = \sin^{-1}(x/a)$ を本質的に利用しているため, 以下のように式変形しても同じことである:
+                    この解法は $t = \sin^{-1}(x/a)$ を意味していることに注意すると, 以下のように式変形しても同じことである:
                     \[
                         \begin{array}{rl} 
                             \displaystyle\int \sqrt{a^2-x^2}~dx &= \displaystyle\int \left(\dfrac{a^2}{\sqrt{a^2-x^2}} - \dfrac{x^2}{\sqrt{a^2-x^2}}\right)~dx \cr 
@@ -782,13 +814,53 @@
                 </ul>
             </div>
 
+            <div class="exercise">
+                積分 
+                \[
+                    \int \dfrac{1}{\cosh x}~dx 
+                \] を求めよ. 
+            </div>
+
+            <div class="answer">
+                <p>双曲線関数 $\cosh x$ の定義より, 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int \dfrac{1}{\cosh x}~dx &= \displaystyle\int \dfrac{2}{e^x+e^{-x}}~dx \cr 
+                            &= \displaystyle\int \dfrac{2}{t+\frac{1}{t}}\dfrac{1}{t}~dx \quad (\text{$t=e^x$ と変数変換})\cr  
+                            &= \displaystyle\int \dfrac{2}{t^2+1}~dt. 
+                        \end{array}
+                    \] この積分は $t=\tan\theta$ とさらに変数変換して計算しても良いし, もしくは 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int \dfrac{1}{\cosh x}~dx &= \displaystyle\int \dfrac{2}{t^2+1}~dt \cr 
+                            &= 2\tan^{-1}t + C \cr 
+                            &= 2\tan^{-1}e^x + C.
+                        \end{array}
+                    \] と直接計算しても良いだろう. 
+                </p>
+            </div>
+
             <p>これらの関数は $\cosh^2 x - \sinh^2 x = 1$ を満たす. 
                 つまり, $xy$ 平面上の
                 \[
                     x^2 - y^2 = 1
                 \] という双曲線上の点のパラメータ表示に現れる関数である (三角関数は $x^2+y^2=1$ 上の点のパラメータ表示に現れる関数であった). 
                 また, 指数関数 $e^x$ を用いて表されることから, 微分 (および積分) を簡単に計算可能であり, しかも三角関数との類似性を見ることができる. 
-                実際に微分を計算すると, 
+                実際, 定義より (双極型関数の) 加法定理 
+                \[
+                    \begin{array}{c} 
+                        \sinh(\alpha+\beta) = \sinh\alpha\cosh\beta + \cosh\alpha\sinh\beta, \cr 
+                        \cosh(\alpha+\beta) = \cosh\alpha\cosh\beta + \sinh\alpha\sinh\beta, \cr 
+                        \tanh(\alpha+\beta) = \dfrac{\tanh\alpha+\tanh\beta}{1+\tanh\alpha\tanh\beta}
+                    \end{array}
+                \] が成立し, 特に倍角の公式に相当する 
+                \[
+                    \begin{array}{rl} 
+                        \sinh 2x &= 2\sinh x\cosh x, \cr 
+                        \cosh 2x &= \cosh^2 x+\sinh^2 x = 2\cosh^2x - 1
+                    \end{array}
+                \] も成立する. 
+                また, 微分を計算すると, 
             </p>
 
             <ul>
@@ -797,7 +869,7 @@
                 <li>$\dfrac{d}{dx}\tanh x = 1-\tanh^2 x = \dfrac{1}{\cosh^2 x}$</li>
             </ul>
 
-            <p>であることは簡単に確かめることができる. 
+            <p>であることも確かめることができる. 
                 さらに, これらの逆関数は対数関数を用いて表すことができる: 例えば, 
                 \[
                     x=\sinh y = \dfrac{e^y - e^{-y}}{2}
@@ -814,9 +886,14 @@
                 \] を得ることができる. 
             </p>
 
-            <p>被積分関数が, $\sqrt{1-x^2}$ のような形を含む場合には $x=\sin t$ などとおいて置換積分を計算する (もしくは $\sin^{-1}x$ を利用する) という, 三角関数を用いた計算テクニックが有名だが, 同様に $\sqrt{x^2+1}$ のような関数の積分の際に, $\sinh$ などの双曲線関数の利用が役にたつ. 
-                以下, $\cosh$ と $\tanh$ についても同様に計算して得られる結果をまとめておく: 
+            <p>被積分関数が, $\sqrt{1-x^2}$ のような形を含む場合には $x=\sin t$ などとおいて置換積分を計算する (もしくは $\sin^{-1}x$ を利用する) という, 三角関数を用いた計算テクニックが有名だが, 同様に $\sqrt{x^2+1}$ のような関数の積分の際に, $\sinh$ などの双曲線関数の利用が役にたつ.
+                実際, 定義より $\cosh t \ge 1$ であり (特に常に正なので), 従って
+                \[
+                    \cosh t = \sqrt{\cosh^2 t} = \sqrt{\sinh^2 t + 1} 
+                \] であることから, $x=\sinh t$ と変数変換して積分を計算すると, $\sqrt{x^2+1}$ のような部分をうまく処理できることが期待できる. 
             </p>
+
+            <p>以下, $\cosh$ と $\tanh$ についても同様に計算して得られる結果をまとめておく: </p>
 
             <div class="lemma" data-name="双曲線関数の微分, 逆関数">
                 <ul>
@@ -838,7 +915,7 @@
                     \[
                         \int_0^a \dfrac{1}{\sqrt{a^2+x^2}}~dx
                     \] を計算してみよう. 
-                    置換積分を用いるならば, $x = a\sinh t$ とおくことで 
+                    置換積分を用いるならば, ($1+\sinh^2 t = \cosh^2 t$ を利用することを見越して) $x = a\sinh t$ とおくことで 
                     \[
                         \begin{array}{rl} 
                             \displaystyle\int_0^a \dfrac{1}{\sqrt{a^2+x^2}}~dx &= \displaystyle\int_0^{\sinh^{-1}1} \dfrac{1}{\sqrt{a^2+a^2\sinh^2 t}}\cdot a\cosh t~dt \cr 
@@ -846,7 +923,7 @@
                             &= \sinh^{-1}1 = \log\left(1+\sqrt{2}\right)
                         \end{array}
                     \] と計算できる. 
-                    また, $\sinh^{-1}(x/a)$ の微分を直接利用することで, 
+                    もしくは, $\sinh^{-1}(x/a)$ の微分を直接利用することで, 
                     \[
                         \begin{array}{rl} 
                             \displaystyle\int_0^a \dfrac{1}{\sqrt{a^2+x^2}}~dx &= \left[\sinh^{-1}\dfrac{x}{a}\right]_0^a \cr 
@@ -854,6 +931,37 @@
                             &= \log\left(1+\sqrt{2}\right) 
                         \end{array}
                     \] と計算しても良い. 
+                </p>
+            </div> 
+
+            <div class="exercise">
+                <p>積分 
+                    \[
+                        \int\sqrt{x^2+1}~dx 
+                    \] を求めよ. 
+                </p>
+            </div>
+
+            <div class="answer">
+                <p>上と同様に $x=\sinh t$ とおいて計算してみよう: 
+                    \[
+                        \begin{array}{rl}
+                            \displaystyle\int\sqrt{x^2+1}~dx &= \displaystyle\int \sqrt{\cosh^2t}\cosh t~dt \cr 
+                            &= \displaystyle\int\cosh^2t~dt \quad(\because \cosh t\ge 1) \cr 
+                            &= \displaystyle\int \dfrac{\cosh 2t + 1}{2} ~dt \cr 
+                            &= \dfrac{t}{2} + \dfrac{1}{4} \sinh 2t + C.  
+                        \end{array}
+                    \] ここで, 
+                    \[
+                        t = \sinh^{-1}x = \log\left(x + \sqrt{x^2+1}\right)
+                    \] であり, また 
+                    \[
+                        \sinh 2t = 2\sinh t\cosh t = 2\sinh t\sqrt{1+\sinh^2 t} = 2x\sqrt{1+x^2}
+                    \] である. 
+                    以上より, 
+                    \[
+                        \int\sqrt{x^2+1}~dx = \dfrac{\log(x+\sqrt{x^2+1})}{2} + \dfrac{x\sqrt{1+x^2}}{2} + C.
+                    \]
                 </p>
             </div>
             
