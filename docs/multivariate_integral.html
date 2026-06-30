@@ -37,1123 +37,238 @@
         <p>以下の説明は, 一見すると複雑に感じるかもしれないが, $1$ 変数の場合と同様である, ということを念頭に理解して欲しい.</p>
 
         <section id="section3-1"><h2>3.1: 曲線の長さと線積分</h2>
-            <p>他変数関数について考える前に, まずは $xy$ 平面上の積分の一例として, 曲線の長さの計算を考えよう. 
+            <p>まずは $xy$ 平面上の関数に対する積分の一例として, 曲線の長さの計算を考えよう. 
                 ここでは, 曲線の長さもリーマン積分と同様にして導出するアイデアを紹介する. 
             </p>
 
-            <p>$xy$ 平面上の曲線が, 媒介変数表示 
+            <p>$xy$ 平面上の滑らかな曲線 $C$ が, 媒介変数表示 
                 \[
-                    x=f(t), \quad y=g(t) \quad (a\le t\le b)
-                \] により表されているとする. 
+                    \mathbf{r}(t) = (x(t), y(t)) \quad (a\le t\le b)
+                \] により表されているとする, ここで $C$ が滑らかであることから $x(t)$, $y(t)$ は微分可能である. 
                 このとき, 区間 $[a, b]$ の分割 
                 \[
                     a = t_0 \lt t_1 \lt \dots \lt t_{N-1} \lt t_N = b  
-                \] に対し, 曲線上の点 
+                \] を考える, このとき $\Delta t_k = t_{k+1}-t_k$ であり, 分割のサイズは 
                 \[
-                    P_k = (f(t_k), g(t_k)) 
-                \] を考える. 
-                このとき, 点 $P_k$ と $P_{k+1}$ の距離 $\Delta L_k$ は
+                    \Delta t = \max_{k=0,\dots, N-1}\Delta t_k
+                \] である.
+                さて, 曲線上の点 
                 \[
-                    \Delta L_k = \overline{P_kP_{k+1}} = \sqrt{(f(t_{k+1}) - f(t_k))^2 + (g(t_{k+1}) - g(t_k))^2}
-                \] により与えられる (曲線の微小長さ $dL$ は 
+                    P_k = (x(t_k), y(t_k)) 
+                \] に対し, $P_k$ と $P_{k+1}$ の距離 $\Delta s_k$ について, 平均値の定理を用いることで
                 \[
-                    dL = \sqrt{(dx)^2 + (dy)^2} 
-                \] により与えられる, という説明に相当している). 
+                    \begin{array}{rl} 
+                        \Delta s_k &= \overline{P_kP_{k+1}} \cr 
+                        &= \sqrt{(x(t_{k+1}) - x(t_k))^2 + (y(t_{k+1}) - y(t_k))^2} \cr 
+                        &= \sqrt{\left(\dfrac{dx}{dt}(\xi_k)\right)^2 + \left(\dfrac{dy}{dt}(\eta_k)\right)^2} \Delta t_k 
+                    \end{array}
+                \] を満たす $\xi_k\in (t_k, t_{k+1})$, $\eta_k\in(t_k, t_{k+1})$ が存在する. 
                 これを用いて, 点 $P_0, P_1, \dots, P_n$ を結んで得られる折れ線の長さは 
                 \[
-                    \sum_{k=1}^{N-1}\Delta L_k
-                \] と表される. 
-                さて, 
+                    \sum_{k=1}^{N-1}\Delta s_k = \sum_{k=1}^{N-1}\sqrt{\left(\dfrac{dx}{dt}(\xi_k)\right)^2 + \left(\dfrac{dy}{dt}(\eta_k)\right)^2} \Delta t_k
+                \] と表されるため, これをリーマン和とみなして極限 
+                \[
+                    L = \int_a^b \sqrt{\left(\dfrac{dx}{dt}(t)\right)^2 + \left(\dfrac{dy}{dt}(t)\right)^2}~dt = \lim_{\Delta t\to0} \sum_{k=1}^{N-1}\sqrt{\left(\dfrac{dx}{dt}(\xi_k)\right)^2 + \left(\dfrac{dy}{dt}(\eta_k)\right)^2} \Delta t_k = \lim_{\Delta t\to0} \sum_{k=1}^{N-1}\Delta s_k
+                \] を取ることで, 曲線 $C$ の長さ $L$ が得られる. このことは, 直感的には曲線の微小長さ $ds$ は 
+                \[
+                    ds = \sqrt{(dx)^2 + (dy)^2} 
+                \] により与えられることから, 
+                \[
+                    L = \int_a^b \dfrac{ds}{dt}~dt = \int_a^b \sqrt{\left(\dfrac{dx}{dt}(t)\right)^2 + \left(\dfrac{dy}{dt}(t)\right)^2}~dt
+                \] と計算できる, ということを意味している.
             </p>
 
-            <div class="definition" data-name="リーマン積分">
-                <p>区間 $[a, b]$ 上の関数 $f(x)$ を考える. </p>
-                <ul>
-                    <li>$a = x_0 \lt x_1 \lt \dots\lt x_{n-1}\lt x_N = b$ を満たす点列 $x_0, \dots, x_N$ を区間 $[a, b]$ の <b>分割</b> (<b>区間分割</b>) もしくは <b>メッシュ</b> という. </li>
-                    <li>区間 $[a, b]$ の分割 $x_0, \dots, x_n$ に対し, 各 $[x_k, x_{k+1}]$ を <b>小区間</b> といい, この小区間の長さを $\Delta x_k = x_{k+1} - x_k$ と表記する.</li> 
-                    <li>区間 $[a, b]$ の分割 $x_0, \dots, x_n$ に対し, 
-                        \[
-                            \Delta x = \max_{k=0,\dots, N-1}\Delta x_k 
-                        \] を <b>分割のサイズ</b> もしくは <b>メッシュサイズ</b> という. 
-                    </li>
-                    <li>区間 $[a, b]$ の分割 $x_0, \dots, x_n$ と, 各 $x_k$ について 
-                        \[
-                            x_k \le t_k \le x_{k+1}
-                        \] を満たす点 $t_0, \dots, t_{N-1}$ に対し, 
-                        \[
-                            \sum_{k=0}^{N-1}f(t_k)\Delta x_k 
-                        \] を関数 $f$ の (区間 $[a, b]$ の分割 $x_0, \dots, x_n$ と 点 $t_0, \dots, t_{N-1}$ に関する) <b>リーマン和</b> (<b>Riemann sum</b>) という. 
-                    </li>
-                    <li>区間 $[a, b]$ 上の関数 $f$ に対し, リーマン和の極限 
-                        \[
-                            \lim_{\Delta x\to 0}\sum_{k=0}^{N-1}f(t_k)\Delta x_k 
-                        \] が存在するならば, 関数 $f$ は区間 $[a, b]$ 上で <b>リーマン積分可能</b> であるという. 
-                        また, その極限を <b>リーマン積分</b> (<b>Riemann integral</b>) もしくは <b>定積分</b> (<b>definite integral</b>) と呼び, 
-                        \[
-                            \int_a^b f(x)~dx = \lim_{\Delta x\to 0}\sum_{k=0}^{N-1}f(t_k)\Delta x_k 
-                        \] と表記する. 
-                        また, このとき関数 $f$ を <b>被積分関数</b> (<b>integrand</b>) と呼ぶ. 
-                    </li>
-                </ul>
-            </div>
+            <div class="resize"><img src='./images/arc_length-1.png'></div>
 
-            <p>リーマン和のイメージ図を下に掲載する. 
-                与えられた関数 $f(x)$ に対し, 各長方形の高さが $f(t_k)$, 横幅が $\Delta x_k$ であり, 従って長方形の符号付き面積 ($x$ 軸より下側に飛び出した部分の面積は負であるとみなす) の和がリーマン和を表している. 
-                結果的に, 分割のサイズを $\Delta x\to 0$ とした際のリーマン和の極限は, 関数 $f(x)$ で表される図形の符号付き面積であると説明される. 
-                従って, リーマン積分は (高校数学で説明されるように, 確かに) 面積と対応づけることができるものである. 
+            <p>ここでは上の積分に異なる表記を導入しよう. 
+                まず, 関数 $x(t)$, $y(t)$ を成分にもつベクトル 
+                \[
+                    \mathbf{r}(t) = (x(t), y(t))
+                \] に対して, 
+                \[
+                    |\mathbf{r}'(t)| = \sqrt{\left(\dfrac{dx}{dt}(t)\right)^2 + \left(\dfrac{dy}{dt}(t)\right)^2}
+                \] であることから, 曲線 $C$ の長さ $L$ を求める積分は 
+                \[
+                    L = \int_a^b |\mathbf{r}'(t)|~dt 
+                \] と表記することができる. 
+                これと, 上の説明より, 
+                \[
+                    L = \int_a^b\dfrac{ds}{dt}~dt = \int_a^b |\mathbf{r}'(t)|~dt 
+                \] であるが, これは 
+                \[
+                    L = \int_? 1~ds 
+                \] という積分を計算する際に, 関数 $s = s(t)$ を用いて置換積分を用いていると解釈することができる.  
+                この積分の積分 &quot;区間&quot; は曲線 $C$ (の一部) である, と思うことができる. 
+                また, 被積分関数が定数関数 $1$ である場合には記述を省略してしまうことにしよう. 
+                以上に基づき, 曲線 $C$ の長さを表す積分を 
+                \[
+                    L = \int_C~ds = \int_a^b |\mathbf{r}'(t)|~dt
+                \] と表記することにする. 
+                この積分において, $ds$ は <b>線素</b> と呼ばれることがある, また曲線 $C$ は上の積分における <b>積分路</b> と呼ばれることがある. 
+                さらに, 関数 $s(t)$ は $ds/dt = |\mathbf{r}'(t)|$ を満たすため, 微積分学の基本定理より 
+                \[
+                    s(t) = \int_a^t \dfrac{ds}{du}~du = \int_a^t|\mathbf{r}'(u)|~du
+                \] と表すことができるものである. 
+                上で $\Delta s$ や $ds$ は微小な長さを表すものであったが, この $s$ は曲線の $t=a$ から変数 $t$ で表される部分の長さを表しており, 特に $s(a)=0$, $s(b) = L$ である (この $s$ は <b>弧長パラメータ</b> と呼ばれることがある).
             </p>
 
-            <div class="resize"><img src='./images/riemann_integral-1.png'></div>
+            <p>ここまでの説明を定理としてまとめておこう: 
+            </p>
 
-            <div class="remark">
-                リーマン積分は分割のサイズを $0$ に近づけた際のリーマン和の極限である. 
-                つまり, 分割のサイズをどのように $0$ に近づけたか (および点 $t_k$ の選び方) に依らず, リーマン和が一定の値に近づく場合にのみ定まるものである. 
-                厳密な証明はここではしないが, 実は関数 $f(x)$ が連続ならば, $f$ はリーマン積分可能である. 
-                また, 不連続点が有限個の有界な関数もリーマン積分可能である. 
-                一方で, 例えば不連続点が無限に存在するような関数はリーマン積分可能でないことがある. とはいえ, 応用上はそれほど問題ない. 
-            </div>
-
-            <div class="example">
-                <p>有限個の点で不連続であるような有界な関数がリーマン積分可能であることを, 具体例を通じて確認してみよう. 
-                    実数 $\alpha$ に対し, 区間 $[-1, 1]$ 上での関数 $f(x)$ として 
+            <div class="theorem" data-name="曲線の長さ">
+                <p>滑らかな曲線 $C: [a, b]\ni t\mapsto \mathbf{r}(t)$ の長さ $L$ は 
                     \[
-                        f(x) = \left\{\begin{array}{rl} 
-                            1 & (-1\le x \lt d), \cr 
-                            \alpha & (x = d), \cr 
-                            2 & (d\lt x\le 1)
-                        \end{array}\right.
-                    \] を考える, ただし $d\in [-1, 1]$ とする. 
-                    この関数のリーマン和を考えると, $x=d$ を含む小区間 $[x_m, x_{m+1}]$ 上の点 $t_m$ の選び方により, リーマン和の値は異なるものになる: 
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\sum_{k=0}^{N-1}f(t_k)\Delta x_k &= \displaystyle 1\cdot\sum_{k=0}^{m-1}\Delta x_k + f(t_m)\cdot \Delta x_m + 2\cdot \sum_{k=m+1}^{N-1}\Delta x_k \cr
-                            &= \left\{\begin{array}{rl} 
-                                (x_m - (-1)) + 1\cdot \Delta x_m + 2(1 - x_{m+1}) & (t_m\lt d), \cr
-                                (x_m - (-1)) + \alpha\cdot \Delta x_m + 2(1 - x_{m+1}) & (t_m= d), \cr
-                                (x_m - (-1)) + 2\cdot \Delta x_m + 2(1 - x_{m+1}) & (t_m\gt d), \cr
-                            \end{array}\right.
-                        \end{array}
-                    \] ただし, $\Delta x\to 0$ とした極限を考えると, 結局 $\Delta x_m\to 0$, $x_m\to d$, $x_{m+1}\to d$ となるため, 収束先は $t_m$ の選び方に依らず $3-d$ であり, 従って 
-                    \[
-                        \int_{-1}^1 f(x)~dx = 3-d
-                    \] である ($f$ はリーマン積分可能であり, その積分値は $\alpha$ に依らない). 
-                </p>
-                <div class="resize"><img src='./images/riemann_integral_discontinuous-1.png'></div>
-                <p>同様のことは, 不連続点が複数ある関数に対しても可能である. </p>
-            </div>
-
-
-            <div class="remark">
-                <p>$f$ が定数関数 $f\equiv c$ ならば, リーマン積分の定義より
-                    \[
-                        \int_a^b f(x)~dx = \int_a^b c~dx = \lim_{\Delta x\to 0} c\underbrace{\sum_{k=0}^{N-1}\Delta x_k}_{=b-a} = c(b-a) 
+                        L = \int_C~ds = \int_a^b |\mathbf{r}'(t)|~dt 
                     \] である. 
                 </p>
             </div>
 
-            <div class="remark">
-                リーマン積分は <b>区分求積法</b> 
-                \[
-                    \int_a^b f(x)~dx = \lim_{n\to\infty}\sum_{k=0}^{N-1}f(a+ k\Delta x)\Delta x \qquad \left(\Delta x = \dfrac{b-a}{N}\right)
-                \]
-                を一般化したものであると解釈することができる. 
-                区分求積法では, 連続な関数 $f(x)$ に対し, 区間 $[a, b]$ が等分割されている場合に, 各区間上の代表点 $t_k$ を同一の基準で (例えば $t_k = a+k\Delta x$ などと) 選ぶことが一般的だが, リーマン積分はそうした条件を取り払ったものになっている. 
-                また, リーマン積分のアイデアより, $\Delta x$ が十分に小さければ 
-                \[
-                    \int_a^b f(x)~dx \approx \sum_{k=0}^{N-1}f(t_k)\Delta x_k 
-                \] と思うことができるが, これは <b>数値積分</b> と呼ばれるアイデアに相当している. 
-            </div>
-
-            <div class="remark">
-                <p>上では $a \lt b$ としてリーマン積分の定義を述べたが, そうでない場合には 
-                </p>
-                <ul>
-                    <li>($1$ 点での積分) 
-                        \[
-                            \int_a^a f(x)~dx = 0 
-                        \] 
-                    </li>
-                    <li>(積分区間の反転) 
-                        \[
-                            \int_a^b f(x)~dx = -\int_b^a f(x)~dx 
-                        \]
-                    </li>
-                </ul>
-                <p>により積分値が定義される. 
-                </p>
-            </div>
-
-            <p>リーマン和のイメージ図において, 各 $\Delta x_k$ は &quot;微小区間&quot; と説明されることがある. 
-                リーマン積分における $dx$ という記号も, この微小区間というアイデアを反映したものであると解釈することができるが, もしも &quot;微小時間&quot; に関する積分を考える場合には, 代わりに $\Delta t_k$, $dt$ という記号が用いられることが多い. 
-            </p>
-            <p>微小時間というアイデアを利用すると, 『速度を積分すると位置の変化量が得られる』という説明も以下のように解釈が可能である: 
-                ある時刻 $s_k \in [t_k, t_{k+1}]$ における速度 $f(s_k)$ に, 微小時間 $\Delta t_k$ を掛けることで, 微小な時間経過における移動距離 (および方向) が得られる. 
-                その総和 (リーマン和) が総移動距離の近似であると思うことができ, さらに時間区間幅 $\Delta t$ を $0$ に近づける極限を考えることで, 総移動距離の厳密な表現が得られるのである. 
-            </p>
-            <p>実際には, リーマン積分のアイデアは, 図形の面積の計算や速度から移動距離を求める以外にも, 様々な場面で利用されることになる.</p> 
-
-            <div class="exercise">
-                <p>長さ $L$ [m] の棒があるとする. </p>
-                <ul>
-                    <li>この棒の密度が (位置に依らない定数) $\rho$ [kg/m] であるとき, 棒の質量 $M$ [kg] を求めよ. </li>
-                    <li>この棒の密度が位置 $x\in [0, L]$ を変数とする関数 $\rho(x)$ [kg/m] として表されているとき, 棒の質量 $M$ [kg] を積分で表せ.  </li> 
-                </ul>
-            </div>
-
-            <div class="answer">
-                <p>上は $M= \rho L$ である. 一方で, 下はリーマン積分を用いて 
-                    \[
-                        M = \lim_{\Delta x\to 0}\sum_{k=0}^{N-1}\rho(t_k)\Delta x_k = \int_0^L \rho(x)~dx 
-                    \] と表される. 
-                    つまり, 棒の総質量は, 微小長さ $\Delta x_k$ における質量 $\rho(t_k)\Delta x_k$ たちの和 (リーマン和) で近似され, その $\Delta x\to0$ の極限により厳密な表現が得られる. 
-                </p>
-            </div>
-
-            <hr>
-
-            <p>リーマン積分の性質についていくつかまとめておこう. 
-                以下の性質は, リーマン積分を和の極限に帰着させることができることから自然と導出される. 
-            </p>
-
-            <div class="lemma">
-                <p>
-                    関数 $f$, $g$ は区間 $[a, b]$ 上でリーマン積分可能とする. 
-                    このとき以下が成立する:
-                </p>
-                <ul>
-                    <li>(線形性) 全ての $c_1$, $c_2$ に対して 
-                        \[
-                            \int_a^b (c_1f(x) + c_2g(x))~dx = c_1\int_a^b f(x)~dx + c_2\int_a^b g(x)~dx.
-                        \]
-                    </li>
-                    <li>(積分区間の分割) 全ての $c\in[a, b]$ に対して 
-                        \[
-                            \int_a^b f(x)~dx = \int_a^c f(x)~dx + \int_c^b f(x)~dx.
-                        \]
-                    </li>
-                    <li>(単調性) 全ての $x\in [a,b]$ に対し $f(x)\le g(x)$ ならば 
-                        \[
-                            \displaystyle\int_a^bf(x)~dx \le \int_a^b g(x)~dx.
-                        \]
-                    </li>
-                </ul>
-            </div>
-
-            <div class="proof">
-                <p>例として一番上だけ証明しておこう. 
-                    リーマン積分の定義と極限の性質より, 
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\int_a^b (c_1f(x)+c_2g(x))~dx &= \displaystyle\lim_{\Delta x\to 0}\sum_{k=0}^{N-1}(c_1f(t_k) + c_2g(t_k))\Delta x_k \cr 
-                            &= \displaystyle c_1 \lim_{\Delta x\to 0}\sum_{k=0}^{N-1}f(t_k) \Delta x_k + c_2 \lim_{\Delta x\to 0}\sum_{k=0}^{N-1}g(t_k) \Delta x_k \cr 
-                            &= \displaystyle c_1\int_a^b f(x)~dx + c_2\int_a^b g(x)~dx.
-                        \end{array}
-                    \]
-                </p>
-            </div>
-
-            <div class="remark">
-                <p>上の性質は, 和の性質の中で極限により壊れないものが積分に引き継がれていると解釈できる. 
-                    実際, $f_1, \dots, f_n$, $g_1, \dots, g_n \in\mathbb{R}$ に対して, 
-                    \[
-                        \begin{array}{c} 
-                            \displaystyle \sum_{i=1}^n (c_1f_i + c_2g_i) = c_1\sum_{i=1}^n f_i + c_2\sum_{i=1} g_i, \cr 
-                            \displaystyle \sum_{i=1}^n f_i = \sum_{i=1}^m f_i + \sum_{i=m+1}^n f_i, \cr 
-                            \text{全ての $i$ に対し }f_i\le g_i\implies \displaystyle \sum_{i=1}^n f_i \le \sum_{i=1}^n g_i
-                        \end{array}
-                    \] の成立は明らかだが, これらと同様のことが積分についても成立する, ということを意味している. 
-                </p>
-            </div>
-
-            <div class="remark">
-                <p>積分区間の分割は, 例えば 
-                    \[
-                        \int_a^b f(x)~dx - \int_a^c f(x)~dx = \int_c^b f(x)~dx 
-                    \] といった形でも利用される. 
-                </p>
-            </div>
-
-            <p>また, 上で例として述べた, 有限個の不連続点を持つ有界な関数のリーマン積分について, 改めてまとめておく:</p>
-            
-            <div class="lemma" data-name="不連続点を持つ関数の積分">
-                <p>区間 $[a, b]$ 上の有界な関数 $f(x)$ が, 端点 $x=a, b$ でのみ不連続であるとする. 
-                    また, 端点における片側極限 
-                    \[
-                        \lim_{x\searrow a}f(x),\qquad \lim_{x\nearrow b}f(x)
-                    \] が存在するとする. このとき, 関数
-                    \[
-                        \widetilde{f}(x) = \left\{\begin{array}{rl} 
-                            \displaystyle\lim_{x\searrow a}f(x) & (x=a), \cr 
-                            f(x) & (a\lt x\lt b), \cr 
-                            \displaystyle\lim_{x\nearrow b}f(x) & (x=b)
-                        \end{array}\right.
-                    \] は連続であり (従ってリーマン積分可能であり), さらに $f(x)$ も区間 $[a, b]$ 上でリーマン積分可能であり, 
-                    \[
-                        \int_a^b f(x)~dx = \int_a^b \widetilde{f}(x)~dx 
-                    \] が成立する. 
-                </p>
-            </div>
-
-            <div class="remark">
-                <ul>
-                    <li>積分区間の分割と組み合わせると, 関数 $f(x)$ が区間 $[a, b]$ 内部の点 $c$ において不連続であり, 左右からの片側極限 (不連続なので一致しない) がそれぞれ存在するとき, 
-                        \[
-                            \int_a^b f(x)~dx = \int_a^c f(x)~dx + \int_c^b f(x)~dx
-                        \] などと分割することで, 分割された各区間上では連続な関数の積分であると見なすことができる, ただし上の表記において区間 $[a, c]$ 上の関数 $f(x)$ および区間 $[c, b]$ 上の関数 $f(x)$ の $x=c$ における値は片側極限の値に取り替えられている. 
-                    </li>
-                    <li>なお, 全ての不連続点において左右からの片側極限がそれぞれ存在する関数を <b>区分的連続</b> であるという. </li>
-                    <li>不連続点における片側極限が存在しない場合には, この性質は利用できない. 例えば, $\sin (1/x)$ は $x=0$ で振動するため片側極限を持たず, 実は $0$ を含む区間上で (通常の) リーマン積分はできない. 
-                        ただし, 実は後に述べる <b>広義積分</b> は可能であり, 広義積分の意味での積分値を定めることができる. 
-                    </li>
-                    <li>以下に述べるいくつかの性質は, 被積分関数が連続であることを仮定する必要があるが, 実際には区分的連続であれば, 適切に分割された各区間上に適用することができる. 
-                    </li>
-                </ul>
-            </div>
+            <p>この積分は曲線の長さを表すと同時に, 曲線 $C$ を積分路とした $1$ という定数関数の積分により表される面積 (高さが $1$ である曲面の面積) と対応付けることも可能である. </p>
 
             <div class="example">
-                <p>上で例として挙げた関数 
+                <p>$y=\cosh x$ で表される曲線の $0\le x \le 1$ の部分の長さ $L$ を計算してみよう. 
+                    この曲線は
                     \[
-                        f(x) = \left\{\begin{array}{rl} 
-                            1 & (-1\le x \lt d), \cr 
-                            \alpha & (x = d), \cr 
-                            2 & (d\lt x\le 1)
-                        \end{array}\right.
-                    \] のリーマン積分について, もう一度考えてみよう. 
-                    積分区間の分割により, ($x=d$ における値を適当に取り替えることで) 
-                    \[
-                        \int_{-1}^1 f(x)~dx = \int_{-1}^d 1~dx + \int_d^1 2~dx = 3-d 
-                    \] と計算することが可能である. 
-                </p>
-            </div>
-
-            <p>次の性質は後の証明で利用することになる: </p>
-            
-            <div class="lemma" data-name="積分の三角不等式">
-                <p>関数 $f$ は区間 $[a, b]$ 上でリーマン積分可能とする. このとき, 
-                    \[
-                        \left|\int_a^b f(x)~dx\right| \le \int_a^b |f(x)|~dx
-                    \] が成立する. 
-                </p>
-            </div>
-            <div class="proof">
-                <p>本来は $f$ がリーマン積分可能であるとき $|f|$ もリーマン積分可能であると証明する必要があるが, ここでは省略し, 不等式のみを示そう. 
-                    証明には (通常の) <b>三角不等式</b> 
-                    \[
-                        |a+b|\le |a|+|b| \quad \text{for all}\quad a,b\in\mathbb{R}
-                    \] を利用する (この成立は明らかだろう, 等号成立は $a$ と $b$ の符号が等しい場合のみ). 
-                    三角不等式より 
+                        \mathbf{r}(t) = (x(t), y(t)) = (t, \cosh t)\qquad (0\le t\le 1)
+                    \] と表されるため, 求める長さ $L$ は 
                     \[
                         \begin{array}{rl} 
-                            \left|\displaystyle\sum_{i=1}^n a_i\right| \le \displaystyle\sum_{i=1}^n|a_i|
+                            L &= \displaystyle\int_C ~ds \cr 
+                            &= \displaystyle\int_0^1 |\mathbf{r}'(t)|~dt \cr 
+                            &= \displaystyle\int_0^1 \sqrt{1+\sinh^2 t}~dt \cr 
+                            &= \displaystyle\int_0^1 \cosh t ~dt \cr 
+                            &= \left[\sinh t\right]_0^1 \cr 
+                            &= \dfrac{e - e^{-1}}{2}.
                         \end{array}
-                    \] が成立することと, リーマン積分の定義より 
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\left|\int_a^b f(x)~dx\right| &= \displaystyle\left|\lim_{\Delta x\to 0}\sum_{k=0}^{N-1}f(t_k)\Delta x_k\right| \cr 
-                            &\le \displaystyle\lim_{\Delta x\to0}\sum_{k=0}^{N-1}|f(t_k) \Delta x_k| \cr
-                            &= \displaystyle\lim_{\Delta x\to0}\sum_{k=0}^{N-1}|f(t_k)| \Delta x_k = \int_a^b |f(x)|~dx.
-                        \end{array}
-                    \]
+                    \] この結果は, 下図左の曲線の一部の長さを表すと同時に, 下図右の (高さが $1$ である) 曲面の面積と対応付けることも可能である. 
                 </p>
-            </div>
-
-            <div class="theorem" data-name="積分の平均値定理">
-                <p>関数 $f$ が $[a,b]$ 上で連続であるとする. このとき, 
-                    \[
-                        \int_a^b f(x)~dx = f(c)(b-a)
-                    \] を満たす $c\in [a, b]$ が存在する. 
-                    この $f(c)$ を, 関数 $f(x)$ の区間 $[a, b]$ 上の平均と呼ぶ. 
-                </p>
-            </div>
-            <div class="proof">
-                <p>$f$ が定数関数である場合は明らか, そうでない場合は, $f(x)$ の区間 $[a, b]$ 上での最小値 $m$ と最大値 $M$ に対し, $m\le f(x)\le M$ が成立している. 
-                    ここで単調性より 
-                    \[
-                        \underbrace{\int_a^b m~dx}_{=m(b-a)} \le \int_a^b f(x)~dx \le \underbrace{\int_a^b M~dx}_{M(b-a)}
-                    \] であり, 特に 
-                    \[
-                        k = \dfrac{1}{b-a}\int_a^b f(x)~dx
-                    \] とおくと, $m\le k\le M$ を満たしている. 
-                    従って, 中間値の定理より 
-                    \[
-                        f(c) = k = \dfrac{1}{b-a}\int_a^b f(x)~dx 
-                    \] となる $c\in [a, b]$ が少なくとも $1$ つ存在することがわかる. 
-                </p>
-            </div>
-        </section>
-
-        <hr>
-
-
-        <section id="section1-2"><h2>1.2: 微積分学の基本定理</h2>
-            <p>リーマン積分は関数で表される領域の面積と関連付けることができるが, 同様に <b>不定積分</b> とも関連付けることができる. 
-                これを利用することで, リーマン積分の積分値を (極限などを考えることなく) 容易に計算することが可能である. 
-                高校数学では事実として紹介されたものと思われるが, ここでは『なぜそうなるのか』を解説したい. 
-            </p>
-            <p>まず, 原始関数とは何だったかを復習しておく: </p>
-
-            <div class="definition" data-name="原始関数, 不定積分">
-                <p>区間 $I\subset\mathbb{R}$ 上の関数 $f(x)$ に対し, もしも $I$ 上の $C^1$ 級関数 $F(x)$ であって, 
-                    \[
-                        F'(x) = f(x) 
-                    \] を満たすものが存在するならば, $F(x)$ を関数 $f(x)$ の (区間 $I$ における) <b>原始関数</b> (<b>primitive function</b>) という. 
-                </p>
-                <p>もしも $F(x)$ が関数 $f(x)$ の原始関数ならば, 全ての原始関数はある定数 (積分定数) $C$ を用いて 
-                    \[
-                        F(x) + C 
-                    \] と表すことができる. このことを 
-                    \[
-                        \int f(x)~dx = F(x) + C \quad(\text{もしくは単に $F(x)$})
-                    \] と表記し, またこの式 (もしくは原始関数を求める操作および原始関数自身) を <b>不定積分</b> (<b>indefinite integral</b>) という. 
-                </p>
-            </div>
-
-            <p>原始関数および不定積分は微分の逆操作に相当するものであり, 英語では <b>antiderivative</b> と言及されることもある. 
-                以降は, 多項式や初等的な関数の微分が具体的にどのような形になるか, ということは既知のものであるとする. 
-                つまり, 簡単な関数 $f(x)$ に対する原始関数 $F(x)$ は簡単に求めることができるので, これを定積分の計算に利用したい. 
-                このときに重要になるのが以下の定理である:
-            </p>
-
-            <div class="theorem" data-name="微積分学の基本定理">
-                <ul>
-                    <li>関数 $f(x)$ が区間 $[a, b]$ 上で連続なら, 区間 $[a, b]$ 上の関数 
-                        \[
-                            \int_a^x f(s)~ds 
-                        \] は $f(x)$ の (区間 $[a, b]$ における) 原始関数の一つである.  
-                    </li>
-                    <li>$F(x)$ を関数 $f(x)$ の区間 $[a, b]$ における原始関数とする. 
-                        このとき, 
-                        \[
-                            \left[F(x)\right]_a^b = F(b) - F(a) = \int_a^b f(x)~dx 
-                        \] が成立する. 
-                    </li>
-                </p>
-            </div>
-            <div class="proof">
-                <ul>
-                    <li>まず, $f(x)$ が区間 $[a, b]$ 上で連続であるとき, 
-                        \[
-                            F(x) = \int_a^x f(s)~ds 
-                        \] により定められる関数 $F(x)$ が連続であることを証明しよう. 
-                        関数 $f(x)$ が区間 $[a, b]$ 上で連続であることから, 特に有界であり, 
-                        \[
-                            |f(x)| \le M
-                        \] を満たす $M\ge 0$ が存在する. 
-                        これを用いると, 全ての $x_0\le x$ に対し 
-                        \[
-                            \begin{array}{rl} 
-                                |F(x)-F(x_0)| &= \displaystyle\left|\int_a^x f(x)~dx - \int_a^{x_0} f(x)~dx\right| \cr 
-                                &= \displaystyle\left|\int_{x_0}^x f(x)~dx\right| \quad(\because\text{積分区間の分割}) \cr 
-                                &\le \displaystyle\int_{x_0}^x |f(x)| dx \quad(\because\text{積分の三角不等式}) \cr 
-                                &\le M(x-x_0) \quad(\because\text{単調性})
-                            \end{array}
-                        \] が成立する. 
-                        同様に, 全ての $x_0\ge x$ に対し $|F(x_0)-F(x)| \le M(x_0-x)$ が成立する. 
-                        上 $2$ つの不等式と三角不等式から, 全ての $x_0\in [a, b]$ に対し 
-                        \[
-                            -M|x-x_0| + F(x_0) \le F(x) \le M|x-x_0| + F(x_0)
-                        \] が得られ, 挟み撃ちの原理より
-                        \[
-                            \lim_{x\to x_0}F(x) = F(x_0),
-                        \] すなわち $F$ が $x_0$ で連続であることがわかる. 
-                        これは $x_0\in [a,b]$ の選び方によらず成立するため, $F$ の連続性が得られたことになる. 
-                    </li>
-                    <li>次に, 上の関数 $F(x)$ の微分を考える. 
-                        まず, $h\gt 0$ のときは $[x, x+h]\subset [a, b]$ ならば積分の平均値定理より 
-                        \[
-                            F(x+h) - F(x) = \int_x^{x+h} f(x)~dx = f(c)h 
-                        \] を満たす $c\in [x, x+h]$ が存在する. 
-                        同様に, $h\lt 0$ のときは $[x+h, x]\subset [a, b]$ ならば 
-                        \[
-                            F(x+h) - F(x) = -\int_{x+h}^x f(x)~dx = -f(c)(-h) = f(c)h
-                        \] を満たす $c\in [x+h, x]$ が存在する. 
-                        あとは $f(x)$ の連続性より, 
-                        \[
-                            F'(x) = \lim_{h\to 0}\dfrac{F(x+h)-F(x)}{h} = \lim_{h\to 0}f(c) = f(x)
-                        \] が得られるため, 上で定めた $F(x)$ は確かに $f(x)$ の区間 $[a, b]$ における原始関数の一つである. 
-                    </li>
-                    <li>以上の議論から, 関数 $f(x)$ の区間 $[a, b]$ における全ての原始関数 $F(x)$ は, 対応する定数 $C$ を用いて 
-                        \[
-                            F(x) = \int_a^x f(s)~ds + C
-                        \] と表すことが可能であるため, 
-                        \[
-                            F(b)-F(a) = \int_a^b f(x)~dx
-                        \] が得られる. 
-                    </li>
-                </ul>
-            </div>
-
-            <div class="example">
-                <ul>
-                    <li>$a, b\gt 0$ もしくは $a, b\lt 0$ のとき, 
-                        \[
-                            \displaystyle\int_a^b \dfrac{1}{x}~dx = \left[\log |x|\right]_a^b = \log \dfrac{b}{a}
-                        \]
-                    </li> 
-                    <li>$\displaystyle\int_{-1}^1 |x|~dx = \left[\dfrac{x|x|}{2}\right]_{-1}^1 = 1$, もしくは積分区間の分割を利用して 
-                        \[
-                            \begin{array}{rl} 
-                                \displaystyle\int_{-1}^1 |x|~dx &= \displaystyle\int_{-1}^0 (-x)~dx + \int_0^1 x~dx \cr 
-                                &= \left[-\dfrac{x^2}{2}\right]_{-1}^0 + \left[\dfrac{x^2}{2}\right]_0^1 \cr 
-                                &= 1
-                            \end{array}
-                        \] と計算しても同じ結果が得られる. 
-                    </li>
-                </ul>
+                <div class="resize"><img src='./images/line_integral1-1.png'></div>
             </div>
 
             <div class="exercise">
-                <p>関数 $f(x)$ を 
-                    \[
-                        f(x) =\left\{\begin{array}{rl} 
-                            \sqrt{-x} & (x\lt 0), \cr 
-                            1-\sqrt{x} & (x\ge 0) 
-                        \end{array}\right.
-                    \] により定める. 
-                    このとき, 積分 
-                    \[
-                        \int_{-1}^1 f(x)~dx
-                    \] を求めよ. 
-                </p>
-            </div>
-
-            <div class="answer">
-                <p>関数 $f(x)$ は $x=0$ で不連続ではあるが, 左右からの片側極限は存在するため, 積分区間を分割することで ($x=0$ での値を適当に取り替えて)
-                    \[
-                        \int_{-1}^1f(x)~dx = \int_{-1}^0 \sqrt{-x} ~dx + \int_0^1(1-\sqrt{x})~dx 
-                    \] と変形できる. 
-                    あとは右辺 $2$ つの積分をそれぞれ求めればよい: 
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\int_{-1}^1f(x)~dx &= \displaystyle\int_{-1}^0 \sqrt{-x} ~dx + \int_0^1(1-\sqrt{x})~dx \cr 
-                            &= \left[-\dfrac{2}{3}(-x)^{\frac{3}{2}}\right]_{-1}^0 + \left[x - \dfrac{2}{3}x^{\frac{3}{2}}\right]_0^1 \cr 
-                            &= 1. 
-                        \end{array}
-                    \] この結果は, 積分を図形の面積と対応付けると直感的に理解しやすいだろう: 
-                </p>
-                <div class="resize"><img src='./images/riemann_integral_discontinuous2-1.png'></div>
-            </div>
-
-            <div class="exercise">
-                <p>区間 $[a, b]$ 上で連続な関数 $f(x)$ に対し, 
-                    \[
-                        \dfrac{d}{dx} \int_a^{x}f(s)~ds, \qquad \dfrac{d}{dx} \int_a^{x^2}f(s)~ds 
-                    \] を, それぞれ $f$ を用いて表せ. 
-                </p>
-            </div>
-            <div class="answer">
-                <p>微積分学の基本定理より, 関数 $f(x)$ の区間 $[a, b]$ における原始関数が存在するので, そのうち一つを $F(x)$ とおくと, 
-                    \[
-                        \dfrac{d}{dx}\int_a^x f(s)~ds = \dfrac{d}{dx} (F(x) - F(s)) = f(x),
-                    \]
-                    \[
-                        \begin{array}{rl} 
-                            \dfrac{d}{dx}\displaystyle\int_a^{x^2}f(s)~ds &= \dfrac{d}{dx} \left[F(s)\right]_a^{x^2} \cr 
-                            &= \dfrac{d}{dx}\left(F(x^2) - F(a)\right) \cr 
-                            &= 2xf(x^2) \quad (\because\text{微分の連鎖律}).
-                        \end{array} 
-                    \]
-                </p>
-            </div>
-
-            <hr>
-
-            <p>さて, 微積分学の基本定理は, 直感的には『積分とは微分の逆である』ということを意味するものである. 
-                従って, 微分における様々な公式, 計算テクニックに対応する積分の公式や計算テクニックが存在する. 
-                ここでは特に <b>部分積分</b> (<b>integration by part</b>) と <b>置換積分</b> (<b>integration by substitution</b>) について確認しておこう. 
-            </p>
-
-            <p>まず, $f(x)$, $g(x)$ を区間 $[a, b]$ 上で微分可能な関数とする.  
-                このとき, 関数の積の微分が 
-                \[
-                    \dfrac{d}{dx}\left(f(x)g(x)\right) = f'(x)g(x) + f(x)g'(x)
-                \] であったことから, 
-                \[
-                    f(x)g'(x) = \dfrac{d}{dx}\left(f(x)g(x)\right) - f'(x)g(x) 
-                \] である. 
-                部分積分は, これの原始関数, もしくは区間 $[a, b]$ 上での積分として得られる: 
-            </p>
-
-            <div class="theorem" data-name="部分積分">
-                <p>$f(x)$, $g(x)$ を区間 $[a, b]$ 上で微分可能な関数とする.
+                <p>$a\gt0$ とする. 
                     このとき, 
                     \[
-                        \int f(x)g'(x)~dx = f(x)g(x) - \int f'(x)g(x)~dx, 
-                    \]
-                    \[
-                        \int_a^b f(x)g'(x)~dx = \left[f(x)g(x)\right]_a^b - \int_a^b f'(x)g(x)~dx 
-                    \] が成立する. 
-                </p>
-            </div>
-                特に, $f(x)$ が微分を容易に計算可能で, $g(x)$ は原始関数を容易に求めることができる場合に有用な計算テクニックとして機能する. 
-            </p>
-
-            <div class="example">
-                <p>例として不定積分 
-                    \[
-                        \int x^2e^x~dx
-                    \] を計算してみよう. 部分積分を $2$ 回用いることで, 
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\int x^2e^x~dx &= x^2e^x - \displaystyle\int 2xe^x~dx \cr 
-                            &= x^2e^x - \left(2xe^x - \displaystyle\int 2e^x\right) \cr 
-                            &= x^2e^x - 2xe^x + 2e^x + C
-                        \end{array}
-                    \] が得られる. 
-                    また, 得られた結果を微分すると $x^2e^x$ となることも確かめられる (容易に検算できる).
-                </p>
-            </div>
-
-            <p>次に, 関数 $f(x)$ を閉区間 $I$ 上で連続な関数, $F(x)$ をその原始関数とする. 
-                さらに関数 $g(t)$ を区間 $[a, b]$ 上で微分可能な関数とし, $t\in [a, b]$ に対し $g(t)\in I$ とする.  
-                このとき, 合成関数 $F(g(t))$ に対する $t$ に関する微分における <b>連鎖律</b> (<b>chain rule</b>) もしくは <b>合成関数の微分</b> は 
-                \[
-                    \dfrac{d}{dt} F(g(t)) = F'(g(t))g'(t) = f(g(t))g'(t)
-                \] であった. 
-                記号の簡単のために $x=g(t)$ とすると, 
-                \[
-                    \dfrac{d}{dt} F(x) = f(x)g'(t) 
-                \] となる. これの ($t$ に関する) 原始関数, もしくは区間 $[a, b]$ 上での積分として得られる
-                \[
-                    \int f(x)~dx = F(x) = \int f(x)g'(t)~dt, 
-                \]
-                \[
-                    \int_a^b f(x)g'(t)~dt = F(g(b)) - F(g(a)) = \int_{g(a)}^{g(b)} f(x)~dx  
-                \] が置換積分である: 
-            </p>
-
-            <div class="theorem" data-name="置換積分">
-                <p>関数 $f(x)$ を閉区間 $I$ 上で連続な関数, 関数 $g(t)$ を区間 $[a, b]$ 上で微分可能な関数とし, $t\in [a, b]$ に対し $g(t)\in I$ とする.
-                    このとき, 
-                    \[
-                        \int f(x)~dx = \int f(g(t))g'(t)~dt, 
-                    \]
-                    \[
-                        \int_{g(a)}^{g(b)} f(x)~dx = \int_a^b f(g(t))g'(t)~dt  
-                    \] が成立する. 
-                </p>
-            </div>
-            
-            <p>
-                直感的には, $x=g(t)$ を導入することで, $dx/dt = g'(t)$ に基づき $dx$ を $g'(t)dt$ に置き換えていることに相当する. 
-                もしくは (同じことだが), 計算したい積分を 
-                \[
-                    \int f(g(x))g'(x)~dx,\qquad \int_a^bf(g(x))g'(x)~dx 
-                \] と見なし, $t=g(x)$ を導入することで 
-                \[
-                    \int f(g(x))g'(x)~dx = \int f(t)g'(x)~dx = \int f(t)~dt,
-                \]
-                \[
-                    \int_a^b f(g(x))g'(x)~dx = \int_a^b f(t)g'(x)~dx = \int_{g(a)}^{g(b)} f(t)~dt
-                \] のように利用しても良い. 
-                この場合は, $dt/dx = g'(x)$ に基づき $g'(x)dx$ を $dt$ に置き換えていると解釈できる.   
-            </p>
-
-            <div class="example">
-                <p>不定積分 
-                    \[
-                        \int e^{2x}~dx = \dfrac{1}{2}e^{2x} + C
-                    \] を, 置換積分として解釈してみよう. 
-                    まず, $f(x) = e^x$, $g(x) = 2x$ とおくと, $f(g(x)) = e^{2x}$, $g'(x) = 2$ である. 
-                    これに基づき, $t=g(x)=2x$ を導入することで
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\int e^{2x}~dx &= \displaystyle\int f(g(x))~dx \cr 
-                            &= \dfrac{1}{2}\displaystyle\int f(g(x))g'(x)~dx \cr 
-                            &= \dfrac{1}{2}\displaystyle\int f(t)~dt \cr 
-                            &= \dfrac{1}{2}e^t + C = \dfrac{1}{2}e^{2x} + C
-                        \end{array}
-                    \] のように計算できる. 
-                    もっとも, この程度なら 
-                    \[
-                        \dfrac{d}{dx}\dfrac{1}{2}e^{2x} = e^{2x} 
-                    \] であることから, この両辺の原始関数を考えることで不定積分を求める方が楽だろう. 
-                </p>
-            </div>
-
-        </section>
-
-        <hr>
-
-        <section id="section1-3"><h2>1.3: 様々な関数の積分</h2>
-            <p>微積分学の基本定理より, 微分や不定積分 (微分の逆) を簡単に計算できる関数 (およびそれらの積や合成) に対して, リーマン積分の値は比較的簡単に計算することが可能である. 
-                逆に言えば, 様々な定積分を計算するためには, 様々な関数の原始関数を知っていなければならない. 
-                ここでは, 三角関数 ($\sin x$, $\cos x$, $\tan x$) や指数関数 ($e^x$), 対数関数 ($\log x$ もしくは $\ln x$ と表記することも) などの積分については既知とし, それ以外の様々な関数およびその原始関数を紹介し, その応用例を確認しよう. 
-            </p>
-
-            <p>まず, 三角関数の逆関数, およびその微分と原始関数を紹介する. 
-                関数 $y=f(x)$ の逆関数 $x=f^{-1}(y)$ は, $x$ の値と $y$ の値が $1$ 対 $1$ に対応している, つまり 
-                \[
-                    x_1\neq x_2 \implies f(x_1)\neq f(x_2)
-                \]
-                である場合にのみ定めることができる. 
-                そのため, 三角関数をはじめとする多くの関数は, その逆関数を定めるために <b>定義域</b> と <b>値域</b> を適切に設定する必要がある. 
-            </p>
-            <p>例えば, $y=\sin x$ の定義域を $[0, \pi]$, 値域を $[0, 1]$ のように定めてしまうと, $\sin 0 = \sin \pi = 0$ のように $1$ 対 $1$ ではない. 
-                一方で, 同じ関数 $y=\sin x$ の定義域を $[-\pi/2, \pi/2]$, 値域を $[-1, 1]$ と定めれば, $\sin x$ は $1$ 対 $1$ の関数になるため, $y = \sin x$ の逆関数を定めることができるが, これを 
-                \[
-                    x = \sin^{-1} y\quad\text{もしくは}\quad \arcsin y
-                \] と表記する. 
-                この関数の定義域は $[-1, 1]$, 値域は $[-\pi/2, \pi/2]$ である. 
-                同様に, $\cos x$ および $\tan x$ の逆関数も (適切な定義域と値域の設定の下で) 定めることができる: 
-            </p>
-
-            <div class="definition" data-name="逆三角関数">
-                <ul>
-                    <li>$y=\sin x$ の定義域を $[-\pi/2, \pi/2]$, 値域を $[-1, 1]$ とする. 
-                        この逆関数を 
-                        \[
-                            x = \sin^{-1} y\quad\text{もしくは}\quad \arcsin y
-                        \] と表記する. 
-                        この関数の定義域は $[-1, 1]$, 値域は $[-\pi/2, \pi/2]$ である.
-                    </li>
-                    <li>$y=\cos x$ の定義域を $[0, \pi]$, 値域を $[-1, 1]$ とする. 
-                        この逆関数を 
-                        \[
-                            x = \cos^{-1} y\quad\text{もしくは}\quad \arccos y
-                        \] と表記する. 
-                        この関数の定義域は $[-1, 1]$, 値域は $[0, \pi]$ である.
-                    </li>
-                    <li>$y=\tan x$ の定義域を $[-\pi/2, \pi/2]$, 値域を $\mathbb{R}$ 全体とする. 
-                        この逆関数を 
-                        \[
-                            x = \tan^{-1} y\quad\text{もしくは}\quad \arctan y
-                        \] と表記する. 
-                        この関数の定義域は $\mathbb{R}$ 全体, 値域は $[-\pi/2, \pi/2]$ である.
-                    </li>
-                </ul>
-            </div>
-
-            <div class="resize"><img src='./images/arcsin_cos-1.png'></div>
-            <div class="resize"><img src='./images/arctan-1.png'></div>
-
-            <p>これらの関数の微分を考えてみよう. 
-                例えば $y=\sin^{-1}x$ の微分を計算する際には, 逆関数の微分の公式より
-                \[
-                    \begin{array}{rl} 
-                        \dfrac{dy}{dx} &= \dfrac{1}{\frac{dx}{dy}} = \dfrac{1}{\cos y} \cr 
-                        &= \dfrac{1}{\sqrt{1-\sin^2 y}} \quad(\because\text{$y=\sin^{-1}x$ の値域より $\cos y\ge 0$}) \cr 
-                        &= \dfrac{1}{\sqrt{1-x^2}}
-                    \end{array}        
-                \] と式変形できる, なお, $\sin^{-1}$ の定義域は $[-1, 1]$ であり, 区間の両端では微分は定義されないため, この導関数の定義域は開区間 $(-1, 1)$ である. 
-                同様に $y=\cos^{-1}x$, $y=\tan^{-1}x$ の微分も計算することができる: 
-            </p>
-
-            <div class="lemma" data-name="逆三角関数の微分">
-                <ul>
-                    <li>$\dfrac{d}{dx}\sin^{-1}x = \dfrac{1}{\sqrt{1-x^2}}$,</li>
-                    <li>$\dfrac{d}{dx}\cos^{-1}x = -\dfrac{1}{\sqrt{1-x^2}}$,</li>
-                    <li>$\dfrac{d}{dx}\tan^{-1}x = \dfrac{1}{1+x^2}$.</li>
-                </ul>
-            </div>
-
-            <div class="example">
-                <p>$a\gt 0$ とする. このとき, 定積分 
-                    \[
-                        \int_0^a \dfrac{1}{a^2+x^2}~dx
-                    \] を計算してみよう. 
-                    当然, $x=a\tan t$ のように変数変換して積分しても良いが, この変数変換は $t = \tan^{-1}(x/a)$ を意味していることに注意すると, 上の式を直接利用して 
-                    \[
-                        \int_0^a\dfrac{1}{a^2+x^2}~dx = \left[\dfrac{1}{a}\tan^{-1}\dfrac{x}{a}\right]_0^a = \dfrac{1}{a}(\tan^{-1}1 - \tan^{-1}0) = \dfrac{\pi}{4a} 
-                    \] のように計算することも可能である. 
-                </p>
-            </div>
-
-            <div class="exercise">
-                <p>$a\gt 0$ とする. このとき, 不定積分 
-                    \[
-                        \int \sqrt{a^2-x^2}~dx
-                    \] を求めよ.
+                        x^{2/3} + y^{2/3} = a^{2/3} \qquad (x, y\ge 0)
+                    \] により表される曲線 $C$ の長さ $L$ を求めよ. 
                 </p>
             </div>
 
             <div class="answer">
-                <p>被積分関数の定義域が $[-a, a]$ であることから $x = a\sin t$ とおいて置換積分を計算する, という解法が標準的だろう. 
-                    この解法は $t = \sin^{-1}(x/a)$ を意味していることに注意すると, 以下のように式変形しても同じことである:
+                <p>$a\gt0$ および $x, y\ge 0$ に注意して, 
+                    \[
+                        x(\theta) = a\cos^3\theta,\quad y(\theta) = a\sin^3\theta\qquad (0\le\theta\le\pi/2) 
+                    \] とおくと, 確かに
+                    \[
+                        x^{2/3} + y^{2/3} = a^{2/3}(\cos^2\theta + \sin^2\theta) = a^{2/3} 
+                    \] であるため, 曲線 $C$ の媒介変数表示として上が得られる. 
+                    従って, $\mathbf{r}(\theta) = (x(\theta), y(\theta))$ に対して 
                     \[
                         \begin{array}{rl} 
-                            \displaystyle\int \sqrt{a^2-x^2}~dx &= \displaystyle\int \left(\dfrac{a^2}{\sqrt{a^2-x^2}} - \dfrac{x^2}{\sqrt{a^2-x^2}}\right)~dx \cr 
-                            &= a^2\sin^{-1}\dfrac{x}{a} + \displaystyle\int x\cdot\left(-\dfrac{x}{\sqrt{a^2-x^2}}\right)~dx \cr 
-                            &= a^2\sin^{-1}\dfrac{x}{a} + x\sqrt{a^2-x^2} - \displaystyle\int \sqrt{a^2-x^2}~dx,
+                            L &= \displaystyle\int_C~ds \cr 
+                            &= \displaystyle\int_0^{\pi/2} |\mathbf{r}'(\theta)|~d\theta \cr 
+                            &= \displaystyle\int_0^{\pi/2} \sqrt{(-3a\cos^2\theta\sin\theta)^2 + (3a\sin^2\theta\cos\theta)^2}~d\theta \cr 
+                            &= \displaystyle\int_0^{\pi/2} 3a\sin\theta\cos\theta~d\theta \cr
+                            &= \dfrac{3a}{2}\displaystyle\int_0^{\pi/2} \sin2\theta~d\theta \cr 
+                            &= \dfrac{3a}{2}\left[-\dfrac{1}{2}\cos 2\theta\right]_0^{\pi/2} \cr 
+                            &= \dfrac{3a}{2}.
                         \end{array}
-                    \] 従って 
+                    \] もしくは $x=at^{3/2}$ とおくと 
                     \[
-                        \displaystyle\int \sqrt{a^2-x^2}~dx = \dfrac{1}{2}\left(a^2\sin^{-1}\dfrac{x}{a} + x\sqrt{a^2-x^2}\right) + C
-                    \]
-                </p>
-            </div>
-
-            <p>次に逆三角関数の原始関数を考えてみよう. 
-                例えば $\sin^{-1}x$ の原始関数は, 部分積分を用いることで 
-                \[
-                    \begin{array}{rl} 
-                        \displaystyle\int \sin^{-1}x~dx &= x\sin^{-1}x - \displaystyle\int x(\sin^{-1}x)'~dx \cr 
-                        &= x\sin^{-1}x - \displaystyle\int \dfrac{x}{\sqrt{1-x^2}}~dx \cr 
-                        &= x\sin^{-1}x + \sqrt{1-x^2} + C 
-                    \end{array}
-                \] のように計算することができる. 
-                同様に, $\cos^{-1}x$ および $\tan^{-1}x$ の原始関数も計算可能である: 
-            </p>
-
-            <div class="lemma" data-name="逆三角関数の原始関数">
-                <ul>
-                    <li>$\displaystyle\int \sin^{-1}x~dx = x\sin^{-1}x + \sqrt{1-x^2} +C$, </li>
-                    <li>$\displaystyle\int \cos^{-1}x~dx = x\cos^{-1}x - \sqrt{1-x^2} +C$, </li>
-                    <li>$\displaystyle\int \tan^{-1}x~dx = x\tan^{-1}x -\dfrac{1}{2}\log(1+x^2) +C$, </li>
-                </ul>
-            </div>
-
-            <div class="exercise">
-                <p>上を計算して確かめよ.</p>
-            </div>
-
-            <div class="answer">
-                <p>$\sin^{-1}x$ の原始関数は既に計算した. 
-                    $\cos^{-1}x$ の原始関数も同様にして計算できる. 
-                    ここでは $\tan^{-1}x$ の原始関数の計算だけ確認しておこう: 部分積分により, 
-                    \[
-                        \int \tan^{-1}x ~dx = x\tan^{-1}x - \int \dfrac{x}{1+x^2} ~ dx = x\tan^{-1}x - \dfrac{1}{2}\log(1+x^2) + C
-                    \]
-                </p>
-            </div>
-
-            <hr>
-
-            <p>次に, <b>双曲線関数</b> (<b>hyperbolic function</b>) について紹介しよう: </p>
-
-            <div class="definition" data-name="双曲線関数">
-                <ul>
-                    <li>以下で定義される関数 $\sinh$ を <b>双曲線正弦関数</b> もしくは <b>ハイパボリックサイン</b> (<b>hyperbolic sine</b>) と呼ぶ: 
-                        \[
-                            \sinh x = \dfrac{e^x - e^{-x}}{2}.
-                        \]
-                    </li>
-                    <li>以下で定義される関数 $\cosh$ を <b>双曲線余弦関数</b> もしくは <b>ハイパボリックコサイン</b> (<b>hyperbolic cosine</b>) と呼ぶ: 
-                        \[
-                            \cosh x = \dfrac{e^x + e^{-x}}{2}.
-                        \]
-                    </li>
-                    <li>以下で定義される関数 $\tanh$ を <b>双曲線正接関数</b> もしくは <b>ハイパボリックタンジェント</b> (<b>hyperbolic tangent</b>) と呼ぶ: 
-                        \[
-                            \tanh x = \dfrac{\sinh x}{\cosh x} = \dfrac{e^x - e^{-x}}{e^x + e^{-x}}.
-                        \]
-                    </li>
-                </ul>
-            </div>
-
-            <div class="exercise">
-                積分 
-                \[
-                    \int \dfrac{1}{\cosh x}~dx 
-                \] を求めよ. 
-            </div>
-
-            <div class="answer">
-                <p>双曲線関数 $\cosh x$ の定義より, 
+                        y = a(1-t)^{3/2}
+                    \] が得られることから 
                     \[
                         \begin{array}{rl} 
-                            \displaystyle\int \dfrac{1}{\cosh x}~dx &= \displaystyle\int \dfrac{2}{e^x+e^{-x}}~dx \cr 
-                            &= \displaystyle\int \dfrac{2}{t+\frac{1}{t}}\dfrac{1}{t}~dx \quad (\text{$t=e^x$ と変数変換})\cr  
-                            &= \displaystyle\int \dfrac{2}{t^2+1}~dt. 
-                        \end{array}
-                    \] この積分は $t=\tan\theta$ とさらに変数変換して計算しても良いし, もしくは 
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\int \dfrac{1}{\cosh x}~dx &= \displaystyle\int \dfrac{2}{t^2+1}~dt \cr 
-                            &= 2\tan^{-1}t + C \cr 
-                            &= 2\tan^{-1}e^x + C.
-                        \end{array}
-                    \] と直接計算しても良いだろう. 
-                </p>
-            </div>
-
-            <p>これらの関数は $\cosh^2 x - \sinh^2 x = 1$ を満たす. 
-                つまり, $xy$ 平面上の
-                \[
-                    x^2 - y^2 = 1
-                \] という双曲線上の点のパラメータ表示に現れる関数である (三角関数は $x^2+y^2=1$ 上の点のパラメータ表示に現れる関数であった). 
-                また, 指数関数 $e^x$ を用いて表されることから, 微分 (および積分) を簡単に計算可能であり, しかも三角関数との類似性を見ることができる. 
-                実際, 定義より (双極型関数の) 加法定理 
-                \[
-                    \begin{array}{c} 
-                        \sinh(\alpha+\beta) = \sinh\alpha\cosh\beta + \cosh\alpha\sinh\beta, \cr 
-                        \cosh(\alpha+\beta) = \cosh\alpha\cosh\beta + \sinh\alpha\sinh\beta, \cr 
-                        \tanh(\alpha+\beta) = \dfrac{\tanh\alpha+\tanh\beta}{1+\tanh\alpha\tanh\beta}
-                    \end{array}
-                \] が成立し, 特に倍角の公式に相当する 
-                \[
-                    \begin{array}{rl} 
-                        \sinh 2x &= 2\sinh x\cosh x, \cr 
-                        \cosh 2x &= \cosh^2 x+\sinh^2 x = 2\cosh^2x - 1
-                    \end{array}
-                \] も成立する. 
-                また, 微分を計算すると, 
-            </p>
-
-            <ul>
-                <li>$\dfrac{d}{dx}\sinh x = \cosh x$, </li>
-                <li>$\dfrac{d}{dx}\cosh x = \sinh x$, </li>
-                <li>$\dfrac{d}{dx}\tanh x = 1-\tanh^2 x = \dfrac{1}{\cosh^2 x}$</li>
-            </ul>
-
-            <p>であることも確かめることができる. 
-                さらに, これらの逆関数は対数関数を用いて表すことができる: 例えば, 
-                \[
-                    x=\sinh y = \dfrac{e^y - e^{-y}}{2}
-                \] の逆関数は, $e^y$ に関する二次方程式を解くことで ($e^y\ge0$ より)
-                \[
-                    e^y = x + \sqrt{x^2+1}
-                \] が得られることから, 
-                \[
-                    \sinh^{-1} x = y = \log\left(x+\sqrt{x^2+1}\right)
-                \] と表示できる. 
-                さらに, これの微分を計算すると, 
-                \[
-                    \dfrac{d}{dx} \sinh^{-1}x = \dfrac{1+\frac{x}{\sqrt{x^2+1}}}{x+\sqrt{x^2+1}} = \dfrac{1}{\sqrt{x^2+1}}
-                \] を得ることができる. 
-            </p>
-
-            <p>被積分関数が, $\sqrt{1-x^2}$ のような形を含む場合には $x=\sin t$ などとおいて置換積分を計算する (もしくは $\sin^{-1}x$ を利用する) という, 三角関数を用いた計算テクニックが有名だが, 同様に $\sqrt{x^2+1}$ のような関数の積分の際に, $\sinh$ などの双曲線関数の利用が役にたつ.
-                実際, 定義より $\cosh t \ge 1$ であり (特に常に正なので), 従って
-                \[
-                    \cosh t = \sqrt{\cosh^2 t} = \sqrt{\sinh^2 t + 1} 
-                \] であることから, $x=\sinh t$ と変数変換して積分を計算すると, $\sqrt{x^2+1}$ のような部分をうまく処理できることが期待できる. 
-            </p>
-
-            <p>以下, $\cosh$ と $\tanh$ についても同様に計算して得られる結果をまとめておく: </p>
-
-            <div class="lemma" data-name="双曲線関数の微分, 逆関数">
-                <ul>
-                    <li>$\dfrac{d}{dx}\sinh x = \cosh x$, </li>
-                    <li>$\dfrac{d}{dx}\cosh x = \sinh x$, </li>
-                    <li>$\dfrac{d}{dx}\tanh x = 1-\tanh^2 x = \dfrac{1}{\cosh^2 x}$, </li>
-                    <li>$\sinh^{-1} x = \log\left(x+\sqrt{x^2+1}\right)$, </li>
-                    <li>$\cosh^{-1} x = \log\left(x+\sqrt{x^2-1}\right)$, </li>
-                    <li>$\tanh^{-1} x = \dfrac{1}{2}\log\dfrac{1+x}{1-x}$, </li>
-                    <li>$\dfrac{d}{dx} \sinh^{-1}x = \dfrac{1}{\sqrt{x^2+1}}$, </li>
-                    <li>$\dfrac{d}{dx} \cosh^{-1}x = \dfrac{1}{\sqrt{x^2-1}}$, </li>
-                    <li>$\dfrac{d}{dx} \tanh^{-1}x = \dfrac{1}{1-x^2}$, </li>
-                </ul>
-            </div>
-
-
-            <div class="example">
-                <p>$a\gt 0$ とする. このとき, 定積分 
-                    \[
-                        \int_0^a \dfrac{1}{\sqrt{a^2+x^2}}~dx
-                    \] を計算してみよう. 
-                    置換積分を用いるならば, ($1+\sinh^2 t = \cosh^2 t$ を利用することを見越して) $x = a\sinh t$ とおくことで 
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\int_0^a \dfrac{1}{\sqrt{a^2+x^2}}~dx &= \displaystyle\int_0^{\sinh^{-1}1} \dfrac{1}{\sqrt{a^2+a^2\sinh^2 t}}\cdot a\cosh t~dt \cr 
-                            &= \displaystyle\int_0^{\sinh^{-1}1}1~dt \cr 
-                            &= \sinh^{-1}1 = \log\left(1+\sqrt{2}\right)
-                        \end{array}
-                    \] と計算できる. 
-                    もしくは, $\sinh^{-1}(x/a)$ の微分を直接利用することで, 
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\int_0^a \dfrac{1}{\sqrt{a^2+x^2}}~dx &= \left[\sinh^{-1}\dfrac{x}{a}\right]_0^a \cr 
-                            &= \sinh^{-1}1 - \sinh^{-1}0\cr 
-                            &= \log\left(1+\sqrt{2}\right) 
+                            L &= \displaystyle\int_C~ds \cr 
+                            &= \displaystyle\int_0^1 |\mathbf{r}'(t)|~dt \cr 
+                            &= \displaystyle\int_0^1 \sqrt{\left(\dfrac{3}{2}at^{1/2}\right)^2 + \left(-\dfrac{3}{2}a(1-t)^{1/2}\right)^2}~dt \cr 
+                            &= \dfrac{3a}{2}\displaystyle\int_0^1~dt \cr 
+                            &= \dfrac{3a}{2}
                         \end{array}
                     \] と計算しても良い. 
                 </p>
-            </div> 
-
-            <div class="exercise">
-                <p>積分 
-                    \[
-                        \int\sqrt{x^2+1}~dx 
-                    \] を求めよ. 
-                </p>
+                <div class="resize"><img src='./images/line_integral2-1.png'></div>
             </div>
 
-            <div class="answer">
-                <p>上と同様に $x=\sinh t$ とおいて計算してみよう: 
-                    \[
-                        \begin{array}{rl}
-                            \displaystyle\int\sqrt{x^2+1}~dx &= \displaystyle\int \sqrt{\cosh^2t}\cosh t~dt \cr 
-                            &= \displaystyle\int\cosh^2t~dt \quad(\because \cosh t\ge 1) \cr 
-                            &= \displaystyle\int \dfrac{\cosh 2t + 1}{2} ~dt \cr 
-                            &= \dfrac{t}{2} + \dfrac{1}{4} \sinh 2t + C.  
-                        \end{array}
-                    \] ここで, 
-                    \[
-                        t = \sinh^{-1}x = \log\left(x + \sqrt{x^2+1}\right)
-                    \] であり, また 
-                    \[
-                        \sinh 2t = 2\sinh t\cosh t = 2\sinh t\sqrt{1+\sinh^2 t} = 2x\sqrt{1+x^2}
-                    \] である. 
-                    以上より, 
-                    \[
-                        \int\sqrt{x^2+1}~dx = \dfrac{\log(x+\sqrt{x^2+1})}{2} + \dfrac{x\sqrt{1+x^2}}{2} + C.
-                    \]
-                </p>
-            </div>
-            
-            <p>最後に, 多項式の商の形で表される <b>有理関数</b> (<b>rational function</b>) に対する積分の計算テクニックとその応用について, いくつかのパターンを紹介する. 
-                まず, 有理関数とは, 共通因子を持たない二つの多項式 $P(x)$, $Q(x)$ を用いて 
-                \[
-                    \dfrac{Q(x)}{P(x)}
-                \] と表される関数である. 
-                もしも $Q(x)$ の次数が $P(x)$ の次数より大きいならば, 
-                \[
-                    \int\dfrac{Q(x)}{P(x)}~dx = \int(\text{多項式})~dx + \int\dfrac{\widetilde{Q}(x)}{P(x)}~dx 
-                \] と書き換えることができる, ただし $\widetilde{Q}(x)$ の次数は $P(x)$ よりも小さい. 
-                多項式の積分は問題なく計算できるため, ここでの興味は分子の多項式の次数が分母よりも小さい場合に限定される. 
-                この場合, 実は以下のように有理関数を書き換えることができる, これを <b>部分分数分解</b> (<b>partial fraction decomposition</b>) という:  
+            <hr>
+
+            <p>さて, 上のように曲線 $C$ 上で $1$ という定数関数を積分することができるが, 被積分関数は定数関数でなくとも構わない. 
+                一般に, 曲線上で与えられた関数についての積分を <b>線積分</b> (<b>line integral</b>) という. 
+                線積分は, やはり上のように曲面の面積と対応付けることで図形的な解釈も可能である (慣れてくると図形的な解釈はむしろ面倒なだけに感じるかもしれない): 
             </p>
 
-            <div class="theorem">
-                <p>実係数の多項式 $P(x)$ は, 必ず $(x+a)$ の形の $1$ 次式と $(x-b)^2+c^2$ の形の $2$ 次式の積に因数分解できる. 
-                    これを利用して, 
+            <div class="definition" data-name="線積分">
+                <p>滑らかな曲線 $C: [a, b]\ni t\mapsto \mathbf{r}(t)$ 上で定義された関数 $f(\mathbf{x})$ について, 
                     \[
-                        P(x) = \alpha(x+a_1)^{k_1}\dots (x+a_m)^{k_m}((x-b_1)^2+c_1^2)^{\ell_1}\dots((x-b_n)^2+c_n^2)^{\ell_n}
-                    \] と因数分解したとき, 次数が $P(x)$ よりも小さい多項式 $Q(x)$ に対して, 有理式
-                    \[
-                        \dfrac{Q(x)}{P(x)}
-                    \] は, 
-                    \[
-                        \dfrac{A_{ij}}{(x+a_i)^{k_j}} \quad (k_j=1,\dots,k_i)\quad\text{および}\quad \dfrac{B_{ij}x+C_{ij}}{((x-b_i)^2+c_i)^{\ell_j}} \quad (\ell_j=1,\dots,\ell_i)
-                    \] の形の分数の和で表すことができる. 
+                        \int_C f(\mathbf{x})~ds = \int_a^b f(\mathbf{r}(t))|\mathbf{r}'(t)|~dt 
+                    \] を曲線 $C$ に沿った <b>線積分</b> (<b>line integral</b>) という.
                 </p>
+            </div>
+
+            <div class="remark">
+                <ul>
+                    <li>線積分において, $ds$ は曲線の微小長さであると解釈される. 
+                        これに高さ $f(\mathbf{x})$ をかけて得られる ($xyz$ 空間上の) 長方形の面積の足し合わせが線積分のリーマン和に相当する近似を与える (下図左). 
+                    </li>
+                    <li>$xy$ 平面上で, $a\le x\le b$, $y=0$ により与えられる曲線 ($x$ 軸上の線分) に沿った線積分は, $1$ 変数関数に対する通常の積分と一致する (下図右). 
+                        この意味で, 線積分は $1$ 変数関数の積分を一般化したものとみなせる. 
+                    </li>
+                    <li>曲線 $C$ が閉曲線である場合, 閉曲線 $C$ に沿った線積分を 
+                        \[
+                            \oint_C f(\mathbf{x})~ds
+                        \] と表記し, <b>閉路積分</b> もしくは <b>周回積分</b> と呼ぶことがある. 
+                    </li>
+                </ul>
+                <div class="resize"><img src='./images/line_integral3-crop-1.png'></div>
             </div>
 
             <div class="example">
-                <p>$a_1\neq a_2$ とする. このとき, 例えば
-                    \[
-                        \dfrac{x+1}{(x+a_1)(x+a_2)} = \dfrac{A_1}{x+a_1} + \dfrac{A_2}{x+a_2} 
-                    \] と部分分数分解することが可能である. 
-                    実際, 
-                    \[
-                        \dfrac{x+1}{(x+a_1)(x+a_2)} = \dfrac{A_1}{x+a_1} + \dfrac{A_2}{x+a_2} = \dfrac{(A_1+A_2)x + A_1a_2+A_2a_1}{(x+a_1)(x+a_2)}
-                    \] であることから, 連立 $1$ 次方程式 
-                    \[
-                        \left\{\begin{array}{rl} 
-                            A_1 + A_2 &= 1 \cr 
-                            A_1a_2 + A_2a_1 &= 1 
-                        \end{array}\right.
-                    \] の解として得られる 
-                    \[
-                        A_1 = \dfrac{1-a_1}{a_2-a_1},\quad A_2 = 1-A_1
-                    \] に対し, 部分分数分解の等号が成立する. 
-                </p>
-            </div>
-
-            <p>より複雑な具体例を見る前に, まずはこのような分解を積分計算に応用可能であることを確認しておこう. 
-                有理関数を上のように部分分数分解することができたならば, 有理関数の積分は 
-                \[
-                    \int \dfrac{A_{ij}}{(x+a_i)^{k_j}}~dx = \left\{\begin{array}{cl} 
-                        -\dfrac{A_{ij}}{(k_j-1)(x+a_i)^{k_j-1}} & (k_j\neq 1) \cr 
-                        A_{ij}\log|x+a_i| & (k_j=1) 
-                    \end{array}\right.
-                \] と 
-                \[
-                    \int \dfrac{B_{ij}x + C_{ij}}{((x-b_i)^2+c_i^2)^{\ell_j}}~dx = \int \dfrac{B_{ij}t + (B_{ij}b_i+C_{ij})}{(t^2+c_i^2)^{\ell_j}}~dt
-                \] の和により計算することができる ($t = x-b_i$ と変数変換した). 
-                後者は, 
-                \[
-                    \int \dfrac{B_{ij}t}{(t^2+c_i^2)^{\ell_j}}~dt = \left\{\begin{array}{cl} 
-                        -\dfrac{B_{ij}}{2(\ell_j-1)(t^2+c_i^2)^{\ell_j-1}} & (\ell_h\neq 1) \cr 
-                        \dfrac{B_{ij}}{2}\log(t^2+c_i^2) & (\ell_j=1) 
-                    \end{array}\right.
-                \] および 
-                \[
-                    \begin{array}{rl} 
-                        I_{\ell_j} &= \displaystyle\int \dfrac{B_{ij}b_i+C_{ij}}{(t^2+c_i^2)^{\ell_j}}~dt \cr 
-                        &= \dfrac{(B_{ij}b_i+C_{ij})t}{(t^2+c_i^2)^{\ell_j}} + \displaystyle\int \dfrac{(B_{ij}b_i+C_{ij})2\ell_j t^2}{(t^2+c_i^2)^{\ell_j+1}}~dt \cr 
-                        &= \dfrac{(B_{ij}b_i+C_{ij})t}{(t^2+c_i^2)^{\ell_j}} + 2\ell_j (I_{\ell_j} - c_i^2I_{\ell_j+1})
-                    \end{array} 
-                \] から得られる漸化式 
-                \[ 
-                    I_{\ell_j+1} = \dfrac{1}{2\ell_jc_i^2}\left((2\ell_j-1)I_{\ell_j} + \dfrac{(B_{ij}b_i+C_{ij})t}{(t^2+c_i^2)^{\ell_j}}\right)
-                \] から (理屈としては) 計算可能である, なお 
-                \[
-                    I_1 = \int\dfrac{B_{ij}b_i+C_{ij}}{t^2+c_i^2}~dt = \dfrac{B_{ij}b_i+C_{ij}}{c_i}\tan^{-1}\dfrac{t}{c_i}
-                \] である. 
-            </p>
-
-            <div class="example">
-                <p>不定積分 
-                    \[
-                        I = \int \dfrac{x^5+2x^4+x^3+2x^2+x+1}{x^2(x^2+1)^2}~dx
-                    \] を計算してみよう. 
-                    まずは被積分関数の部分分数分解を試みる: 
-                    \[
-                        \begin{array}{rl}
-                            \dfrac{x^5+2x^4+x^3+2x^2+x+1}{x^2(x^2+1)^2} &= \dfrac{A_1}{x} + \dfrac{A_2}{x^2} + \dfrac{B_1x+C_1}{x^2+1} + \dfrac{B_2x+C_2}{(x^2+1)^2} \cr 
-                            &= \dfrac{A_1x(x^2+1)^2 + A_2(x^2+1)^2 + (B_1x+C_1)x^2(x^2+1) + (B_2x+C_2)x^2}{x^2(x^2+1)^2}
-                        \end{array}
-                    \] 両辺の分子の同次項の係数を比較すると, まず定数項および $x$ の係数の比較から $A_2=1$, $A_1=1$ は簡単にわかる. 
-                    これを用いて整理すると 
-                    \[
-                        x^4 - x^3 = x^2((B_1x+C_1)(x^2+1)+B_2x+C_2)
-                    \] となることから $B_1=0$, $C_1=1$, $B_2=-1$, $C_2=-1$ も得られる. 
-                    ここまでを整理すると, 部分分数分解により 
-                    \[
-                        I = \int \left(\dfrac{1}{x} + \dfrac{1}{x^2} + \dfrac{1}{x^2+1} - \dfrac{x+1}{(x^2+1)^2}\right)~dx
-                    \] であることがわかった. 
-                    あとは各項をそれぞれ積分すればよい: 
-                    \[
-                        I_\ell = \int\dfrac{1}{(x^2+1)^{\ell}}~dx
-                    \] とおくと, 
-                    \[
-                        \begin{array}{rl} 
-                            I &= \log|x| - \dfrac{1}{x} + I_1 - \displaystyle\int\dfrac{x+1}{(x^2+1)^2}~dx \cr 
-                            &= \log|x| - \dfrac{1}{x} + I_1 + \dfrac{1}{2(x^2+1)} - I_2 
-                        \end{array}
-                    \] いま, 
-                    \[
-                        \begin{array}{rl} 
-                            I_\ell &= \displaystyle\int\dfrac{1}{(x^2+1)^{\ell}}~dx \cr 
-                            &= \dfrac{x}{(x^2+1)^{\ell}} + \displaystyle\int\dfrac{2\ell x^2}{(x^2+1)^{\ell+1}}~dx \cr
-                            &= \dfrac{x}{(x^2+1)^{\ell}} + 2\ell\displaystyle\int\left(\dfrac{1}{(x^2+1)^{\ell}} - \dfrac{1}{(x^2+1)^{\ell+1}}\right)~dx \cr 
-                            &= \dfrac{x}{(x^2+1)^{\ell}} + 2\ell(I_\ell - I_{\ell+1}) 
-                        \end{array}
-                    \] から 
-                    \[
-                        I_2 = \dfrac{1}{2}\left(I_1 + \dfrac{x}{x^2+1}\right)
-                    \] であることと $I_1 = \tan^{-1}x$ より 
-                    \[
-                        I = \log|x| - \dfrac{1}{x} + \dfrac{1}{2}\tan^{-1}x - \dfrac{x-1}{2(x^2+1)}. 
-                    \]
-                </p>
-            </div>
-
-            <p>有理関数の積分は, 被積分関数の分母が複雑な形をしているときに, 適切に変数変換した際に現れることもある. 
-                例として, 
-            </p>
-            <ul>
-                <li>被積分関数の分母に三角関数が現れるとき, $t=\tan(x/2)$ と変数変換するとうまく計算できることがある, </li> 
-                <li>被積分関数の分母に $n$ 乗根 ($(ax+b)^{1/n}$, 特に $\sqrt{ax+b}$ など) が現れるときに, これを $t$ と変数変換するとうまく計算できることがある</li>
-            </ul>
-            <p>が, こうした置換積分は有理関数の積分に帰着されることになる. 
-                実際には, 有理関数の積分 (というより部分分数分解) は現実的な労力で手計算できるとは限らないが, うまく利用すれば様々な関数の積分計算に応用可能な, 非常に強力なテクニックである. 
-            </p>
-
-            <div class="exercise">
-                <p>$|a|\lt 1$ とする. 
-                    このとき, 不定積分 
-                    \[
-                        \int\dfrac{1}{1+a\cos x}~dx 
-                    \] を計算せよ. 
-                </p>
-            </div>
-
-            <div class="answer">
-                <p>被積分関数の分母に三角関数が現れているが, このような場合には $t=\tan(x/2)$ と変数変換すると良い. 
+                <p>$R\gt0$ とする. 
                     このとき, 
                     \[
-                        \dfrac{dt}{dx} = \dfrac{1}{2}\dfrac{1}{\cos^2 (x/2)} = \dfrac{1+t^2}{2},\qquad \cos x = 2\cos^2(x/2) - 1 = \dfrac{1-t^2}{1+t^2}
-                    \] であることを用いると, 
+                        \mathbf{r}(\theta) = (R\cos \theta, R\sin \theta) \qquad (0\le \theta \le \pi)
+                    \] により表される曲線 $C$ に沿った 
+                    \[
+                        f(x, y) = x^2y 
+                    \] の線積分を計算してみよう. 
+                    定義より 
                     \[
                         \begin{array}{rl} 
-                            \displaystyle\int\dfrac{1}{1+a\cos x}~dx &= \displaystyle\int \dfrac{1}{1+a\frac{1-t^2}{1+t^2}}\dfrac{2}{1+t^2}~dt \cr 
-                            &= \displaystyle\int\dfrac{2}{(1+a)+(1-a)t^2}~dt \cr 
-                            &= \dfrac{2}{1-a}\displaystyle\int \dfrac{1}{\left(\sqrt{\frac{1+a}{1-a}}\right)^2 + t^2}~dt \quad (\because |a|\lt 1) \cr 
-                            &= \dfrac{2}{1-a}\dfrac{1}{\sqrt{\frac{1+a}{1-a}}}\tan^{-1}\dfrac{t}{\sqrt{\frac{1+a}{1-a}}} \cr 
-                            &= \dfrac{2}{\sqrt{1-a^2}}\tan^{-1}\left(\sqrt{\dfrac{1-a}{1+a}}\tan\dfrac{x}{2}\right).
+                            \displaystyle\int_C f(\mathbf{x})~ds &= \displaystyle\int_0^{\pi} f(\mathbf{r}(\theta))|\mathbf{r}'(\theta)|~d\theta \cr 
+                            &= \displaystyle\int_0^{\pi} (R\cos\theta)^2(R\sin\theta)\sqrt{(-R\sin\theta)^2+(R\cos\theta)^2}~d\theta \cr 
+                            &= \displaystyle\int_0^{\pi} R^4\cos^2\theta\sin\theta~d\theta \cr 
+                            &= R^4\left[-\dfrac{1}{3}\cos^3\theta\right]_0^{\pi} \cr 
+                            &= \dfrac{2}{3}R^4.
+                        \end{array}
+                    \] なお, この線積分は下図のグレーで表された曲面の面積を表していると解釈することもできる. 
+                </p>
+                <div class="resize"><img src='./images/line_integral4-crop-1.png'></div>
+            </div>
+
+            <div class="exercise">
+                <p>$a\gt 0$ とする. 
+                    このとき, 
+                    \[
+                        y=x^2 \qquad (0\le x\le a) 
+                    \] により表される曲線 $C$ に沿った 
+                    \[
+                        f(x, y) = \sqrt{y} 
+                    \] の線積分を計算せよ. 
+                </p>
+            </div>
+
+            <div class="answer">
+                <p>曲線 $C$ は
+                    \[
+                        \mathbf{r}(t) = (x(t), y(t)) = (t, t^2) \qquad (0\le t\le a)
+                    \] と表すことができるため, 線積分の定義より
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int_Cf(\mathbf{x})~ds &= \displaystyle\int_0^a f(\mathbf{x}(t))|\mathbf{r}'(t)|~dt \cr 
+                            &= \displaystyle\int_0^a \sqrt{t^2}\sqrt{1+(2t)^2}~dt \cr 
+                            &= \displaystyle\int_0^a t\sqrt{1+4t^2}~dt \cr 
+                            &= \dfrac{1}{12}\left[(1+4t^2)^{3/2}\right]_0^a \cr 
+                            &= \dfrac{1}{12}\left((1+4a^2)^{3/2} - 1\right).
                         \end{array}
                     \]
                 </p>
@@ -1161,7 +276,54 @@
 
         </section>
 
-    </article>
+        <hr>
+
+        <section id="section3-2"><h2>3.2: 重積分と置換積分</h2>
+            <p>上では, 他変数関数の積分の一例として, 曲線に沿った線積分について紹介した. 
+                線積分の値を具体的に計算する際には, 曲線のパラメータ表示を用いて置換積分を行うことで, そのパラメータに関する ($1$ 変数関数の) 積分に帰着させることができた. 
+                次に, 多変数関数を (面積を持った) 領域上で積分することを考えよう. 
+                もしも <b>積分領域</b> が簡単な形をしていれば, 実は他変数関数の積分は $1$ 変数関数の積分を複数回計算することに帰着させることができる. 
+                最初にこのことを確認し, その後で一般の領域上での積分や, 他変数関数の積分における置換積分について紹介する. 
+            </p>
+
+            <p>まず, $1$ 変数関数に対するリーマン積分では, 積分区間を分割することでリーマン和を導出し, その極限として積分の値を定めていた. 
+                他変数関数に対しても, 同様に積分領域を分割することでリーマン和を導出し, その極限により積分値を定めることができる: 
+            </p>
+
+            <div class="definition" data-name="長方形領域上の二重積分">
+                <p>領域 
+                    \[
+                        D = [a, b]\times [c, d] = \{(x, y) : a\le x\le b, c\le y\le d\}
+                    \] 上の $2$ 変数関数 $f(x, y)$ を考える. 
+                    区間 $[a, b]$ の分割 $x_0, \dots, x_N$ および区間 $[c, d]$ の分割 $y_0, \dots, y_M$ により, 長方形領域 $D$ を長方形領域
+                    \[
+                        D_{ij} = [x_i, x_{i+1}]\times [y_j, y_{j+1}] 
+                    \] たちにより分割し, また各 $D_{ij}$ の面積を 
+                    \[
+                        \Delta D_{ij} = \Delta x_i\Delta y_j = (x_{i+1}-x_i)(y_{j+1}-y_j)
+                    \] と表す. 
+                    このとき, $(p_{ij}, q_{ij})\in D_{ij}$ を満たす点 $(p_{ij}, q_{ij})$ に対し, 極限
+                    \[
+                        \lim_{\Delta D_{ij}\to0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta D_{ij}
+                    \] が存在するならば, 関数 $f$ は領域 $D$ 上で <b>二重積分可能</b> であるという. 
+                    また, その極限を <b>二重積分</b> と呼び, 
+                    \[
+                        \iint_D f(x, y)~dxdy = \lim_{\Delta D_{ij}\to0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta D_{ij}
+                    \] と表記する. 
+                </p>
+            </div>
+
+            <div class="remark">
+                <p>二重積分は, 図形的には関数のグラフと $xy$ 平面の間の立体の符号付き体積と関連付けることができる ($xy$ 平面より下側の部分の体積は負であるとみなす). 
+                    まず, $f(p_{ij}, q_{ij})\Delta D_{ij}$ は, 高さが $f(p_{ij}, q_{ij})$, 底面積が $\Delta D_{ij}$ である直方体の体積と見なすことができる. 
+                    これらの総和がリーマン和に相当し (下図右), 長方形領域 $D$ の分割を無限に細かくする極限を考えることで, 二重積分と体積との関連付けが得られる (下図左). 
+                </p>
+                <div class="resize"><img src='./images/double_integral1-1.png'></div>
+            </div>
+        </section>
+
+
+        </article>
     </main>
     </div>
 </body>
