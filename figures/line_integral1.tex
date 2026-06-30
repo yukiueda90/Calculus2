@@ -1,0 +1,80 @@
+\documentclass{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{fillbetween}
+
+\begin{document}
+
+\definecolor{tab_blue}{HTML}{1F77B4}
+\definecolor{tab_orange}{HTML}{FF7F0E}
+\definecolor{tab_green}{HTML}{2CA02C}
+\definecolor{tab_red}{HTML}{D62728}
+
+\begin{tikzpicture}
+\begin{axis}[
+% axis on top,
+axis lines = box,
+% axis lines = none,
+unit vector ratio=1 1, 
+% axis equal=false,
+scale=1.0, 
+xmin=-1.6, xmax=1.6, ymin=-0.0, ymax=2.8, 
+grid = major,
+% xtick={-pi/2, -pi/4, 0, pi/4, pi/2, 3*pi/4, pi},
+% ytick={-1, -1/2, 0, 1/2, 1},
+% xticklabels = {},
+% yticklabels = {},
+% xlabel=$x$,
+% ylabel=$y$,
+% xlabel style={below right},
+% ylabel style={above left},
+% axis line style = {->},
+]
+
+\addplot[domain=-1.5:1.5, samples=100, thick] {cosh(x)};
+\node at (0, 1) {$\bullet$}; 
+\pgfmathsetmacro{\pk}{cosh(1.0)}
+\node at (1.0, \pk) {$\bullet$}; 
+\addplot[domain=0:1, samples=100, ultra thick, color=tab_red] {cosh(x)}; 
+
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\begin{axis}[
+% axis on top,
+axis lines = box,
+% axis lines = none,
+unit vector ratio=1 1 1, 
+% axis equal=false,
+scale=1.0, 
+xmin=-1.6, xmax=1.6, ymin=-0.0, ymax=2.8, zmin=0.0,
+grid = major,
+% xtick={-pi/2, -pi/4, 0, pi/4, pi/2, 3*pi/4, pi},
+% ytick={-1, -1/2, 0, 1/2, 1},
+% xticklabels = {},
+% yticklabels = {},
+% xlabel=$x$,
+% ylabel=$y$,
+% xlabel style={below right},
+% ylabel style={above left},
+% axis line style = {->},
+]
+
+\node at (0, 1, 1) {$\bullet$}; 
+\pgfmathsetmacro{\pk}{cosh(1.0)}
+\node at (1.0, \pk, 1) {$\bullet$}; 
+\addplot3[domain=-1.5:1.5, samples=100, samples y=0, thick] ({x}, {cosh(x)}, 1);
+\addplot3[domain=-1.5:1.5, samples=100, samples y=0, thick, dashed] ({x}, {cosh(x)}, 0);
+\addplot3[domain=0:1., samples=100, samples y=0, name path=up, ultra thick, color=tab_red] ({x}, {cosh(x)}, 1);
+\addplot3[domain=0:1., samples=100, samples y=0, name path=down, dashed] ({x}, {cosh(x)}, 0);
+\addplot3[fill=gray!30] fill between [of=up and down]; 
+\addplot3[domain=0:1., samples=100, samples y=0] (0, 1, {x});
+\addplot3[domain=0:1., samples=100, samples y=0] (1, \pk, {x});
+
+% \addplot[domain=0:1, samples=100, ultra thick, color=tab_red] {cosh(x)}; 
+
+\end{axis}
+\end{tikzpicture}
+
+\end{document}
