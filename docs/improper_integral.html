@@ -508,7 +508,16 @@
                     \end{array}
                 \] という三角関数の積分と一致することがわかる. 
                 以上より, この形の積分の値は, ベータ関数およびガンマ関数の性質を利用して計算することも可能である. 
+                このことを応用しやすい形でまとめておこう: 
             </p>
+
+            <div class="theorem" data-name="ベータ関数, ガンマ関数を用いた三角関数の積分">
+                <p>$r\gt 0$, $s\gt 0$ に対し 
+                    \[
+                        \int_0^{\pi/2} \sin^r x\cos^s x~dx = \dfrac{1}{2}B\left(\dfrac{r+1}{2}, \dfrac{s+1}{2}\right) = \dfrac{1}{2}\dfrac{\Gamma((r+1)/2)\Gamma((s+1)/2)}{\Gamma((r+s+2)/2)} 
+                    \] が成立する. 
+                </p>
+            </div>
 
             <div class="example">
                 <p>積分 
