@@ -320,6 +320,155 @@
                 </p>
                 <div class="resize"><img src='./images/double_integral1-1.png'></div>
             </div>
+
+            <div class="example">
+                <p>例として $D = [0, a]\times [0, b]$ 区間上の
+                    \[
+                        f(x, y) = 2 
+                    \] という定数関数に対する二重積分を計算してみよう, ただし $a, b\gt 0$ とする. 
+                    どんな $x, y$ に対しても $f(x, y) = 2$ であることから 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\iint_D f(x, y)~dxdy &= \displaystyle\lim_{\Delta D_{ij}\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}\underbrace{f(p_{ij}, q_{ij})}_{=2}\Delta D_{ij} \cr 
+                            &= \displaystyle\lim_{\Delta D_{ij}\to0 }2|D| \cr 
+                            &= 2ab
+                        \end{array}
+                    \] である, ただし $|D|=ab$ は長方形領域 $D$ の面積を表す. 
+                    この結果は, 底面積が $|D|=ab$, 高さが $2$ である直方体の体積が $2|D|=2ab$ であることと対応している. 
+                </p>
+            </div>
+
+            <p>さて, $1$ 変数関数のリーマン積分について説明した際に, 連続関数や有限個の点で不連続である有界な関数は積分可能であることを説明したが, $2$ 重積分可能性についても同様のことが成立する. 
+                ここでは詳細は説明しないが, 実は $2$ 変数の連続関数や, 不連続となる部分の面積が $0$ であるような有界な関数は二重積分可能である. 
+                従って, 多変数関数の不連続性が, ある曲線上で不連続であるという程度ならば問題なく二重積分可能である. 
+            </p>
+
+            <p>また, このことを利用すれば積分領域が長方形領域でない場合の二重積分を以下のように定義できる: </p>
+
+            <div class="definition">
+                $xy$ 平面上の領域 $\Omega$ と, $\Omega$ 上で定義された関数 $f(x, y)$ を考える.  
+                このとき, \[
+                    \Omega\subset D 
+                \] を満たす長方形領域 $D$ と 
+                \[
+                    \widetilde{f}(x, y) = \left\{\begin{array}{cl} 
+                        f(x, y) & ((x, y)\in \Omega), \cr 
+                        0 & ((x, y)\in D\backslash \Omega) 
+                    \end{array}\right. 
+                \] という関数 $\widetilde{f}(x, y)$ に対し, 
+                \[
+                    \iint_{\Omega}f(x, y)~dxdy = \iint_D\widetilde{f}(x, y)~dxdy
+                \] と定める. 
+            </div>
+
+            <p>上で導入した領域 $D$ 上の関数 $\widetilde{f}(x, y)$ は, 一般には $D$ の境界部分 $\partial D$ で不連続な関数になることに注意.</p>
+
+            <hr> 
+
+            <p>さて, 上のように一般の領域上で定義された $2$ 変数関数の二重積分の値が定義されるが, 定義に基づき積分値を計算することは難しい. 
+                ここから, 二重積分の値を計算するためのテクニックを紹介していこう. 
+            </p>
+
+            <p>まず, 長方形領域上の二重積分は, $1$ 変数関数に対するリーマン積分を $2$ 回計算することに帰着される. 
+                これを利用して二重積分を計算することを <b>逐次積分</b> と呼ぶことがある:   
+            </p>
+
+            <div class="theorem" data-name="フビニの定理">
+                <p>領域 $D = [a, b]\times [c, d]$ 上の $2$ 変数関数 $f(x, y)$ が $D$ 上で二重積分可能とする. 
+                    このとき, 
+                    \[
+                        \iint_D f(x, y)~dxdy = \int_a^b\left(\int_c^d f(x, y)~dy\right)~dx = \int_c^d\left(\int_a^b f(x, y)~dx\right)~dy
+                    \] が成立する. 
+                </p>
+            </div>
+
+            <div class="example">
+                <p>例として, 二重積分 
+                    \[
+                        \int_{[a, b]\times [c, d]}x^2 y~dxdy 
+                    \] を計算してみよう. 
+                    被積分関数は連続であるため二重積分可能であり, 従って例えば 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\iint_{[a, b]\times[c, d]} x^2 y~dxdy &= \displaystyle\int_a^b\underbrace{\left(\int_c^d x^2 y~dy\right)}_{=\text{ $y$ についての積分}}~dx \cr 
+                            &= \underbrace{\displaystyle\int_a^b\dfrac{d^2-c^2}{2}x^2~dx}_{=\text{ $x$ についての積分}} \cr 
+                            &= \dfrac{(b^3-a^3)(d^2-c^2)}{6}
+                        \end{array}
+                    \] のように計算できる. 
+                    上では, $y$ についての積分を先に計算しているが, 順序を入れ替えて $x$ についての積分を先に計算しても良い.
+                </p>
+            </div>
+
+            <p>さらに領域 $D$ について, $x$ の範囲が定数, $y$ の範囲が関数で与えられている場合, つまり 
+                \[
+                     D = \{(x, y)\in\mathbb{R}^2 : a\le x\le b,\quad \varphi_1(x)\le y\le \varphi_2(x)\}
+                \] のように表されている場合 (このような領域を <b>$x$ 単純領域</b> と呼ぶことがある), やはり逐次積分が可能である.
+                もしくは $y$ の範囲が定数, $x$ の範囲が関数で与えられている場合 ($D$ が <b>$y$ 単純領域</b> である場合) も同様に逐次積分することができる:
+            </p>
+
+            <div class="theorem">
+                <ul>
+                    <li>二つの連続な関数 $\varphi_1(x)$, $\varphi_2(x)$ が, 
+                        \[
+                            \varphi_1(x) \le \varphi_2(x) \quad\text{for all}\quad a\le x\le b
+                        \] を満たすとする. 
+                        このとき, 領域 
+                        \[
+                            D = \{(x, y)\in\mathbb{R}^2 : a\le x\le b,\quad \varphi_1(x)\le y\le \varphi_2(x)\}
+                        \] 上の関数 $f(x, y)$ が二重積分可能ならば, 
+                        \[
+                            \iint_D f(x, y)~dxdy = \int_a^b \left(\int_{\varphi_1(x)}^{\varphi_2(x)} f(x, y)~dy\right)~dx
+                        \] が成立する. 
+                    </li>
+                    <li>二つの連続な関数 $\psi_1(y)$, $\psi_2(y)$ が, 
+                        \[
+                            \psi_1(y) \le \psi_2(y) \quad\text{for all}\quad c\le y\le d
+                        \] を満たすとする. 
+                        このとき, 領域 
+                        \[
+                            D = \{(x, y)\in\mathbb{R}^2 : \psi_1(y)\le x\le \psi_2(y),\quad c\le y\le d\}
+                        \] 上の関数 $f(x, y)$ が二重積分可能ならば, 
+                        \[
+                            \iint_D f(x, y)~dxdy = \int_c^d \left(\int_{\psi_1(y)}^{\psi_2(y)} f(x, y)~dx\right)~dy
+                        \] が成立する. 
+                    </li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <p>領域 $D$ が 
+                    \[
+                        D = \{(x, y)\in\mathbb{R}^2 : 0\le x\le 2,\quad x^2\le y\le 2x\}
+                    \] と表される $x$ 単純領域である場合に, 二重積分 
+                    \[
+                        \iint_D xy~dxdy 
+                    \] を計算してみよう. 
+                    上の定理より 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\iint_D xy~dxdy &= \displaystyle\int_0^2\left(\int_{x^2}^{2x}xy~dy\right)~dx \cr 
+                            &= \displaystyle\int_0^2 \dfrac{x((2x)^2 - (x^2)^2)}{2}~dx \cr 
+                            &= \displaystyle\int_0^2 \dfrac{4x^3 - x^5}{2}~dx \cr 
+                            &= \dfrac{16 - 64/6}{2} = \dfrac{16}{3}. 
+                        \end{array}
+                    \] なお, この問題については, (必要なら図示することで) 積分領域の形状から  
+                    \[
+                        \begin{array}{rl} 
+                            D &= \{(x, y)\in\mathbb{R}^2 : 0\le x\le 2,\quad x^2\le y\le 2x\} \cr 
+                            &= \{(x, y)\in\mathbb{R}^2 : y/2\le x\le \sqrt{y},\quad 0\le y\le 4\} \cr 
+                        \end{array}
+                    \] であることがわかるため, 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\iint_D xy~dxdy &= \displaystyle\int_0^4\left(\int_{y/2}^{\sqrt{y}}xy~dx\right)~dy \cr 
+                            &= \displaystyle\int_0^4 \dfrac{((\sqrt{y})^2 - (y/2)^2)y}{2}~dy \cr 
+                            &= \displaystyle\int_0^4 \dfrac{y - y^2/4}{2}~dy \cr 
+                            &= \dfrac{16/264/12 - 16/2}{2} = \dfrac{16}{3}. 
+                        \end{array}
+                    \] と計算しても良い. 
+                </p>
+            </div>
+
         </section>
 
 
