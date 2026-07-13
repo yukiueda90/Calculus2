@@ -30,8 +30,8 @@
     <main role="main"><article id="section1"><h1>1. 一変数関数の積分</h1>
         <p>多変数関数の積分について学ぶ前に, まずは一変数関数の積分について改めて理解し, その応用や計算テクニックついて解説する. 
             高校数学においては, 微分の逆を与える原始関数 (不定積分) を用いて定積分を計算する, という順で説明されることが多いと思われるが, ここでは <b>リーマン積分</b> の定義をある程度きちんと説明したい. 
-            そしてリーマン積分の性質の一つとして, 実は積分は微分の逆 (原始関数) と関係している, ということに言及する. 
-            以下に述べる積分の性質などは, 既に高校数学において事実として紹介されたものと思われるが, ここではそうした内容について改めて説明する. 
+            そしてリーマン積分の性質の一つとして, 実は積分は微分の逆 (原始関数) と関係している, ということに言及し, これを利用した様々な積分計算について紹介する.  
+            以下に述べる積分の性質には, 既に高校数学において事実として紹介されたものも含まれるかと思うが, そうした内容を基に発展的な話題について解説する. 
         </p>
 
         <section id="section1-1"><h2>1.1: リーマン積分の定義と性質</h2>
@@ -700,7 +700,18 @@
             <div class="resize"><img src='./images/arcsin_cos-1.png'></div>
             <div class="resize"><img src='./images/arctan-1.png'></div>
 
-            <p>これらの関数の微分を考えてみよう. 
+            <p>なお, $\theta = \cos^{-1}x$ が定義されるならば, $0\le\theta\le\pi$ より $\sin\theta\ge0$ である. 
+                これを利用すると, 
+                \[
+                    \sqrt{1-x^2} = \sqrt{1-\cos^2\theta} = \sin\theta = \sin\cos^{-1}x \qquad (-1\le x\le 1)
+                \] という式が得られる. 
+                同様に 
+                \[
+                    \sqrt{1-x^2} = \cos\sin^{-1}x \qquad (-1\le x\le 1)
+                \] も得られる. 
+            </p>
+
+            <p>次に逆三角関数の微分を考えてみよう. 
                 例えば $y=\sin^{-1}x$ の微分を計算する際には, 逆関数の微分の公式より
                 \[
                     \begin{array}{rl} 
@@ -751,8 +762,21 @@
                         \end{array}
                     \] 従って 
                     \[
-                        \displaystyle\int \sqrt{a^2-x^2}~dx = \dfrac{1}{2}\left(a^2\sin^{-1}\dfrac{x}{a} + x\sqrt{a^2-x^2}\right) + C
-                    \]
+                        \displaystyle\int \sqrt{a^2-x^2}~dx = \dfrac{1}{2}\left(a^2\sin^{-1}\dfrac{x}{a} + x\sqrt{a^2-x^2}\right) + C.
+                    \] もしくは, $\sqrt{1-t^2} = \sin\cos^{-1}t = \cos\sin^{-1}t$ を利用して 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int \sqrt{a^2-x^2}~dx &= a^2\displaystyle\int\sqrt{1-t^2}~dt \qquad (\because\text{$x=at$ と変数変換}) \cr 
+                            &= a^2\displaystyle\int \cos\sin^{-1}t~dt \cr 
+                            &= a^2\displaystyle\int \cos^2\theta~d\theta \qquad (\because\text{$t=\sin\theta$ と変数変換}) \cr 
+                            &= a^2\displaystyle\int\dfrac{\cos2\theta+1}{2}~d\theta \cr 
+                            &= \dfrac{a^2}{2}\left(\dfrac{\sin2\theta}{2}+\theta\right) + C \cr 
+                            &= \dfrac{a^2}{2}\left(\sin\theta\cos\theta+\theta\right) + C \cr 
+                            &= \dfrac{a^2}{2}\left(t\cos\sin^{-1}t + \sin^{-1}t\right) + C \cr 
+                            &= \dfrac{a^2}{2}\left(t\sqrt{1-t^2} + \sin^{-1}t\right) + C \cr 
+                            &= \dfrac{a^2}{2}\left(\dfrac{x}{a}\sqrt{1-\dfrac{x}{a}}+\sin^{-1}\dfrac{x}{a}\right) + C
+                        \end{array}
+                    \] と計算しても同じ結果が得られる. 
                 </p>
             </div>
 
@@ -964,7 +988,12 @@
                     \]
                 </p>
             </div>
-            
+
+        </section>
+    
+        <hr>
+
+        <section id="section1-4"><h2>1.4: 有理関数の積分</h2>
             <p>最後に, 多項式の商の形で表される <b>有理関数</b> (<b>rational function</b>) に対する積分の計算テクニックとその応用について, いくつかのパターンを紹介する. 
                 まず, 有理関数とは, 共通因子を持たない二つの多項式 $P(x)$, $Q(x)$ を用いて 
                 \[
@@ -1041,7 +1070,7 @@
                 \] から得られる漸化式 
                 \[ 
                     I_{\ell_j+1} = \dfrac{1}{2\ell_jc_i^2}\left((2\ell_j-1)I_{\ell_j} + \dfrac{(B_{ij}b_i+C_{ij})t}{(t^2+c_i^2)^{\ell_j}}\right)
-                \] から (理屈としては) 計算可能である, なお 
+                \] から (面倒ではあるが, 理屈としては) 計算可能である, なお 
                 \[
                     I_1 = \int\dfrac{B_{ij}b_i+C_{ij}}{t^2+c_i^2}~dt = \dfrac{B_{ij}b_i+C_{ij}}{c_i}\tan^{-1}\dfrac{t}{c_i}
                 \] である. 
@@ -1089,7 +1118,50 @@
                         I_2 = \dfrac{1}{2}\left(I_1 + \dfrac{x}{x^2+1}\right)
                     \] であることと $I_1 = \tan^{-1}x$ より 
                     \[
-                        I = \log|x| - \dfrac{1}{x} + \dfrac{1}{2}\tan^{-1}x - \dfrac{x-1}{2(x^2+1)}. 
+                        I = \log|x| - \dfrac{1}{x} + \dfrac{1}{2}\tan^{-1}x - \dfrac{x-1}{2(x^2+1)} + C. 
+                    \]
+                </p>
+            </div>
+
+            <div class="exercise">
+                <p>不定積分 
+                    \[
+                        \int \dfrac{x}{x^3-1}~dx 
+                    \] を求めよ. 
+                </p>
+            </div>
+
+            <div class="answer">
+                <p>まず被積分関数の部分分数分解を試みる: 
+                    \[
+                        \begin{array}{rl} 
+                            \dfrac{x}{x^3-1} &= \dfrac{x}{(x-1)(x^2+x+1)} \cr 
+                            &= \dfrac{x}{(x-1)((x+1/2)^2+3/4)} \cr 
+                            &= \dfrac{A}{x-1} + \dfrac{Bx+C}{(x+1/2)^2+3/4} \cr 
+                            &= \dfrac{A(x^2+x+1) + (Bx+C)(x-1)}{x^3-1}.
+                        \end{array}
+                    \] 両辺の分子を比較して 
+                    \[
+                        A+B = 0,\quad A-B+C = 1, \quad A-C = 0, 
+                    \] さらに整理して $A = -B = C = 1/3$ が得られる. 
+                    従って 
+                    \[
+                        \int \dfrac{x}{x^3-1}~dx = \dfrac{1}{3}\displaystyle\int\left(\dfrac{1}{x-1} - \dfrac{x-1}{(x+1/2)^2+3/4}\right)~dx 
+                    \] である. 
+                    第 $1$ 項は
+                    \[
+                        \int\dfrac{1}{x-1}~dx = \log|x-1| + C
+                    \] であり, 第 $2$ 項は
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int\left(\dfrac{x-1}{(x+1/2)^2+3/4}\right)~dx &= \displaystyle\int\dfrac{t-3/2}{t^2+3/4}~dt \qquad (t=x+1/2\text{ と変数変換}) \cr 
+                            &= \dfrac{1}{2}\log(t^2+3/4) - \dfrac{3}{2}\displaystyle\int\dfrac{1}{t^2+3/4}~dt \cr 
+                            &= \dfrac{1}{2}\log(t^2+3/4) - \dfrac{3}{2}\dfrac{2}{\sqrt{3}}\tan^{-1}\dfrac{2}{\sqrt{3}}t + C \cr 
+                            &= \dfrac{1}{2}\log(x^2+x+1) - \sqrt{3}\tan^{-1}\dfrac{2x+1}{\sqrt{3}} + C \cr 
+                        \end{array}
+                    \] と計算できるため, 
+                    \[
+                        \int \dfrac{x}{x^3-1}~dx = \dfrac{1}{3}\log|x-1| - \dfrac{1}{6}\log(x^2+x+1) + \dfrac{1}{\sqrt{3}}\tan^{-1}\dfrac{2x+1}{\sqrt{3}} + C.
                     \]
                 </p>
             </div>
@@ -1098,12 +1170,37 @@
                 例として, 
             </p>
             <ul>
-                <li>被積分関数の分母に三角関数が現れるとき, $t=\tan(x/2)$ と変数変換するとうまく計算できることがある, </li> 
+                <li>被積分関数の分母に三角関数が現れるとき, $t=\tan(x/2)$ や $t=\tan x$ と変数変換するとうまく計算できることがある, </li> 
                 <li>被積分関数の分母に $n$ 乗根 ($(ax+b)^{1/n}$, 特に $\sqrt{ax+b}$ など) が現れるときに, これを $t$ と変数変換するとうまく計算できることがある</li>
             </ul>
             <p>が, こうした置換積分は有理関数の積分に帰着されることになる. 
                 実際には, 有理関数の積分 (というより部分分数分解) は現実的な労力で手計算できるとは限らないが, うまく利用すれば様々な関数の積分計算に応用可能な, 非常に強力なテクニックである. 
             </p>
+
+            <div class="example">
+                <p>不定積分 
+                    \[
+                        \int \dfrac{\cos^2 x}{1+\sin^2 x}~dx 
+                    \] を計算してみよう. 
+                    ここでは $t=\tan x$ という変数変換を試みる. 
+                    このとき, 
+                    \[
+                        \cos^2 x = \dfrac{1}{t^2+1},\quad \sin^2 x = 1-\cos^2 x = \dfrac{t^2}{t^2+1}, 
+                    \] であり, また
+                    \[
+                        \dfrac{dx}{dt} = \dfrac{1}{\frac{dt}{dx}} = \cos^2 x = \dfrac{1}{t^2+1}
+                    \] であることから, この例のように $\sin^2t$, $\cos^2t$ のみが被積分関数に現れる場合に $t=\tan x$ という変数変換に基づく置換積分を行うと, $t$ に関する有理関数の積分に帰着させることができる. 
+                    実際, 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int\dfrac{\cos^2 x}{1+\sin^2 x}~dx &= \displaystyle\int\dfrac{1}{(2t^2+1)(t^2+1)}~dt \cr 
+                            &= \displaystyle\int\left(\dfrac{2}{2t^2+1} - \dfrac{1}{t^2+1}\right)~dt \qquad (\because\text{部分分数分解})\cr 
+                            &= 2\dfrac{1}{\sqrt{2}}\tan^{-1}(\sqrt{2}t) - \tan^{-1}t + C \cr 
+                            &= \sqrt{2}\tan^{-1}(\sqrt{2}\tan x) - x + C 
+                        \end{array}
+                    \] のように計算することができる. 
+                </p>
+            </div>
 
             <div class="exercise">
                 <p>$|a|\lt 1$ とする. 
@@ -1115,10 +1212,10 @@
             </div>
 
             <div class="answer">
-                <p>被積分関数の分母に三角関数が現れているが, このような場合には $t=\tan(x/2)$ と変数変換すると良い. 
+                <p>被積分関数の分母に三角関数が現れているが, ここでは $t=\tan(x/2)$ という変数変換を試みよう. 
                     このとき, 
                     \[
-                        \dfrac{dt}{dx} = \dfrac{1}{2}\dfrac{1}{\cos^2 (x/2)} = \dfrac{1+t^2}{2},\qquad \cos x = 2\cos^2(x/2) - 1 = \dfrac{1-t^2}{1+t^2}
+                        \cos x = 2\cos^2(x/2) - 1 = \dfrac{1-t^2}{1+t^2}, \qquad \dfrac{dt}{dx} = \dfrac{1}{2}\dfrac{1}{\cos^2 (x/2)} = \dfrac{1+t^2}{2}
                     \] であることを用いると, 
                     \[
                         \begin{array}{rl} 
@@ -1129,6 +1226,60 @@
                             &= \dfrac{2}{\sqrt{1-a^2}}\tan^{-1}\left(\sqrt{\dfrac{1-a}{1+a}}\tan\dfrac{x}{2}\right).
                         \end{array}
                     \]
+                </p>
+            </div>
+
+            <div class="example">
+                <p>被積分関数の分母に $n$ 乗根が現れる例として, 不定積分 
+                    \[
+                        \int\dfrac{1}{x+\sqrt{x+1}}~dx
+                    \] を計算してみよう. 
+                    この例では, $t = \sqrt{x+1}$ という変数変換に基づく置換積分を用いると, $t$ に関する有理関数の積分に帰着させることができる: 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int\dfrac{1}{x+\sqrt{x+1}}~dx &= \displaystyle\int\dfrac{1}{(t^2-1)+t}2t~dt \cr 
+                            &= \displaystyle\int \left(\dfrac{2t+1}{t^2+t-1} - \dfrac{1}{(t+1/2)^2 - 3/4}\right)~dt \cr 
+                            &= \log(t^2+t+1) - \dfrac{2}{\sqrt{3}}\tan^{-1}\left(\dfrac{2}{\sqrt{3}}(t+1/2)\right) + C \cr 
+                            &= \log(x+\sqrt{x-1}) - \dfrac{2}{\sqrt{3}}\tan^{-1}\left(\dfrac{2\sqrt{x-1} + 1}{\sqrt{3}}\right) + C
+                        \end{array}
+                    \]
+                </p>
+            </div>
+
+            <div class="exercise">
+                <p>不定積分 
+                    \[
+                        \int\sqrt{\dfrac{1-x}{1+x}}~dx 
+                    \] を求めよ. 
+                </p>
+            </div>
+
+            <div class="remark">
+                <p>分母にある $\sqrt{1+x}$ に注目し, $t=\sqrt{1+x}$ とする変数変換に基づき置換積分をすると 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int\sqrt{\dfrac{1-x}{1+x}}~dx &= \displaystyle\int\dfrac{\sqrt{2-t^2}}{t}2t~dt \cr
+                            &= 2\displaystyle\int \sqrt{2-t^2}~dt \cr 
+                            &= 2\sin^{-1}\dfrac{t}{\sqrt{2}} + t\sqrt{2-t^2} + C \qquad (\because\text{以前の例題}) \cr 
+                            &= 2\sin^{-1}\sqrt{\dfrac{1+x}{2}} + \sqrt{1-x^2} + C
+                        \end{array}
+                    \] のように計算できる. 
+                </p>
+                <p>なお, 
+                    \[
+                        \theta = \sin^{-1}\sqrt{\dfrac{1+x}{2}} 
+                    \] とおくと 
+                    \[
+                        x = -1+2\sin^2\theta = -\cos2\theta 
+                    \] であることから 
+                    \[
+                        2\sin^{-1}\sqrt{\dfrac{1+x}{2}} = 2\theta = \cos^{-1}(-x) = \pi - \cos^{-1}x = \dfrac{\pi}{2} + \sin^{-1}x
+                    \] が得られる. 
+                    従って ($\pi$ などを積分定数に含めて) 
+                    \[
+                        \int\sqrt{\dfrac{1-x}{1+x}}~dx = -\cos^{-1}x + \sqrt{1-x^2} + C\quad\text{または}\quad \sin^{-1}x + \sqrt{1-x^2} + C
+                    \] と表すこともできる. 
+                    実際, 別の解法として $t = \sqrt{\dfrac{1-x}{1+x}}$ と変数変換したり, $x=\cos\theta$ と変数変換しても良いが, これらの場合には上のような結果が自然と得られる. 
                 </p>
             </div>
 
