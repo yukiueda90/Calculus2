@@ -553,7 +553,10 @@
                 <div class="resize"><img src='./images/double_integral4-1.png'></div>
             </div>
 
-            <p>さて, ここまでに二重積分の定義と性質について紹介したが, 一般には <b>$n$ 重積分</b> を考えることが可能である. 
+            <p>さて, ここまでに二重積分の定義と性質について紹介したが, 一般には <b>$n$ 重積分</b> 
+                \[
+                    \int\dots\int_D f(\mathbf{x})~dx_1\dots dx_n
+                \] を考えることが可能である. 
                 例えば $xyz$ 空間上の領域 $D$ 上の関数 $f(x, y, z)$ について, 三重積分は
                     \[
                         \iiint_D f(x, y, z)~dxdydz
@@ -810,21 +813,31 @@
                 \[
                     \iint_D f(x, y)~dxdy = \iint_{\widehat{D}} f(x(u, v), y(u, v)) |\det J(u, v)|~dudv
                 \] と表すことができる. 
-                実は $n$ 重積分に対する置換積分において, このヤコビ行列式によるスケール調整が本質的に重要となる: 
             </p>
+            <p>詳細は説明しないが, 実は $n$ 重積分に対する置換積分において, このヤコビ行列式によるスケール調整が本質的に重要となる: </p>
 
             <div class="theorem" data-name="置換積分">
-                <p>関数 $f(x, y)$ について, $x$, $y$ がパラメータ $u, v$ を変数とする $C^1$ 級関数であり, $xy$ 平面上の点 $(x(u, v), y(u, v))$ と $uv$ 平面上の点 $(u,v)$ が $1$ 対 $1$ に対応しているとする.
-                このとき, $(u, v)$ についての領域 $\widehat{D}$ と, 対応する $(x, y)$ についての領域 $D$ について, 
+                <p>$n$ 変数関数 $f(\mathbf{x})$ について, $\mathbf{x}\in\mathbb{R}^n$ が パラメータ $\mathbf{u}\in\mathbb{R}^n$ を変数とする $C^1$ 級関数であり, $n$ 次元空間上の点 $\mathbf{x}(\mathbf{u})$ と 点 $\mathbf{u}$ が $1$ 対 $1$ に対応しているとする.
+                このとき, $\mathbf{u}$ についての領域 $\widehat{D}$ と, 対応する $\mathbf{x}$ についての領域 $D$ について, 
                     \[
-                        \iint_D f(x, y)~dxdy = \iint_{\widehat{D}} f(x(u, v), y(u, v)) |\det J(u, v)|~dudv
+                        \int\dots\int_D f(\mathbf{x})~dx_1\dots dx_n = \int\dots\int_{\widehat{D}} f(\mathbf{x}(\mathbf{u})) |\det J(\mathbf{u})|~du_1\dots du_n
                     \] が成立する, ただし 
                     \[
-                        J(u, v) = \begin{pmatrix} 
-                            \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \cr 
-                            \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v} 
+                        J(\mathbf{u}) = \begin{pmatrix} 
+                            \dfrac{\partial x_1}{\partial u_1} & \dfrac{\partial x_1}{\partial u_2} &\dots & \dfrac{\partial x_1}{\partial u_n} \cr 
+                            \dfrac{\partial x_2}{\partial u_1} & \dfrac{\partial x_2}{\partial u_2} &\dots & \dfrac{\partial x_2}{\partial u_n} \cr 
+                            \vdots & \vdots & \ddots & \vdots \cr 
+                            \dfrac{\partial x_n}{\partial u_1} & \dfrac{\partial x_n}{\partial u_2} &\dots & \dfrac{\partial x_n}{\partial u_n} 
                         \end{pmatrix} 
-                    \] は $2$ 変数ベクトル値関数 $\mathbf{x}(u, v) = (x(u, v), y(u, v))$ に対するヤコビ行列である. 
+                    \] は $n$ 変数ベクトル値関数 
+                    \[
+                        \mathbf{x}(\mathbf{u}) = \begin{pmatrix} 
+                            x_1(u_1, u_2, \dots, u_n)\cr 
+                            x_2(u_1, u_2, \dots, u_n)\cr 
+                            \vdots \cr 
+                            x_n(u_1, u_2, \dots, u_n)
+                        \end{pmatrix}
+                    \] に対するヤコビ行列である. 
                 </p>
             </div>
 
@@ -892,8 +905,43 @@
             </div>
 
             <div class="exercise">
-                <p>実数 $a$, $b$, $c$ について, $b\lt c$ とする. 
+                <p>実数 $a$, $b$, $c$ について, $a\gt 0$ かつ $0\lt b\lt c$ とする. 
                     このとき, 円柱 $x^2+y^2=2ax$ と $2$ つの平面 $z=bx$, $z=cx$ で囲まれる部分の体積を求めよ. 
+                </p>
+            </div>
+
+            <div class="answer">
+                <p>円柱 $x^2+y^2=2ax$ は 
+                    \[
+                        (x-a)^2 + y^2 = a^2 
+                    \] と表すこともできることに注意すると, 領域 
+                    \[
+                        D = \{(x, y, z)\in\mathbb{R}^3 : 0\le (x-a)^2+y^2\le a^2,\quad bx \le z\le cx\}
+                    \] に対して, 求める体積は 
+                    \[
+                        |D| = \iiint_D~dxdydz
+                    \] である. 
+                    この積分を計算する際に置換積分を利用する: 
+                    \[
+                        x= a + r\cos\theta,\quad y = r\sin\theta,\quad z = u \qquad (0\le r\le a,\quad 0\le\theta\le2\pi)
+                    \] という変数変換に基づき三重積分に対する置換積分の公式を利用しても良いし, もしくは逐次積分により 
+                    \[
+                        |D| = \iiint_D~dxdydz = \iint_K \left(\int_{bx}^{cx}~dz\right)~dxdy = \iint_K (c-b)x ~dxdy,
+                    \] 
+                    \[
+                        \text{ただし}\quad K = \{(x, y)\in\mathbb{R}^2 : (x-a)^2 + y^2\le a^2\}
+                    \] とした上で, 
+                    \[
+                        x= a + r\cos\theta,\quad y = r\sin\theta \qquad (0\le r\le a,\quad 0\le\theta\le2\pi)
+                    \] という変数変換に基づき二重積分に対する置換積分の公式を適用しても良い. 
+                    この問題については, いずれにしてもヤコビ行列式は $r$ であり, 従って
+                    \[
+                        \begin{array}{rl} 
+                            |D| &= \displaystyle\int_0^a \left(\int_0^{2\pi} (c-b)(a+r\cos\theta) r~d\theta\right)~dr \cr 
+                            &= \displaystyle\int_0^a 2\pi a(c-b)r~dr \cr 
+                            &= \pi a^3(c-b).
+                        \end{array}
+                    \]
                 </p>
             </div>
 
