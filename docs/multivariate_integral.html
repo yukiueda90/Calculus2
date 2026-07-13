@@ -278,12 +278,12 @@
 
         <hr>
 
-        <section id="section3-2"><h2>3.2: 重積分と置換積分</h2>
+        <section id="section3-2"><h2>3.2: 重積分と逐次積分</h2>
             <p>上では, 多変数関数の積分の一例として, 曲線に沿った線積分について紹介した. 
                 線積分の値を具体的に計算する際には, 曲線のパラメータ表示を用いて置換積分を行うことで, そのパラメータに関する ($1$ 変数関数の) 積分に帰着させることができた. 
                 次に, 多変数関数を (面積を持った) 領域上で積分することを考えよう. 
                 もしも <b>積分領域</b> が簡単な形をしていれば, 実は多変数関数の積分は $1$ 変数関数の積分を複数回計算することに帰着させることができる. 
-                最初にこのことを確認し, その後で一般の領域上での積分や, 多変数関数の積分における置換積分について紹介する. 
+                最初にこのことを確認し, その後で多変数関数の積分における置換積分などの計算テクニックについて紹介する. 
             </p>
 
             <p>まず, $1$ 変数関数に対するリーマン積分では, 積分区間を分割することでリーマン和を導出し, その極限として積分の値を定めていた. 
@@ -314,9 +314,18 @@
             </div>
 
             <div class="remark">
+                <p>以降, 上の定義における 
+                    \[
+                        \sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta D_{ij} \left(= \sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta x_i\Delta y_j\right)
+                    \] をリーマン和と呼ぶことにする. 
+                    つまり, 二重積分も ($1$ 変数関数に対するリーマン積分と同様に) リーマン和の極限として定義される. 
+                </p>
+            </div>
+
+            <div class="remark">
                 <p>二重積分は, 図形的には関数のグラフと $xy$ 平面の間の立体の符号付き体積と関連付けることができる ($xy$ 平面より下側の部分の体積は負であるとみなす). 
                     まず, $f(p_{ij}, q_{ij})\Delta D_{ij}$ は, 高さが $f(p_{ij}, q_{ij})$, 底面積が $\Delta D_{ij}$ である直方体の体積と見なすことができる. 
-                    これらの総和がリーマン和に相当し (下図右), 長方形領域 $D$ の分割を無限に細かくする極限を考えることで, 二重積分と体積との関連付けが得られる (下図左). 
+                    これらの総和がリーマン和であり (下図右), 長方形領域 $D$ の分割を無限に細かくする極限を考えることで, 二重積分と体積との関連付けが得られる (下図左). 
                 </p>
                 <div class="resize"><img src='./images/double_integral1-1.png'></div>
             </div>
@@ -324,17 +333,21 @@
             <div class="example">
                 <p>例として $D = [0, a]\times [0, b]$ 区間上の
                     \[
-                        f(x, y) = 2 
+                        f(x, y) = 1 
                     \] という定数関数に対する二重積分を計算してみよう, ただし $a, b\gt 0$ とする. 
-                    どんな $x, y$ に対しても $f(x, y) = 2$ であることから 
+                    どんな $x, y$ に対しても $f(x, y) = 1$ であることから 
                     \[
                         \begin{array}{rl} 
-                            \displaystyle\iint_D f(x, y)~dxdy &= \displaystyle\lim_{\Delta D_{ij}\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}\underbrace{f(p_{ij}, q_{ij})}_{=2}\Delta D_{ij} \cr 
-                            &= \displaystyle\lim_{\Delta D_{ij}\to0 }2|D| \cr 
-                            &= 2ab
+                            \displaystyle\iint_D f(x, y)~dxdy &= \displaystyle\lim_{\Delta D_{ij}\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}\underbrace{f(p_{ij}, q_{ij})}_{=1}\Delta D_{ij} \cr 
+                            &= \displaystyle\lim_{\Delta D_{ij}\to0 }|D| \cr 
+                            &= |D|
                         \end{array}
                     \] である, ただし $|D|=ab$ は長方形領域 $D$ の面積を表す. 
-                    この結果は, 底面積が $|D|=ab$, 高さが $2$ である直方体の体積が $2|D|=2ab$ であることと対応している. 
+                    つまり (被積分関数が $1$ である場合には記述を省略すると) 二重積分
+                    \[
+                        \iint_D ~dxdy
+                    \] は領域 $D$ の面積を表している. 
+                    またこの結果は, 底面積が $|D|$, 高さが $1$ である直方体の体積が $|D|$ であることにも対応している. 
                 </p>
             </div>
 
@@ -346,22 +359,27 @@
             <p>また, このことを利用すれば積分領域が長方形領域でない場合の二重積分を以下のように定義できる: </p>
 
             <div class="definition">
-                $xy$ 平面上の領域 $\Omega$ と, $\Omega$ 上で定義された関数 $f(x, y)$ を考える.  
+                $xy$ 平面上の領域 $D$ と, $D$ 上で定義された関数 $f(x, y)$ を考える.  
                 このとき, \[
-                    \Omega\subset D 
-                \] を満たす長方形領域 $D$ と 
+                    D\subset \widetilde{D} 
+                \] を満たす長方形領域 $\widetilde{D}$ と 
                 \[
                     \widetilde{f}(x, y) = \left\{\begin{array}{cl} 
-                        f(x, y) & ((x, y)\in \Omega), \cr 
-                        0 & ((x, y)\in D\backslash \Omega) 
+                        f(x, y) & ((x, y)\in D), \cr 
+                        0 & ((x, y)\in \widetilde{D}\backslash D) 
                     \end{array}\right. 
                 \] という関数 $\widetilde{f}(x, y)$ に対し, 
                 \[
-                    \iint_{\Omega}f(x, y)~dxdy = \iint_D\widetilde{f}(x, y)~dxdy
+                    \iint_{D}f(x, y)~dxdy = \iint_{\widetilde{D}}\widetilde{f}(x, y)~dxdy
                 \] と定める. 
             </div>
 
-            <p>上で導入した領域 $D$ 上の関数 $\widetilde{f}(x, y)$ は, 一般には $D$ の境界部分 $\partial D$ で不連続な関数になることに注意.</p>
+            <p>上で導入した領域 $D$ 上の関数 $\widetilde{f}(x, y)$ は, 一般には $D$ の境界部分 $\partial D$ で不連続な関数になるが, この程度の不連続性なら二重積分可能性への影響は無い. 
+                なお, このことから二重積分 
+                \[
+                    \iint_D ~dxdy 
+                \] は ($D$ が長方形領域でなくとも) 領域 $D$ の面積を表すことになる. 
+            </p>
 
             <hr> 
 
@@ -382,6 +400,22 @@
                 </p>
             </div>
 
+            <div class="remark">
+                <p>例えば 
+                    \[
+                        \iint_{[a, b]\times [c, d]} f(x, y)~dxdy = \int_a^b\left(\int_c^d f(x, y)~dy\right)~dx
+                    \] を計算する際には, まず ($x$ を一時的に定数とみなすことで)
+                    \[
+                        A(x) = \int_c^d f(x, y)~dy 
+                    \] を計算し, その後で 
+                    \[
+                        \iint_{[a, b]\times [c, d]} f(x, y)~dxdy = \int_a^b A(x) ~ dx
+                    \] を計算すればよい. 
+                    ここで, $A(x)$ は各 $x\in[a, b]$ に対し (符号付き) 断面積を与える関数であるとみなせる.
+                </p>
+                <div class="resize"><img src='./images/double_integral2-1.png'></div>
+            </div>
+
             <div class="example">
                 <p>例として, 二重積分 
                     \[
@@ -390,8 +424,8 @@
                     被積分関数は連続であるため二重積分可能であり, 従って例えば 
                     \[
                         \begin{array}{rl} 
-                            \displaystyle\iint_{[a, b]\times[c, d]} x^2 y~dxdy &= \displaystyle\int_a^b\underbrace{\left(\int_c^d x^2 y~dy\right)}_{=\text{ $y$ についての積分}}~dx \cr 
-                            &= \underbrace{\displaystyle\int_a^b\dfrac{d^2-c^2}{2}x^2~dx}_{=\text{ $x$ についての積分}} \cr 
+                            \displaystyle\iint_{[a, b]\times[c, d]} x^2 y~dxdy &= \displaystyle\int_a^b\underbrace{\left(\int_c^d x^2 y~dy\right)}_{\text{$y$ についての積分}}~dx \cr 
+                            &= \underbrace{\displaystyle\int_a^b\dfrac{d^2-c^2}{2}x^2~dx}_{\text{$x$ についての積分}} \cr 
                             &= \dfrac{(b^3-a^3)(d^2-c^2)}{6}
                         \end{array}
                     \] のように計算できる. 
@@ -402,9 +436,18 @@
             <p>さらに領域 $D$ について, $x$ の範囲が定数, $y$ の範囲が関数で与えられている場合, つまり 
                 \[
                      D = \{(x, y)\in\mathbb{R}^2 : a\le x\le b,\quad \varphi_1(x)\le y\le \varphi_2(x)\}
-                \] のように表されている場合 (このような領域を <b>$x$ 単純領域</b> と呼ぶことがある), やはり逐次積分が可能である.
+                \] のように表されている場合 (このような領域を <b>$x$ 単純領域</b> と呼ぶことがある), $D\subset \widetilde{D}$ を満たす長方形領域 $\widetilde{D}$ を $\widetilde{D} = [a, b]\times[c, d]$ のように取り, さらに $\widetilde{D}$ 上の関数 $\widetilde{f}$ を適切に定めることで, 
+                \[
+                    \begin{array}{rl} 
+                        \displaystyle\iint_D f(x, y)~dxdy &= \displaystyle\iint_{\widetilde{D}}\widetilde{f}(x, y)~dxdy \cr 
+                        &= \displaystyle\int_a^b \left(\int_c^d\widetilde{f}(x, y)~dy\right)~dx \cr 
+                        &= \displaystyle\int_a^b \left(\int_{\varphi_1(x)}^{\varphi_2(x)}f(x, y)~dy\right)~dx
+                    \end{array}
+                \] のように逐次積分が可能である.
                 もしくは $y$ の範囲が定数, $x$ の範囲が関数で与えられている場合 ($D$ が <b>$y$ 単純領域</b> である場合) も同様に逐次積分することができる:
             </p>
+
+            <div class="resize"><img src='./images/double_integral3-1.png'></div>
 
             <div class="theorem">
                 <ul>
@@ -436,6 +479,21 @@
             </div>
 
             <div class="example">
+                <p>領域 $D$ が二つの連続な関数 $\varphi_1(x)\le \varphi_2(x)$ を用いて 
+                    \[
+                        D = \{(x, y)\in\mathbb{R}^2 : a\le x\le b,\quad \varphi_1(x)\le y\le \varphi_2(x)\}
+                    \] と表されるとき, 領域 $D$ の面積 $|D|$ を計算してみよう. 
+                    これは 
+                    \[
+                        |D| = \int_a^b (\varphi_2(x) - \varphi_1(x))~dx 
+                    \] という一変数関数の積分だと思って計算することもできるが, 二重積分を用いて
+                    \[
+                        |D| = \iint_D ~dxdy = \int_a^b\left(\int_{\varphi_1(x)}^{\varphi_2(x)}~dy\right)~dx = \int_a^b (\varphi_2(x) - \varphi_1(x))~dx 
+                    \] と計算しても同じことである. 
+                </p>
+            </div>
+
+            <div class="example">
                 <p>領域 $D$ が 
                     \[
                         D = \{(x, y)\in\mathbb{R}^2 : 0\le x\le 2,\quad x^2\le y\le 2x\}
@@ -463,9 +521,406 @@
                             \displaystyle\iint_D xy~dxdy &= \displaystyle\int_0^4\left(\int_{y/2}^{\sqrt{y}}xy~dx\right)~dy \cr 
                             &= \displaystyle\int_0^4 \dfrac{((\sqrt{y})^2 - (y/2)^2)y}{2}~dy \cr 
                             &= \displaystyle\int_0^4 \dfrac{y - y^2/4}{2}~dy \cr 
-                            &= \dfrac{16/264/12 - 16/2}{2} = \dfrac{16}{3}. 
+                            &= \dfrac{16/2 - 64/12}{2} = \dfrac{16}{3}. 
                         \end{array}
                     \] と計算しても良い. 
+                </p>
+            </div>
+
+            <div class="exercise">
+                <p>領域 $D$ が 
+                    \[
+                        D = \{(x, y)\in\mathbb{R}^2 : x^2\le y\le \sqrt{x}\}
+                    \] と表されるとき, 積分 
+                    \[
+                        \iint_D (x^2+y)~dxdy 
+                    \] を求めよ. 
+                </p>
+            </div>
+
+            <div class="answer">
+                <p>まず, $\sqrt{x}$ が実数となるためには $x\ge0$ でなければならない. 
+                    さらに, $x^2\le \sqrt{x}$ が成立するのは $0\le x\le 1$ のときのみである. 
+                    従って, 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\iint_D (x^2+y)~dxdy &= \displaystyle\int_0^1\left(\int_{x^2}^{\sqrt{x}}(x^2+y)~dy\right)~dx \cr 
+                            &= \displaystyle\int_0^1 \left(x^2(\sqrt{x} - x^2) + \dfrac{(\sqrt{x})^2 - (x^2)^2}{2}\right)~dx \cr 
+                            &= \dfrac{2}{7} - \dfrac{1}{5} + \dfrac{1}{4} - \dfrac{1}{10} = \dfrac{33}{140}.
+                        \end{array}
+                    \]
+                </p>
+                <div class="resize"><img src='./images/double_integral4-1.png'></div>
+            </div>
+
+            <p>さて, ここまでに二重積分の定義と性質について紹介したが, 一般には <b>$n$ 重積分</b> を考えることが可能である. 
+                例えば $xyz$ 空間上の領域 $D$ 上の関数 $f(x, y, z)$ について, 三重積分は
+                    \[
+                        \iiint_D f(x, y, z)~dxdydz
+                    \] と表記される. 
+                特に三重積分については (二重積分と同様のため詳細な説明は述べないが) 計算例をいくつか確認しておこう: 
+            </p>
+
+            <div class="example">
+                <p>領域 $D\subset\mathbb{R}^3$ の体積は 
+                    \[
+                        \iiint_D ~dxdydz
+                    \] である. 
+                </p>
+            </div>
+
+            <div class="example">
+                <p>直方体領域 
+                    \[
+                        D = [a_1, b_1]\times [a_2, b_2]\times [a_3, b_3]
+                    \] 上の関数 $f(x, y, z) = xyz$ に対する三重積分は, 例えば
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\iiint_{[a_1, b_1]\times[a_2, b_2]\times [a_3, b_3]} xyz~dxdydz &= \displaystyle\iint_{[a_1, b_1]\times [a_2, b_2]}\left(\int_{a_3}^{b_3} xyz~dz\right)~dxdy \cr 
+                            &= \displaystyle\iint_{[a_1, b_1]\times [a_2, b_2]}\dfrac{b_3^2-a_3^2}{2}xy~dxdy \cr 
+                            &= \dfrac{(b_1^2-a_1^2)(b_2^2-a_2^2)(b_3^2-a_3^2)}{8}
+                        \end{array}
+                    \] のように逐次積分により計算できる. 
+                </p>
+            </div>
+            
+            <div class="example">
+                <p>領域 $D$ が 
+                    \[
+                        D = \{(x, y, z)\in\mathbb{R}^3 : 0\le x\le 1,\quad 0\le y\le 1-x,\quad 0\le z\le 1-x-y\}
+                    \] と表されるとき, 積分 
+                    \[
+                        \iiint_D z~dxdydz
+                    \] を計算してみよう. 
+                    二重積分のときと同様に 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\iiint_D z~dxdydz &= \displaystyle\int_0^1\left(\int_0^{1-x}\left(\int_0^{1-x-y} z~dz\right)~dy\right)~dx \cr 
+                            &= \displaystyle\int_0^1\left(\int_0^{1-x}\left(\dfrac{(1-x-y)^2}{2}\right)~dy\right)~dx \cr 
+                            &= \dfrac{1}{2}\displaystyle\int_0^1\left(\int_0^{1-x}\left((1-x)^2 - 2(1-x)y + y^2\right)~dy\right)~dx \cr 
+                            &= \dfrac{1}{2}\displaystyle\int_0^1\left(\dfrac{1}{3}(1-x)^3\right)~dx \cr 
+                            &= \dfrac{1}{24}
+                        \end{array}
+                    \] のように逐次積分により計算できる. 
+                </p>
+            </div>
+
+            <div class="exercise">
+                <p>領域 
+                    \[
+                        D = \{(x, y, z)\in\mathbb{R}^3: x\ge0,\quad y\ge0,\quad 0\le z\le 1-(x+y)^n\}
+                    \] の体積 $|D|$ を求めよ. 
+                </p>
+            </div>
+
+            <div class="answer">
+                <p>例えば $y$ に注目すると, $x, y\ge0$ において $0\le 1-(x+y)^n$ となるためには, $0\le x\le 1$ を満たす各 $x$ に対し $0\le y\le 1-x$ でなければならない. 
+                    従って, 
+                    \[
+                        |D| = \iiint_D~dxdydz = \int_0^1\left(\int_0^{1-x}\left(\int_0^{1-(x+y)^n}~dz\right)~dy\right)~dx
+                    \] を計算すればよい (もしくはグラフをプロットするなどして, $xy$ 平面上の $3$ 点 $(0,0)$, $(1,0)$, $(0,1)$ を頂点とする三角形 $K$ に対し
+                    \[
+                        |D| = \iint_K 1-(x+y)^n~dxdy = \int_0^1\left(\int_0^{1-x}1-(x+y)^n~dy\right)~dx
+                    \] であると思っても良いだろう). 
+                    上の逐次積分を計算する際には, $t=x+y$ と変数変換すると良いだろう: 
+                    \[
+                        \begin{array}{rl} 
+                            |D| &= \displaystyle\int_0^1\left(\int_0^{1-x}1-(x+y)^n~dy\right)~dx \cr 
+                            &= \displaystyle\int_0^1\left(\int_x^1 1-t^n~dt\right)~dx \cr 
+                            &= \displaystyle\int_0^1 1-x-\dfrac{1}{n+1}(1-x^{n+1})~dx \cr 
+                            &= 1-\dfrac{1}{2} - \dfrac{1}{n+1}\left(1-\dfrac{1}{n+2}\right) \cr 
+                            &= \dfrac{1}{2} - \dfrac{1}{n+2} \cr 
+                            &= \dfrac{n}{2(n+2)}.
+                        \end{array}
+                    \]
+                </p>
+            </div>
+
+            <div class="remark">
+                <p>領域 $\Omega\subset\mathbb{R}^n$ 上で定義された $n$ 変数関数 $f(x_1, x_2, \dots, x_n)$ に対する $n$ 重積分を, 単に 
+                    \[
+                        \int_{\Omega} f(x)~dx 
+                    \] と表記することもある (これが $n$ 重積分であることは, 積分領域が $\Omega\subset\mathbb{R}^n$ であることから判断することになる). 
+                    この表記は簡単であり, また $n$ に依らず成立する性質を説明する際に便利であるという利点はあるが, この資料では使用しないことにする. 
+                </p>
+            </div>
+
+            </section>
+
+            <hr>
+
+            <section id="section3-3"><h2>3.3: 重積分の置換積分</h2>
+
+            <p>ここでは, 重積分に対する置換積分について説明しよう. 
+            </p>
+            <p>まず, $1$ 変数の場合の置換積分を思い出しておこう, ただし, 以降の議論と関連付けるために, 以前とは異なる記号を用いる. 
+                関数 $f(x)$ について, $x$ がパラメータ $u$ を変数とする $C^1$ 級関数であり (つまり $x = x(u)$ と表すことができ), $x$ の値と $u$ の値が $1$ 対 $1$ に対応しているとする. 
+                このとき, $u$ についての区間 $\widehat{I} = [a, b]$ と, 対応する $x$ についての区間 $I=[x(a), x(b)]$ について, 置換積分は
+                \[
+                    \int_I f(x)~dx = \int_{\widehat{I}}f(x(u)) \dfrac{dx}{du}~du
+                \] と表される. 
+                ここで $dx$ は $x$ に関する微小長さ, $du$ は $u$ に関する微小長さであり, それぞれリーマン和を考える際の区間分割幅 $\Delta x_k$, $\Delta u_k$ に相当するものである. 
+                そして $dx/du$ は微小長さの間のスケールの違いを表すものであり, リーマン和においては $\Delta x_k$ と $\Delta u_k$ を適切に対応させた際の長さの比であると解釈することができる.  
+            </p>
+
+            <div class="example">
+                <p>例えば $x(u)=2u$ である場合を考えてみよう. 
+                    このとき, $dx/du=2$ であり, 置換積分により 
+                    \[
+                        \int_{2a}^{2b} f(x)~dx = \int_a^b f(x(u))\dfrac{dx}{du}~du = \int_a^b 2f(2u)~du
+                    \] が成立するが, ここでは上の等号をリーマン和に基づいて解釈してみよう. 
+                </p>
+                <p>まず, $u$ に関する積分をリーマン和の極限として表すと, 区間 $[a, b]$ の分割 
+                    \[
+                        a = u_0 \lt u_1 \lt \dots\lt u_{N-1} \lt u_N = b 
+                    \] に基づき
+                    \[
+                        \int_a^b f(x(u))\dfrac{dx}{du}~du = \lim_{\Delta u\to0} \sum_{k=0}^{N-1}f(x(s_k))\dfrac{dx}{du}\Delta u_k
+                    \] のように表すことができる, ただし $s_k$ は $u_k\le s_k\le u_{k+1}$ を満たすような点である. 
+                    次に, $x$ に関する積分をリーマン和の極限として表したいが, ここでは $\Delta x_k = dx/du \Delta u_k = 2\Delta u_k$ を満たすような区間分割を考えたとしよう. 
+                    このとき, 
+                    \[
+                        2a = x_0 \lt x_1 \lt \dots \lt x_{N-1} \lt x_N = 2b 
+                    \] であり, また $\Delta u\to 0$ という極限と $\Delta x\to0$ という極限は等しい. 
+                    さらに, $x(s_k) = 2s_k$ を $t_k$ と表すことにすると, $x_k\le t_k\le x_{k+1}$ が満たされるため
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int_a^b f(x(u))\dfrac{dx}{du}~du &= \displaystyle\lim_{\Delta u\to 0}\sum_{k=0}^{N-1}f(x(s_k))\dfrac{dx}{du}\Delta u_k \cr 
+                            &= \displaystyle\lim_{\Delta x\to 0}\sum_{k=0}^{N-1}f(t_k)\Delta x_k \cr 
+                            &= \displaystyle\int_{2a}^{2b} f(x)~dx
+                        \end{array}
+                    \] と式変形できることがわかる. 
+                </p>
+                <p>つまり, $1$ 変数関数についての置換積分は, 
+                    \[
+                        \Delta x_k = \dfrac{dx}{du}\Delta u_k
+                    \] が満たされるような $2$ つのリーマン和を考えると, それらの極限が等しくなる, ということを意味している. 
+                </p>
+                <div class="resize"><img src='./images/substitution1-1.png'></div>
+            </div>
+
+            <p>さて, 実は二重積分についても同様のことが成立する: 関数 $f(x, y)$ について, $x$, $y$ がパラメータ $u, v$ を変数とする $C^1$ 級関数であり (つまり $x=x(u, v)$, $y=y(u,v)$ と表すことができ), $xy$ 平面上の点 $(x, y)$ と $uv$ 平面上の点 $(u,v)$ が $1$ 対 $1$ に対応しているとする.
+                このとき, $(u, v)$ についての領域 $\widehat{D}$ と, 対応する $(x, y)$ についての領域 $D$ について, スケールを調整する $S$ を適切に定めることで, 二重積分に対する置換積分を
+                \[
+                    \iint_D f(x, y)~dxdy = \iint_{\widehat{D}} f(x(u, v), y(u, v)) S~dudv
+                \] と表すことができる. 
+            </p>
+
+            <div class="example">
+                <p>例えば $x=2u$, $y=v/3$ である場合を考えてみると, 長方形領域上の置換積分は (逐次積分を用いることで)
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\iint_{[a, b]\times[c, d]} f(x, y)~dxdy &= \displaystyle\int_a^b\left(\int_c^d f(x, y)~dy\right)~dx \cr 
+                            &= \displaystyle\int_a^b\left(\int_{3c}^{3d} f(x, y(v))\dfrac{dy}{dv}~dv\right)~dx \cr 
+                            &= \displaystyle\int_{a/2}^{b/2}\left(\int_{3c}^{3d} f(x(u), y(v))\dfrac{dy}{dv}~dv\right)\dfrac{dx}{du}~du \cr 
+                            &= \displaystyle\iint_{[a/2, b/2]\times [3c, 3d]} f(x(u), y(v)) \underbrace{\dfrac{dx}{du}\dfrac{dy}{dv}}_{=S} ~ dudv
+                        \end{array}
+                    \] となる. 
+                </p>
+            </div>
+
+            <p>上の例は非常に簡単な場合を考えたため, 逐次積分を利用することで $1$ 変数関数の積分に対する置換積分に帰着させて式変形することができたが, 一般にはここまで単純では無い. 
+                ここから $x$, $y$ がどちらも $u$, $v$ の両方に依存している場合を含む, 一般的な状況を考えたい. 
+                ただし, ここでは厳密な説明の代わりに, 直感的かつ図形的な説明に終始することにする. 
+            </p>
+
+            <hr>
+
+            <p>まず, $u$, $v$ に関する二重積分をリーマン和の極限として表すことで, 
+                \[
+                    \iint_{\widehat{D}} f(x(u, v), y(u, v))S~dudv = \lim_{\Delta\widehat{D}_{ij}\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(x(r_{ij}, s_{ij}), y(r_{ij}, s_{ij}))S\Delta\widehat{D}_{ij}
+                \] のように表すことができる, ここで $\Delta \widehat{D}_{ij} = \Delta u_i\Delta v_j$ は長方形領域 $\widehat{D}_{ij} = [u_i, u_{i+1}]\times [v_j, v_{j+1}]$ の面積であり, $(r_{ij}, s_{ij})$ は長方形領域 $\widehat{D}_{ij}$ 内の点である.  
+                さて, $p_{ij} = x(r_{ij}, s_{ij})$, $q_{ij} = y(r_{ij}, s_{ij})$ とおくことで, 上のリーマン和の極限を $xy$ 平面上の二重積分に対するリーマン和と対応付けたい. 
+                そのために, 
+                \[
+                    D_{ij} = \{(x(u, v), y(u, v))\in\mathbb{R}^2 : (u,v) \in \widehat{D}_{ij}\}
+                \] とおくと, $(p_{ij}, q_{ij})$ は領域 $D_{ij}$ 内の点となるため, その面積 $\Delta D_{ij}$ を用いて 
+                \[
+                    \iint_{D} f(x, y)~dxdy = \lim_{\Delta D_{ij}\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta D_{ij}
+                \] とできるだろう. 
+                以上より, $S$ を各 $i, j$ に対して 
+                \[
+                    \Delta D_{ij} = S\Delta \widehat{D}_{ij}
+                \] が満たされるように設定すれば, 
+                \[
+                    \begin{array}{rl} 
+                        \displaystyle \iint_{D} f(x, y)~dxdy &= \displaystyle\lim_{\Delta D_{ij}\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta D_{ij} \cr 
+                        &= \displaystyle \lim_{\Delta\widehat{D}_{ij}\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(x(r_{ij}, s_{ij}), y(r_{ij}, s_{ij}))S\Delta\widehat{D}_{ij} \cr 
+                        &= \displaystyle \iint_{\widehat{D}} f(x(u, v), y(u, v))S~dudv
+                    \end{array}
+                \] という置換積分が得られると期待される. 
+            </p>
+            <p>あとは 
+                \[
+                    S = \dfrac{\Delta D_{ij}}{\Delta \widehat{D}_{ij}}
+                \] を求めれば重積分に対する置換積分の公式が得られそうだが, その前に注意しておくと上のように構成した $D_{ij}$ は一般には長方形領域にはならない (下図). 
+                そのため上の式変形には粗があるのだが, ここでは気にせず話を進めてしまうことにする. 
+                記号の簡単のために, 
+                \[
+                    x(u_i, v_j) = x_{ij}, \quad y(u_i, v_j) = y_{ij}
+                \] などと表記することにすると, もしも $\Delta u_i$, $\Delta v_j$ が十分小さければ, 領域 $D_{ij}$ はおおよそ
+                \[
+                    A: (x_{ij}, y_{ij}),\quad B: (x_{i+1, j}, y_{i+1, j}),\quad C: (x_{i+1, j+1}, y_{i+1, j+1}),\quad D: (x_{i, j+1}, y_{i, j+1})
+                \] を頂点とする $xy$ 平面上の四角形領域と思えるだろう. 
+            </p>
+
+            <div class="resize"><img src='./images/substitution2-1.png'></div>
+
+            <p>ここでは, さらに $D_{ij}$ がおおよそ平行四辺形だろうとみなして面積 $\Delta D_{ij}$ を計算しよう.  
+                いま, $\Delta u_i$, $\Delta v_j$ が十分小さいため, テイラーの定理を用いることで 
+                \[
+                    \begin{array}{rl} 
+                        x_{i+1, j} - x_{i, j} &= x(u_{i+1}, v_j) - x(u_i, v_j) \cr 
+                        &= x(u_i + \Delta u_i, v_j) - x(u_i, v_j) \cr 
+                        &\approx \dfrac{\partial x}{\partial u}(u_i, v_j)\Delta u_i
+                    \end{array}
+                \] などの近似が可能である. 
+                さらなる記号の簡単のために, これらを 
+                \[
+                    x_{i+1, j} - x_{i, j} \approx x_u\Delta u_i
+                \] などと表記することにすると, 
+                \[
+                    \begin{array}{rl} 
+                        \Delta D_{ij} &\approx \sqrt{|\vec{AB}|^2|\vec{AC}|^2 - (\vec{AB}\cdot\vec{AC})^2} \cr 
+                        &\approx \sqrt{\left(\left(x_u\Delta u_i\right)^2+\left(y_u\Delta u_i\right)^2\right)\left(\left(x_v\Delta v_j\right)^2+\left(y_v\Delta v_j\right)^2\right) - \left(x_ux_v\Delta u_i\Delta v_j + y_uy_v\Delta u_i\Delta v_j\right)^2} \cr 
+                        &= \sqrt{(x_vy_u - x_uy_v)^2(\Delta u_i\Delta v_j)^2} \cr 
+                        &= |x_vy_u - x_uy_v| \Delta \widehat{D}_{ij}
+                    \end{array} 
+                \] が得られる. 
+                これに基づき, $S = |x_vy_u - x_uy_v|$ とすることで, 実は二重積分に対する置換積分の公式が得られる: 
+                \[
+                    \iint_D f(x, y)~dxdy = \iint_{\widehat{D}} f(x(u, v), y(u, v)) |x_vy_u - x_uy_v|~dudv.
+                \]
+            </p>
+
+            <p>ところで, $2$ 変数のベクトル値関数 $\mathbf{x}(u, v) = (x(u, v), y(u, v))$ に対して, 
+                \[
+                    J(u, v) = \begin{pmatrix} 
+                        \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \cr 
+                        \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v} 
+                    \end{pmatrix} = \begin{pmatrix} 
+                        x_u & x_v \cr 
+                        y_u & y_v 
+                    \end{pmatrix}
+                \] を <b>ヤコビ行列</b> (<b>Jacobian matrix</b>), もしくは単に <b>ヤコビアン</b> (<b>Jacobian</b>) と呼び, その行列式 
+                \[
+                    \det J(u, v) = \dfrac{\partial x}{\partial u}\dfrac{\partial y}{\partial v} - \dfrac{\partial x}{\partial v}\dfrac{\partial y}{\partial u} = x_uy_v - x_vy_u
+                \] を <b>ヤコビ行列式</b> (<b>Jacobian determinant</b>) という (もしくはこちらをヤコビアンと呼ぶこともある). 
+                これを用いると, 二重積分に対する置換積分の公式は 
+                \[
+                    \iint_D f(x, y)~dxdy = \iint_{\widehat{D}} f(x(u, v), y(u, v)) |\det J(u, v)|~dudv
+                \] と表すことができる. 
+                実は $n$ 重積分に対する置換積分において, このヤコビ行列式によるスケール調整が本質的に重要となる: 
+            </p>
+
+            <div class="theorem" data-name="置換積分">
+                <p>関数 $f(x, y)$ について, $x$, $y$ がパラメータ $u, v$ を変数とする $C^1$ 級関数であり, $xy$ 平面上の点 $(x(u, v), y(u, v))$ と $uv$ 平面上の点 $(u,v)$ が $1$ 対 $1$ に対応しているとする.
+                このとき, $(u, v)$ についての領域 $\widehat{D}$ と, 対応する $(x, y)$ についての領域 $D$ について, 
+                    \[
+                        \iint_D f(x, y)~dxdy = \iint_{\widehat{D}} f(x(u, v), y(u, v)) |\det J(u, v)|~dudv
+                    \] が成立する, ただし 
+                    \[
+                        J(u, v) = \begin{pmatrix} 
+                            \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \cr 
+                            \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v} 
+                        \end{pmatrix} 
+                    \] は $2$ 変数ベクトル値関数 $\mathbf{x}(u, v) = (x(u, v), y(u, v))$ に対するヤコビ行列である. 
+                </p>
+            </div>
+
+            <div class="example">
+                <p>以前の例で, $x=2u$, $y=v/3$ である場合に, 長方形領域上の置換積分が (逐次積分を用いることで)
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\iint_{[a, b]\times[c, d]} f(x, y)~dxdy &= \displaystyle\int_a^b\left(\int_c^d f(x, y)~dy\right)~dx \cr 
+                            &= \displaystyle\int_a^b\left(\int_{3c}^{3d} f(x, y(v))\dfrac{dy}{dv}~dv\right)~dx \cr 
+                            &= \displaystyle\int_{a/2}^{b/2}\left(\int_{3c}^{3d} f(x(u), y(v))\dfrac{dy}{dv}~dv\right)\dfrac{dx}{du}~du \cr 
+                            &= \displaystyle\iint_{[a/2, b/2]\times [3c, 3d]} f(x(u), y(v)) \underbrace{\dfrac{dx}{du}}_{=2}\underbrace{\dfrac{dy}{dv}}_{=1/3} ~ dudv
+                        \end{array}
+                    \] となることを確認した. 
+                    これと同じ置換積分は, ($x$ は $v$ に依存せず, $y$ は $u$ に依存しないことから)
+                    \[
+                        |\det J(u, v)| = \left|\det\begin{pmatrix} 
+                            \dfrac{dx}{du} & 0 \cr 
+                            0 & \dfrac{dy}{dv} 
+                        \end{pmatrix}\right| = \dfrac{2}{3}
+                    \] であることに注目すると, 重積分に対する置換積分の公式から得ることができる. 
+                </p>
+            </div>
+
+            <div class="example">
+                <p>領域 $D$ が 
+                    \[
+                        D = \{(x, y)\in\mathbb{R}^2 : x^2+y^2 \le R^2\}
+                    \] と表されるとき, 積分 
+                    \[
+                        \iint_D x^2y^2~dxdy 
+                    \] を計算してみよう, ただし $R\gt 0$ とする. 
+                    この場合, 極座標変換 
+                    \[
+                        \left\{\begin{array}{rl} 
+                            x &= r\cos\theta, \cr 
+                            y &= r\sin\theta
+                        \end{array}\right.
+                    \] を利用すると計算しやすいだろう. 
+                    このとき $xy$ 平面上の領域 $D$ に対応する $r\theta$ 平面上の領域 $\widetilde{D}$ は 
+                    \[
+                        0\le r\le R, \quad 0\le \theta\le 2\pi
+                    \] により表されることと, ヤコビ行列が 
+                    \[
+                        J(r, \theta) = \begin{pmatrix} 
+                            \dfrac{\partial x}{\partial r} & \dfrac{\partial x}{\partial\theta} \cr 
+                            \dfrac{\partial y}{\partial r} & \dfrac{\partial y}{\partial\theta} 
+                        \end{pmatrix} = \begin{pmatrix} 
+                            \cos\theta & -r\sin\theta \cr 
+                            \sin\theta & r\cos\theta
+                        \end{pmatrix}
+                    \] であり, 従って 
+                    \[
+                        |\det J(r, \theta)| = r
+                    \] であることに注意すると, 置換積分の公式より
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\iint_D x^2y^2~dxdy &= \displaystyle\iint_{\widetilde{D}} (r\cos\theta)^2(r\sin\theta)^2 |\det J(r, \theta)| ~drd\theta \cr 
+                            &= \displaystyle\iint_{[0, R]\times[0, 2\pi]} \dfrac{r^5}{4}\sin^2 2\theta~drd\theta \cr 
+                            &= \displaystyle\int_0^R\left(\int_0^{2\pi} \dfrac{r^5}{8}(1-\cos4\theta)~d\theta\right)dr \cr 
+                            &= \displaystyle\int_0^R\dfrac{\pi}{4}r^5~dr \cr 
+                            &= \dfrac{\pi}{24}R^6 
+                        \end{array}
+                    \] と計算することができる. 
+                </p>
+            </div>
+
+            <div class="exercise">
+                <p>実数 $a$, $b$, $c$ について, $b\lt c$ とする. 
+                    このとき, 円柱 $x^2+y^2=2ax$ と $2$ つの平面 $z=bx$, $z=cx$ で囲まれる部分の体積を求めよ. 
+                </p>
+            </div>
+
+            <hr>
+
+            <!-- (広義重積分) -->
+
+            <p>さて, ここまでの話の応用例として, ガンマ関数とベータ関数の関連について以下に再掲し, 後回しにしていた証明をここで説明しよう: 
+            </p>
+
+            <div class="lemma">
+                <p>$p\gt 0$, $q\gt 0$ に対し 
+                    \[
+                        B(p, q) = \dfrac{\Gamma(p)\Gamma(q)}{\Gamma(p+q)}
+                    \] が成立する. 
+                </p>
+            </div>
+
+            <div class="proof">
+                <p>まず, ガンマ関数とベータ関数の定義を思い出しておく: 
+                    \[
+                        \begin{array}{c} 
+                            \Gamma(z) = \displaystyle\int_0^{\infty}t^{z-1}e^{-t}~dt, \cr 
+                            B(p, q) = \displaystyle\int_0^1 t^{p-1}(1-t)^{q-1}~dt 
+                        \end{array}
+                    \]
+
                 </p>
             </div>
 
