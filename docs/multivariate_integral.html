@@ -41,10 +41,10 @@
                 ここでは, 曲線の長さもリーマン積分と同様にして導出するアイデアを紹介する. 
             </p>
 
-            <p>$xy$ 平面上の滑らかな曲線 $C$ が, 媒介変数表示 
+            <p>$xy$ 平面上の滑らかな曲線 $C$ が, パラメータ $t$ を用いた表示 
                 \[
-                    \mathbf{r}(t) = (x(t), y(t)) \quad (a\le t\le b)
-                \] により表されているとする, ここで $C$ が滑らかであることから $x(t)$, $y(t)$ は微分可能である. 
+                    x(t),\ y(t) \quad(a\le t\le b) 
+                \] により表されているとする, ここで $C$ が滑らかであることから $x(t)$, $y(t)$ は微分可能である.  
                 このとき, 区間 $[a, b]$ の分割 
                 \[
                     a = t_0 \lt t_1 \lt \dots \lt t_{N-1} \lt t_N = b  
@@ -54,7 +54,10 @@
                 \] である.
                 さて, 曲線上の点 
                 \[
-                    P_k = (x(t_k), y(t_k)) 
+                    P_k = \begin{pmatrix} 
+                        x(t_k) \cr 
+                        y(t_k)
+                    \end{pmatrix} 
                 \] に対し, $P_k$ と $P_{k+1}$ の距離 $\Delta s_k$ について, 平均値の定理を用いることで
                 \[
                     \begin{array}{rl} 
@@ -63,7 +66,11 @@
                         &= \sqrt{\left(\dfrac{dx}{dt}(\xi_k)\right)^2 + \left(\dfrac{dy}{dt}(\eta_k)\right)^2} \Delta t_k 
                     \end{array}
                 \] を満たす $\xi_k\in (t_k, t_{k+1})$, $\eta_k\in(t_k, t_{k+1})$ が存在する. 
-                これを用いて, 点 $P_0, P_1, \dots, P_n$ を結んで得られる折れ線の長さは 
+            </p>
+
+            <div class="resize"><img src='./images/arc_length-1.png'></div>
+
+            <p>これを用いて, 点 $P_0, P_1, \dots, P_n$ を結んで得られる折れ線の長さは 
                 \[
                     \sum_{k=1}^{N-1}\Delta s_k = \sum_{k=1}^{N-1}\sqrt{\left(\dfrac{dx}{dt}(\xi_k)\right)^2 + \left(\dfrac{dy}{dt}(\eta_k)\right)^2} \Delta t_k
                 \] と表されるため, これをリーマン和とみなして極限 
@@ -78,19 +85,24 @@
                 \] と計算できる, ということを意味している.
             </p>
 
-            <div class="resize"><img src='./images/arc_length-1.png'></div>
-
             <p>ここでは上の積分に異なる表記を導入しよう. 
                 まず, 関数 $x(t)$, $y(t)$ を成分にもつベクトル 
                 \[
-                    \mathbf{r}(t) = (x(t), y(t))
+                    \mathbf{r}(t) = \begin{pmatrix} 
+                        x(t) \cr 
+                        y(t)
+                    \end{pmatrix}
                 \] に対して, 
                 \[
-                    |\mathbf{r}'(t)| = \sqrt{\left(\dfrac{dx}{dt}(t)\right)^2 + \left(\dfrac{dy}{dt}(t)\right)^2}
-                \] であることから, 曲線 $C$ の長さ $L$ を求める積分は 
+                    \mathbf{r}'(t) = \begin{pmatrix} 
+                        \dfrac{dx}{dt}(t) \cr 
+                        \dfrac{dy}{dt}(t) 
+                    \end{pmatrix},\qquad |\mathbf{r}'(t)| = \sqrt{\left(\dfrac{dx}{dt}(t)\right)^2 + \left(\dfrac{dy}{dt}(t)\right)^2}
+                \] である, なお $\mathbf{r}'(t)$ は曲線 $C$ の ($t$ における) <b>接ベクトル</b>, $|\mathbf{r}'(t)|$ は <b>局所長</b> と呼ばれることがある. 
+                この表記を用いると, 曲線 $C$ の長さ $L$ を求める積分は 
                 \[
                     L = \int_a^b |\mathbf{r}'(t)|~dt 
-                \] と表記することができる. 
+                \] と表すことができる. 
                 これと, 上の説明より, 
                 \[
                     L = \int_a^b\dfrac{ds}{dt}~dt = \int_a^b |\mathbf{r}'(t)|~dt 
@@ -109,7 +121,8 @@
                 \[
                     s(t) = \int_a^t \dfrac{ds}{du}~du = \int_a^t|\mathbf{r}'(u)|~du
                 \] と表すことができるものである. 
-                上で $\Delta s$ や $ds$ は微小な長さを表すものであったが, この $s$ は曲線の $t=a$ から変数 $t$ で表される部分の長さを表しており, 特に $s(a)=0$, $s(b) = L$ である (この $s$ は <b>弧長パラメータ</b> と呼ばれることがある).
+                上で $\Delta s$ や $ds$ は微小な長さを表すものであったが, この $s(t)$ は曲線の $t=a$ から変数 $t$ で表される部分の長さを表す関数であり <b>弧長</b> と呼ばれる. 
+                特に $s(a)=0$, $s(b) = L$ である.
             </p>
 
             <p>ここまでの説明を定理としてまとめておこう: 
@@ -129,7 +142,13 @@
                 <p>$y=\cosh x$ で表される曲線の $0\le x \le 1$ の部分の長さ $L$ を計算してみよう. 
                     この曲線は
                     \[
-                        \mathbf{r}(t) = (x(t), y(t)) = (t, \cosh t)\qquad (0\le t\le 1)
+                        \mathbf{r}(t) = \begin{pmatrix} 
+                            x(t) \cr 
+                            y(t)
+                        \end{pmatrix} = \begin{pmatrix} 
+                            t \cr 
+                            \cosh t
+                        \end{pmatrix} \qquad (0\le t\le 1)
                     \] と表されるため, 求める長さ $L$ は 
                     \[
                         \begin{array}{rl} 
@@ -161,8 +180,8 @@
                     \] とおくと, 確かに
                     \[
                         x^{2/3} + y^{2/3} = a^{2/3}(\cos^2\theta + \sin^2\theta) = a^{2/3} 
-                    \] であるため, 曲線 $C$ の媒介変数表示として上が得られる. 
-                    従って, $\mathbf{r}(\theta) = (x(\theta), y(\theta))$ に対して 
+                    \] であるため, 曲線 $C$ のパラメータ表示として上が得られる. 
+                    従って, 
                     \[
                         \begin{array}{rl} 
                             L &= \displaystyle\int_C~ds \cr 
@@ -222,11 +241,65 @@
                 <div class="resize"><img src='./images/line_integral3-crop-1.png'></div>
             </div>
 
+            <p>関数の線積分の計算 (曲線の長さの計算も含む) は, 曲線のパラメータ表示の方法にも曲線の向きにも依存しない. 
+                このことを具体例を通じて見てみよう. 
+            </p>
+            <p>$0\lt a\lt b$ を満たす $2$ つの実数に対し, $xy$ 平面上の点 $\mathbf{x}_1 = (a, 0)$ を始点, $\mathbf{x}_2=(b, 0)$ を終点とする直線を $C$ とする. 
+                また, $\mathbf{x}_2$ を始点, $\mathbf{x}_1$ を終点とする直線を $-C$ と表記することにする.
+                このとき $C$, $-C$ 上での線積分は, 上の注意で述べたように通常の積分と一致する. 
+                以下, $C$, $-C$ 上での関数 $f(x, y)$ に対し, $f$ の値が $y$ に依存しないことから 
+                \[
+                    f(\mathbf{x}) = f(x, y) = f(x)
+                \] のように表すことにしよう.  
+            </p>
+            <p>さて, ここでは 
+            </p>
+            <ol>
+                <li>$\mathbf{r}_1(t) = \begin{pmatrix} 
+                        t \cr 
+                        0 
+                    \end{pmatrix} \quad(a\le t\le b)$, </li>
+                <li>$\mathbf{r}_2(t) = \begin{pmatrix} 
+                        t^2 \cr 
+                        0 
+                    \end{pmatrix} \quad(\sqrt{a}\le t\le \sqrt{b})$, </li>
+                <li>$\mathbf{r}_3(t) = \begin{pmatrix} 
+                        -t + a + b \cr 
+                        0 
+                    \end{pmatrix} \quad(a\le t\le b)$, </li>
+            </ol>
+            <p>の $3$ つのパラメータ表示に対する線積分を考えてみよう. 
+                まず, 1. のパラメータ表示は直線 $C$ を表し, $|\mathbf{r}_1'(t)| = 1$ より 
+                \[
+                    \int_C f(\mathbf{x})~ds = \int_a^b f(\mathbf{x}(\mathbf{r}_1)) |\mathbf{r}_1'|~dt = \int_a^b f(\mathbf{r}_1(t)) ~ dt = \int_a^b f(t)~dt
+                \] となり, 確かに通常の積分と同じ式が得られる. 
+                次に, 2. のパラメータ表示も直線 $C$ を表し, $|\mathbf{r}_2'(t)| = 2t$ より 
+                \[
+                    \int_C f(\mathbf{x})~ds = \int_{\sqrt{a}}^{\sqrt{b}} f(\mathbf{r}_2(t)) 2t~dt = \int_{\sqrt{a}}^{\sqrt{b}} f(t^2) 2t~dt
+                \] となるが, これは $1$ 変数関数の積分における置換積分に相当しており, 積分値は 1. と一致する. 
+                最後に, 3. のパラメータ表示は ($t$ を大きくする際の始点と終点に注意すると) 直線 $-C$ を表す. そして $|\mathbf{r}_3'(t)| = 1$ であることから 
+                \[
+                    \int_{-C} f(\mathbf{x})~ds = \int_a^b f(\mathbf{r}_3(t))~dt = \int_b^a -f(\widetilde{t})~d\widetilde{t} = \int_a^b f(\widetilde{t})~d\widetilde{t}
+                \] が得られる, ただし $\widetilde{t} = -t+a+b$ である. 
+            </p>
+            <p>このように, 線積分におけるパラメータ表示の違いは積分値に影響せず, また曲線の向きも影響しない. 
+                上では $C$ が直線の場合のみ具体例として取り上げたが, 一般に向きづけられた曲線 $C$ に対し, 向きを逆にした曲線 $-C$ に対し,
+                \[
+                    \int_{-C}f(\mathbf{x})~ds = \int_Cf(\mathbf{x})~ds
+                \] が成立する. 
+                つまり関数に対する線積分では, $1$ 変数関数の積分における積分区間の反転に相当する性質が成立しない. 
+                ただし, 後に述べる <span class="wave">ベクトル値関数の線積分</span> は曲線の向きに依存する. 
+                このことは, 後に改めて解説する.  
+            </p>
+
             <div class="example">
                 <p>$R\gt0$ とする. 
                     このとき, 
                     \[
-                        \mathbf{r}(\theta) = (R\cos \theta, R\sin \theta) \qquad (0\le \theta \le \pi)
+                        \mathbf{r}(\theta) = \begin{pmatrix}
+                            R\cos \theta \cr  
+                            R\sin \theta
+                        \end{pmatrix} \qquad (0\le \theta \le \pi)
                     \] により表される曲線 $C$ に沿った 
                     \[
                         f(x, y) = x^2y 
@@ -260,7 +333,13 @@
             <div class="answer">
                 <p>曲線 $C$ は
                     \[
-                        \mathbf{r}(t) = (x(t), y(t)) = (t, t^2) \qquad (0\le t\le a)
+                        \mathbf{r}(t) = \begin{pmatrix} 
+                            x(t) \cr 
+                            y(t)
+                        \end{pmatrix} = \begin{pmatrix} 
+                            t \cr 
+                            t^2
+                        \end{pmatrix} \qquad (0\le t\le a)
                     \] と表すことができるため, 線積分の定義より
                     \[
                         \begin{array}{rl} 
@@ -648,12 +727,11 @@
                 </p>
             </div>
 
-            </section>
+        </section>
 
-            <hr>
+        <hr>
 
-            <section id="section3-3"><h2>3.3: 重積分の置換積分</h2>
-
+        <section id="section3-3"><h2>3.3: 重積分の置換積分</h2>
             <p>ここでは, 重積分に対する置換積分について説明しよう. 
             </p>
             <p>まず, $1$ 変数の場合の置換積分を思い出しておこう, ただし, 以降の議論と関連付けるために, 以前とは異なる記号を用いる. 
@@ -828,7 +906,7 @@
                             \dfrac{\partial x_2}{\partial u_1} & \dfrac{\partial x_2}{\partial u_2} &\dots & \dfrac{\partial x_2}{\partial u_n} \cr 
                             \vdots & \vdots & \ddots & \vdots \cr 
                             \dfrac{\partial x_n}{\partial u_1} & \dfrac{\partial x_n}{\partial u_2} &\dots & \dfrac{\partial x_n}{\partial u_n} 
-                        \end{pmatrix} 
+                        \end{pmatrix} \in\mathbb{R}^{n\times n}
                     \] は $n$ 変数ベクトル値関数 
                     \[
                         \mathbf{x}(\mathbf{u}) = \begin{pmatrix} 
@@ -836,22 +914,17 @@
                             x_2(u_1, u_2, \dots, u_n)\cr 
                             \vdots \cr 
                             x_n(u_1, u_2, \dots, u_n)
-                        \end{pmatrix}
+                        \end{pmatrix} \in\mathbb{R}^n
                     \] に対するヤコビ行列である. 
                 </p>
             </div>
 
             <div class="example">
                 <p>以前の例で, $x=2u$, $y=v/3$ である場合に, 長方形領域上の置換積分が (逐次積分を用いることで)
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\iint_{[a, b]\times[c, d]} f(x, y)~dxdy &= \displaystyle\int_a^b\left(\int_c^d f(x, y)~dy\right)~dx \cr 
-                            &= \displaystyle\int_a^b\left(\int_{3c}^{3d} f(x, y(v))\dfrac{dy}{dv}~dv\right)~dx \cr 
-                            &= \displaystyle\int_{a/2}^{b/2}\left(\int_{3c}^{3d} f(x(u), y(v))\dfrac{dy}{dv}~dv\right)\dfrac{dx}{du}~du \cr 
-                            &= \displaystyle\iint_{[a/2, b/2]\times [3c, 3d]} f(x(u), y(v)) \underbrace{\dfrac{dx}{du}}_{=2}\underbrace{\dfrac{dy}{dv}}_{=1/3} ~ dudv
-                        \end{array}
+                    \[    
+                        \iint_{[a, b]\times[c, d]} f(x, y)~dxdy = \iint_{[a/2, b/2]\times [3c, 3d]} f(x(u), y(v)) \underbrace{\dfrac{dx}{du}}_{=2}\underbrace{\dfrac{dy}{dv}}_{=1/3} ~ dudv
                     \] となることを確認した. 
-                    これと同じ置換積分は, ($x$ は $v$ に依存せず, $y$ は $u$ に依存しないことから)
+                    これと同じ式は, ($x$ は $v$ に依存せず, $y$ は $u$ に依存しないことから)
                     \[
                         |\det J(u, v)| = \left|\det\begin{pmatrix} 
                             \dfrac{dx}{du} & 0 \cr 
@@ -945,12 +1018,166 @@
                 </p>
             </div>
 
-            <hr>
+        </section>
 
-            <!-- (広義重積分) -->
+        <hr>
 
-            <p>さて, ここまでの話の応用例として, ガンマ関数とベータ関数の関連について以下に再掲し, 後回しにしていた証明をここで説明しよう: 
+        <section id="section3-4"><h2>3.4: 広義重積分</h2> 
+            <p>$1$ 変数関数に対する広義積分は, 高々 $2$ つの片側極限を用いることで定義することができたが, 多変数関数に対する広義積分では同様に定義することはできない. 
+                例えば二重積分に限って無限に広い領域上での広義積分を考えようとしても, どの方向に &quot;無限に広い&quot; のか, によってどのような &quot;極限&quot; を考えれば良いか, 状況によって様々であり扱いづらい. 
+                ここでは, 厳密な定義を述べる代わりに, 大雑把な説明と応用例について重点的に解説することにする. 
             </p>
+
+            <p>まず, この資料では簡単のために広義二重積分のみを考えることにする (実際には $n$ 重積分でも同様ではあるが, ここでは説明は省略する). 
+                広義二重積分とは何か, 大雑把に説明する前に準備として以下のアイデアを (やはり大雑把にではあるが) 導入しておく: 
+            </p>
+
+            <div class="definition" data-name="領域の近似増加列">
+                <p>領域 $D\subset\mathbb{R}^2$ に対し, 以下を満たす $D_n\subset\mathbb{R}^n$ を並べた $\{D_n\} = \{D_1, D_2, \dots\}$ を <b>近似増加列</b> (もしくは単に <b>近似列</b>) という: 
+                </p>
+                <ul>
+                    <li>$D_1\subset D_2\subset \dots \subset D_n\subset D_{n+1}\subset\dots\subset D$, </li>
+                    <li>$D_1\cup D_2\cup \dots \cup D_n \cup\dots = D$.</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <p>例えば領域 $D\subset\mathbb{R}^2$ として, 半径 $R\gt 0$ の円盤から原点だけを取り除いたものを考えてみよう: 
+                    \[
+                        D = \{(x, y)\in\mathbb{R}^2 : 0\lt x^2+y^2\le R^2\}. 
+                    \] この領域 $D$ に対する近似増加列として, 例えば 
+                    \[
+                        D_n = \{(x, y)\in\mathbb{R}^2 : 1/n^2 \le x^2+y^2\le R^2\}
+                    \] を考えることができる. 
+                </p>
+            </div>
+
+            <p>これを用いると, 広義二重積分は以下を満たすようなものであると説明できる: </p>
+
+            <div class="theorem" data-name="広義二重積分">
+                <ul>
+                    <li>領域 $D\subset\mathbb{R}^2$ の近似列 $\{D_n\}$ に対して, 極限
+                        \[
+                            \lim_{n\to\infty} \iint_{D_n}f(x, y)~dxdy
+                        \] が存在するならば, 関数 $f(x, y)$ は領域 $D$ 上で広義積分可能であり, 
+                        \[
+                            \iint_D f(x, y)~dxdy = \lim_{n\to\infty} \iint_{D_n}f(x, y)~dxdy
+                        \] である. 
+                    </li>
+                    <li>関数 $f(x, y)$ は領域 $D$ 上で広義積分可能ならば, 領域 $D$ の任意の近似列 $\{D_n\}$ に対し 
+                        \[
+                            \iint_D f(x, y)~dxdy = \lim_{n\to\infty} \iint_{D_n}f(x, y)~dxdy
+                        \] が成立する. 
+                    </li>
+                </ul>
+            </div>
+
+            <p>つまり, 領域 $D$ 上での広義二重積分を考えたいならば, 
+                \[
+                    \lim_{n\to\infty}\iint_{D_n}f(x, y)~dxdy 
+                \] が収束するような増加近似列 $\{D_n\}$ をなんでも良いので $1$ つ見つければ良い. 
+                また, 広義二重積分が収束することがわかっているならば, その値を計算する際に増加近似列 $\{D_n\}$ はどのように構成しても良いし, 計算の都合で取り替えても構わない.
+            </p>
+
+            <div class="example">
+                <p>$a\gt2$ に対し, 広義二重積分 
+                    \[
+                        \iint_{\mathbb{R}^2}\dfrac{1}{(1+x+y)^a}~dxdy 
+                    \] を計算してみよう. 
+                    領域 $\mathbb{R}^n$ の増加近似列として, 例えば 
+                    \[
+                        D_n = \{(x, y)\in\mathbb{R}^n : 0\le x\le n, 0\le y\le n\}
+                    \] を考えてみる. 
+                    このとき ($a\gt2$ に注意すると)
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\lim_{n\to\infty}\iint_{D_n}\dfrac{1}{(1+x+y)^a}~dxdy &= \displaystyle\lim_{n\to\infty}\int_0^n\left(\int_0^n \dfrac{1}{(1+x+y)^a}~dy\right)~dx \cr
+                            &= \displaystyle\lim_{n\to\infty}\int_0^n \dfrac{1}{a-1}\left(-\dfrac{1}{(1+x+n)^{a-1}} + \dfrac{1}{(1+x)^{a-1}}\right)~dx \cr 
+                            &= \displaystyle\lim_{n\to\infty}\dfrac{1}{a-1}\dfrac{1}{a-2}\left(\dfrac{1}{(1+2n)^{a-2}} -\dfrac{2}{(1+n)^{a-2}} + 1\right) \cr 
+                            &= \dfrac{1}{(a-1)(a-2)}
+                        \end{array}
+                    \] となり収束するため, 
+                    \[
+                        \iint_{\mathbb{R}^2}\dfrac{1}{(1+x+y)^a}~dxdy = \displaystyle\lim_{n\to\infty}\iint_{D_n}\dfrac{1}{(1+x+y)^a}~dxdy = \dfrac{1}{(a-1)(a-2)}
+                    \] である. 
+                </p>
+            </div>
+
+            <div class="exercise">
+                <p>$0\lt a\lt 1$, $R\gt 0$ とする. 
+                    このとき, 領域 
+                    \[
+                        D = \{(x, y)\in\mathbb{R}^2: x^2+y^2\le R^2\}
+                    \] 上の積分 
+                    \[
+                        \iint_D \dfrac{1}{(x^2+y^2)^a}~dxdy
+                    \] を求めよ.
+                </p>
+            </div>
+
+            <div class="answer">
+                <p>被積分関数は原点 $(x, y) = (0, 0)$ において発散するため, この積分は広義積分である. 
+                    そこで領域 $D$ の近似増加列として, 例えば 
+                    \[
+                        D_n = \{(x, y)\in\mathbb{R}^2 : 1/n^2 \le x^2+y^2\le R^2\}
+                    \] を考えてみる. 
+                    このとき (重積分の置換積分を用いて)
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\lim_{n\to\infty} \iint_{D_n}\dfrac{1}{(x^2+y^2)^a}~dxdy &= \displaystyle\lim_{n\to\infty} \iint_{[1/n, R]\times [0, 2\pi]}\dfrac{1}{r^{2a}}r~drd\theta \cr 
+                            &= \displaystyle\lim_{n\to\infty} \int_{1/n}^R 2\pi r^{1-2a} ~dr \cr 
+                            &= \displaystyle\lim_{n\to\infty} \dfrac{2\pi}{2-2a}\left(R^{2-2a} - \left(\dfrac{1}{n}\right)^{2-2a}\right) \cr 
+                            &= \dfrac{\pi}{1-a}R^{2(1-a)} \qquad(\because a\lt 1)
+                        \end{array}
+                    \] となり収束するため, 
+                    \[
+                        \iint_D \dfrac{1}{(x^2+y^2)^a}~dxdy = \lim_{n\to\infty} \iint_{D_n}\dfrac{1}{(x^2+y^2)^a}~dxdy = \dfrac{\pi}{1-a}R^{2(1-a)}
+                    \] である. 
+                </p>
+            </div>
+
+            <p>さて, ここまでの話の応用例として, ガウス積分およびガンマ関数, ベータ関数について以下に再掲し, 後回しにしていた証明をここで説明しよう: 
+            </p>
+
+            <div class="example">
+                <p>ガウス積分 
+                    \[
+                        \int_{-\infty}^{\infty} e^{-x^2}~dx = \sqrt{\pi}
+                    \] を証明しよう. 
+                    まず, (唐突ではあるが) $\mathbb{R}^2$ に対する増加近似列
+                    \[
+                        \widetilde{D}_n = \{(x, y)\in\mathbb{R}^2: x^2+y^2\le n^2\}
+                    \] を考えると, 
+                    \[
+                        \begin{array}{rl}
+                            \displaystyle\lim_{n\to\infty} \iint_{\widetilde{D}_n}e^{-(x^2+y^2)}~dxdy &= \displaystyle\lim_{n\to\infty} \iint_{[0, n]\times[0,2\pi]}e^{-r^2}r~drd\theta \cr 
+                            &= \displaystyle\lim_{n\to\infty} \dfrac{2\pi}{2}(-e^{-n^2} + 1)\cr 
+                            &= \pi 
+                        \end{array}
+                    \] が収束することから, 広義積分 
+                    \[
+                        \iint_{\mathbb{R}^2}e^{-(x^2+y^2)}~dxdy 
+                    \] は収束し, 従って $\mathbb{R}^2$ の任意の増加近似列 $\{D_n\}$ に対し, 
+                    \[
+                        \pi = \iint_{\mathbb{R}^2}e^{-(x^2+y^2)}~dxdy = \lim_{n\to\infty}\iint_{D_n}e^{-(x^2+y^2)}~dxdy
+                    \] が成立する. 
+                    さて, ここまで準備した上で
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\left(\int_{-n}^n e^{-x^2}~dx\right)^2 &= \displaystyle\int_{-n}^ne^{-x^2}~dx\int_{-n}^n e^{-y^2}~dy \cr 
+                            &= \displaystyle\int_{-n}^n\left(\int_{-n}^n e^{-x^2}e^{-y^2}~dy\right)dx \cr 
+                            &= \displaystyle \iint_{D_n}e^{-(x^2+y^2)}~dxdy 
+                        \end{array}
+                    \] であることに注目する, ただし 
+                    \[
+                        D_n = \{(x, y)\in\mathbb{R}^2 : -n\le n\le n,\quad -n\le y\le n\}.
+                    \] であり, これは $\mathbb{R}^2$ の増加近似列になっている. 
+                    従って, 
+                    \[
+                        \int_{-\infty}^{\infty} e^{-x^2}~dx = \sqrt{\lim_{n\to\infty}\iint_{D_n}e^{-(x^2+y^2)}~dxdy} = \sqrt{\iint_{\mathbb{R}^2}e^{-(x^2+y^2)}~dxdy} = \sqrt{\pi}
+                    \] が得られる. 
+                </p>
+            </div>
 
             <div class="lemma">
                 <p>$p\gt 0$, $q\gt 0$ に対し 
@@ -967,9 +1194,123 @@
                             \Gamma(z) = \displaystyle\int_0^{\infty}t^{z-1}e^{-t}~dt, \cr 
                             B(p, q) = \displaystyle\int_0^1 t^{p-1}(1-t)^{q-1}~dt 
                         \end{array}
+                    \] 特に, ガンマ関数において $t=x^2$, ベータ関数において $t=\cos^2\theta$ と変数変換すると, 
+                    \[
+                        \begin{array}{c} 
+                            \Gamma(z) = 2\displaystyle\int_0^{\infty}x^{2z-1}e^{-x^2}~dx, \cr 
+                            B(p, q) = 2\displaystyle\int_0^{\pi/2} \cos^{2p-1}\theta\sin^{2q-1}\theta~d\theta 
+                        \end{array}
+                    \] と表すことができる. 
+                    これを用いると 
+                    \[
+                        \begin{array}{rl} 
+                            \Gamma(p)\Gamma(q) &= 4\displaystyle\lim_{n\to\infty}\int_0^nx^{2p-1}e^{-x^2}~dx \int_0^ny^{2q-1}e^{-y^2}~dy \cr 
+                            &= 4\displaystyle\lim_{n\to\infty}\iint_{D_n}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy 
+                        \end{array}
+                    \] である, ただし 
+                    \[
+                        D_n = \{(x, y)\in\mathbb{R}^2: 0\le x\le n,\quad 0\le y\le n\}.
+                    \] いま, ガンマ関数が収束することから, 上の広義二重積分も収束する: 
+                    \[
+                        \Gamma(p)\Gamma(q) = 4\lim_{n\to\infty}\iint_{D_n}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy = 4\iint_{[0,\infty)\times[0,\infty)}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy
                     \]
+                    従って, 領域 $D = [0,\infty)\times[0,\infty)$ に対する異なる増加近似列として, 例えば 
+                    \[
+                        \widetilde{D}_n = \{(x, y)\in\mathbb{R}^2 : x\ge0,\quad y\ge0,\quad x^2+y^2\le n\}
+                    \] を考えると, 
+                    \[
+                        4\lim_{n\to\infty}\iint_{D_n}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy = 4\iint_{[0,\infty)\times[0,\infty)}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy = 4\lim_{n\to\infty}\iint_{\widetilde{D}_n}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy
+                    \] が成立する. 
+                    以上より, 
+                    \[
+                        \begin{array}{rl} 
+                            \Gamma(p)\Gamma(q) &= 4\displaystyle\lim_{n\to\infty}\iint_{\widetilde{D}_n}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy \cr 
+                            &= 4\displaystyle\lim_{n\to\infty}\iint_{[0, n]\times[0, \pi/2]}(r\cos\theta)^{2p-1}(r\sin\theta)^{2q-1} e^{-r^2}r~drd\theta \cr 
+                            &= 4\displaystyle\lim_{n\to\infty}\int_0^n r^{2(p+q)-1}e^{-r^2}~dr\int_0^{\pi/2}\cos^{2p-1}\theta\sin^{2q-1}\theta~d\theta \cr 
+                            &= \Gamma(p+q)B(p, q)
+                        \end{array}
+                    \] が得られる. 
 
                 </p>
+            </div>
+
+            <div class="exercise">
+                <ul>
+                    <li>$0\lt m+1\lt n$ とする. 
+                        このとき積分 
+                        \[
+                            \int_0^{\infty}\dfrac{x^m}{1+x^n}~dx
+                        \] をガンマ関数を用いて表せ (ヒント: $0\le x\lt \infty$ に対して
+                        \[
+                            t = \dfrac{x^n}{1+x^n} \quad (0\le t\lt 1)
+                        \] と変数変換すると良い). 
+                    </li>
+                    <li>$a\gt0$, $b\gt 0$, $1/a + 1/b\lt 1$ とする. 
+                        また, 
+                        \[
+                            D = \{(x, y)\in\mathbb{R}^2 : x\ge0 ,\ y\ge0\}
+                        \] とする. 
+                        このとき積分 
+                        \[
+                            \iint_D\dfrac{1}{1+x^a+y^b}~dxdy 
+                        \] をガンマ関数を用いて表せ (ヒント: 
+                        \[
+                            x^a = r^2\cos^2\theta,\quad y^b = r^2\sin^2\theta \qquad (r\ge0,\ 0\le\theta\le \pi/2)
+                        \] と変数変換すると良い). 
+                    </li>
+                </ul>
+            </div>
+
+            <div class="answer">
+                <ul>
+                    <li>上のヒントの変数変換を利用すると 
+                        \[
+                            x = \left(\dfrac{t}{1-t}\right)^{\frac{1}{n}}
+                        \] および 
+                        \[
+                            \dfrac{dx}{dt} = \dfrac{1}{n}\left(\dfrac{t}{1-t}\right)^{\frac{1}{n}-1}\left(\dfrac{1}{1-t} + \dfrac{t}{(1-t)^2}\right) = \dfrac{1}{n}t^{\frac{1}{n}-1}(1-t)^{-\frac{1}{n}-1}
+                        \] が得られる. 
+                        従って 
+                        \[
+                            \begin{array}{rl} 
+                                \displaystyle\int_0^{\infty}\dfrac{x^m}{1+x^n}~dx &= \displaystyle\int_0^1 t x^{m-n}\dfrac{1}{n}t^{\frac{1}{n}-1}(1-t)^{-\frac{1}{n}-1}~dt \cr 
+                                &= \dfrac{1}{n}\displaystyle\int_0^1 t^{\frac{m+1}{n}-1}(1-t)^{-\frac{m+1}{n}}~dt \cr 
+                                &= \dfrac{1}{n}B\left(\dfrac{m+1}{n}, 1-\dfrac{m+1}{n}\right) \cr 
+                                &= \dfrac{1}{n}\dfrac{\Gamma\left(\dfrac{m+1}{n}\right)\Gamma\left(1-\dfrac{m+1}{n}\right)}{\Gamma(1)} \cr 
+                                &= \dfrac{1}{n}\Gamma\left(\dfrac{m+1}{n}\right)\Gamma\left(1-\dfrac{m+1}{n}\right). 
+                            \end{array}
+                        \]
+                    </li>
+                    <li>上のヒントの変数変換を利用すると 
+                        \[
+                            \begin{array}{rl} 
+                                |\det J(r, \theta)| &= \left|\det\begin{pmatrix} 
+                                    \dfrac{\partial x}{\partial r} & \dfrac{\partial x}{\partial\theta} \cr 
+                                    \dfrac{\partial y}{\partial r} & \dfrac{\partial y}{\partial\theta}
+                                \end{pmatrix}\right| \cr 
+                                &= \left|\det\begin{pmatrix} 
+                                    \dfrac{2}{a}r^{\frac{2}{a}-1}\cos^{\frac{2}{a}}\theta & -\dfrac{2}{a}r^{\frac{2}{a}}\cos^{\frac{2}{a}-1}\theta\sin\theta \cr 
+                                    \dfrac{2}{b}r^{\frac{2}{b}-1}\sin^{\frac{2}{b}}\theta & \dfrac{2}{b}r^{\frac{2}{b}}\sin^{\frac{2}{b}-1}\theta\cos\theta
+                                \end{pmatrix}\right| \cr 
+                                &= \dfrac{4}{ab}r^{\frac{2}{a}+\frac{2}{b}-1}\cos^{\frac{2}{a}-1}\theta\sin^{\frac{2}{b}-1}\theta
+                            \end{array}
+                        \] が得られる. 
+                        従って, $D$ の増加近似列 
+                        \[
+                            D_n = \{(x, y)\in\mathbb{R}^2 : x\ge0,\ y\ge0,\ x^2+y^2\le n^2\}
+                        \] に対し, 
+                        \[
+                            \begin{array}{rl} 
+                                \displaystyle\iint_D\dfrac{1}{1+x^a+y^b}~dxdy &= \displaystyle\lim_{n\to\infty}\iint_{D_n}\dfrac{1}{1+x^a+y^b}~dxdy \cr 
+                                &= \displaystyle\lim_{n\to\infty}\iint_{[0,n^2]\times[0,\pi/2]}\dfrac{1}{1+r^2}\dfrac{4}{ab}r^{\frac{2}{a}+\frac{2}{b}-1}\cos^{\frac{2}{a}-1}\theta\sin^{\frac{2}{b}-1}\theta~drd\theta \cr 
+                                &= \dfrac{4}{ab}\displaystyle\lim_{n\to\infty}\int_0^{n^2} \dfrac{r^{\frac{2}{a}+\frac{2}{b}-1}}{1+r^2}\dfrac{1}{2}B(1/a, 1/b)~dr \cr
+                                &= \dfrac{2}{ab}B(1/a, 1/b)\displaystyle\int_0^{\infty}\dfrac{r^{\frac{2}{a}+\frac{2}{b}-1}}{1+r^2}~dr \cr 
+                                &= \dfrac{2}{ab}\dfrac{\Gamma(1/a)\Gamma(1/b)}{\Gamma(1/a+1/b)}\dfrac{1}{2}\Gamma(1/a+1/b)\Gamma(1-1/a-1/b) \cr 
+                                &= \dfrac{1}{ab}\Gamma(1/a)\Gamma(1/b)\Gamma(1-1/a-1/b). 
+                            \end{array}
+                        \]
+                    </li>
+                </ul>
             </div>
 
         </section>
