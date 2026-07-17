@@ -1044,7 +1044,7 @@
                             u \cr 
                             v \cr 
                             f(u, v)
-                        \end{pmatrix}
+                        \end{pmatrix},\qquad (u, v)\in D
                     \] という状況に対応している. 
                 </p>
             </div>
@@ -1053,14 +1053,14 @@
                 <p>もう一つの典型的なパターンは, 曲線をある直線の周りに回転させて得られる曲面である. 
                     例えば $xy$ 平面上の関数 $y=f(x)$ を, $x$ 軸周りに $1$ 回転させて得られる曲面 $S$ は
                     \[
-                        S = \{(x, y, z) \in\mathbb{R}^3: y^2+z^2 = f(x)\}
-                    \] と表されるが, これは 
+                        S = \{(x, y, z) \in\mathbb{R}^3: a\le x\le b,\ y^2+z^2 = f(x)\}
+                    \] のように表すことができるが, これは
                     \[
                         \mathbf{x}(u, v) = \begin{pmatrix} 
                             u \cr 
                             f(u)\cos v \cr 
                             f(u)\sin v
-                        \end{pmatrix}
+                        \end{pmatrix}, \qquad (u, v)\in [a, b]\times[0, 2\pi]
                     \] という状況に対応している. 
                 </p>
             </div>
@@ -1097,7 +1097,39 @@
                     \end{pmatrix}
                 \] の $2$ つが $u$, $v$ で表される曲面 $S$ 上における接線の向きを表すベクトルになっている. 
                 そこで, これらのベクトルで表される平行四辺形の面積を微小面積として利用することで, 面積を求める積分を求めたい. 
+                その際に, 以下を利用すればよい: 
             </p>
+
+            <div class="definition" data-name="ベクトルの外積">
+                <p>$2$ つのベクトル 
+                    \[
+                        \mathbf{a} = \begin{pmatrix} 
+                            a_1 \cr 
+                            a_2 \cr 
+                            a_3 
+                        \end{pmatrix},\quad \mathbf{b} = \begin{pmatrix} 
+                            b_1 \cr 
+                            b_2 \cr 
+                            b_3 
+                        \end{pmatrix} \in\mathbb{R}^3 
+                    \] に対して, 
+                    \[
+                        \mathbf{a}\times \mathbf{b} = \begin{pmatrix} 
+                            a_2b_3 - a_3b_2 \cr 
+                            a_3b_1 - a_1b_3 \cr 
+                            a_1b_2 - a_2b_1 
+                        \end{pmatrix} \in\mathbb{R}^3
+                    \] を $\mathbf{a}$ と $\mathbf{b}$ の <b>外積</b> もしくは <b>クロス積</b> (<b>cross product</b>) という. 
+                </p>
+            </div>
+
+            <div class="lemma" data-name="平行四辺形の面積">
+                <p>$2$ つのベクトル $\mathbf{a}$, $\mathbf{b}\in\mathbb{R}^3$ の張る ($xyz$ 空間内の) 平行四辺形 
+                    \[
+                        \{c_1\mathbf{a} + c_2\mathbf{b}\in\mathbb{R}^3 : 0\le c_1\le 1,\ 0\le c_2\le 1\}
+                    \] の面積は $|\mathbf{a}\times\mathbf{b}|$ である. 
+                </p>
+            </div>
             
         </section>
 
