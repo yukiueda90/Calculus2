@@ -1,0 +1,73 @@
+\documentclass[crop=true]{standalone}
+\usepackage{pgfplots}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=1.15}
+\usepackage{multido}
+
+\begin{document}
+
+\begin{tikzpicture}[baseline=(zlabel.center)]
+\begin{axis}[
+axis on top,
+axis lines = middle,
+unit vector ratio*=1 1 1,
+scale=2.1, xmin=-0.1, xmax=1.2, ymin=-0.1, ymax=1.2, zmin = -0.1, zmax = 0.9,
+view={10}{30},
+%grid = major,
+xtick={0},
+ytick={0},
+ztick = {0},
+xlabel=$x$,
+ylabel=$y$,
+zlabel = $z$,
+zlabel style={name=zlabel},
+axis line style = {->},
+]
+\multido{\i=0+1}{6}{
+\addplot3[samples=2,samples y=0,domain=0:1, thick]({x},{\i/5},{0});
+\addplot3[samples=2,samples y=0,domain=0:1, thick]({\i/5},{x},{0});
+}
+% \addplot3[name path=up,samples=10,samples y=0,domain=0.3:0.4]({x},{0.2},{0});
+% \addplot3[name path=down,samples=10,samples y=0,domain=0.3:0.4]({x},{0.1},{x*(1-x)*0.09*10});
+% \addplot[gray!50]fill between[of=up and down];
+% \node at (axis cs:0.35,0.15,0.25){$D_{ij}$};
+\addplot3 [surf] gnuplot[raw gnuplot] {
+    splot 'substitution_2D_example1_data1.txt' using 'x':'y':'value'
+};
+% \node at (axis cs:0.5,0.15,0.0){\small$\Delta x_k = 2\Delta u_k$};
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}[baseline=(zlabel.center)]
+\begin{axis}[
+axis on top,
+axis lines = middle,
+unit vector ratio*=1 1 1,
+scale=2.1, xmin=-0.1, xmax=0.6, ymin=-0.1, ymax=1.8, zmin = -0.1, zmax = 0.9,
+view={10}{30},
+%grid = major,
+xtick={0},
+ytick={0},
+ztick = {0},
+xlabel=$u$,
+ylabel=$v$,
+zlabel = {},
+zlabel style={name=zlabel},
+axis line style = {->},
+]
+\multido{\i=0+1}{6}{
+\addplot3[samples=2,samples y=0,domain=0:1, thick]({x/2},{\i/5*3/2},{0});
+\addplot3[samples=2,samples y=0,domain=0:1, thick]({\i/5/2},{x*3/2},{0});
+}
+% \addplot3[name path=up,samples=10,samples y=0,domain=0.3:0.4]({x},{0.2},{0});
+% \addplot3[name path=down,samples=10,samples y=0,domain=0.3:0.4]({x},{0.1},{x*(1-x)*0.09*10});
+% \addplot[gray!50]fill between[of=up and down];
+% \node at (axis cs:0.35,0.15,0.25){$D_{ij}$};
+\addplot3 [surf] gnuplot[raw gnuplot] {
+    splot 'substitution_2D_example1_data2.txt' using 'x':'y':'value'
+};
+% \node at (axis cs:0.8,0.8,0.6){$z = f(x, y)$};
+\end{axis}
+\end{tikzpicture}
+
+\end{document}
