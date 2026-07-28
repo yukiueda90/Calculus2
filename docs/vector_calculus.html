@@ -542,7 +542,7 @@
 
         <section id="section4-2"><h2>4.2: 発散定理と部分積分</h2>
             <p>グリーンの公式は, 領域内部での二重積分と領域境界上での線積分とを対応させる定理であった. 
-                ここでは, 同様にに重積分と線積分を用いて記述される公式について紹介していこう. 
+                ここでは, 同様に二重積分と線積分を用いて記述される公式について紹介していこう. 
                 特に二重積分 (より一般に重積分) に対する <b>部分積分</b> の公式は, 様々な分野で重要となるものである. 
             </p>
 
@@ -602,7 +602,7 @@
             </div>
 
             <p>直観的には, 発散 $\nabla\cdot \mathbf{f}(\mathbf{x})$ は点 $\mathbf{x}$ における湧出量を表すと説明される. 
-                例えば水が湧き出ると水の流れが生じ, ある領域から溢れて流出する, という状況をイメージすることができるが, この説明において水の流れが $\mathbf{f}$, 水の湧き出る量が $\nabla\cdot\mathbf{f}$ で表さる. 
+                例えば水が湧き出ると水の流れが生じ, ある領域から溢れて流出する, という状況をイメージすることができるが, この説明において水の流れが $\mathbf{f}$, 水の湧き出る量が $\nabla\cdot\mathbf{f}$ で表される. 
                 さらに, 領域 $D$ 内で湧き出した水の総量と, 領域 $D$ から溢れて流出する水の総量 (領域境界 $C$ を通過する水の総量) が, それぞれ発散定理の両辺 
                 \[
                     \underbrace{\iint_D \nabla\cdot\mathbf{f}~dxdy}_{=\text{湧出量の総和}} = \underbrace{\oint_{C}\mathbf{f}\cdot \mathbf{n}~ds}_{=\text{流出量の総和}}
@@ -623,11 +623,116 @@
                 \] であることに注意すると, 一次元区間 $[a, b]$ の左端点における &quot;外向き単位法線ベクトル&quot; が $-1$, 右端点での &quot;外向き単位法線ベクトル&quot; が $1$ と思うことできちんと対応している. 
             </p>
 
+            <div class="example">
+                <p>曲線 $C$ が 
+                    \[
+                        \left\{\begin{array}{rl} 
+                            x &= R\cos\theta, \cr 
+                            y &= R\sin\theta
+                        \end{array}\right.\quad (0\le \theta\le 2\pi)
+                    \] により与えられているとき, ベクトル値関数 
+                    \[
+                        \mathbf{f}(\mathbf{x}) = \begin{pmatrix} 
+                            x+2y^2 \cr 
+                            3x^2+4y 
+                        \end{pmatrix}
+                    \] に対し, 線積分 
+                    \[
+                        \oint_C\mathbf{f}\cdot\mathbf{n}~ds 
+                    \] を計算してみよう. 
+                    発散定理を用いると, 曲線 $C$ の内部 $D$ が半径 $R$ の円盤領域であることから, 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\oint_C\mathbf{f}\cdot\mathbf{n}~ds &= \displaystyle\iint_D \nabla\cdot\mathbf{f}~dxdy \cr 
+                            &= \displaystyle\int_D 5~dxdy \cr 
+                            &= 5|D| = 5\pi R^2
+                        \end{array}
+                    \] のように計算できる. 
+                    特に, $2y^2$ と $3x^2$ の部分が $\nabla\cdot\mathbf{f}$ を計算することで消えてくれるため, 積分の計算が簡単になる. 
+                </p>
+                <p>もしも発散定理を使わないならば, 曲線 $C$ のパラメータ表示 
+                    \[
+                        \mathbf{r}(\theta) = \begin{pmatrix} 
+                            R\cos\theta \cr 
+                            R\sin\theta 
+                        \end{pmatrix} 
+                    \] より 
+                    \[
+                        |\mathbf{r}'| = R,\quad \mathbf{n} = \begin{pmatrix} 
+                            \cos\theta \cr 
+                            \sin\theta 
+                        \end{pmatrix} 
+                    \] であることを用いることで 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\oint_C \mathbf{f}\cdot\mathbf{n}~ds &= \displaystyle\int_0^{2\pi} \begin{pmatrix} 
+                                R\cos\theta+2(R\sin\theta)^2 \cr 
+                                3(R\cos\theta)^2+4R\sin\theta 
+                            \end{pmatrix} \cdot\begin{pmatrix} 
+                                \cos\theta \cr 
+                                \sin\theta
+                            \end{pmatrix}R~d\theta \cr 
+                            &= R^2\displaystyle\int_0^{2\pi}\cos^2\theta + 2R\sin^2\theta\cos\theta + 3R\sin\theta\cos^2\theta + 4\sin^2\theta~d\theta \cr 
+                            &= R^2\displaystyle\int_0^{2\pi} 1 + \dfrac{3}{2}(1-\cos2\theta) + 2R\left(\cos\theta - \dfrac{1}{4}(3\cos\theta+\cos3\theta)\right) + 3R\left(\sin\theta-\dfrac{1}{4}(3\sin\theta-\sin3\theta)\right) ~d\theta \cr 
+                            &= 5\pi R^2
+                        \end{array}
+                    \] のように計算することも可能である. 
+                </p>
+            </div>
+
+            <div class="exercise">
+                <p>$R\gt0$ とする.  
+                    また, 曲線 $C$ が
+                    \[
+                        \left\{\begin{array}{rl} 
+                            x &= R\cos\theta, \cr 
+                            y &= R\sin\theta
+                        \end{array}\right.\quad (0\le \theta\le 2\pi)
+                    \] により与えられているとする. 
+                    このとき, 関数 $f(x, y) = x^2y^2$ に対し, 線積分
+                    \[
+                        \oint_C \dfrac{\partial f}{\partial\mathbf{n}}~ds 
+                    \] を求めよ, ただし 
+                    \[
+                        \dfrac{\partial f}{\partial\mathbf{n}} = (\nabla f)\cdot\mathbf{n} 
+                    \] は外向き単位法線ベクトル方向の方向微分であり, <b>法線微分</b> (<b>normal derivative</b>) と呼ばれるものである. 
+                </p>
+            </div>
+
+            <div class="answer">
+                <p>閉曲線 $C$ 内部の領域を $D$ をおくと, 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\oint_C\dfrac{\partial f}{\partial\mathbf{n}}~ds &= \displaystyle\iint_D \nabla\cdot(\nabla f)~dxdy \quad(\because\ \text{発散定理}) \cr 
+                            &= \displaystyle\iint_D 2(x^2+y^2)~dxdy \cr 
+                            &= \displaystyle\int_{[0, R]\times [0, 2\pi]} 2((r\cos\theta)^2+(r\sin\theta)^2)r~drd\theta \cr 
+                            &= 4\pi\displaystyle\int_0^R r^3~dr \cr 
+                            &= \pi R^4 
+                        \end{array}
+                    \] のように計算できる. 
+                    発散定理を使わず,  
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\oint_C\dfrac{\partial f}{\partial\mathbf{n}}~ds &= \displaystyle\int_0^{2\pi} \begin{pmatrix} 
+                                2R\cos\theta(R\sin\theta)^2 \cr
+                                2(R\cos\theta)^2R\sin\theta 
+                            \end{pmatrix}\cdot\begin{pmatrix} 
+                                \cos\theta \cr 
+                                \sin\theta 
+                            \end{pmatrix}R~d\theta \cr 
+                            &= \displaystyle\int_0^{2\pi}4R^4\sin^2\theta\cos^2\theta~d\theta \cr 
+                            &= R^4\displaystyle\int_0^{2\pi}\dfrac{1}{2}(1-\cos4\theta)~d\theta \cr 
+                            &= \pi R^4
+                        \end{array}
+                    \] のように計算することも可能である. 
+                </p>
+            </div>
+
             <hr>
 
             <p>さて, $1$ 変数関数の積分では, 微積分学の基本定理から部分積分の公式を導出することができていたが, 二重積分でも同様に発散定理から部分積分の公式 (<b>グリーンの公式</b> と呼ばれることもある) を導出することができる: </p>
 
-            <div class="theorem" data-name="グリーンの公式">
+            <div class="theorem" data-name="部分積分">
                 <p>$xy$ 平面内の反時計回りの閉曲線 $C$ と $C$ で囲まれる領域 $D$, および $D$ 上の微分可能なベクトル値関数 $\mathbf{f}(\mathbf{x})$ およびスカラー値関数 $g(\mathbf{x})$ に対して, 
                     \[
                         \iint_D \mathbf{f}\cdot (\nabla g)~dxdy = \oint_{C} (\mathbf{f}\cdot \mathbf{n})g~ds - \iint_D (\nabla\cdot\mathbf{f})g~dxdy
@@ -671,539 +776,67 @@
                     \]
                 </p>
             </div>
-        
-        </section>
-
-            
-
-            <!-- <p>まずは不連続な関数に対するリーマン積分について思い出しておこう:
-            </p>
-
-            <div class="lemma" data-name="不連続点を持つ関数の積分">
-                <p>区間 $[a, b]$ 上の有界な関数 $f(x)$ が, 端点 $x=a, b$ でのみ不連続であるとする. 
-                    また, 端点における片側極限 
-                    \[
-                        \lim_{x\searrow a}f(x),\qquad \lim_{x\nearrow b}f(x)
-                    \] が存在するとする. このとき, 関数
-                    \[
-                        \widetilde{f}(x) = \left\{\begin{array}{rl} 
-                            \displaystyle\lim_{x\searrow a}f(x) & (x=a), \cr 
-                            f(x) & (a\lt x\lt b), \cr 
-                            \displaystyle\lim_{x\nearrow b}f(x) & (x=b)
-                        \end{array}\right.
-                    \] は連続であり (従ってリーマン積分可能であり), さらに $f(x)$ も区間 $[a, b]$ 上でリーマン積分可能であり, 
-                    \[
-                        \int_a^b f(x)~dx = \int_a^b \widetilde{f}(x)~dx 
-                    \] が成立する. 
-                </p>
-            </div>
-
-            このアイデアは, 関数 $f(x)$ の端点での片側極限が存在する場合, および区間が有界である場合にしか利用できないが, <b>広義積分</b> はこれを拡張したものと解釈することができる. 
-            広義積分では, 関数の値を片側極限により &quot;拡げる&quot; 代わりに, リーマン積分の区間自体を (片側) 極限により拡げる. 
-            これにより, 関数の片側極限が存在しない場合 (発散したり振動する場合) や, 区間の端点を無限に飛ばす場合も扱うことが可能となる: 
-
-            <div class="definition" data-name="広義積分">
-                <ul>
-                    <li>関数 $f(x)$ は区間 $[a, b)$ (または $(a, b]$) 上で連続であるとする. 
-                        このとき, 
-                        \[
-                            \int_a^b f(x)~dx = \lim_{t\nearrow 0}\int_a^tf(x)~dx \quad\left(\text{または}\quad \int_a^b f(x)~dx = \lim_{t\searrow a}\int_t^b f(x)~dx\right)
-                        \] と定義し, これを広義積分と呼ぶ. 
-                        右辺の極限が存在するとき, 広義積分は収束するといい, 存在しないとき広義積分は発散するという. 
-                    </li>
-                    <li>関数 $f(x)$ は区間 $[a, \infty)$ (または $(-\infty, b]$) 上で連続であるとする. 
-                        このとき, 
-                        \[
-                            \int_a^{\infty} f(x)~dx = \lim_{t\to\infty}\int_a^t f(x)~dx \quad\left(\text{または}\quad \int_{-\infty}^b f(x)~dx = \lim_{t\to-\infty}\int_t^b f(x)~dx\right)
-                        \] と定義し, これを広義積分と呼ぶ. 
-                        右辺の極限が存在するとき, 広義積分は収束するといい, 存在しないとき広義積分は発散するという. 
-                    </li>
-                </ul>
-            </div>
-
-            <p>なお, 通常の意味でリーマン積分可能な関数の広義積分は, そのリーマン積分に一致する. 
-                従って, 広義積分は確かに通常のリーマン積分を拡張したものであるとみなせるものである. 
-                以下では, 広義積分も含めて単に積分と呼ぶことがある.  
-            </p>
 
             <div class="example">
-                <ul>
-                    <li>積分 
-                        \[
-                            \int_0^1 \dfrac{1}{\sqrt{x}}~dx
-                        \] を計算してみよう. 
-                        被積分関数は区間 $[0, 1]$ 上で連続ではない ($x\searrow 0$ としたとき非有界である) ため, この積分は通常のリーマン積分ではなく広義積分であり,  
-                        \[
-                            \begin{array}{rl} 
-                                \displaystyle\int_0^1\dfrac{1}{\sqrt{x}}~dx &= \displaystyle\lim_{\varepsilon\searrow 0}\int_{\varepsilon}^1 \dfrac{1}{\sqrt{x}}~dx \cr 
-                                &= \displaystyle\lim_{\varepsilon\searrow 0} \left[2\sqrt{x}\right]_{\varepsilon}^1 \cr 
-                                &= 2.
-                            \end{array}
-                        \] 
-                    </li>
-                    <li>広義積分 
-                        \[
-                            \int_1^{\infty} \dfrac{1}{x^2}~dx
-                        \] を計算してみよう (区間が有界でないため, これが広義積分であることは明らか). 
-                        \[
-                            \begin{array}{rl} 
-                                \displaystyle\int_1^{\infty}\dfrac{1}{x^2}~dx &= \displaystyle\lim_{t\to\infty}\int_1^t \dfrac{1}{x^2}~dx \cr 
-                                &= \displaystyle\lim_{t\to\infty} \left[-\dfrac{1}{x}\right]_1^t \cr 
-                                &= 1.
-                            \end{array}
-                        \] 
-                    </li>
-                    <li>広義積分 
-                        \[
-                            \int_0^1 \dfrac{1}{x}~dx, \qquad \int_1^{\infty} \dfrac{1}{x}~dx
-                        \] はどちらも発散する. 
-                    </li>
-                    <li>広義積分の値も, やはり直感的には関数で表される領域の面積に対応している. 
-                        下の図のように, 関数の値が無限大に発散していたり, もしくは積分区間が無限に広いとしても, 広義積分に対応する領域の面積が無限大に発散するとは限らない. 
-                    </li>
-                </ul>
-                <div class="resize"><img src='./images/improper_integral1-1.png'></div>
+                <p>ここでは
+                    \[
+                        \Delta u = \nabla\cdot (\nabla u)
+                    \] により定められる <b>ラプラシアン</b> $\Delta$ を用いて, 領域 $D$ 上で与えられた関数 $f$ に対し 
+                    \[
+                        -\Delta u(\mathbf{x}) = f(\mathbf{x}) \qquad (\mathbf{x}\in D)
+                    \] を満たす $u$ を求めよ, という問題を考えてみる. 
+                    なお, これは <b>ポアソン方程式</b> と呼ばれるものであり, 電磁気学や流体力学など物理分野で頻繁に現れるものである. 
+                    この式の両辺に適当な関数 $v$ を掛けて積分すると, 領域 $D$ の境界 $C$ について
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\iint_D fv~dxdy &= \displaystyle\iint_D -\nabla\cdot(\nabla u)v~dxdy \cr 
+                            &= -\displaystyle\oint_C \dfrac{\partial u}{\partial\mathbf{n}} v~ds + \iint_D(\nabla u)\cdot(\nabla v)~dxdy
+                        \end{array}
+                    \] という式を得ることができる. 
+                </p>
+                <p>つまり, 元々の問題
+                    \[
+                        -\Delta u(\mathbf{x}) = f(\mathbf{x}) 
+                    \] では, $u$ に対する $2$ 階微分に相当する $\Delta u$ が現れているが, 適当な関数 $v$ (これを <b>テスト関数</b> と呼ぶことがある) を用いることで 
+                    \[
+                        \iint_D (\nabla u)\cdot(\nabla v)~dxdy - \oint_C\dfrac{\partial u}{\partial\mathbf{n}}v~ds = \iint_D fv~dxdy 
+                    \] という, $u$ の $1$ 階微分しか現れない問題を考えることができる. 
+                    このような式は <b>弱形式</b> と呼ばれ, 部分積分を利用することで問題に現れる微分の階数を減らすことができる, 重要なテクニックである. 
+                </p>
             </div>
 
             <div class="exercise">
-                <p>$\alpha\lt 0$ とする. 
-                </p>
-                <ul>
-                    <li>広義積分 
-                        \[
-                            \int_0^1 x^{\alpha}~dx
-                        \] が収束する $\alpha$ の条件を求めよ. 
-                    </li>
-                    <li>広義積分 
-                        \[
-                            \int_1^{\infty} x^{\alpha}~dx
-                        \] が収束する $\alpha$ の条件を求めよ. </li>
-                </ul>
-            </div>
-
-            <div class="answer">
-                <ul>
-                    <li>上の広義積分は 
-                        \[
-                            \int_0^1 x^{\alpha}~dx = \lim_{t\searrow 0} \left[\dfrac{1}{\alpha+1}x^{\alpha+1}\right]_t^1 = \dfrac{1}{\alpha+1}\lim_{t\searrow 0}(1-t^{\alpha+1})
-                        \] であり, $-1\lt\alpha\lt0$ ならば収束する. 
-                        一方, $\alpha=-1$ のときは $1/(\alpha+1)$ が発散し, $\alpha\lt -1$ のときは極限が発散するため, 広義積分は収束しない. 
-                    </li>
-                    <li>下の広義積分は 
-                        \[
-                            \int_1^{\infty} x^{\alpha}~dx = \lim_{t\searrow \infty} \left[\dfrac{1}{\alpha+1}x^{\alpha+1}\right]_1^t = \dfrac{1}{\alpha+1}\lim_{t\to\infty}(t^{\alpha+1}-1)
-                        \] であり, $\alpha\lt -1$ なら収束, そうでなければ発散する. 
-                    </li>
-                </ul>
-            </div>
-
-            
-            <p>関数 $f(x)$ が区間 $(a, b)$ で連続である場合の広義積分 (例えば関数の値が両端点で発散する場合) や, $(-\infty, \infty)$ での広義積分を考える際には, 適当な $c\in (a, b)$ もしくは $c\in (-\infty, \infty)$ をとり 
-                \[
-                    \begin{array}{c} 
-                        \displaystyle\int_a^b f(x)~dx = \lim_{t_1\searrow a}\int_{t_1}^c f(x)~dx + \lim_{t_2\nearrow b}\int_c^{t_2}f(x)~dx, \cr 
-                        \displaystyle\int_{-\infty}^{\infty} f(x)~dx = \lim_{t_1\to -\infty}\int_{t_1}^c f(x)~dx + \lim_{t_2\to \infty}\int_c^{t_2}f(x)~dx 
-                    \end{array}
-                \] のように定義する. 
-                ここで, 積分区間を適当に分割した上で, $2$ つの極限はそれぞれ独立に考える必要がある点に注意. 
-            </p>
-
-            <div class="example">
-                <p>積分 
+                <p>$xy$ 平面内の反時計回りの閉曲線 $C$ に対し, $C$ で囲まれる領域を $D$ する. 
+                    また, $C\cup D$ 上で定義される関数 $u$ が 
                     \[
-                        \int_{-1}^1\dfrac{1}{\sqrt{1-x^2}}~dx
-                    \] を計算してみよう. 
-                    被積分関数は両端点 $x=\pm1$ で発散しているため, この積分は広義積分であり, 例えば $x=0$ で積分区間を分割することで
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\int_{-1}^1\dfrac{1}{\sqrt{1-x^2}}~dx &= \displaystyle\lim_{t_1\searrow -1}\int_{t_1}^0\dfrac{1}{\sqrt{1-x^2}}~dx + \lim_{t_2\nearrow 1}\int_0^{t_2}\dfrac{1}{\sqrt{1-x^2}}~dx \cr 
-                            &= \displaystyle\lim_{t_1\searrow -1}\left[\sin^{-1}x\right]_{t_1}^0 + \lim_{t_2\nearrow 1}\left[\sin^{-1}x\right]_0^{t_2} \cr 
-                            &= \pi 
-                        \end{array}
-                    \] と計算することができる. 
-                </p>
-            </div>
-
-            <div class="example">
-                <p>広義積分 
-                    \[
-                        \int_{-\infty}^{\infty} e^{-x^2}~dx = \sqrt{\pi}
-                    \] は <b>ガウス積分</b> (<b>Gaussian integral</b>) と呼ばれ, 応用において極めて重要である. 
-                </p>
-                <div class="resize"><img src='./images/gaussian_integral-1.png'></div> 
-            </div>
-
-            <p>広義積分についても, 通常のリーマン積分と同様の性質や計算テクニックを利用した式変形が可能である. 
-                特に積分区間の分割と組み合わせれば, 区間の内部で無限大に発散する関数の広義積分を考えることも可能である. </p>
-
-            <div class="example">
-                <p>積分 
-                    \[
-                        \int_{-1}^1\log|x| ~ dx
-                    \] を計算してみよう. 
-                    この積分は 
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\int_{-1}^1 \log|x|~dx &= \displaystyle\int_{-1}^0\log|x|~dx + \int_0^1\log|x|~dx \quad (\text{積分区間の分割}) \cr 
-                            &= \displaystyle\int_{-1}^0\log(-x)~dx + \int_0^1\log x~dx \cr 
-                            &= -\displaystyle\int_1^0\log y~dy + \int_0^1\log x~dx \quad(\text{第 $1$ 項で $y=-x$ と変数変換})\cr 
-                            &= \displaystyle\int_0^1\log y~dy + \int_0^1\log x~dx \quad (\text{積分区間の反転}) \cr 
-                            &= 2\displaystyle\int_0^1\log x~dx \cr 
-                            &=2 \displaystyle\lim_{t\searrow 0}\int_t^1 \log x~dx \cr 
-                            &= 2\displaystyle\lim_{t\searrow 0}\left[x\log x - x\right]_t^1 \cr 
-                            &= 2\displaystyle\lim_{t\searrow 0}(-t\log t - 1 + t)
-                        \end{array}
-                    \] と変形できる. 
-                    ここで (ロピタルの定理より)
-                    \[
-                        \lim_{x\searrow 0}(x\log x) = 0
-                    \] であることに注意すれば, 上の極限を計算することで 
-                    \[
-                        \int_{-1}^1\log|x| ~ dx = -2
-                    \] が得られる. 
-                </p>    
-            </div>
-
-            <div class="exercise">
-                <p>$a\gt 0$, $b\neq 0$ とする. 
-                    このとき, 積分 
-                    \[
-                        \int_0^{\infty} e^{-ax}\cos bx~dx 
-                    \] を求めよ. 
-                </p>
-            </div>
-
-            <div class="answer">
-                <p>部分積分も通常の積分と同様に計算すれば良い: 真面目に書くと
-                    \[
-                        \begin{array}{rl} 
-                            I = \displaystyle\int_0^{\infty} e^{-ax}\cos bx~dx &= \displaystyle \lim_{t\to\infty}\left(\left[\dfrac{1}{b}e^{-ax}\sin bx\right]_0^{t} + \int_0^{t}\dfrac{a}{b}e^{-ax}\sin bx~dx\right) \cr 
-                            &= \dfrac{a}{b}\displaystyle \lim_{t\to\infty}\left(\left[-\dfrac{1}{b}e^{-ax}\cos bx\right]_0^{t} - \int_0^{t}\dfrac{a}{b}e^{-ax}\cos bx~dx\right) \cr 
-                            &= \dfrac{a}{b}\left(\dfrac{1}{b} - \dfrac{a}{b}I\right).
-                        \end{array}
-                    \] 従って 
-                    \[
-                        I = \dfrac{a/b^2}{1+a^2/b^2} = \dfrac{a}{a^2+b^2}.
-                    \]
-                </p>
-            </div>
-
-            <p>さらに, リーマン積分の単調性も広義積分において同様に利用可能であり, 従って広義積分の値を大雑把に見積もることが可能である. 
-                これを利用すると, ある関数の広義積分が収束するか否かを判定する際に, より簡単な関数に置き換えて判断することが可能となる: 
-            </p>
-
-            <div class="theorem">
-                <p>区間 $(a, b)$ (もしくは $[a, \infty)$, $(-\infty, b]$, $(-\infty, \infty)$ など) 上で連続な関数 $f(x)$, $g(x)$ について, 全ての $x\in (a, b)$ に対し $|f(x)| \le g(x)$ であるとする. 
+                        u(\mathbf{x}) = 0 \quad\text{もしくは}\quad\dfrac{\partial u}{\partial\mathbf{n}}(\mathbf{x})=0\qquad (\mathbf{x}\in C)
+                    \] を満たすとする. 
                     このとき, 
                     \[
-                        \text{広義積分 $\displaystyle\int_a^b g(x)~dx$ が収束する} \implies \text{広義積分 $\displaystyle\int_a^b f(x)~dx$ が収束する}
-                    \] が成立する. 
-                </p>
-            </div>
-
-            <div class="proof">
-                <p>条件より $a\lt x_1\lt x_2\lt b$ を満たす全ての $x_1$, $x_2$ に対し, 通常のリーマン積分の性質より
-                    \[
-                        \left|\int_{x_1}^{x_2} f(x)~dx\right| \le \int_{x_1}^{x_2} |f(x)|~dx \le \int_{x_1}^{x_2} g(x)~dx
-                    \] が成立するため, この極限を取ることで欲しい結果が得られる. 
-                </p>
-            </div>
-
-            <div class="example">
-                <p>積分 
-                    \[
-                        \int_0^1 f(x)~dx = \int_0^1 \sin\dfrac{1}{x}~dx 
-                    \] を考えてみよう. 
-                    いま, 極限 $\displaystyle\lim_{x\searrow0}f(x)$ は存在しない (振動する) ため, これは広義積分である. 
-                    この広義積分が収束することは, $g(x) \equiv 1$ という定数関数に対して $|f(x)| \le g(x)$ であることから判定できる. 
-                    次に, この広義積分の値を求めてみよう, 例えば $t=1/x$ と変数変換して 
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\int_0^1\sin\dfrac{1}{x}~dx &= \displaystyle\int_1^{\infty}\dfrac{\sin t}{t^2}~dt \cr 
-                            &= \displaystyle\left[-\dfrac{\sin t}{t}\right]_1^{\infty} + \displaystyle\int_1^{\infty}\dfrac{\cos t}{t}~dt. 
-                        \end{array}
-                    \] 
-                    第 $1$ 項は $\sin 1$ である (本来は
-                    \[
-                        \lim_{r\to\infty}\left[-\dfrac{\sin t}{t}\right]_1^{r}
-                    \] などと書くべきではあるが, 上の表記でも意味は明らかだろう).  
-                    一方, 第 $2$ 項に現れる広義積分は, 実は初等関数で表現できないことが知られている. 
-                    しかしながら, この形の積分はしばしば現れるものであり, <b>余弦積分</b> という名前が付けられている: 
-                    \[
-                        \operatorname{Ci}(x) = -\int_x^{\infty}\dfrac{\cos t}{t}~dt.
-                    \] 余弦積分のように, 応用上の重要性から特別に名前が付けられている関数は <b>特殊関数</b> と呼ばれる. 
-                    上の積分の値も, 余弦積分を用いることで 
-                    \[
-                        \int_0^1 f(x)~dx = \int_0^1 \sin\dfrac{1}{x}~dx = \sin 1 - \operatorname{Ci}(1)
-                    \] と表すことができる. 
-                </p>
-                <div class="resize"><img src='./images/sin_xinv-1.png'></div> 
-            </div>
-
-            <div class="example">
-                <p>上の定理の対偶を考えることで, $f(x)$ の広義積分が収束しないとき, $g(x)$ の広義積分も収束しないこともわかる. 
-                    例えば, 
-                    \[
-                        \int_1^{\infty}g(x)~dx = \int_1^{\infty}\dfrac{1}{x-\log x}~dx 
-                    \] という広義積分は, 被積分関数が 
-                    \[
-                        f(x) = \dfrac{1}{x} \le \dfrac{1}{x-\log x} = g(x) \qquad (x\ge 1)
-                    \] であることと, 広義積分 
-                    \[
-                        \int_1^{\infty} f(x)~dx = \int_1^{\infty} \dfrac{1}{x}~dx 
-                    \] が収束しないことから, やはり収束しないと判定することができる. 
-
-                </p>
-            </div>
-
-            <div class="exercise">
-                <p>広義積分 
-                    \[
-                        \int_0^{\infty}\dfrac{\sin x}{x}~dx 
-                    \] が収束することを証明せよ. 
+                        \iint_D(\Delta u)u~dxdy \le 0 
+                    \] を証明せよ. 
                 </p>
             </div>
 
             <div class="answer">
-                <p>$f(x) = x^{-1}\sin x$ とおく. 
-                    まず, $x\ge 0$ において $|\sin x|\le x$ が成立することに注意すれば, 区間 $(0, \infty)$ 上で $|f(x)|\le 1$ である. 
-                    従って, 例えば $x=1$ で区間分割することで
+                <p>部分積分を用いると 
                     \[
-                        \begin{array}{rl} 
-                            \displaystyle\int_0^{\infty}\dfrac{\sin x}{x}~dx &= \displaystyle\underbrace{\int_0^1f(x)~dx}_{=I_1} + \underbrace{\int_1^{\infty}f(x)~dx}_{=I_2} \cr 
-                        \end{array}
-                    \] とした際, 広義積分 
+                        \iint_D(\Delta u)u~dxdy = \oint_C\dfrac{\partial u}{\partial\mathbf{n}}u~ds - \iint_D|\nabla u|^2~dxdy
+                    \] が得られる. 
+                    ここで, 領域の境界 $C$ 上での $u$ の条件より 
                     \[
-                        \int_0^1 1~dx = 1
-                    \] が (通常の意味での積分が可能であることから) 収束することから, 広義積分 $I_1$ が収束することがわかる. 
-                    次に $I_2$ に注目すると, 
-                    \[
-                        I_2 = \int_1^{\infty}\dfrac{\sin x}{x}~dx = \lim_{t\to\infty}\left(\left[-\dfrac{\cos x}{x}\right]_1^t - \int_1^t\dfrac{\cos x}{x^2}~dx\right) = \cos 1 - \underbrace{\int_1^{\infty}\dfrac{\cos x}{x^2}~dx}_{=I_3}
+                        \oint_C\dfrac{\partial u}{\partial\mathbf{n}}u~ds = 0
                     \] である. 
-                    ここで, $x\ge 1$ において $|x^{-2}\cos x| \le x^{-2}$ であり, 広義積分 
+                    また, $|\nabla u|^2\ge0$ であることから, 重積分の単調性より 
                     \[
-                        \int_1^{\infty}x^{-2}~dx 
-                    \] が収束することから, 広義積分 $I_3$ が収束することがわかる. 
+                        \iint_D |\nabla u|^2~dxdy \ge 0
+                    \] が成立することに注意すると, 
+                    \[
+                        \iint_D(\Delta u)u~dxdy = - \iint_D|\nabla u|^2~dxdy \le 0
+                    \] が得られる. 
                 </p>
             </div>
-
-        </section>
-
-        <hr>
-
-        <section id="section2-2"><h2>2.2: 特殊関数</h2>
-            <p>先ほども言及したように, 頻繁に利用されるために特別な名前が付けられている関数を <b>特殊関数</b> と呼ぶ. 
-                例えば三角関数 $\sin x$ なども特殊関数であり, その利便性および重要性は明らかだろう. 
-                ここでは, 特に広義積分として表すことができる特殊関数をいくつか紹介しよう. 
-                例えば  
-                \[
-                    \begin{array}{c} 
-                        \operatorname{Si}(x) = \displaystyle\int_0^x \dfrac{\sin t}{t}~dt, \cr 
-                        \operatorname{Ci}(x) = -\displaystyle\int_0^x \dfrac{\cos t}{t}~dt
-                    \end{array}
-                \] はそれぞれ <b>正弦積分</b> (<b>sine integral</b>), <b>余弦積分</b> (<b>cosine integral</b>) と呼ばれ, またこれらは総称して <b>三角積分</b> (<b>trigonometric integral</b>) と呼ばれる. 
-                これらは初等関数として表現することはできないが, 広義積分として表すことができる特殊関数の典型例である. 
-            </p>
-
-            <p>次に <b>ガンマ関数</b> について紹介しよう: </p>
-
-            <div class="definition">
-                <p>$z\gt 0$ に対し 
-                    \[
-                        \Gamma(z) = \int_0^{\infty}t^{z-1}e^{-t}~dt 
-                    \] により定義される関数を <b>ガンマ関数</b> (<b>Gamma function</b>) という. 
-                </p>
-            </div>
-
-            <p>ガンマ関数の性質を述べる前に, この広義積分が収束することを証明しよう. 
-                まず, $f(t) = t^{z-1}e^{-t}$ とおき, 積分区間を $t=1$ で分割することで 
-                \[ 
-                        \Gamma(z) = \underbrace{\int_0^1f(t)~dt}_{=I_1} + \underbrace{\int_1^{\infty}f(t)~dt}_{I_2}   
-                \] となるため, これら $2$ つの広義積分の収束性をそれぞれ判定すればよい: 
-            </p>
-            <ul>
-                <li>$0\lt t\le 1$ のとき, $|f(t)| = f(t) \le t^{z-1}$ であり, 
-                    \[
-                        \int_0^1 t^{z-1}~dt = \dfrac{1}{z}
-                    \] であることから広義積分 $I_1$ は収束する. 
-                </li>
-                <li>$1\le t\lt \infty$ のとき, 
-                    \[
-                        \lim_{t\to\infty}t^{z+1}e^{-t} = 0
-                    \] であることに注目すると, ある $T$ が存在して 
-                    \[
-                        t^{z+1}e^{-t} \le 1 \quad (t\ge T), \quad\text{つまり} \quad f(t) \le \dfrac{1}{t^2} \quad (t\ge T)
-                    \] となっている. 
-                    従って, 
-                    \[
-                        \int_1^{\infty}f(t) ~dt = \underbrace{\int_1^Tf(t)~dt}_{\text{通常の積分}} + \int_T^{\infty}f(t)~dt 
-                    \] の第 $2$ 項の広義積分は収束する.
-                    従って, 広義積分 $I_2$ も収束する. 
-                </li>
-            </ul>
-
-            <p>上の議論は全ての $z\gt 0$ に対して成立するため, 全ての $z\gt0$ に対してガンマ関数の値が確かに定まる. 
-                ガンマ関数にはいくつか興味深い性質があるが, その一つがガンマ関数は, &quot;階乗を拡張したものである&quot; というものである. 
-                実際, 以下に述べる性質の上 $2$ つより, 特に全ての $n\in\mathbb{N}$ に対し $\Gamma(n+1) = n!$ が得られる:
-            </p>
-
-            <div class="theorem">
-                <ul>
-                    <li>全ての $z\gt 0$ に対し $\Gamma(z+1) = z\Gamma(z)$, </li>
-                    <li>$\Gamma(1) = 1$.</li>
-                    <li>$\Gamma(1/2) = \sqrt{\pi}$. </li>
-                </ul>
-            </div>
-
-            <div class="proof">
-                <ul>
-                    <li>部分積分より 
-                        \[
-                            \begin{array}{rl} 
-                                \Gamma(z+1) &= \displaystyle\int_0^{\infty}t^{z}e^{-t}~dt \cr 
-                                &= \underbrace{\left[-t^ze^{-t}\right]_0^{\infty}}_{=0} + \displaystyle\int_0^{\infty}zt^{z-1}e^{-t}~dt = \Gamma(z). 
-                            \end{array}
-                        \]
-                    </li>
-                    <li>広義積分を計算することで 
-                        \[
-                            \Gamma(1) = \int_0^{\infty}e^{-t}~dt = \lim_{r\to\infty}\left[-e^{-t}\right]_0^r = 1. 
-                        \]
-                    </li>
-                    <li>$t=x^2$ と変数変換することで, 
-                        \[
-                            \Gamma(1/2) = \int_0^{\infty}(x^2)^{-1/2}e^{-x^2}2x~dx = 2\int_0^{\infty}e^{-x^2}~dx = \sqrt{\pi} \quad(\because \text{ガウス積分}). 
-                        \]
-                    </li>
-                </ul>
-            </div>
-
-            <p>ガンマ関数はさまざまな場面で利用されるが, 例えばラプラス変換や確率論におけるガンマ分布など, 数学以外の分野でも応用されるものである. </p>
-
-            <p>最後に <b>ベータ関数</b> について紹介しよう: </p>
-
-            <div class="definition">
-                <p>$p\gt 0$, $q\gt 0$ に対し 
-                    \[
-                        B(p, q) = \int_0^1 t^{p-1}(1-t)^{q-1}~dt 
-                    \] により定義される関数を <b>ベータ関数</b> (<b>beta function</b>) という. 
-                </p>
-            </div>
-
-            <p>この積分は, $p\ge1$ かつ $q\ge1$ のときは通常の積分であり, どちらかが $1$ 未満のときは広義積分になっている. 
-                この広義積分の収束性を確認しておこう. 
-                $f(t) = t^{p-1}(1-t)^{q-1}$ ととき, 積分区間を $t=1/2$ で分割することで 
-                \[
-                    B(p, q) = \underbrace{\int_0^{1/2} f(t)~dt}_{=I_1} + \underbrace{\int_{1/2}^1f(t)~dt}_{=I_2} 
-                \] となるため, これら $2$ つの広義積分の収束性をそれぞれ判定すれば良い:  
-            </p>
-
-            <ul>
-                <li>$0\lt t\le 1/2$ のとき, 
-                    \[
-                        \lim_{x\searrow 0}t^{1-p}f(t) = \lim_{x\searrow 0}(1-t)^{q-1} = 1
-                    \] より, ある $T_1\gt 0$ が存在して, 例えば 
-                    \[
-                        f(t) \le 2t^{p-1} \quad (0\lt t\le T_1)
-                    \] とできることから, $p\gt 0$ ならば 
-                    \[
-                        I_1 = \int_0^{T_1}f(t) ~dt + \underbrace{\int_{T_1}^{1/2}f(t)~dt}_{=\text{通常の積分}}
-                    \] の第 $1$ 項は収束する. 
-                    従って, (広義) 積分 $I_1$ も収束する. 
-                </li>
-                <li>$1/2\le t\lt 1$ のとき, 
-                    \[
-                        \lim_{x\nearrow 1}(1-t)^{1-q}f(t) = \lim_{x\nearrow 1}t^{p-1} = 1
-                    \] より, ある $T_2\gt 0$ が存在して, 例えば 
-                    \[
-                        f(t) \le 2(1-t)^{q-1} \quad (T_2\le t\lt 1)
-                    \] とできることから, $q\gt 0$ ならば 
-                    \[
-                        I_2 = \underbrace{\int_{1/2}^{T_2}f(t) ~dt}_{=\text{通常の積分}} + \int_{T_2}^{1}f(t)~dt 
-                    \] の第 $2$ 項は収束する. 
-                    従って, (広義) 積分 $I_2$ も収束する. </li>
-            </ul>
-
-            <p>ベータ関数も, ガンマ関数と同様にさまざまな応用を持つ特殊関数であるが, ここではガンマ関数との関連と, 三角関数の積分への応用について言及しておこう. 
-                まず, ベータ関数とガンマ関数には以下の関係が成立する: 
-            </p>
-
-            <div class="lemma">
-                <p>$p\gt 0$, $q\gt 0$ に対し 
-                    \[
-                        B(p, q) = \dfrac{\Gamma(p)\Gamma(q)}{\Gamma(p+q)}
-                    \] が成立する. 
-                </p>
-            </div>
-
-            <p>証明には <b>$2$ 重積分</b> を利用する必要があり, 証明は後回しにする. 
-                ともかく, 上の関係式とガンマ関数の性質を使えば, いくつかの $p$, $q$ の組み合わせに対してベータ関数の値を計算することが可能である. 
-            </p>
-            
-            <p>さて, ベータ関数の値は, 実は $t=\sin^2 x$ と変数変換することで, 
-                \[
-                    \begin{array}{rl} 
-                        B(p, q) &= \displaystyle\int_0^1 t^{p-1}(1-t)^{q-1}~dt \cr 
-                        &= \displaystyle\int_0^{\pi/2} \sin^{2p-2}x(1-\sin^2 x)^{q-1}\cdot 2\sin x\cos x~dx \cr
-                        &= 2\displaystyle\int_0^{\pi/2}\sin^{2p-1}x \cos^{2q-1}x~dx
-                    \end{array}
-                \] という三角関数の積分と一致することがわかる. 
-                以上より, この形の積分の値は, ベータ関数およびガンマ関数の性質を利用して計算することも可能である. 
-                このことを応用しやすい形でまとめておこう: 
-            </p>
-
-            <div class="theorem" data-name="ベータ関数, ガンマ関数を用いた三角関数の積分">
-                <p>$r\gt 0$, $s\gt 0$ に対し 
-                    \[
-                        \int_0^{\pi/2} \sin^r x\cos^s x~dx = \dfrac{1}{2}B\left(\dfrac{r+1}{2}, \dfrac{s+1}{2}\right) = \dfrac{1}{2}\dfrac{\Gamma((r+1)/2)\Gamma((s+1)/2)}{\Gamma((r+s+2)/2)} 
-                    \] が成立する. 
-                </p>
-            </div>
-
-            <div class="example">
-                <p>積分 
-                    \[
-                        \int_0^{\pi/2} \sin^5x~dx
-                    \] を計算してみよう. 
-                    もちろん, 
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\int_0^{\pi/2}\sin^5 x~dx &= \displaystyle\int_0^{\pi/2}(1-\cos^2 x)^2\sin x~dx \cr 
-                            &= \displaystyle\int_1^0(1-t^2)^2 (-1)~dt \cr 
-                            &= \left[t-\dfrac{2}{3}t^3 + \dfrac{t^5}{5}\right]_0^1 = \dfrac{8}{15}
-                        \end{array}
-                    \] のように計算することもできるが, ベータ関数とガンマ関数の関係を用いると 
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\int_0^{\pi/2}\sin^5 x~dx &= \dfrac{1}{2}B(3, 1/2) \cr 
-                            &= \dfrac{1}{2}\dfrac{\Gamma(3)\Gamma(1/2)}{\Gamma(7/2)} \cr 
-                            &= \dfrac{1}{2}\dfrac{2!\ \Gamma(1/2)}{(5/2)(3/2)(1/2)\Gamma(1/2)} = \dfrac{8}{15}
-                        \end{array}
-                    \] と計算することもできる. 
-                </p>
-            </div>
-
-            <div class="exercise">
-                <p>積分 
-                    \[
-                        \int_0^{\pi/2}\sin^6 x\cos^4 x~dx
-                    \] を求めよ. 
-                </p>
-            </div>
-
-            <div class="answer">
-                <p>置換積分と部分積分により計算することも不可能ではないが, 面倒なのでベータ関数とガンマ関数の関係を用いると良いだろう: 
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\int_0^{\pi/2}\sin^6 x\cos^4 x~dx &= \dfrac{1}{2}B(7/2, 5/2) \cr 
-                            &= \dfrac{1}{2}\dfrac{\Gamma(7/2)\Gamma(5/2)}{\Gamma(6)} \cr 
-                            &= \dfrac{1}{2}\dfrac{(5/2)(3/2)(1/2)\Gamma(1/2)\cdot (3/2)(1/2)\Gamma(1/2)}{5!} \cr 
-                            &= \dfrac{45}{2^6\cdot 5!}\Gamma(1/2)^2= \dfrac{3}{2^9}\pi = \dfrac{3}{512}\pi
-                        \end{array}
-                    \]
-                </p>
-            </div>
- -->
+        
         </section>
 
     </article>
