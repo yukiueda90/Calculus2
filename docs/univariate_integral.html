@@ -78,6 +78,18 @@
 
             <div class="resize"><img src='./images/riemann_integral-1.png'></div>
 
+            <div class="example">
+                <p>$f$ が定数関数 $f\equiv c$ ならば, リーマン積分の定義より
+                    \[
+                        \int_a^b f(x)~dx = \int_a^b c~dx = \lim_{\Delta x\to 0} c\underbrace{\sum_{k=0}^{N-1}\Delta x_k}_{=b-a} = c(b-a) 
+                    \] である. 
+                    特に 
+                    \[
+                        \int_a^b 0~dx = 0 
+                    \] が成立する. 
+                </p>
+            </div>
+
             <div class="remark">
                 リーマン積分は分割のサイズを $0$ に近づけた際のリーマン和の極限である. 
                 つまり, 分割のサイズをどのように $0$ に近づけたか (および点 $t_k$ の選び方) に依らず, リーマン和が一定の値に近づく場合にのみ定まるものである. 
@@ -113,15 +125,6 @@
                 </p>
                 <div class="resize"><img src='./images/riemann_integral_discontinuous-1.png'></div>
                 <p>同様のことは, 不連続点が複数ある関数に対しても可能である. </p>
-            </div>
-
-
-            <div class="remark">
-                <p>$f$ が定数関数 $f\equiv c$ ならば, リーマン積分の定義より
-                    \[
-                        \int_a^b f(x)~dx = \int_a^b c~dx = \lim_{\Delta x\to 0} c\underbrace{\sum_{k=0}^{N-1}\Delta x_k}_{=b-a} = c(b-a) 
-                    \] である. 
-                </p>
             </div>
 
             <div class="remark">
