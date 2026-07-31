@@ -321,6 +321,221 @@
 
         </section>
 
+        <section id="sectionA-2"><h2>A.2: フーリエ変換</h2>
+            <p>ここでは $1$ 変数関数に対する積分の応用として <b>フーリエ級数展開</b> と <b>フーリエ変換</b> について取り上げる. 
+                ただし, 数学的に厳密な議論よりも簡潔さを優先して説明するために, 以下の説明には十分に説明していない点や粗があることをあらかじめご了承いただきたい. 
+            </p>
+
+            <p>電波, 音波などのような波として捉えられる現象や, コンピュータや生体内で情報をやり取りする電気信号などは, しばしば関数として扱うことでその性質を説明することになる. 
+                例えば波形 $f$ が三角関数を用いて
+                \[
+                    f(x) = A\sin (2\pi kx)
+                \] と表されるとき, $A$ を <b>振幅</b> (<b>amplitude</b>), $k$ を <b>周波数</b> (<b>frequency</b>), $1/k$ を <b>周期</b> (<b>period</b>) と呼ぶ. 
+            </p>
+            <p>さて, より複雑な形状の波を考えるために, ここで異なる周波数を持つ波の重ね合わせにより表される, 周期が $L$ であるような波について考えよう. 
+                具体的には, 自然数 $n$ に対して $\sin (2\pi nx/L)$ や $\cos(2\pi nx/L)$ の足し合わせとして表される 
+                \[
+                    f(x) = \dfrac{a_0}{2} + \sum_{n=1}^{\infty}\left(a_n\cos(2\pi nx/L) + b_n\sin(2\pi nx/L)\right)
+                \] を考える. 
+                関数 $f(x)$ が上のような式で表されるとき, 右辺の級数を <b>フーリエ級数</b> (<b>Fourier series</b>) と呼び, また関数 $f(x)$ をフーリエ級数で表現することを <b>フーリエ級数展開</b> (<b>Fourier expansion</b>) という. 
+                また, フーリエ級数内の各 $a_n\cos(2\pi nx/L)$, $b_n\sin(2\pi nx/L)$ は, 各周波数に関する <b>周波数成分</b> と呼ばれることがある. 
+                さらに, 各 $a_n$, $b_n$ は (振幅に相当する量であり) <b>フーリエ係数</b> (<b>Fourier coefficient</b>) と呼ばれ, 各 $\cos$, $\sin$ 関数は <b>フーリエモード</b> (<b>Fourier mode</b>) と呼ばれる. 
+            </p>
+            <p>与えられた関数 $f(x)$ に対し, 各フーリエ係数を計算したい. 
+                その際には, 以下の性質を利用することになる: 
+            </p>
+
+            <div class="lemma" data-name="三角関数の直交性">
+                <p>自然数 $m$, $n$ に対し, 
+                    \[
+                        \int_0^L\cos(2\pi mx/L)\cos(2\pi nx/L) ~dx = \left\{\begin{array}{rl} 
+                            \dfrac{L}{2} & \text{if }m=n, \cr 
+                            0 & \text{if }m\neq n, 
+                        \end{array}\right.
+                    \]
+                    \[
+                        \int_0^L\sin(2\pi mx/L)\sin(2\pi nx/L) ~dx = \left\{\begin{array}{rl} 
+                            \dfrac{L}{2} & \text{if }m=n, \cr 
+                            0 & \text{if }m\neq n, 
+                        \end{array}\right.
+                    \]
+                    \[
+                        \int_0^L\cos(2\pi mx/L)\sin(2\pi nx/L) ~dx = 0
+                    \] が成立する. 
+                </p>
+            </div>
+
+            <div class="remark">
+                <p>なお, 上のような式を記述する際に, 
+                    \[
+                        \delta_{mn} = \left\{\begin{array}{rl}
+                            1 &\text{if }m=n, \cr 
+                            0 &\text{if }m\neq n 
+                        \end{array}\right.
+                    \] という記号が用いられることがある. 
+                    この記号は <b>クロネッカーのデルタ</b> (<b>Kronecker delta</b>) と呼ばれる. 
+                </p>
+            </div>
+
+            <div class="proof">
+                <p>一番上のみ証明しよう. 
+                    例えば, $m=n$ のときは 
+                    \[
+                        \int_0^L cos(2\pi mx/L)\cos(2\pi mx/L) ~dx = \int_0^L\dfrac{1}{2}\left(\cos(4\pi mx/L) + 1\right)~dx = \dfrac{L}{2} 
+                    \] と計算でき, また$m\neq n$ のときは 
+                    \[
+                        \int_0^L \cos(2\pi mx/L)\cos(2\pi nx/L) ~dx = \int_0^L\dfrac{1}{2}\left(\cos(2\pi (m+n)x/L) + \cos(2\pi (m-n)x/L)\right)~dx = 0 
+                    \] と計算できる (残りも三角関数の加法定理を用いることで同様に証明できる). 
+                </p>
+            </div>
+
+            <p>それではフーリエ係数の計算方法を紹介しよう. 
+                まず, 与えられた関数 $g(x)$ に対し, 
+                \[
+                    \begin{array}{rl} 
+                        \displaystyle\int_0^L f(x)g(x)~dx &= \displaystyle\int_0^L \left(\dfrac{a_0}{2} + \sum_{n=1}^{\infty}(a_n\cos(2\pi nx/L) + b_n\sin(2\pi nx/L))\right)g(x)~dx \cr 
+                        &= \displaystyle\int_0^L\dfrac{a_0}{2}g(x)~dx + \sum_{n=1}^{\infty}\int_0^L a_n\cos(2\pi nx/L)g(x)~dx + \sum_{n=1}^{\infty}\int_0^L b_n\sin(2\pi nx/L)g(x)~dx 
+                    \end{array}
+                \] と式変形できることを事実として認める (実際には, 無限和を各項ごとに積分する <b>項別積分</b> はいつでもできるわけではないが, ここでは上のように式変形できる状況のみ想定する).
+                特に $g(x) = 1 = \cos(2\pi\cdot 0\cdot x/L)$ のときは, 
+                \[
+                    \int_0^L f(x)~dx = \int_0^L \dfrac{a_0}{2} ~dx = \dfrac{L}{2}a_0
+                \] より, 
+                \[
+                    a_0 = \dfrac{2}{L} \int_0^L f(x)\cos(2\pi\cdot 0\cdot x/L)~dx 
+                \] が得られる. 
+                同様に, $g(x) = \cos(2\pi m x/L)$ のとき, および $g(x) = \sin(2\pi m x/L)$ のときを考えると, 三角関数の直交性を用いることで全ての $m=1, 2,\dots$ に対し
+                \[
+                    \begin{array}{c} 
+                        a_m = \dfrac{2}{L}\displaystyle\int_0^L f(x) \cos(2\pi m x/L)~dx, \cr 
+                        b_m = \dfrac{2}{L}\displaystyle\int_0^L f(x) \sin(2\pi m x/L)~dx 
+                    \end{array}
+                \] が得られる. 
+                つまり, 上の積分を計算することで, 各フーリエ係数を計算でき, 重ね合わせにより表された波形 $f(x)$ から特定の周波数成分の情報を取り出すことができる. 
+            </p>
+
+            <p>ここまでを一旦, 定理という形でまとめておこう: </p>
+
+            <div class="theorem" data-name="フーリエ級数展開">
+                周期が $L\gt 0$ である適切な関数 $f(x)$ に対して, フーリエ係数
+                \[
+                    \begin{array}{c} 
+                        a_m = \dfrac{2}{L}\displaystyle\int_0^L f(x) \cos(2\pi m x/L)~dx \quad (m=0, 1, \dots), \cr 
+                        b_m = \dfrac{2}{L}\displaystyle\int_0^L f(x) \sin(2\pi m x/L)~dx \quad (m=1, 2, \dots)
+                    \end{array}
+                \] を計算することで, 関数 $f(x)$ のフーリエ級数展開 
+                \[
+                    f(x) = \dfrac{a_0}{2} + \sum_{n=1}^{\infty}\left(a_n\cos(2\pi nx/L) + b_n\sin(2\pi nx/L)\right)
+                \] が得られる. 
+            </div>
+
+            <p>さて, 実際には表記や計算の簡単のために <b>複素フーリエ級数</b> が利用される. 
+                その際, 以下が重要となる: 
+            </p>
+
+            <div class="lemma" data-name="オイラーの公式">
+                <p>ネイピア数 $e$, 虚数単位 $i$ および任意の実数 $x\in\mathbb{R}$ について, 
+                    \[
+                        e^{ix} = \cos x+i\sin x
+                    \] が成立する. 
+                </p>
+            </div>
+
+            <p>これを用いると 
+                \[
+                    \begin{array}{c} 
+                        \cos(2\pi nx/L) = \dfrac{e^{2\pi inx/L} + e^{-2\pi inx/L}}{2}, \cr 
+                        \sin(2\pi nx/L) = \dfrac{e^{2\pi inx/L} - e^{-2\pi inx/L}}{2i}
+                    \end{array}
+                \] が得られるため, これをフーリエ級数展開に代入することで, 
+                \[
+                    \begin{array}{rl} 
+                        f(x) &= \dfrac{a_0}{2} + \displaystyle\sum_{n=1}^{\infty}\left(a_n\dfrac{e^{2\pi inx/L} + e^{-2\pi inx/L}}{2} + b_n\dfrac{e^{2\pi inx/L} - e^{-2\pi inx/L}}{2i}\right) \cr 
+                            &= \underbrace{\dfrac{a_0}{2}}_{=\widehat{f}_0}e^{2\pi i\cdot0\cdot x/L} + \displaystyle\sum_{n=1}^{\infty}\underbrace{\left(\dfrac{a_n}{2} + \dfrac{b_n}{2i}\right)}_{=\widehat{f}_n \ (n\ge1)}e^{2\pi inx/L} + \sum_{n=-\infty}^{-1} \underbrace{\left(\dfrac{a_{-n}}{2} - \dfrac{b_{-n}}{2i}\right)}_{=\widehat{f}_n \ (n\le-1)}e^{2\pi inx/L} \cr 
+                            &= \displaystyle\sum_{n=-\infty}^{\infty}\widehat{f}_ne^{2\pi inx/L}
+                    \end{array}
+                \] と式変形できる. 
+                この $\widehat{f}_n$ もフーリエ係数と呼ばれる. 
+            </p>
+
+            <p>このフーリエ係数の計算方法も考えてみよう. 
+                まず, $m=n$ ならば
+                \[
+                    \int_0^L e^{2\pi imx/L}e^{-2\pi inx/L}~dx = \int_0^L(\cos^2(2\pi mx/L) + \sin^2(2\pi mx/L))~dx = L
+                \] であり, また $m\neq n$ のときは, 三角関数の直交性を用いることで 
+                \[
+                    \int_0^L e^{2\pi imx/L}e^{-2\pi inx/L}~dx = \int_0^L\left(\cos(2\pi mx/L)+ i\sin(2\pi mx/L)\right)\left(\cos(2\pi nx/L) - i\sin(2\pi nx/L)\right)~dx = 0
+                \] が得られる. 
+                これを利用すると (やはり項別積分可能であることは事実として認めることにして)
+                \[
+                    \int_0^L f(x)e^{-2\pi imx/L}~dx = \widehat{f}_m L
+                \] となるため, この積分によりフーリエ係数 $\widehat{f}_m$ を計算することができる. 
+            </p>
+
+            <div class="theorem" data-name="複素フーリエ級数展開">
+                <p>周期が $L\gt 0$ である適切な関数 $f(x)$ に対して, フーリエ係数
+                \[
+                    \widehat{f}_m = \dfrac{1}{L}\int_0^Lf(x)e^{-2\pi imx/L}~dx \qquad (m\in\mathbb{Z})    
+                \] を計算することで, 関数 $f(x)$ の複素フーリエ級数展開 
+                \[
+                    f(x) = \displaystyle\sum_{n=-\infty}^{\infty}\widehat{f}_ne^{2\pi inx/L}
+                \] が得られる. 
+                </p>
+            </div>
+
+            <p>最後に, 周期を持たない関数 $f(x)$ に対して, フーリエ級数展開に相当するもの (<b>フーリエ変換</b>) について, (数学的に厳密では無いが) おおよそのアイデアを紹介しよう. 
+                まず, 関数 $f(x)$ は $[-L/2, L/2]$ の外では $0$ となるような滑らかな関数であるとする. 
+                この関数を, $[-L/2, L/2]$ の外で周期的に拡張した関数を $\widetilde{f}$ とおく. 
+                いま, $\widetilde{f}$ は周期 $L$ を持つため, ($x$ を少しずらした) フーリエ級数展開が可能である: 
+                \[
+                    \begin{array}{c} 
+                        \widehat{f}_m = \dfrac{1}{L}\displaystyle\int_{-L/2}^{L/2}\widetilde{f}(x)e^{-2\pi imx/L}~dx \cr 
+                        \widetilde{f}(x) = \displaystyle\sum_{m=-\infty}^{\infty}\widehat{f}_me^{2\pi imx/L}.
+                    \end{array}
+                \] ここで, $x\in [-L/2, L/2]$ において $\widetilde{f}(x) = f(x)$ であることと, $x\not\in[-L/2, L/2]$ において $f(x)=0$ であることに注意すると, 
+                \[
+                    \widehat{f}_m = \dfrac{1}{L}\displaystyle\int_{-L/2}^{L/2}\widetilde{f}(x)e^{-2\pi imx/L}~dx = \dfrac{1}{L}\displaystyle\int_{-\infty}^{\infty}f(x)e^{-2\pi imx/L}~dx 
+                \] である. 
+                この (広義) 積分を表す関数 
+                \[
+                    \widehat{f}(\xi) = \int_{-\infty}^{\infty} f(x)e^{-2\pi ix\xi}~dx
+                \] を導入し, また $\Delta\xi = 1/L$, $\xi_m = m\Delta\xi$ とおくと
+                \[
+                    \widehat{f}_m = \dfrac{1}{L}\widehat{f}(m/L) = \widehat{f}(\xi_m)\Delta\xi
+                \] である. 
+                従って, 
+                \[
+                    \widetilde{f}(x) = \displaystyle\sum_{m=-\infty}^{\infty}\widehat{f}_me^{2\pi imx/L} = \sum_{m=-\infty}^{\infty}\widehat{f}(\xi_m)e^{2\pi ix \xi_m}\Delta\xi
+                \] が得られるが, これはリーマン和であると見なすことができる. 
+                大雑把に言えば, $\Delta\xi\to0$ という極限 (つまり $L\to\infty$ となる極限) を考えると, 右辺は広義積分となり, また左辺は $x\in (-\infty, \infty)$ において $\widetilde{f}(x) = f(x)$ と思えるようになるため, 
+                \[
+                    f(x) = \int_{-\infty}^{\infty}\widehat{f}(\xi)e^{2\pi ix\xi}~d\xi
+                \] となる. 
+                以上より, 関数 $f(x)$ が周期を持たなかったとしても, (フーリエ級数展開と似たような式変形として) 
+                \[
+                    \widehat{f}(\xi) = \int_{-\infty}^{\infty}f(x) e^{-2\pi ix\xi}~dx
+                \] を用いて
+                \[
+                    f(x) = \int_{-\infty}^{\infty}\widehat{f}(\xi)e^{2\pi ix\xi}~d\xi
+                \] と計算することが可能である. 
+                ここで, 関数 $\widehat{f}(\xi)$ は (フーリエ係数 $\widehat{f}_m$ と同様に) 周波数成分の情報を表す関数となっている. 
+                フーリエ級数展開では, 周期関数を表現する波の重ね合わせを級数として表していたが, 関数が周期的でない場合には, 波の重ね合わせは積分の形で表されることになる. 
+                上の $\widehat{f}(\xi)$ を求める計算を <b>フーリエ変換</b>, $\widehat{f}(\xi)$ から $f(x)$ を求める計算を <b>フーリエ逆変換</b> という.
+            </p>
+
+            <div class="theorem" data-name="フーリエ変換">
+                <p>$\mathbb{R}$ 上の適切な関数 $f(x)$ に対して, 
+                    \[
+                        \widehat{f}(\xi) = \int_{-\infty}^{\infty}f(x) e^{-2\pi ix\xi}~dx
+                    \] を <b>フーリエ変換</b> (<b>Fourier transform</b>) と呼び, 
+                    \[
+                        f(x) = \int_{-\infty}^{\infty}\widehat{f}(\xi)e^{2\pi ix\xi}~d\xi
+                    \] を <b>フーリエ逆変換</b> (<b>Fourier inverse transform</b>) と呼ぶ.
+                </p>
+            </div>
+
+            </section>
+
 
         </article>
     </main>
