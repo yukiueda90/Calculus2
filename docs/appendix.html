@@ -534,8 +534,122 @@
                 </p>
             </div>
 
-            </section>
+        </section>
 
+        <section id="sectionA-3"><h2>A.3 グリーン関数</h2>
+            <p>ここでは, <a href="section4-2">発散定理と部分積分</a> において言及したポアソン方程式 
+                \[
+                    -\Delta u = f        
+                \] を考える. 
+                このように, 関数の微分を含む方程式を <b>微分方程式</b> と呼ぶ. 
+                微分方程式は, 物理現象などの記述において頻繁に利用されるものである. 
+            </p>
+            <p>まず, 簡単のために $1$ 次元の場合を考えてみよう: $\mathbf{x}\in\mathbb{R}^2$ に対して $\Delta u= \nabla\cdot \nabla u(\mathbf{x})$ であるが, 一方で $u(x)$ が $1$ 変数関数である場合には, ポアソン方程式は 
+                \[
+                    -\dfrac{d^2}{dx^2}u(x) = f(x)
+                \] となる. 
+                これを $1$ 次元のポアソン方程式と呼ぶことにしよう.   
+                例えば与えられた関数 $f(x)$ に対し, $1$ 次元ポアソン方程式を満たす $u(x)$ を求めるには, 積分を $2$ 回計算すれば良い. 
+                このようにして $1$ 次元ポアソン方程式の解 $u(x)$ を求めることは, 関数 $u(x)$ の &quot;変化率の変化率&quot; の情報から関数 $u(x)$ の具体的な形を求めることを意味している. 
+            </p>
+
+            <div class="example">
+                わかりやすさのために記号を取り替えて, 
+                \[
+                    -\dfrac{d^2}{dt^2}u(t) = g
+                \] という微分方程式を考えてみよう, ここで $g\gt 0$ は重力加速度定数と呼ばれる定数であるとする. 
+                この微分方程式の解 $u(t)$ は, 積分を $2$ 回計算することで 
+                \[
+                    u(t) = -\dfrac{1}{2}gt^2 + C_1t + C_2 
+                \] と求めることができる. 
+                この $C_1$ と $C_2$ は積分定数であり, もしも $u(0) = 0$, $u'(0) = 0$ のような条件 (つまり初期位置 $0$, 初速度 $0$) が与えられていれば, 
+                \[
+                    C_1 = C_2 = 0
+                \] と決定することができ, 
+                \[
+                    u(t) = -\dfrac{1}{2}gt^2 
+                \] が得られるが, これは (鉛直上向きを正とした) 物体の自由落下の公式に他ならない. 
+            </div>
+
+            <p>さて, ここでは与えられた連続関数 $f(x)$ に対するポアソン方程式の解を求める方法を考えてみる. 
+                準備として, 微積分学の基本定理より, 微分可能な関数 $g(x)$ に対して 
+                \[
+                    \dfrac{d}{dx}\int_a^x g(y)~dy = g(x) = \int_a^x g'(y)~dy
+                \] であることを思い出しておく. 
+                また, 
+                \[
+                    G(x) = -\dfrac{1}{2}|x|,\qquad H(x) = \left\{\begin{array}{rl} 
+                        0 & \text{if }x\lt 0, \cr 
+                        1 & \text{if }x\gt 0
+                    \end{array}\right.
+                \] という関数を用意しておく (関数 $H(x)$ は <b>ヘヴィサイド関数</b> と呼ばれる). 
+                関数 $H(x)$ は, $x=0$ での値が定義されていないが, ここでは気にしないことにする. 
+            </p>
+            <p>ここで唐突ではあるが 
+                \[
+                    u(x) = \int_{-\infty}^{\infty}G(x-y)f(y)~dy 
+                \] という関数を考える. 
+                すると, 
+                \[
+                    \begin{array}{rl} 
+                        \dfrac{d}{dx}u(x) &= \dfrac{d}{dx}\displaystyle\int_{-\infty}^{\infty}G(x-y)f(y)~dy \cr 
+                        &= -\dfrac{d}{dx}\left(\displaystyle\int_{-\infty}^{x}\dfrac{1}{2}(x-y)f(y)~dy + \displaystyle\int_{x}^{\infty}\dfrac{1}{2}(y-x)f(y)~dy\right) \cr 
+                        &= -\displaystyle\int_{-\infty}^x \dfrac{1}{2}f(y) ~dy + \int_x^{\infty}-\dfrac{1}{2}f(y)~dy \cr 
+                        &= -\displaystyle\int_{-\infty}^{\infty}\dfrac{1}{2}(1-2H(y-x))f(y)~dy
+                    \end{array}
+                \] と式変形できる. 
+                いま, $H(0)$ の値は定義されていないものの, 有限でありさえすれば上の等号は成立するため気にしない (このような考え方は <b>弱微分</b> と呼ばれるアイデアに相当している). 
+                上の式をもう一度微分することで, 
+                \[
+                    \begin{array}{rl} 
+                        \dfrac{d^2}{dx^2}u(x) &= -\dfrac{d}{dx}\displaystyle\int_{-\infty}^{\infty}\dfrac{1}{2}(1-2H(y-x))f(y)~dy \cr 
+                        &= -\dfrac{d}{dx}\left(\displaystyle\int_{-\infty}^x \dfrac{1}{2}f(y) ~dy + \int_x^{\infty}-\dfrac{1}{2}f(y)~dy\right) \cr 
+                        &= -\left(\dfrac{1}{2}f(x) - \left(-\dfrac{1}{2}f(x)\right)\right) \cr 
+                        &= -f(x)
+                    \end{array}
+                \] が得られるため, (積分定数に相当する部分を無視すれば) 
+                \[
+                    u(x) = \int_{-\infty}^{\infty}G(x-y)f(y)~dy 
+                \] は与えられた連続関数 $f(x)$ に対する $1$ 次元ポアソン方程式の解である. 
+                このように, 関数 $G(x)$ をうまく設計することで, 
+                \[
+                    -\dfrac{d^2}{dx^2}u(x) = f(x) \leftrightsquigarrow u(x) = \int_{-\infty}^{\infty}G(x-y)f(y)~dy 
+                \] という対応関係が得られることがわかった. 
+                このような関数 $G(x)$ は <b>基本解</b> (もしくは <b>グリーン関数</b>) と呼ばれる.
+            </p>
+
+            <hr>
+
+            <p>ところで, 関数 $H(x)$ の &quot;微分&quot; に相当する &quot;関数&quot; $\delta(x)$ を考えると, 
+                \[
+                    \begin{array}{rl} 
+                        \dfrac{d^2}{dx^2}u(x) &= -\dfrac{d}{dx}\displaystyle\int_{-\infty}^{\infty}\dfrac{1}{2}(1-2H(y-x))f(y)~dy \cr 
+                        &= -\displaystyle\int_{-\infty}^{\infty} \delta(y-x)f(y) ~dy \cr 
+                        &= -f(x)
+                    \end{array}
+                \] という式変形ができそうな気がする. 
+                ただし, この式変形についての厳密な説明は, ここまでの微積分の解説の範疇を超えている (<b>超関数微分</b> というアイデアが必要になる). 
+                上のような $\delta(x)$ は <b>ディラックのデルタ関数</b> と呼ばれるものであるが, ここではこの $\delta(x)$ の直感的な理解のみを紹介しよう. 
+            </p>
+            <p>まず, 与えられた $x$ に対して $\widetilde{f}(y) = f(y+x)$ とおくと, 上の式より 
+                \[
+                    \int_{-\infty}^{\infty}\delta(y)\widetilde{f}(y)~dy = \int_{-\infty}^{\infty}\delta(y-x)f(y)~dy = f(x) = \widetilde{f}(0)
+                \] が成立する. 
+                つまり, 記号を整理すると, 全ての連続関数 $f(x)$ に対し,  
+                \[
+                    \int_{-\infty}^{\infty}\delta(x)f(x) ~dx = f(0)
+                \] である. 
+                次に, $x\neq0$ においては 
+                \[
+                    \delta(x) = \dfrac{dH}{dx}(x) = 0 \qquad (x\neq 0)
+                \] であると思うことができそうである. 
+                もしも $x=0$ において, $\delta(0)$ の値が有限であるならば, $\delta(x)$ を適当な区間の上で積分すると $0$ になってしまうが, 実際には上の式で $f(x)\equiv 1$ の場合を考えると 
+                \[
+                    \int_{-\infty}^{\infty}\delta(x)~dx = 1
+                \] である. 
+                このことをうまく説明しようとすると, 直感的には $\delta(0) = \infty$ であるとみなす他ない. 
+            </p>
+        </section>
 
         </article>
     </main>
