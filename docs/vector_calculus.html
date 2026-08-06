@@ -168,7 +168,7 @@
                 \[
                     \int_C \mathbf{f}(\mathbf{x})\cdot d\mathbf{r} = \int_C f_1(x, y)~dx + f_2(x, y)~dy
                 \] と表記することがある. 
-                この右辺の表記では, 点 $(x, y)$ が曲線 $C$ 上にあるという条件から $x$ もしくは $y$ を消去することで, 
+                この右辺の表記では, 点 $(x, y)$ が曲線 $C$ 上にあるという条件を用いて $x$ もしくは $y$ を消去することで, 
                 \[
                     \int_C \mathbf{f}(\mathbf{x})\cdot d\mathbf{r} = \int_C f_1(x, y(x))~dx + \int_C f_2(x(y), y)~dy
                 \] が成立することを意味している. 
@@ -323,7 +323,7 @@
                 \] に対し, $\mathbf{r}'(t)$ を接ベクトル, $|\mathbf{r}'(t)|$ を局所長と呼んでいたが, さらに 
                 \[
                     \mathbf{t}(\mathbf{r}(t)) = \dfrac{\mathbf{r}'(t)}{|\mathbf{r}'(t)|}
-                \] を <b>単位接ベクトル</b> (<b>unit tangent vector</b>) という (この &quot;単位&quot; という名前は大きさが $1$ であることを意味する). 
+                \] を <b>単位接ベクトル</b> (<b>unit tangent vector</b>) という (この &quot;単位&quot; という名前は大きさが $1$ のベクトルであることを意味する). 
                 さらに, $\mathbf{n}(t) = -\mathbf{t}^{\perp}$, つまり 
                 \[
                     \mathbf{t} = \begin{pmatrix} 
@@ -437,9 +437,10 @@
                         \begin{array}{rl} 
                             \displaystyle\iint_D\left(\dfrac{\partial f_2}{\partial x} - \dfrac{\partial f_1}{\partial y}\right)~dxdy &= \displaystyle\int_c^d\int_{\psi_1(y)}^{\psi_2(y)} \dfrac{\partial f_2}{\partial x}~dxdy - \int_a^b\int_{\varphi_1(x)}^{\varphi_2(x)} \dfrac{\partial f_1}{\partial y}~dydx \cr 
                             &= \displaystyle\int_c^d \left(f_2(\psi_2(y), y) - f_2(\psi_1(y), y)\right)~dy \cr 
-                            &\qquad - \displaystyle\int_a^b \left(f_1(x, \varphi_2(x)) - f_1(x, \varphi_2(x))\right)~dx \quad(\because\ \text{微積分学の基本定理})
+                            &\qquad - \displaystyle\int_a^b \left(f_1(x, \varphi_2(x)) - f_1(x, \varphi_1(x))\right)~dx \quad(\because\ \text{微積分学の基本定理})
                         \end{array}
-                    \] 一方で, 左辺の線積分は 
+                    \] が得られる. 
+                    一方で, 左辺の線積分は 
                     \[
                         \oint_C\mathbf{f}(\mathbf{x})\cdot d\mathbf{r} = \underbrace{\oint_C f_1(x, y(x))~dx}_{=I_1} + \underbrace{\oint_C f_2(x(y), y)~dy}_{=I_2}
                     \] であるが, $I_1$ を計算する際は曲線 $C$ を (向きに注意して)
@@ -477,7 +478,7 @@
                         \begin{array}{rl} 
                             \text{(右辺)} &= I_1 + I_2 \cr 
                             &= \displaystyle\int_c^d \left(f_2(\psi_2(y), y) - f_2(\psi_1(y), y)\right)~dy \cr 
-                            &\qquad - \displaystyle\int_a^b \left(f_1(x, \varphi_2(x)) - f_1(x, \varphi_2(x))\right)~dx \cr
+                            &\qquad - \displaystyle\int_a^b \left(f_1(x, \varphi_2(x)) - f_1(x, \varphi_1(x))\right)~dx \cr
                             &= \text{(左辺)}
                         \end{array}
                     \] が得られる. 
@@ -593,7 +594,7 @@
                             \displaystyle\oint_C \mathbf{f}\cdot\mathbf{n}~ds &= \displaystyle\int_C \begin{pmatrix} 
                                 -f_2(\mathbf{x}) \cr 
                                 f_1(\mathbf{x}) 
-                            \end{pmatrix}\cdot d\mathbf{r} \quad (\because \ \text{補題}) \cr 
+                            \end{pmatrix}\cdot d\mathbf{r} \quad (\because \ \text{4.1 の補題}) \cr 
                             &= \displaystyle\iint_D\left(\dfrac{\partial f_1}{\partial x} - \dfrac{\partial (-f_2)}{\partial y}\right)~dxdy \quad (\because\ \text{グリーンの定理}) \cr 
                             &= \displaystyle\iint_D\nabla\cdot\mathbf{f} ~dxdy
                         \end{array}
