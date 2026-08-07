@@ -27,7 +27,7 @@
     </div>
     
     <!-- main -->
-    <main role="main"><article id="section3"><h1>A. 補足</h1>
+    <main role="main"><article id="section3"><h1>A. 発展的な話題</h1>
         <section id="sectionA-1"><h2>A.1: 広義重積分</h2> 
             <p>$1$ 変数関数に対する広義積分は片側極限を用いることで定義することができたが, 多変数関数に対する広義積分では同様に定義することはできない. 
                 例えば二重積分に限って無限に広い領域上での広義積分を考えようとしても, どの方向に &quot;無限に広い&quot; のか, によってどのような &quot;極限&quot; を考えれば良いか, 状況によって様々であり扱いづらい. 
@@ -537,14 +537,14 @@
         </section>
 
         <section id="sectionA-3"><h2>A.3: 基本解とデルタ関数</h2>
-            <p>ここでは, <a href="section4-2">発散定理と部分積分</a> において言及したポアソン方程式 
+            <p>ここでは, <a href="section4-2">4.2: 発散定理と部分積分</a> において少しだけ言及したポアソン方程式 
                 \[
                     -\Delta u = f        
-                \] を考える. 
-                このように, 関数の微分を含む方程式を <b>微分方程式</b> と呼ぶ. 
+                \] を対象に, <b>基本解</b> と呼ばれるアイデアを紹介しよう. 
+                まず, ポアソン方程式のように, 関数の微分を含む方程式を <b>微分方程式</b> と呼ぶ. 
                 微分方程式は, 物理現象などの記述において頻繁に利用されるものである. 
             </p>
-            <p>まず, 簡単のために $1$ 次元の場合を考えてみよう: $\mathbf{x}\in\mathbb{R}^2$ に対して $\Delta u= \nabla\cdot \nabla u(\mathbf{x})$ であるが, 一方で $u(x)$ が $1$ 変数関数である場合には, ポアソン方程式は 
+            <p>簡単のために $1$ 次元の場合から考えてみよう: $\mathbf{x}\in\mathbb{R}^2$ に対して $\Delta u= \nabla\cdot \nabla u(\mathbf{x})$ であるが, 一方で $u(x)$ が $1$ 変数関数である場合には, ポアソン方程式は 
                 \[
                     -\dfrac{d^2}{dx^2}u(x) = f(x)
                 \] となる. 
@@ -602,7 +602,7 @@
                         &= -\displaystyle\int_{-\infty}^{\infty}\dfrac{1}{2}(1-2H(y-x))f(y)~dy
                     \end{array}
                 \] と式変形できる. 
-                いま, $H(0)$ の値は定義されていないものの, 有限でありさえすれば上の等号は成立するため気にしない (このような考え方は <b>弱微分</b> と呼ばれるアイデアに相当している). 
+                この式変形について, $G(x)$ は $x=0$ で微分不可能であり, また $H(0)$ の値は定義されていないが, $H(0)$ が有限でありさえすれば上の等号は成立するため気にしない (このような考え方は <b>弱微分</b> と呼ばれるアイデアに相当している). 
                 上の式をもう一度微分することで, 
                 \[
                     \begin{array}{rl} 
@@ -634,8 +634,7 @@
                         &= -f(x)
                     \end{array}
                 \] という式変形ができそうな気がする. 
-                ただし, この式変形についての厳密な説明は, ここまでの微積分の解説の範疇を超えている. 
-                実際, $H(x)$ は不連続なので, 当然通常の意味での微分は不可能であり, 代わりに <b>超関数微分</b> という, 微分を拡張したアイデアが必要になる. 
+                ただし, この式変形についての厳密な説明は, ここまでの微積分の解説の範疇を超えている (<b>超関数微分</b> という, 微分を拡張したアイデアが必要になる). 
                 上のような $\delta(x)$ は <b>ディラックのデルタ関数</b> と呼ばれるものであるが, ここではこの $\delta(x)$ の直感的な理解のみを紹介しよう. 
             </p>
             <p>まず, 与えられた $x$ に対して $\widetilde{f}(y) = f(y+x)$ とおくと, 上の式より 
@@ -688,7 +687,8 @@
                 \] という対応関係があることがわかる. 
             </p>
 
-            <p>ここまでの話はあくまで直感的な説明であり, 数学的に厳密なものではないものの, 改めて <b>注意</b> としてまとめておこう: 
+            <p>繰り返すが, ここまでの話はあくまで直感的な説明であり, 数学的に厳密なものではない. 
+                ただし, 非常に有用な考え方であることは確かであり, 改めて <b>注意</b> としてまとめておこう: 
             </p>
 
             <div class="remark">
@@ -745,7 +745,10 @@
             <p>このことも, やはり数学的に厳密な解説はしないが, いくつかの点について直感的な説明を補足しておこう: </p>
 
             <ul>
-                <li>まず, $2$ 次元の場合もデルタ関数 $\delta(\mathbf{x})$ は, やはり直感的には 
+                <li>まず, $2$ 次元の場合もデルタ関数 $\delta(\mathbf{x})$ は 
+                    \[
+                        \iint_{\mathbb{R}^2} \delta(\mathbf{x})f(\mathbf{x}) ~dx_1dx_2 = f(\mathbf{0})
+                    \] を満たすものであり, やはり直感的には 
                     <ul>
                         <li>$\delta(\mathbf{x}) = 0\quad (\mathbf{x}\neq 0)$, </li>
                         <li>$\delta(\mathbf{0}) = \infty$, </li>
@@ -764,12 +767,12 @@
                         \lim_{\varepsilon\to0} G_{\varepsilon}(\mathbf{x}) = \dfrac{1}{4\pi}\log |\mathbf{x}|^2 = G(\mathbf{x})
                     \] を満たし, また実際に微分を計算することで
                     \[
-                        \begin{array}{rl} 
-                            \nabla G_{\varepsilon}(\mathbf{x}) &= \dfrac{1}{4\pi}\begin{pmatrix} 
+                        \begin{array}{c} 
+                            \nabla G_{\varepsilon}(\mathbf{x}) = \dfrac{1}{4\pi}\begin{pmatrix} 
                                 \dfrac{\partial}{\partial x_1}\log (x_1^2+x_2^2+\varepsilon^2) \cr 
                                 \dfrac{\partial}{\partial x_2}\log (x_1^2+x_2^2+\varepsilon^2)  
                             \end{pmatrix} = \dfrac{\mathbf{x}}{2\pi(|\mathbf{x}|^2 + \varepsilon^2)}, \cr
-                            -\Delta G_{\varepsilon}(\mathbf{x}) &= \dfrac{\partial}{\partial x_1}\dfrac{x_1}{2\pi(x_1^2 + x_2^2 + \varepsilon^2)} + \dfrac{\partial}{\partial x_2}\dfrac{x_2}{2\pi(x_1^2 + x_2^2 + \varepsilon^2)} = \dfrac{\varepsilon^2}{\pi(|\mathbf{x}|^2 + \varepsilon^2)^2}
+                            -\Delta G_{\varepsilon}(\mathbf{x}) = \dfrac{\partial}{\partial x_1}\dfrac{x_1}{2\pi(x_1^2 + x_2^2 + \varepsilon^2)} + \dfrac{\partial}{\partial x_2}\dfrac{x_2}{2\pi(x_1^2 + x_2^2 + \varepsilon^2)} = \dfrac{\varepsilon^2}{\pi(|\mathbf{x}|^2 + \varepsilon^2)^2}
                         \end{array}
                     \] を確かめることができる. 
                     従って, 直感的には 
@@ -786,7 +789,7 @@
                             &= \displaystyle\lim_{\varepsilon\to0}\lim_{n\to\infty}\int_0^n \dfrac{2r\varepsilon^2}{(r^2+\varepsilon^2)^2}~dr \cr 
                             &= 1
                         \end{array}
-                    \] もわかるため, 確かに $-\Delta G(\mathbf{x}) = \delta(\mathbf{x})$ となっている. 
+                    \] のように式変形できそうなので, 確かに $-\Delta G(\mathbf{x}) = \delta(\mathbf{x})$ となっていそうである. 
                 </li>
                 <li>以上より, 
                     \[
