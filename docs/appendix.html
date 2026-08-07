@@ -536,7 +536,7 @@
 
         </section>
 
-        <section id="sectionA-3"><h2>A.3 グリーン関数</h2>
+        <section id="sectionA-3"><h2>A.3: 基本解とデルタ関数</h2>
             <p>ここでは, <a href="section4-2">発散定理と部分積分</a> において言及したポアソン方程式 
                 \[
                     -\Delta u = f        
@@ -554,21 +554,25 @@
             </p>
 
             <div class="example">
-                わかりやすさのために記号を取り替えて, 
-                \[
-                    -\dfrac{d^2}{dt^2}u(t) = g
-                \] という微分方程式を考えてみよう, ここで $g\gt 0$ は重力加速度定数と呼ばれる定数であるとする. 
-                この微分方程式の解 $u(t)$ は, 積分を $2$ 回計算することで 
-                \[
-                    u(t) = -\dfrac{1}{2}gt^2 + C_1t + C_2 
-                \] と求めることができる. 
-                この $C_1$ と $C_2$ は積分定数であり, もしも $u(0) = 0$, $u'(0) = 0$ のような条件 (つまり初期位置 $0$, 初速度 $0$) が与えられていれば, 
-                \[
-                    C_1 = C_2 = 0
-                \] と決定することができ, 
-                \[
-                    u(t) = -\dfrac{1}{2}gt^2 
-                \] が得られるが, これは (鉛直上向きを正とした) 物体の自由落下の公式に他ならない. 
+                <p>わかりやすさのために記号を取り替えて, 
+                    \[
+                        -\dfrac{d^2}{dt^2}u(t) = g
+                    \] という微分方程式を考えてみよう, ここで $g\gt 0$ は重力加速度定数と呼ばれる定数であるとする. 
+                    この微分方程式の解 $u(t)$ は, 積分を $2$ 回計算することで 
+                    \[
+                        u(t) = -\dfrac{1}{2}gt^2 + C_1t + C_2 
+                    \] と求めることができる. 
+                    この $C_1$ と $C_2$ は積分定数であり, もしも $u(0) = 0$, $u'(0) = 0$ のような条件 (つまり初期位置 $0$, 初速度 $0$) が与えられていれば, 
+                    \[
+                        C_1 = C_2 = 0
+                    \] と決定することができ, 
+                    \[
+                        u(t) = -\dfrac{1}{2}gt^2 
+                    \] が得られるが, これは (鉛直上向きを正とした) 物体の自由落下の公式に他ならない. 
+                </p>
+                <p>位置 $u$ が時刻 $t$ についての関数であるとき, $u$ の $1$ 階微分は &quot;位置の変化率&quot;, すなわち速度を表し, $2$ 階微分は &quot;速度の変化率&quot;, すなわち加速度を表す. 
+                    物体の自由落下の公式は, &quot;加速度が一定である&quot; という物理法則を微分方程式で表現し, それを解くことにより導出されているのである.  
+                </p>
             </div>
 
             <p>さて, ここでは与えられた連続関数 $f(x)$ に対するポアソン方程式の解を求める方法を考えてみる. 
@@ -615,7 +619,8 @@
                 \[
                     -\dfrac{d^2}{dx^2}u(x) = f(x) \leftrightsquigarrow u(x) = \int_{-\infty}^{\infty}G(x-y)f(y)~dy 
                 \] という対応関係が得られることがわかった. 
-                このような関数 $G(x)$ は <b>基本解</b> (もしくは <b>グリーン関数</b>) と呼ばれる.
+                このような関数 $G(x)$ は <b>基本解</b> (もしくは <b>グリーン関数</b>) と呼ばれる. 
+                今回は $G(x) = -1/2|x|$ という関数を考えたが, これは $1$ 次元のラプラシアン $-d^2/dx^2$ に対する基本解である, と言及される. 
             </p>
 
             <hr>
@@ -623,12 +628,14 @@
             <p>ところで, 関数 $H(x)$ の &quot;微分&quot; に相当する &quot;関数&quot; $\delta(x)$ を考えると, 
                 \[
                     \begin{array}{rl} 
-                        \dfrac{d^2}{dx^2}u(x) &= -\dfrac{d}{dx}\displaystyle\int_{-\infty}^{\infty}\dfrac{1}{2}(1-2H(y-x))f(y)~dy \cr 
+                        \dfrac{d^2}{dx^2}u(x) &= \dfrac{d^2}{dx^2}\displaystyle\int_{-\infty}^{\infty}G(x-y)f(y)~dy \cr 
+                        &= -\dfrac{d}{dx}\displaystyle\int_{-\infty}^{\infty}\dfrac{1}{2}(1-2H(y-x))f(y)~dy \cr 
                         &= -\displaystyle\int_{-\infty}^{\infty} \delta(y-x)f(y) ~dy \cr 
                         &= -f(x)
                     \end{array}
                 \] という式変形ができそうな気がする. 
-                ただし, この式変形についての厳密な説明は, ここまでの微積分の解説の範疇を超えている (<b>超関数微分</b> というアイデアが必要になる). 
+                ただし, この式変形についての厳密な説明は, ここまでの微積分の解説の範疇を超えている. 
+                実際, $H(x)$ は不連続なので, 当然通常の意味での微分は不可能であり, 代わりに <b>超関数微分</b> という, 微分を拡張したアイデアが必要になる. 
                 上のような $\delta(x)$ は <b>ディラックのデルタ関数</b> と呼ばれるものであるが, ここではこの $\delta(x)$ の直感的な理解のみを紹介しよう. 
             </p>
             <p>まず, 与えられた $x$ に対して $\widetilde{f}(y) = f(y+x)$ とおくと, 上の式より 
@@ -649,6 +656,159 @@
                 \] である. 
                 このことをうまく説明しようとすると, 直感的には $\delta(0) = \infty$ であるとみなす他ない. 
             </p>
+
+            <div class="definition" data-name="ディラックのデルタ関数">
+                <p>全ての連続関数 $f(x)$ に対し,  
+                    \[
+                        \int_{-\infty}^{\infty}\delta(x)f(x) ~dx = f(0)
+                    \] を満たす $\delta(x)$ を <b>ディラックのデルタ関数</b> (<b>Dirac delta function</b>) もしくは単に <b>デルタ関数</b> という. 
+                    直感的には,
+                </p>
+                <ul>
+                    <li>$\delta(x) = 0 \quad (x\neq 0)$, 特に $\delta(-x) = \delta(x)$</li>
+                    <li>$\delta(0) = \infty$, </li>
+                    <li>$\displaystyle\int_{-\infty}^{\infty}\delta(x)~dx = 1$</li>
+                </ul>
+                <p>を満たすようなものである, と説明される (ただし関数ではない).
+                </p>
+            </div>
+
+            <p>次に, デルタ関数 $\delta(x)$ と ($1$ 次元のラプラシアンに対する) 基本解 $G(x)$ の関係を見てみよう. 
+                上で, 
+                \[
+                    \begin{array}{rl} 
+                        \dfrac{d^2}{dx^2}u(x) &= \dfrac{d^2}{dx^2}\displaystyle\int_{-\infty}^{\infty}G(x-y)f(y)~dy \cr 
+                        &= -\dfrac{d}{dx}\displaystyle\int_{-\infty}^{\infty}\dfrac{1}{2}(1-2H(y-x))f(y)~dy \cr 
+                        &= -\displaystyle\int_{-\infty}^{\infty} \delta(y-x)f(y) ~dy \cr 
+                        &= -f(x)
+                    \end{array}
+                \] と式変形したことを思い出すと, 直感的には
+                \[
+                    -\dfrac{d^2}{dx^2}G(x) = \delta(x)
+                \] という対応関係があることがわかる. 
+            </p>
+
+            <p>ここまでの話はあくまで直感的な説明であり, 数学的に厳密なものではないものの, 改めて <b>注意</b> としてまとめておこう: 
+            </p>
+
+            <div class="remark">
+                <p>関数 $f(x)$ は連続とする. 
+                    このとき, $1$ 次元のポアソン方程式 
+                    \[
+                        -\dfrac{d^2}{dx^2}u(x) = f(x) = \int_{-\infty}^{\infty}\delta(x-y)f(y)~dy
+                    \] に対して, <b>基本解</b> 
+                    \[
+                        G(x) = -\dfrac{1}{2}|x|
+                    \] は, 
+                    \[
+                        -\dfrac{d^2}{dx^2}G(x) = \delta(x)
+                    \] を満たす, ただし $\delta(x)$ は <b>ディラックのデルタ関数</b> である. 
+                    さらに, これを用いると, $1$ 次元ポアソン方程式の解は  
+                    \[
+                        u(x) = \displaystyle\int_{-\infty}^{\infty}G(x-y)f(y)~dy 
+                    \] と表すことができる. 
+                    実際, 
+                    \[
+                        -\dfrac{d^2}{dx^2}u(x) = \displaystyle\int_{-\infty}^{\infty}-\dfrac{d^2}{dx^2}G(x-y)f(y)~dy = \int_{-\infty}^{\infty}\delta(x-y)f(y)~dy = f(x)
+                    \] と式変形できる.
+                </p>
+            </div>
+
+            <hr> 
+
+            <p>さて, これと同様のことは実は $2$ 次元ポアソン方程式に対しても可能である. 
+                以降, 
+                \[
+                    \mathbf{x} = \begin{pmatrix} 
+                        x_1 \cr 
+                        x_2 
+                    \end{pmatrix},\qquad \mathbf{y} = \begin{pmatrix} 
+                        y_1 \cr 
+                        y_2 
+                    \end{pmatrix}
+                \] と表すことにする:  
+            </p>
+
+            <div class="remark">
+                $2$ 次元ポアソン方程式 
+                \[
+                    -\Delta u(\mathbf{x}) = f(\mathbf{x})
+                \] の解 $u(\mathbf{x})$ は, 
+                \[
+                    -\Delta G(\mathbf{x}) = \delta(\mathbf{x}) 
+                \] を満たす基本解 $G(\mathbf{x})$ を用いて
+                \[
+                    u(\mathbf{x}) = \iint_{\mathbb{R}^2}G(\mathbf{x} - \mathbf{y})f(\mathbf{y})~dy_1dy_2
+                \] と表すことができる.
+            </div>
+
+            <p>このことも, やはり数学的に厳密な解説はしないが, いくつかの点について直感的な説明を補足しておこう: </p>
+
+            <ul>
+                <li>まず, $2$ 次元の場合もデルタ関数 $\delta(\mathbf{x})$ は, やはり直感的には 
+                    <ul>
+                        <li>$\delta(\mathbf{x}) = 0\quad (\mathbf{x}\neq 0)$, </li>
+                        <li>$\delta(\mathbf{0}) = \infty$, </li>
+                        <li>$\displaystyle\iint_{\mathbb{R}^2}\delta(\mathbf{x})~dx_1dx_2 = 1$</li>
+                    </ul> を満たすようなものである, と説明される. 
+                </li>
+                <li>$2$ 次元のラプラシアン $-\Delta$ に対する基本解は 
+                    \[
+                        G(\mathbf{x}) = \dfrac{1}{2\pi}\log|\mathbf{x}| 
+                    \] である. 
+                    このことを (直感的に) 説明するために, 
+                    \[
+                        G_{\varepsilon}(\mathbf{x}) = \dfrac{1}{4\pi}\log(|\mathbf{x}|^2 + \varepsilon^2)  
+                    \] という関数を導入すると, この関数は 
+                    \[
+                        \lim_{\varepsilon\to0} G_{\varepsilon}(\mathbf{x}) = \dfrac{1}{4\pi}\log |\mathbf{x}|^2 = G(\mathbf{x})
+                    \] を満たし, また実際に微分を計算することで
+                    \[
+                        \begin{array}{rl} 
+                            \nabla G_{\varepsilon}(\mathbf{x}) &= \dfrac{1}{4\pi}\begin{pmatrix} 
+                                \dfrac{\partial}{\partial x_1}\log (x_1^2+x_2^2+\varepsilon^2) \cr 
+                                \dfrac{\partial}{\partial x_2}\log (x_1^2+x_2^2+\varepsilon^2)  
+                            \end{pmatrix} = \dfrac{\mathbf{x}}{2\pi(|\mathbf{x}|^2 + \varepsilon^2)}, \cr
+                            -\Delta G_{\varepsilon}(\mathbf{x}) &= \dfrac{\partial}{\partial x_1}\dfrac{x_1}{2\pi(x_1^2 + x_2^2 + \varepsilon^2)} + \dfrac{\partial}{\partial x_2}\dfrac{x_2}{2\pi(x_1^2 + x_2^2 + \varepsilon^2)} = \dfrac{\varepsilon^2}{\pi(|\mathbf{x}|^2 + \varepsilon^2)^2}
+                        \end{array}
+                    \] を確かめることができる. 
+                    従って, 直感的には 
+                    \[
+                        -\Delta G(\mathbf{x}) = \lim_{\varepsilon\to0}\left(-\Delta G_{\varepsilon}(\mathbf{x})\right) = \lim_{\varepsilon\to0}\dfrac{\varepsilon^2}{\pi(|\mathbf{x}|^2 + \varepsilon^2)^2} = \left\{\begin{array}{cl} 
+                            0 &\text{if }\mathbf{x}\neq \mathbf{0}, \cr 
+                            \infty &\text{if }\mathbf{x}=\mathbf{0} 
+                        \end{array}\right.
+                    \] であり, また近似増加列 $D_n = \{(x_1, x_2)\in\mathbb{R}^2: x_1^2+x_2^2 \le n^2\}$ を考えると
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\iint_{\mathbb{R}^2} -\Delta G(\mathbf{x})~dx_1dx_2 &= \displaystyle\lim_{\varepsilon\to0}\lim_{n\to\infty}\iint_{D_n} \dfrac{\varepsilon^2}{\pi(|\mathbf{x}|^2 + \varepsilon^2)^2}~dx_1dx_2 \cr 
+                            &= \displaystyle\lim_{\varepsilon\to0}\lim_{n\to\infty}\iint_{[0, n]\times[0, 2\pi]} \dfrac{\varepsilon^2}{\pi(r^2+\varepsilon^2)^2}r~drd\theta \cr 
+                            &= \displaystyle\lim_{\varepsilon\to0}\lim_{n\to\infty}\int_0^n \dfrac{2r\varepsilon^2}{(r^2+\varepsilon^2)^2}~dr \cr 
+                            &= 1
+                        \end{array}
+                    \] もわかるため, 確かに $-\Delta G(\mathbf{x}) = \delta(\mathbf{x})$ となっている. 
+                </li>
+                <li>以上より, 
+                    \[
+                        u(\mathbf{x}) = \iint_{\mathbb{R}^2}G(\mathbf{x} - \mathbf{y})f(\mathbf{y})~dy_1dy_2
+                    \] に対し, 
+                    \[
+                        \begin{array}{rl} 
+                            -\Delta u(\mathbf{x}) &= \displaystyle\iint_{\mathbb{R}^2}-\Delta G(\mathbf{x} - \mathbf{y})f(\mathbf{y})~dy_1dy_2 \cr 
+                            &= \displaystyle\iint_{\mathbb{R}^2}\delta(\mathbf{x}-\mathbf{y})f(\mathbf{y})~dy_1dy_2 \cr 
+                            &= f(\mathbf{x})
+                        \end{array}
+                    \] のように式変形できることが期待される. 
+                </li>
+            </ul>
+
+            <p>実際には, 関数 $f(\mathbf{x})$ はある程度良い性質を持っていなければ, 上のような式変形は不可能である. 
+                とはいえ, 物理や工学分野への応用に関しては, そこまで厳密さを意識することなく上のような議論が利用されているように思われる. 
+                反面, より理論的, 数学的な内容について勉強しようとすると, 関数 $f$ にはどのような条件が求められるのか, 本当に上のような式変形が可能なのか, といった点について詳しく調べることになる (上の説明では『直感的』という言葉を多用しているが, 通常はこのような議論は認められない). 
+                その際には, この資料の内容のような概念を基盤として, 微積分のアイデアをさらに拡張した高度な内容について学ぶことになる. 
+            </p>
+
+
         </section>
 
         </article>
