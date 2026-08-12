@@ -556,7 +556,7 @@
             <p>さらに領域 $D$ について, $x$ の範囲が定数, $y$ の範囲が関数で与えられている場合, つまり 
                 \[
                      D = \{(x, y)\in\mathbb{R}^2 : a\le x\le b,\quad \varphi_1(x)\le y\le \varphi_2(x)\}
-                \] のように表されている場合 (このような領域を <b>$x$ 単純領域</b> と呼ぶことがある), $D\subset \widetilde{D}$ を満たす長方形領域 $\widetilde{D}$ を $\widetilde{D} = [a, b]\times[c, d]$ のように取り, さらに $\widetilde{D}$ 上の関数 $\widetilde{f}$ を適切に定めることで, 
+                \] のように表されている場合 (このような領域を <b>$x$ 単純領域</b> と呼ぶことがある), $D\subset \widetilde{D}$ を満たす長方形領域 $\widetilde{D}$ を $\widetilde{D} = [a, b]\times[c, d]$ のように取り, さらに $\widetilde{D}$ 上の関数 $\widetilde{f}(x)$ の値を, 領域 $D$ 内部では $f(x)$, 外側では $0$ と定めることで, 
                 \[
                     \begin{array}{rl} 
                         \displaystyle\iint_D f(x, y)~dxdy &= \displaystyle\iint_{\widetilde{D}}\widetilde{f}(x, y)~dxdy \cr 
@@ -941,15 +941,8 @@
                 このとき, $\mathbf{u}$ についての領域 $\widehat{D}$ と, 対応する $\mathbf{x}$ についての領域 $D$ について, 
                     \[
                         \int\dots\int_D f(\mathbf{x})~dx_1\dots dx_n = \int\dots\int_{\widehat{D}} f(\mathbf{x}(\mathbf{u})) |\det J(\mathbf{u})|~du_1\dots du_n
-                    \] が成立する, ただし 
-                    \[
-                        J(\mathbf{u}) = \begin{pmatrix} 
-                            \dfrac{\partial x_1}{\partial u_1} & \dfrac{\partial x_1}{\partial u_2} &\dots & \dfrac{\partial x_1}{\partial u_n} \cr 
-                            \dfrac{\partial x_2}{\partial u_1} & \dfrac{\partial x_2}{\partial u_2} &\dots & \dfrac{\partial x_2}{\partial u_n} \cr 
-                            \vdots & \vdots & \ddots & \vdots \cr 
-                            \dfrac{\partial x_n}{\partial u_1} & \dfrac{\partial x_n}{\partial u_2} &\dots & \dfrac{\partial x_n}{\partial u_n} 
-                        \end{pmatrix} \in\mathbb{R}^{n\times n}
-                    \] は $n$ 変数ベクトル値関数 
+                    \] が成立する, ただし, 
+                    $n$ 変数ベクトル値関数 
                     \[
                         \mathbf{x}(\mathbf{u}) = \begin{pmatrix} 
                             x_1(u_1, u_2, \dots, u_n)\cr 
@@ -957,7 +950,15 @@
                             \vdots \cr 
                             x_n(u_1, u_2, \dots, u_n)
                         \end{pmatrix} \in\mathbb{R}^n
-                    \] に対するヤコビ行列である. 
+                    \] に対し, $J(\mathbf{u})$ はヤコビ行列である: 
+                    \[
+                        J(\mathbf{u}) = \begin{pmatrix} 
+                            \dfrac{\partial x_1}{\partial u_1} & \dfrac{\partial x_1}{\partial u_2} &\dots & \dfrac{\partial x_1}{\partial u_n} \cr 
+                            \dfrac{\partial x_2}{\partial u_1} & \dfrac{\partial x_2}{\partial u_2} &\dots & \dfrac{\partial x_2}{\partial u_n} \cr 
+                            \vdots & \vdots & \ddots & \vdots \cr 
+                            \dfrac{\partial x_n}{\partial u_1} & \dfrac{\partial x_n}{\partial u_2} &\dots & \dfrac{\partial x_n}{\partial u_n} 
+                        \end{pmatrix} \in\mathbb{R}^{n\times n}.
+                    \] 
                 </p>
             </div>
 
@@ -1031,7 +1032,7 @@
                         (x-a)^2 + y^2 = a^2 
                     \] と表すこともできることに注意すると, 領域 
                     \[
-                        D = \{(x, y, z)\in\mathbb{R}^3 : 0\le (x-a)^2+y^2\le a^2,\quad bx \le z\le cx\}
+                        D = \{(x, y, z)\in\mathbb{R}^3 : (x-a)^2+y^2\le a^2,\quad bx \le z\le cx\}
                     \] に対して, 求める体積は 
                     \[
                         |D| = \iiint_D~dxdydz
@@ -1039,16 +1040,17 @@
                     この積分を計算する際に置換積分を利用する: 
                     \[
                         x= a + r\cos\theta,\quad y = r\sin\theta,\quad z = u \qquad (0\le r\le a,\quad 0\le\theta\le2\pi)
-                    \] という変数変換に基づき三重積分に対する置換積分の公式を利用しても良いし, もしくは逐次積分により 
+                    \] という変数変換に基づき三重積分に対する置換積分の公式を利用しても良いし, もしくは 
                     \[
-                        |D| = \iiint_D~dxdydz = \iint_K \left(\int_{bx}^{cx}~dz\right)~dxdy = \iint_K (c-b)x ~dxdy,
+                        K = \{(x, y)\in\mathbb{R}^2 : (x-a)^2 + y^2\le a^2\}
+                    \] に対し, 逐次積分により 
+                    \[
+                        |D| = \iiint_D~dxdydz = \iint_K \left(\int_{bx}^{cx}~dz\right)~dxdy = \iint_K (c-b)x ~dxdy
                     \] 
-                    \[
-                        \text{ただし}\quad K = \{(x, y)\in\mathbb{R}^2 : (x-a)^2 + y^2\le a^2\}
-                    \] とした上で, 
+                    と式変形した上で, この二重積分に対し
                     \[
                         x= a + r\cos\theta,\quad y = r\sin\theta \qquad (0\le r\le a,\quad 0\le\theta\le2\pi)
-                    \] という変数変換に基づき二重積分に対する置換積分の公式を適用しても良い. 
+                    \] という変数変換に基づく置換積分の公式を適用しても良い. 
                     この問題については, いずれにしてもヤコビ行列式は $r$ であり, 従って
                     \[
                         \begin{array}{rl} 
@@ -1168,6 +1170,27 @@
                             a_1b_2 - a_2b_1 
                         \end{pmatrix} \in\mathbb{R}^3
                     \] を $\mathbf{a}$ と $\mathbf{b}$ の <b>外積</b> もしくは <b>クロス積</b> (<b>cross product</b>) という. 
+                </p>
+            </div>
+
+            <div class="remark">
+                <p>外積 $\mathbf{a}\times \mathbf{b}$ の第 $i$ 成分は, 標準基底 $\mathbf{e}_i\in\mathbb{R}^3$ と $\mathbf{a}$, $\mathbf{b}$ を列ベクトルとする行列の行列式に等しい. 
+                    例えば, 第 $1$ 成分は 
+                    \[
+                        \begin{array}{rl} 
+                            (\mathbf{a}\times \mathbf{b})_1 &= \det(\mathbf{e}_1, \mathbf{a}, \mathbf{b}) \cr 
+                            &= \det\begin{pmatrix} 
+                                1 & a_1 & b_1 \cr 
+                                0 & a_2 & b_2 \cr 
+                                0 & a_3 & b_3 
+                            \end{pmatrix} \cr 
+                            &= \det\begin{pmatrix} 
+                                a_2 & b_2 \cr 
+                                a_3 & b_3 
+                            \end{pmatrix} \cr 
+                            &= a_2b_3 - b_2a_3.
+                        \end{array}
+                    \]
                 </p>
             </div>
 
