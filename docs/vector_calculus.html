@@ -33,7 +33,7 @@
             物体や流体の速度や加速度のように向きと大きさを持つ量はもちろん, 電場や磁場もしくは重力場 (重力ポテンシャルの <b>勾配</b>) などの <b>ベクトル場</b> も, ベクトル値関数として積分することでさまざまな現象の解析に利用される. 
         </p>
         <p>ここでは話の簡単のために, $2$ 次元平面 $\mathbb{R}^2$ 内のベクトル値関数に限定して, その積分について解説する. 
-            ただし, ここで説明する内容のほぼ全ては, 一般に $n$ 次元空間内のベクトル値関数の積分でも通用するものである. 
+            ただし, ここで説明する内容のほぼ全ては $3$ 次元空間内のベクトル値関数の積分でも通用するものである. 
             特に <b>グリーンの定理</b> と <b>発散定理</b> を利用することで, 重積分に対する部分積分の公式を導出することができる. 
             一変数関数の積分のときと同様に部分積分は極めて重要なテクニックであり, さまざまな分野に応用されるものである. 
         </p>
@@ -97,30 +97,31 @@
 
             <div class="example">
                 <p>パラメータ $u$, $v$ を用いて $x(u, v)$ および $y(u, v)$ が表されているときに, 
+                    ベクトル値関数 
                     \[
-                    J(u, v) = \begin{pmatrix} 
-                        \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \cr 
-                        \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v} 
-                    \end{pmatrix} = \begin{pmatrix} 
-                        x_u & x_v \cr 
-                        y_u & y_v 
-                    \end{pmatrix}
-                \] を, ベクトル値関数 
-                \[
-                    \mathbf{x}(u, v) = \begin{pmatrix} 
-                        x(u, v) \cr 
-                        y(u, v) 
-                    \end{pmatrix} 
-                \] のヤコビ行列と呼ぶのであった. 
-                ベクトル値関数 $\mathbf{f}(\mathbf{x})$ に対し, ヤコビ行列を 
-                \[
-                    D\mathbf{f}(\mathbf{x}) = \begin{pmatrix} 
-                        \dfrac{\partial f_1}{\partial x_1} & \dfrac{\partial f_1}{\partial x_2} &\dots & \dfrac{\partial f_1}{\partial x_n} \cr 
-                            \dfrac{\partial f_2}{\partial x_1} & \dfrac{\partial f_2}{\partial x_2} &\dots & \dfrac{\partial f_2}{\partial x_n} \cr 
-                            \vdots & \vdots & \ddots & \vdots \cr 
-                            \dfrac{\partial f_m}{\partial x_1} & \dfrac{\partial f_m}{\partial x_2} &\dots & \dfrac{\partial f_m}{\partial x_n} 
-                        \end{pmatrix} \in\mathbb{R}^{m\times n}
-                \] と表記することもある. 
+                        \mathbf{x}(u, v) = \begin{pmatrix} 
+                            x(u, v) \cr 
+                            y(u, v) 
+                        \end{pmatrix} 
+                    \] に対し 
+                    \[
+                        J(u, v) = \begin{pmatrix} 
+                            \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \cr 
+                            \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v} 
+                        \end{pmatrix} = \begin{pmatrix} 
+                            x_u & x_v \cr 
+                            y_u & y_v 
+                        \end{pmatrix}
+                    \] をヤコビ行列と呼ぶのであった. 
+                    ベクトル値関数 $\mathbf{f}(\mathbf{x})$ のヤコビ行列は 
+                    \[
+                        D\mathbf{f}(\mathbf{x}) = \begin{pmatrix} 
+                            \dfrac{\partial f_1}{\partial x_1} & \dfrac{\partial f_1}{\partial x_2} &\dots & \dfrac{\partial f_1}{\partial x_n} \cr 
+                                \dfrac{\partial f_2}{\partial x_1} & \dfrac{\partial f_2}{\partial x_2} &\dots & \dfrac{\partial f_2}{\partial x_n} \cr 
+                                \vdots & \vdots & \ddots & \vdots \cr 
+                                \dfrac{\partial f_m}{\partial x_1} & \dfrac{\partial f_m}{\partial x_2} &\dots & \dfrac{\partial f_m}{\partial x_n} 
+                            \end{pmatrix} \in\mathbb{R}^{m\times n}
+                    \] と表記されることもある. 
                 </p>
             </div>
 
@@ -168,7 +169,7 @@
                 \[
                     \int_C \mathbf{f}(\mathbf{x})\cdot d\mathbf{r} = \int_C f_1(x, y)~dx + f_2(x, y)~dy
                 \] と表記することがある. 
-                この右辺の表記では, 点 $(x, y)$ が曲線 $C$ 上にあるという条件を用いて $x$ もしくは $y$ を消去することで, 
+                この右辺の表記は, 点 $(x, y)$ が曲線 $C$ 上にあるという条件を用いて $x$ もしくは $y$ を消去することで, 
                 \[
                     \int_C \mathbf{f}(\mathbf{x})\cdot d\mathbf{r} = \int_C f_1(x, y(x))~dx + \int_C f_2(x(y), y)~dy
                 \] が成立することを意味している. 
@@ -417,6 +418,21 @@
                         \[
                             \oint_C f_1~dx + f_2~dy = \iint_{D}\left(\dfrac{\partial f_2}{\partial x} - \dfrac{\partial f_1}{\partial y}\right)~dxdy
                         \] と表現されることもある. 
+                    </li>
+                    <li>右辺の被積分関数は, 形式的には 
+                        \[
+                            \det(\nabla, \mathbf{f}) = \det\begin{pmatrix} 
+                                \dfrac{\partial}{\partial x} & f_1 \cr 
+                                \dfrac{\partial}{\partial y} & f_2 
+                            \end{pmatrix} 
+                        \] であると思うことができるものである. 
+                        また, これは $\mathbf{f}\in\mathbb{R}^2$ に対するベクトル外積 
+                        \[
+                            \nabla \times \mathbf{f}
+                        \] と解釈できるものであり, 形式的に
+                        \[
+                            \operatorname{rot}\mathbf{f} = \nabla\times \mathbf{f} \quad(\text{もしくは}\ \operatorname{curl}\mathbf{f})
+                        \] と表記されるものでもある. 
                     </li>
                     <li>
                         実際には領域 $D$ に穴が空いているような場合にも成立するが, ここでは簡単のために考えないことにする.
