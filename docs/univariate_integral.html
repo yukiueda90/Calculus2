@@ -78,6 +78,20 @@
 
             <div class="resize"><img src='./images/riemann_integral-1.png'></div>
 
+            <div class="remark">
+                リーマン積分は <b>区分求積法</b> 
+                \[
+                    \int_a^b f(x)~dx = \lim_{n\to\infty}\sum_{k=0}^{N-1}f(a+ k\Delta x)\Delta x \qquad \left(\Delta x = \dfrac{b-a}{N}\right)
+                \]
+                を一般化したものであると解釈することができる. 
+                区分求積法では, 連続な関数 $f(x)$ に対し, 区間 $[a, b]$ が等分割されている場合に, 各区間上の代表点 $t_k$ を同一の基準で (例えば $t_k = a+k\Delta x$ などと) 選ぶことが一般的だが, リーマン積分はそうした条件を取り払ったものになっている. 
+                また, リーマン積分のアイデアより, $\Delta x$ が十分に小さければ 
+                \[
+                    \int_a^b f(x)~dx \approx \sum_{k=0}^{N-1}f(t_k)\Delta x_k 
+                \] と思うことができるが, これは <b>数値積分</b> と呼ばれるアイデアに相当している. 
+            </div>
+
+
             <div class="example">
                 <p>$f$ が定数関数 $f\equiv c$ ならば, リーマン積分の定義より
                     \[
@@ -128,19 +142,6 @@
                     なお, ここでは $\alpha$ が実数である場合のみを考えているが, 形式的に $\alpha=\infty$ に相当する場合を考えようとすると, リーマン和の極限に $0\times\infty$ が現れてしまい積分値が定まらない. 
                     とはいえ, 通常は $\alpha=\infty$ の場合 $f(x)$ は区間 $[-1, 1]$ 上の関数とは認められないので問題はない. 
                 </p>
-            </div>
-
-            <div class="remark">
-                リーマン積分は <b>区分求積法</b> 
-                \[
-                    \int_a^b f(x)~dx = \lim_{n\to\infty}\sum_{k=0}^{N-1}f(a+ k\Delta x)\Delta x \qquad \left(\Delta x = \dfrac{b-a}{N}\right)
-                \]
-                を一般化したものであると解釈することができる. 
-                区分求積法では, 連続な関数 $f(x)$ に対し, 区間 $[a, b]$ が等分割されている場合に, 各区間上の代表点 $t_k$ を同一の基準で (例えば $t_k = a+k\Delta x$ などと) 選ぶことが一般的だが, リーマン積分はそうした条件を取り払ったものになっている. 
-                また, リーマン積分のアイデアより, $\Delta x$ が十分に小さければ 
-                \[
-                    \int_a^b f(x)~dx \approx \sum_{k=0}^{N-1}f(t_k)\Delta x_k 
-                \] と思うことができるが, これは <b>数値積分</b> と呼ばれるアイデアに相当している. 
             </div>
 
             <div class="remark">
