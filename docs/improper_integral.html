@@ -28,10 +28,9 @@
     
     <!-- main -->
     <main role="main"><article id="section2"><h1>2. 広義積分とその応用</h1>
-        <p>通常のリーマン積分では, 閉区間を積分区間とし, 有界な関数を被積分関数として用いる. 
-            一方で, 物理などに積分のアイデアを応用する際は, 無限に広い区間上での &quot;積分&quot; や, 特異点を持つ (特に値が無限大に発散してしまう点が存在する) 関数の &quot;積分&quot; を考えたい場合がある. 
-            ここでは, そのような状況を扱うことができる <b>広義積分</b> のアイデアを紹介する. 
-            また, 広義積分の応用例をいくつか紹介し, そのアイデアの重要性を確認したい. 
+        <p>通常のリーマン積分では, 有界な関数を有界な閉区間上で積分する. 
+            一方で, 物理などに積分のアイデアを応用する際は, 無限に広い区間上での &quot;積分&quot; や, 積分区間内で非有界な関数の &quot;積分&quot; を考えたい場合がある. 
+            ここでは, そのような状況を扱うことができる <b>広義積分</b> のアイデアを紹介する.  
         </p>
 
         <section id="section2-1"><h2>2.1: 広義積分</h2>
@@ -57,9 +56,9 @@
                 </p>
             </div>
 
-            このアイデアは, 関数 $f(x)$ の端点での片側極限が存在する場合, および区間が有界である場合にしか利用できないが, <b>広義積分</b> はこれを拡張したものと解釈することができる. 
+            <b>広義積分</b> はこれを拡張したものと解釈することができる. 
             広義積分では, 関数の値を片側極限により &quot;拡げる&quot; 代わりに, リーマン積分の区間自体を (片側) 極限により拡げる. 
-            これにより, 関数の片側極限が存在しない場合 (発散したり振動する場合) や, 区間の端点を無限に飛ばす場合も扱うことが可能となる: 
+            これにより, 区間の端点で関数が非有界となる場合や, 積分区間が無限区間である場合も扱うことが可能となる: 
 
             <div class="definition" data-name="広義積分">
                 <ul>
@@ -68,14 +67,14 @@
                         \[
                             \int_a^b f(x)~dx = \lim_{t\nearrow b}\int_a^tf(x)~dx \quad\left(\text{または}\quad \int_a^b f(x)~dx = \lim_{t\searrow a}\int_t^b f(x)~dx\right)
                         \] と定義し, これを広義積分と呼ぶ. 
-                        右辺の片側極限が存在するとき, 広義積分は収束するといい, 存在しないとき広義積分は発散するという. 
+                        右辺の片側極限が (有限の値として) 存在するとき, 広義積分は収束するといい, 存在しないとき広義積分は発散するという. 
                     </li>
                     <li>関数 $f(x)$ は区間 $[a, \infty)$ (または $(-\infty, b]$) 上で連続であるとする. 
                         このとき, 
                         \[
                             \int_a^{\infty} f(x)~dx = \lim_{t\to\infty}\int_a^t f(x)~dx \quad\left(\text{または}\quad \int_{-\infty}^b f(x)~dx = \lim_{t\to-\infty}\int_t^b f(x)~dx\right)
                         \] と定義し, これを広義積分と呼ぶ. 
-                        右辺の極限が存在するとき, 広義積分は収束するといい, 存在しないとき広義積分は発散するという. 
+                        右辺の極限が (有限の値として) 存在するとき, 広義積分は収束するといい, 存在しないとき広義積分は発散するという. 
                     </li>
                 </ul>
             </div>
@@ -146,11 +145,14 @@
                         \[
                             \int_0^1 x^{\alpha}~dx = \lim_{t\searrow 0} \left[\dfrac{1}{\alpha+1}x^{\alpha+1}\right]_t^1 = \dfrac{1}{\alpha+1}\lim_{t\searrow 0}(1-t^{\alpha+1})
                         \] であり, $-1\lt\alpha\lt0$ ならば収束する. 
-                        一方, $\alpha=-1$ のときは $1/(\alpha+1)$ が発散し, $\alpha\lt -1$ のときは極限が発散するため, 広義積分は収束しない. 
+                        一方, $\alpha\lt -1$ のときは極限が発散し, また $\alpha=-1$ のときは 
+                        \[
+                            \int_0^1 x^{-1}~dx = \lim_{t\searrow 0}\log t \to \infty
+                        \] より発散するため, 広義積分は収束しない. 
                     </li>
                     <li>下の広義積分は 
                         \[
-                            \int_1^{\infty} x^{\alpha}~dx = \lim_{t\searrow \infty} \left[\dfrac{1}{\alpha+1}x^{\alpha+1}\right]_1^t = \dfrac{1}{\alpha+1}\lim_{t\to\infty}(t^{\alpha+1}-1)
+                            \int_1^{\infty} x^{\alpha}~dx = \lim_{t\to \infty} \left[\dfrac{1}{\alpha+1}x^{\alpha+1}\right]_1^t = \dfrac{1}{\alpha+1}\lim_{t\to\infty}(t^{\alpha+1}-1)
                         \] であり, $\alpha\lt -1$ なら収束, そうでなければ発散する. 
                     </li>
                 </ul>
@@ -180,6 +182,23 @@
                             &= \pi 
                         \end{array}
                     \] と計算することができる. 
+                </p>
+            </div>
+
+            <div class="example">
+                <p>積分 
+                    \[
+                        \int_{-1}^1 \dfrac{1}{x}~dx
+                    \] を計算してみよう. 
+                    もしも 
+                    \[
+                        \int_{-1}^1 \dfrac{1}{x}~dx = \lim_{t\nearrow 1} \left(\int_{-t}^0 \dfrac{1}{x}~dx + \int_0^t \dfrac{1}{x}~dx\right)
+                    \] のようにしてしまうと, 積分区間の反転より $0$ になりそうな気がするが <b>これは誤りである</b>. 
+                    正しくは, 積分区間を分割した上で, $2$ つの片側極限は独立に考える必要があり, 
+                    \[
+                        \int_{-1}^1 \dfrac{1}{x}~dx = \lim_{t_1\nearrow 1} \int_{-t_1}^0 \dfrac{1}{x}~dx + \lim_{t_2\nearrow 1}\int_0^t_2 \dfrac{1}{x}~dx
+                    \] である. 
+                    右辺の $2$ つの広義積分はどちらも発散するため, 左辺の広義積分も発散する. 
                 </p>
             </div>
 
@@ -252,10 +271,13 @@
             </p>
 
             <div class="theorem">
-                <p>区間 $(a, b)$ (もしくは $[a, \infty)$, $(-\infty, b]$, $(-\infty, \infty)$ など) 上で連続な関数 $f(x)$, $g(x)$ について, 全ての $x\in (a, b)$ に対し $|f(x)| \le g(x)$ であるとする. 
+                <p>区間 $(a, b)$ (もしくは $[a, \infty)$, $(-\infty, b]$, $(-\infty, \infty)$ など) 上で連続な関数 $f(x)$, $g(x)$ について, 全ての $x\in (a, b)$ に対し $0\le |f(x)| \le g(x)$ であるとする. 
                     このとき, 
                     \[
-                        \text{広義積分 $\displaystyle\int_a^b g(x)~dx$ が収束する} \implies \text{広義積分 $\displaystyle\int_a^b f(x)~dx$ が収束する}
+                        \begin{array}{rl} 
+                            \text{広義積分 $\displaystyle\int_a^b g(x)~dx$ が収束する} &\implies \text{広義積分 $\displaystyle\int_a^b |f(x)|~dx$ が収束する} \cr
+                            &\implies \text{広義積分 $\displaystyle\int_a^b f(x)~dx$ が収束する}
+                        \end{array}
                     \] が成立する. 
                 </p>
             </div>
@@ -264,7 +286,7 @@
                 <p>条件より $a\lt x_1\lt x_2\lt b$ を満たす全ての $x_1$, $x_2$ に対し, 通常のリーマン積分の性質より
                     \[
                         \left|\int_{x_1}^{x_2} f(x)~dx\right| \le \int_{x_1}^{x_2} |f(x)|~dx \le \int_{x_1}^{x_2} g(x)~dx
-                    \] が成立するため, この極限を取ることで欲しい結果が得られる. 
+                    \] が成立するため, この極限を取ることで欲しい結果が得られる (実際には, この極限を取る部分はきちんと考える必要があるが, ここでは省略する). 
                 </p>
             </div>
 
@@ -273,7 +295,7 @@
                     \[
                         \int_0^1 f(x)~dx = \int_0^1 \sin\dfrac{1}{x}~dx 
                     \] を考えてみよう. 
-                    いま, 極限 $\displaystyle\lim_{x\searrow0}f(x)$ は存在しない (振動する) ため, これは広義積分である. 
+                    ここで, $f(x)$ の定義域は $(0, 1]$ であると思うことにすれば, これは広義積分である ($f(0)$ を適当な有限値により定めれば通常のリーマン積分と思うこともできる). 
                     この広義積分が収束することは, $g(x) \equiv 1$ という定数関数に対して $|f(x)| \le g(x)$ であることから判定できる. 
                     次に, この広義積分の値を求めてみよう, 例えば $t=1/x$ と変数変換して 
                     \[
@@ -358,7 +380,7 @@
                 \[
                     \begin{array}{c} 
                         \operatorname{Si}(x) = \displaystyle\int_0^x \dfrac{\sin t}{t}~dt, \cr 
-                        \operatorname{Ci}(x) = -\displaystyle\int_0^x \dfrac{\cos t}{t}~dt
+                        \operatorname{Ci}(x) = -\displaystyle\int_x^{\infty} \dfrac{\cos t}{t}~dt
                     \end{array}
                 \] はそれぞれ <b>正弦積分</b> (<b>sine integral</b>), <b>余弦積分</b> (<b>cosine integral</b>) と呼ばれ, またこれらは総称して <b>三角積分</b> (<b>trigonometric integral</b>) と呼ばれる. 
                 これらは初等関数として表現することはできないが, 広義積分として表すことができる特殊関数の典型例である. 
@@ -401,7 +423,7 @@
                 </li>
             </ul>
 
-            <p>上の議論は全ての $z\gt 0$ に対して成立するため, 全ての $z\gt0$ に対してガンマ関数の値が確かに定まる. 
+            <p>従って, 全ての $z\gt0$ に対してガンマ関数の値が確かに定まる. 
                 ガンマ関数にはいくつか興味深い性質があるが, その一つがガンマ関数は, &quot;階乗を拡張したものである&quot; というものである. 
                 実際, 以下に述べる性質の上 $2$ つより, 特に全ての $n\in\mathbb{N}$ に対し $\Gamma(n+1) = n!$ が得られる:
             </p>
@@ -420,7 +442,7 @@
                         \[
                             \begin{array}{rl} 
                                 \Gamma(z+1) &= \displaystyle\int_0^{\infty}t^{z}e^{-t}~dt \cr 
-                                &= \underbrace{\left[-t^ze^{-t}\right]_0^{\infty}}_{=0} + \displaystyle\int_0^{\infty}zt^{z-1}e^{-t}~dt = \Gamma(z). 
+                                &= \underbrace{\left[-t^ze^{-t}\right]_0^{\infty}}_{=0} + \displaystyle\int_0^{\infty}zt^{z-1}e^{-t}~dt = z\Gamma(z). 
                             \end{array}
                         \]
                     </li>
@@ -460,7 +482,7 @@
             <ul>
                 <li>$0\lt t\le 1/2$ のとき, 
                     \[
-                        \lim_{x\searrow 0}t^{1-p}f(t) = \lim_{x\searrow 0}(1-t)^{q-1} = 1
+                        \lim_{t\searrow 0}t^{1-p}f(t) = \lim_{t\searrow 0}(1-t)^{q-1} = 1
                     \] より, ある $T_1\gt 0$ が存在して, 例えば 
                     \[
                         f(t) \le 2t^{p-1} \quad (0\lt t\le T_1)
@@ -472,7 +494,7 @@
                 </li>
                 <li>$1/2\le t\lt 1$ のとき, 
                     \[
-                        \lim_{x\nearrow 1}(1-t)^{1-q}f(t) = \lim_{x\nearrow 1}t^{p-1} = 1
+                        \lim_{t\nearrow 1}(1-t)^{1-q}f(t) = \lim_{t\nearrow 1}t^{p-1} = 1
                     \] より, ある $T_2\gt 0$ が存在して, 例えば 
                     \[
                         f(t) \le 2(1-t)^{q-1} \quad (T_2\le t\lt 1)
@@ -515,7 +537,7 @@
                 <p>$r\gt 0$, $s\gt 0$ に対し 
                     \[
                         \int_0^{\pi/2} \sin^r x\cos^s x~dx = \dfrac{1}{2}B\left(\dfrac{r+1}{2}, \dfrac{s+1}{2}\right) = \dfrac{1}{2}\dfrac{\Gamma((r+1)/2)\Gamma((s+1)/2)}{\Gamma((r+s+2)/2)} 
-                    \] が成立する. 
+                    \] が成立する (より一般には $r\gt -1$, $s\gt -1$ に対し成立する). 
                 </p>
             </div>
 
