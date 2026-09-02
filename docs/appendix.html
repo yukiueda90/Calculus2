@@ -82,11 +82,10 @@
                 </ul>
             </div>
 
-            <p>つまり, 適切な関数 $f$ に対して, 領域 $D$ 上での広義二重積分を考えたいならば, 
+            <p>特に, 下で言及した性質を満たす関数 $f$ については, 領域 $D$ 上での広義二重積分を考えたいならば, 
                 \[
                     \lim_{n\to\infty}\iint_{D_n}f(x, y)~dxdy 
-                \] が収束するような近似増加列 $\{D_n\}$ をなんでも良いので $1$ つ見つければ良い. 
-                また, 広義二重積分が収束することがわかっているならば, その値を計算する際に近似増加列 $\{D_n\}$ はどのように構成しても良いし, 計算の都合で取り替えても構わない.
+                \] が収束するような近似増加列 $\{D_n\}$ をなんでも良いので $1$ つ見つければ良いし, 広義二重積分が収束することがわかっているならば, その値を計算する際に近似増加列 $\{D_n\}$ はどのように構成しても良い (計算の都合で取り替えても構わない).
             </p>
 
             <div class="example">
@@ -96,7 +95,7 @@
                     \] を計算してみよう. 
                     近似増加列として, 例えば 
                     \[
-                        D_n = \{(x, y)\in\mathbb{R}^n : 0\le x\le n, 0\le y\le n\}
+                        D_n = \{(x, y)\in\mathbb{R}^2 : 0\le x\le n, 0\le y\le n\}
                     \] を考えてみる. 
                     このとき ($a\gt2$ に注意すると)
                     \[
@@ -434,8 +433,8 @@
             </div>
 
             <div class="remark">
-                <p>上は &quot;適切な&quot; 関数に対して成立するが, 例えば不連続な関数に対してフーリエ級数が収束するとは限らない. 
-                    不連続な関数のフーリエ級数に関連して, <b>ディリクレ条件</b> や <b>ギブスの現象</b> などの議論が知られている. 
+                <p>上は &quot;適切な&quot; 関数に対して成立するが, フーリエ級数がどのような意味で $f$ に収束するかは, 関数 $f$ の性質に依る. 
+                    例えば, 不連続な関数のフーリエ級数に関連して, <b>ディリクレ条件</b> や <b>ギブスの現象</b> などの議論が知られている. 
                     興味があれば, 各自で調べてみると良いだろう. 
                 </p>
             </div>
@@ -494,8 +493,8 @@
                 </p>
             </div>
 
-            <p>最後に, 周期を持たない関数 $f(x)$ に対して, フーリエ級数展開に相当するものである <b>フーリエ変換</b> について, (数学的に厳密では無いが) おおよそのアイデアを紹介しよう. 
-                まず, 適切な関数 $f(x)$ の区間 $[-L/2, L/2]$ 上への制限を, $[-L/2, L/2]$ の外で周期的に拡張した関数を $\widetilde{f}$ とおく. 
+            <p>最後に, 周期を持たない関数 $f(x)$ に対して, フーリエ級数展開に相当するものである <b>フーリエ変換</b> についてアイデアを紹介しよう. 
+                まず, 適切な関数 $f(x)$ は区間 $[-L/2, L/2]$ の外では $0$ であるとし, $f$ の値を $[-L/2, L/2]$ の外で周期的に拡張した関数を $\widetilde{f}$ とおく. 
                 いま, $\widetilde{f}$ は周期 $L$ を持つため, ($x$ を $L/2$ だけずらした) フーリエ級数展開が可能である: 
                 \[
                     \begin{array}{c} 
@@ -609,7 +608,7 @@
                     \begin{array}{rl} 
                         \dfrac{d}{dx}u(x) &= \dfrac{d}{dx}\displaystyle\int_{-\infty}^{\infty}G(x-y)f(y)~dy \cr 
                         &= -\dfrac{d}{dx}\left(\displaystyle\int_{-\infty}^{x}\dfrac{1}{2}(x-y)f(y)~dy + \displaystyle\int_{x}^{\infty}\dfrac{1}{2}(y-x)f(y)~dy\right) \cr 
-                        &= -\displaystyle\int_{-\infty}^x \dfrac{1}{2}f(y) ~dy + \int_x^{\infty}-\dfrac{1}{2}f(y)~dy \cr 
+                        &= -\left(\displaystyle\int_{-\infty}^x \dfrac{1}{2}f(y) ~dy + \int_x^{\infty}-\dfrac{1}{2}f(y)~dy\right) \cr 
                         &= -\displaystyle\int_{-\infty}^{\infty}\dfrac{1}{2}(1-2H(y-x))f(y)~dy
                     \end{array}
                 \] と式変形できる. 
@@ -660,11 +659,11 @@
                 \[
                     \delta(x) = \dfrac{dH}{dx}(x) = 0 \qquad (x\neq 0)
                 \] であると思うことができそうである. 
-                もしも $x=0$ において, $\delta(0)$ の値が有限であるならば, $\delta(x)$ を適当な区間の上で積分すると $0$ になってしまうが, 実際には上の式で $f(x)\equiv 1$ の場合を考えると 
+                一方で, $\delta(x)$ の $x=0$ での値は定まらない. 
+                形式的には, 
                 \[
-                    \int_{-\infty}^{\infty}\delta(x)~dx = 1
-                \] である. 
-                このことをうまく説明しようとすると, 直感的には $\delta(0) = \infty$ であるとみなす他ないが, このような $\delta(x)$ は関数とは認められない. 
+                    \delta(0) = \infty,\quad \int_{-\infty}^{\infty}\delta(x)~dx = 1
+                \] となるようなものを考える, と説明されるが, このような $\delta(x)$ は関数とは認められない. 
             </p>
 
             <div class="definition" data-name="ディラックのデルタ関数">
@@ -769,21 +768,21 @@
                 </li>
                 <li>$2$ 次元のラプラシアン $-\Delta$ に対する基本解は 
                     \[
-                        G(\mathbf{x}) = \dfrac{1}{2\pi}\log|\mathbf{x}| 
+                        G(\mathbf{x}) = -\dfrac{1}{2\pi}\log|\mathbf{x}| 
                     \] である. 
                     このことを説明するために, 
                     \[
-                        G_{\varepsilon}(\mathbf{x}) = \dfrac{1}{4\pi}\log(|\mathbf{x}|^2 + \varepsilon^2)  
+                        G_{\varepsilon}(\mathbf{x}) = -\dfrac{1}{4\pi}\log(|\mathbf{x}|^2 + \varepsilon^2)  
                     \] という関数を導入すると, この関数は 
                     \[
-                        \lim_{\varepsilon\to0} G_{\varepsilon}(\mathbf{x}) = \dfrac{1}{4\pi}\log |\mathbf{x}|^2 = G(\mathbf{x})
+                        \lim_{\varepsilon\to0} G_{\varepsilon}(\mathbf{x}) = -\dfrac{1}{4\pi}\log |\mathbf{x}|^2 = G(\mathbf{x})
                     \] を満たし, また実際に微分を計算することで
                     \[
                         \begin{array}{c} 
-                            \nabla G_{\varepsilon}(\mathbf{x}) = \dfrac{1}{4\pi}\begin{pmatrix} 
+                            \nabla G_{\varepsilon}(\mathbf{x}) = -\dfrac{1}{4\pi}\begin{pmatrix} 
                                 \dfrac{\partial}{\partial x_1}\log (x_1^2+x_2^2+\varepsilon^2) \cr 
                                 \dfrac{\partial}{\partial x_2}\log (x_1^2+x_2^2+\varepsilon^2)  
-                            \end{pmatrix} = \dfrac{\mathbf{x}}{2\pi(|\mathbf{x}|^2 + \varepsilon^2)}, \cr
+                            \end{pmatrix} = -\dfrac{\mathbf{x}}{2\pi(|\mathbf{x}|^2 + \varepsilon^2)}, \cr
                             -\Delta G_{\varepsilon}(\mathbf{x}) = \dfrac{\partial}{\partial x_1}\dfrac{x_1}{2\pi(x_1^2 + x_2^2 + \varepsilon^2)} + \dfrac{\partial}{\partial x_2}\dfrac{x_2}{2\pi(x_1^2 + x_2^2 + \varepsilon^2)} = \dfrac{\varepsilon^2}{\pi(|\mathbf{x}|^2 + \varepsilon^2)^2}
                         \end{array}
                     \] を確かめることができる. 
