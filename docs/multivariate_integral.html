@@ -29,8 +29,8 @@
     <!-- main -->
     <main role="main"><article id="section3"><h1>3. 多変数関数の積分</h1>
         <p>ここから多変数関数の積分について紹介していこう. 
-            まずは $2$ 次元平面上の関数 $f(x, y)$ に対する積分を考え, その議論を $3$ 次元空間上の関数 $f(x, y, z)$ に対する積分に拡張することを目指す. 
             多変数関数に対しても, $1$ 変数の場合と同様にリーマン積分を考えることが可能であり, 結果的に $1$ 変数関数の積分と同様の性質を得ることができる. 
+            ここでは主に $2$ 次元平面上の関数 $f(x, y)$ に対する積分を考えるが, それらの議論は $3$ 次元空間上の関数 $f(x, y, z)$ に対する積分にも自然に拡張できるものである. 
         </p>
 
         <p>以下の説明は, 一見すると複雑に感じるかもしれないが, $1$ 変数の場合と同様である, ということを念頭に理解して欲しい.</p>
@@ -42,77 +42,64 @@
 
             <p>$xy$ 平面上の滑らかな曲線 $C$ が, パラメータ $t$ を用いた表示 
                 \[
-                    x(t),\ y(t) \quad(a\le t\le b) 
-                \] により表されているとする, ここで $C$ が滑らかであることから $x(t)$, $y(t)$ は微分可能である.  
+                    \mathbf{r}(t) = \begin{pmatrix} 
+                        x(t) \cr 
+                        y(t) 
+                    \end{pmatrix} \quad(a\le t\le b) 
+                \] と表されているとする. 
+                ここで $C$ が滑らかであることから $x(t)$, $y(t)$ は微分可能である. 
                 このとき, 区間 $[a, b]$ の分割 
                 \[
                     a = t_0 \lt t_1 \lt \dots \lt t_{N-1} \lt t_N = b  
-                \] を考える, このとき $\Delta t_k = t_{k+1}-t_k$ であり, 分割のサイズは 
+                \] を考える. 
+                いま, $\Delta t_k = t_{k+1}-t_k$ であり, 分割のサイズは 
                 \[
                     \Delta t = \max_{k=0,\dots, N-1}\Delta t_k
-                \] である.
+                \] である. 
                 さて, 曲線上の点 
                 \[
-                    P_k = \begin{pmatrix} 
+                    P_k = \mathbf{r}(t_k) = \begin{pmatrix} 
                         x(t_k) \cr 
                         y(t_k)
                     \end{pmatrix} 
-                \] に対し, $P_k$ と $P_{k+1}$ の距離 $\Delta s_k$ について, 平均値の定理を用いることで
+                \] に対し, $P_k$ と $P_{k+1}$ の距離 $\Delta s_k$ は, もしも $\Delta t_k$ が十分小さいならば, 
                 \[
-                    \begin{array}{rl} 
-                        \Delta s_k &= \overline{P_kP_{k+1}} \cr 
-                        &= \sqrt{(x(t_{k+1}) - x(t_k))^2 + (y(t_{k+1}) - y(t_k))^2} \cr 
-                        &= \sqrt{\left(\dfrac{dx}{dt}(\xi_k)\right)^2 + \left(\dfrac{dy}{dt}(\eta_k)\right)^2} \Delta t_k 
-                    \end{array}
-                \] を満たす $\xi_k\in (t_k, t_{k+1})$, $\eta_k\in(t_k, t_{k+1})$ が存在する. 
+                    \Delta s_k = |\mathbf{r}(t_{k+1}) - \mathbf{r}(t_k)| \approx |\mathbf{r}'(t_k)|\Delta t_k
+                \] と近似的に表すことができる. 
             </p>
 
             <div class="resize"><img src='./images/arc_length-1.png'></div>
 
             <p>これを用いて, 点 $P_0, P_1, \dots, P_n$ を結んで得られる折れ線の長さは 
                 \[
-                    \sum_{k=1}^{N-1}\Delta s_k = \sum_{k=1}^{N-1}\sqrt{\left(\dfrac{dx}{dt}(\xi_k)\right)^2 + \left(\dfrac{dy}{dt}(\eta_k)\right)^2} \Delta t_k
+                    \sum_{k=0}^{N-1}\Delta s_k \approx \sum_{k=0}^{N-1}|\mathbf{r}'(t_k)|\Delta t_k
                 \] と表されるため, これをリーマン和とみなして極限 
                 \[
-                    L = \int_a^b \sqrt{\left(\dfrac{dx}{dt}(t)\right)^2 + \left(\dfrac{dy}{dt}(t)\right)^2}~dt = \lim_{\Delta t\to0} \sum_{k=1}^{N-1}\sqrt{\left(\dfrac{dx}{dt}(\xi_k)\right)^2 + \left(\dfrac{dy}{dt}(\eta_k)\right)^2} \Delta t_k = \lim_{\Delta t\to0} \sum_{k=1}^{N-1}\Delta s_k
-                \] を取ることで, 曲線 $C$ の長さ $L$ が得られる. このことは, 直感的には曲線の微小長さ $ds$ は 
+                    L = \lim_{\Delta t\to0}\sum_{k=0}^{N-1}\Delta s_k = \int_a^b|\mathbf{r}'(t)| dt = \int_a^b \sqrt{\left(\dfrac{dx}{dt}(t)\right)^2 + \left(\dfrac{dy}{dt}(t)\right)^2}~dt
+                \] を取ることで, 曲線 $C$ の長さ $L$ が得られる. 
+                高校数学では, 曲線の微小長さ $ds$ は 
                 \[
                     ds = \sqrt{(dx)^2 + (dy)^2} 
                 \] により与えられることから, 
                 \[
                     L = \int_a^b \dfrac{ds}{dt}~dt = \int_a^b \sqrt{\left(\dfrac{dx}{dt}(t)\right)^2 + \left(\dfrac{dy}{dt}(t)\right)^2}~dt
-                \] と計算できる, ということを意味している.
+                \] と計算できる, と説明されたかと思うが, これを $\mathbf{r}(t)$ というベクトルを用いて表したものが上の式である. 
             </p>
 
-            <p>ここでは上の積分に異なる表記を導入しよう. 
-                まず, 関数 $x(t)$, $y(t)$ を成分にもつベクトル 
-                \[
-                    \mathbf{r}(t) = \begin{pmatrix} 
-                        x(t) \cr 
-                        y(t)
-                    \end{pmatrix}
-                \] に対して, 
-                \[
-                    \mathbf{r}'(t) = \begin{pmatrix} 
-                        \dfrac{dx}{dt}(t) \cr 
-                        \dfrac{dy}{dt}(t) 
-                    \end{pmatrix},\qquad |\mathbf{r}'(t)| = \sqrt{\left(\dfrac{dx}{dt}(t)\right)^2 + \left(\dfrac{dy}{dt}(t)\right)^2}
-                \] である, なお $\mathbf{r}(t)$ を用いると, 曲線 $C$ は 
+            <p>曲線 $C$ が 
                 \[
                     C = \{\mathbf{r}(t)\in\mathbb{R}^2: a\le t\le b\}
-                \] と表すことができる. 
-                また, このとき $\mathbf{r}'(t)$ は曲線 $C$ の ($t$ における) <b>接ベクトル</b>, $|\mathbf{r}'(t)|$ は <b>局所長</b> と呼ばれることがある. 
-                この表記を用いると, 曲線 $C$ の長さ $L$ を求める積分は 
+                \] と表されるとき, $\mathbf{r}'(t)$ は曲線 $C$ の ($t$ における) <b>接ベクトル</b>, $|\mathbf{r}'(t)|$ は <b>局所長</b> と呼ばれることがある. 
+                上の説明は, 曲線 $C$ の全長 $L$ は局所長の累積量であることを意味している:  
                 \[
-                    L = \int_a^b |\mathbf{r}'(t)|~dt 
-                \] と表すことができる. 
-                これと, 上の説明より, 
+                    L = \int_a^b |\mathbf{r}'(t)|~dt. 
+                \] さらにここで, 
                 \[
-                    L = \int_a^b\dfrac{ds}{dt}~dt = \int_a^b |\mathbf{r}'(t)|~dt 
-                \] であるが, これは 
+                    \dfrac{ds}{dt} = \mathbf{r}'(t) 
+                \] を満たす関数 $s(t)$ を考えると, 上は
                 \[
                     L = \int_{??} 1~ds 
-                \] という積分を計算する際に, 関数 $s = s(t)$ を用いて置換積分を用いていると解釈することができる.  
+                \] という積分を計算する際に, 関数 $s = s(t)$ を用いて置換積分をしていると思うことができる.  
                 この積分の積分 &quot;区間&quot; は曲線 $C$ (の一部) である, と思うことができる. 
                 また, 被積分関数が定数関数 $1$ である場合には記述を省略してしまうことにしよう. 
                 以上に基づき, 曲線 $C$ の長さを表す積分を 
@@ -120,11 +107,10 @@
                     L = \int_C~ds = \int_a^b |\mathbf{r}'(t)|~dt
                 \] と表記することにする. 
                 この積分において, $ds$ は <b>線素</b> と呼ばれることがある, また曲線 $C$ は上の積分における <b>積分路</b> と呼ばれることがある. 
-                さらに, 関数 $s(t)$ は $ds/dt = |\mathbf{r}'(t)|$ を満たすため, 微積分学の基本定理より 
+                また, 微積分学の基本定理より, 関数 $s(t)$ は
                 \[
-                    s(t) = \int_a^t \dfrac{ds}{du}~du = \int_a^t|\mathbf{r}'(u)|~du
-                \] と表すことができるものである. 
-                上で $\Delta s$ や $ds$ は微小な長さを表すものであったが, この $s(t)$ は曲線の $t=a$ から変数 $t$ で表される部分の長さを表す関数であり <b>弧長</b> と呼ばれる. 
+                    s(t) = \int_a^t |\mathbf{r}'(\xi)|~d\xi 
+                \] と表されるものであり, これは曲線の $t=a$ から変数 $t$ で表される部分の長さを表す関数であり <b>弧長</b> と呼ばれる. 
                 特に $s(a)=0$, $s(b) = L$ である.
             </p>
 
@@ -139,7 +125,8 @@
                 </p>
             </div>
 
-            <p>この積分は曲線の長さを表すと同時に, 曲線 $C$ を積分路とした $1$ という定数関数の積分により表される面積 (高さが $1$ である曲面の面積) と対応付けることも可能である. </p>
+            <p>この積分は曲線の長さを表すと同時に, 曲線 $C$ を積分路とした $1$ という定数関数の積分と思うこともできる (これを高さが $1$ である曲面の面積と解釈することも不可能ではないが, 実用的な解釈ではない). 
+            </p>
 
             <div class="example">
                 <p>$y=\cosh x$ で表される曲線の $0\le x \le 1$ の部分の長さ $L$ を計算してみよう. 
@@ -162,7 +149,7 @@
                             &= \left[\sinh t\right]_0^1 \cr 
                             &= \dfrac{e - e^{-1}}{2}.
                         \end{array}
-                    \] この結果は, 下図左の曲線の一部の長さを表すと同時に, 下図右の (高さが $1$ である) 曲面の面積と対応付けることも可能である. 
+                    \] この結果は, 下図左の曲線の一部の長さを表す (下図右の高さが $1$ である曲面の面積と解釈することも不可能でなない) . 
                 </p>
                 <div class="resize"><img src='./images/line_integral1-1.png'></div>
             </div>
@@ -222,7 +209,6 @@
 
             <p>さて, 上のように曲線 $C$ 上で $1$ という定数関数を積分することができるが, 被積分関数は定数関数でなくとも構わない. 
                 一般に, 曲線上で与えられた関数についての積分を <b>線積分</b> (<b>line integral</b>) という. 
-                特にスカラー値関数の線積分は, やはり上のように曲面の面積と対応付けることで図形的な解釈も可能である (慣れてくると図形的な解釈はむしろ面倒なだけに感じるかもしれない): 
             </p>
 
             <div class="definition" data-name="スカラー値関数の線積分">
@@ -236,7 +222,8 @@
             <div class="remark">
                 <ul>
                     <li>スカラー値関数の線積分において, $ds$ は (曲線の長さの計算と同様に) 曲線の微小長さであると解釈される. 
-                        これに高さ $f(\mathbf{x})$ をかけて得られる ($xyz$ 空間上の) 長方形の面積の足し合わせが線積分のリーマン和に相当する近似を与える (下図左). 
+                        これに高さ $f(\mathbf{x})$ をかけて得られる ($xyz$ 空間上の) 長方形の符号付き面積の足し合わせが線積分のリーマン和に相当する近似を与える (下図左). 
+                        ただし, 線積分を符号付き面積と対応付ける解釈は実用的ではない. 
                     </li>
                     <li>$xy$ 平面上で, $a\le x\le b$, $y=0$ により与えられる曲線 ($x$ 軸上の線分) に沿った線積分は, $1$ 変数関数に対する通常の積分と一致する (下図右). 
                         この意味で, スカラー値関数の線積分と $1$ 変数関数の積分には共通性がある. 
@@ -254,12 +241,24 @@
                 <div class="resize"><img src='./images/line_integral3-crop-1.png'></div>
             </div>
 
+            <div class="example">
+                <p>形状が滑らかな曲線 
+                    \[
+                        C = \{\mathbf{r}(t) : a\le t\le b\}
+                    \] により表される曲がった棒を考える. 
+                    この棒の密度が位置 $\mathbf{x}$ を変数とする関数 $f(\mathbf{x})$ として表されているとき, 棒の質量は 
+                    \[
+                        \int_C f(\mathbf{x})~ds = \int_a^b f(\mathbf{r}(t))|\mathbf{r}'(t)|~dt
+                    \] と表される. 
+                </p>
+            </div>
+
             <p>スカラー値関数の線積分の計算 (曲線の長さの計算も含む) は, 曲線のパラメータ表示の方法にも曲線の向きにも依存しない. 
                 このことを具体例を通じて見てみよう. 
             </p>
             <p>$0\lt a\lt b$ を満たす $2$ つの実数に対し, $xy$ 平面上の点 $\mathbf{x}_1 = (a, 0)$ を始点, $\mathbf{x}_2=(b, 0)$ を終点とする直線を $C$ とする. 
                 また, $\mathbf{x}_2$ を始点, $\mathbf{x}_1$ を終点とする直線を $-C$ と表記することにする.
-                このとき $C$, $-C$ 上でのスカラー値関数の線積分は, 上の注意で述べたように通常の積分と一致する. 
+                このとき $C$, $-C$ 上でのスカラー値関数の線積分は, 上の注意で述べたように通常の積分と対応付けることができる. 
                 以下, $C$, $-C$ 上でのスカラー値関数 $f(x, y)$ に対し, $f$ の値が $y$ に依存しないことから 
                 \[
                     f(\mathbf{x}) = f(x, y) = f(x)
@@ -326,7 +325,7 @@
                             &= R^4\left[-\dfrac{1}{3}\cos^3\theta\right]_0^{\pi} \cr 
                             &= \dfrac{2}{3}R^4.
                         \end{array}
-                    \] なお, この線積分は下図のグレーで表された曲面の面積を表していると解釈することもできる. 
+                    \] なお, この線積分は下図のグレーで表された曲面の面積を表していると解釈することもできるが, やはりこのように曲面の面積を計算することは実用的とは言い難い. 
                 </p>
                 <div class="resize"><img src='./images/line_integral4-crop-1.png'></div>
             </div>
@@ -390,33 +389,41 @@
                     区間 $[a, b]$ の分割 $x_0, \dots, x_N$ および区間 $[c, d]$ の分割 $y_0, \dots, y_M$ により, 長方形領域 $D$ を長方形領域
                     \[
                         D_{ij} = [x_i, x_{i+1}]\times [y_j, y_{j+1}] 
-                    \] たちにより分割し, また各 $D_{ij}$ の面積を 
+                    \] たちにより分割し, 
                     \[
-                        \Delta D_{ij} = \Delta x_i\Delta y_j = (x_{i+1}-x_i)(y_{j+1}-y_j)
-                    \] と表す. 
-                    このとき, $(p_{ij}, q_{ij})\in D_{ij}$ を満たす点 $(p_{ij}, q_{ij})$ に対し, 極限
+                        \Delta x_i = x_{i+1}-x_i,\quad \Delta y_j = y_{j+1}-y_j,\quad \Delta D_{ij} = \max\{\Delta x_i, \Delta y_j\}
+                    \] と表記する. 
+                    このとき, 分割のサイズ (メッシュサイズ) を 
                     \[
-                        \lim_{\Delta D_{ij}\to0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta D_{ij}
+                        \Delta D = \max_{i, j}\Delta D_{ij}
+                    \] と定める. 
+                    このとき, $(p_{ij}, q_{ij})\in D_{ij}$ を満たす点 $(p_{ij}, q_{ij})$ に対し, 
+                    \[
+                        \sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij},q_{ij})\Delta x_i\Delta y_j
+                    \] を関数 $f$ のリーマン和という. 
+                    リーマン和の極限
+                    \[
+                        \lim_{\Delta D\to0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta x_i \Delta y_j
                     \] が存在するならば, 関数 $f$ は領域 $D$ 上で <b>二重積分可能</b> であるという. 
                     また, その極限を <b>二重積分</b> と呼び, 
                     \[
-                        \iint_D f(x, y)~dxdy = \lim_{\Delta D_{ij}\to0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta D_{ij}
+                        \iint_D f(x, y)~dxdy = \lim_{\Delta D\to0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta x_i\Delta y_j
                     \] と表記する. 
                 </p>
             </div>
 
-            <div class="remark">
+            <!-- <div class="remark">
                 <p>以降, 上の定義における 
                     \[
-                        \sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta D_{ij} \left(= \sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta x_i\Delta y_j\right)
+                        \sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta x_i\Delta y_j
                     \] をリーマン和と呼ぶことにする. 
                     つまり, 二重積分も ($1$ 変数関数に対するリーマン積分と同様に) リーマン和の極限として定義される. 
                 </p>
-            </div>
+            </div> -->
 
             <div class="remark">
                 <p>二重積分は, 図形的には関数のグラフと $xy$ 平面の間の立体の符号付き体積と関連付けることができる ($xy$ 平面より下側の部分の体積は負であるとみなす). 
-                    まず, $f(p_{ij}, q_{ij})\Delta D_{ij}$ は, 高さが $f(p_{ij}, q_{ij})$, 底面積が $\Delta D_{ij}$ である直方体の体積と見なすことができる. 
+                    まず, $f(p_{ij}, q_{ij})\Delta x_i\Delta y_j$ は, 高さが $f(p_{ij}, q_{ij})$, 底面積が $\Delta x_i\Delta y_j$ である直方体の体積と見なすことができる. 
                     これらの総和がリーマン和であり (下図右), 長方形領域 $D$ の分割を無限に細かくする極限を考えることで, 二重積分と体積との関連付けが得られる (下図左). 
                 </p>
                 <div class="resize"><img src='./images/double_integral1-1.png'></div>
@@ -430,7 +437,7 @@
                     どんな $x, y$ に対しても $f(x, y) = c$ であることから 
                     \[
                         \begin{array}{rl} 
-                            \displaystyle\iint_D f(x, y)~dxdy &= \displaystyle\lim_{\Delta D_{ij}\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}\underbrace{f(p_{ij}, q_{ij})}_{=c}\Delta D_{ij} \cr 
+                            \displaystyle\iint_D f(x, y)~dxdy &= \displaystyle\lim_{\Delta D\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}\underbrace{f(p_{ij}, q_{ij})}_{=c}\Delta x_i\Delta y_j \cr 
                             &= c\displaystyle\lim_{\Delta D_{ij}\to0 }|D| \cr 
                             &= c|D|
                         \end{array}
@@ -439,7 +446,7 @@
                     \[
                         \iint_D c~dxdy = c|D|
                     \] が成立することは, 底面積が $|D|$, 高さが $c$ である直方体の体積が $c|D|$ であることに対応している. 
-                    また (被積分関数が $1$ である場合には記述を省略すると) 二重積分
+                    特に, 被積分関数が $1$ である場合には記述を省略すると二重積分
                     \[
                         \iint_D ~dxdy
                     \] は領域 $D$ の面積を表している. 
@@ -456,7 +463,7 @@
             <ul>
                 <li>(線形性) 
                     \[
-                        \iint_D (c_1f(x, y) + c_2g(x, y))~dxdy = c_1\iint_D f(x)~dxdy + c_2\iint_D g(x)~dxdy.  
+                        \iint_D (c_1f(x, y) + c_2g(x, y))~dxdy = c_1\iint_D f(x, y)~dxdy + c_2\iint_D g(x, y)~dxdy.  
                     \]
                 </li>
                 <li>(積分領域の分割) 領域 $D$ が境界以外に共通部分を持たない $2$ つの領域 $D_1$, $D_2$ に分割できるなら 
@@ -472,14 +479,13 @@
             </ul>
             <p>
                 さらに $1$ 変数関数のリーマン積分について説明した際に, 連続関数や有限個の点で不連続である有界な関数は積分可能であることを説明したが, $2$ 重積分可能性についても同様のことが成立する. 
-                ここでは詳細は説明しないが, 実は $2$ 変数の連続関数や, 不連続となる部分の面積が $0$ であるような有界な関数は二重積分可能である. 
-                従って, 多変数関数の不連続性が, ある曲線上で不連続であるという程度ならば問題なく二重積分可能である. 
+                ここでは詳細は説明しないが, 実は $2$ 変数の連続関数や, 有限個の滑らかな曲線からなる集合上でのみ不連続であるような有界な関数は二重積分可能である. 
+                また, このことを利用すれば積分領域が長方形領域でない場合の二重積分を以下のように定義できる: 
             </p>
 
-            <p>また, このことを利用すれば積分領域が長方形領域でない場合の二重積分を以下のように定義できる: </p>
-
             <div class="definition">
-                $xy$ 平面上の領域 $D$ と, $D$ 上で定義された関数 $f(x, y)$ を考える.  
+                $xy$ 平面上の有界領域 $D$ の境界 $\partial D$ は, 有限個の滑らかな曲線からなるとする. 
+                いま, $D$ 上で定義された関数 $f(x, y)$ を考える.  
                 このとき, \[
                     D\subset \widetilde{D} 
                 \] を満たす長方形領域 $\widetilde{D}$ と 
@@ -513,9 +519,20 @@
 
             <div class="theorem" data-name="フビニの定理">
                 <p>領域 $D = [a, b]\times [c, d]$ 上の $2$ 変数関数 $f(x, y)$ が $D$ 上で二重積分可能とする. 
+                    また, 全ての $a\le x\le b$ に対し, 
+                    \[
+                        \int_c^d f(x, y)~dy
+                    \] がリーマン積分可能であるとする. 
                     このとき, 
                     \[
-                        \iint_D f(x, y)~dxdy = \int_a^b\left(\int_c^d f(x, y)~dy\right)~dx = \int_c^d\left(\int_a^b f(x, y)~dx\right)~dy
+                        \iint_D f(x, y)~dxdy = \int_a^b\left(\int_c^d f(x, y)~dy\right)~dx 
+                    \] が成立する. 
+                    同様に, 全ての $c\le y\le d$ に対し 
+                    \[
+                        \int_a^b f(x, y)~dx
+                    \] がリーマン積分可能ならば, 
+                    \[
+                        \iint_D f(x, y)~dxdy = \int_c^d\left(\int_a^b f(x, y)~dx\right)~dy
                     \] が成立する. 
                 </p>
             </div>
@@ -578,7 +595,7 @@
                         このとき, 領域 
                         \[
                             D = \{(x, y)\in\mathbb{R}^2 : a\le x\le b,\quad \varphi_1(x)\le y\le \varphi_2(x)\}
-                        \] 上の関数 $f(x, y)$ が二重積分可能ならば, 
+                        \] 上の適切な関数 $f(x, y)$ に対して, 
                         \[
                             \iint_D f(x, y)~dxdy = \int_a^b \left(\int_{\varphi_1(x)}^{\varphi_2(x)} f(x, y)~dy\right)~dx
                         \] が成立する. 
@@ -590,7 +607,7 @@
                         このとき, 領域 
                         \[
                             D = \{(x, y)\in\mathbb{R}^2 : \psi_1(y)\le x\le \psi_2(y),\quad c\le y\le d\}
-                        \] 上の関数 $f(x, y)$ が二重積分可能ならば, 
+                        \] 上の適切な関数 $f(x, y)$ について, 
                         \[
                             \iint_D f(x, y)~dxdy = \int_c^d \left(\int_{\psi_1(y)}^{\psi_2(y)} f(x, y)~dx\right)~dy
                         \] が成立する. 
@@ -763,7 +780,7 @@
                 <p>領域 $\Omega\subset\mathbb{R}^n$ 上で定義された $n$ 変数関数 $f(x_1, x_2, \dots, x_n)$ に対する $n$ 重積分を, 単に 
                     \[
                         \int_{\Omega} f(x)~dx 
-                    \] と表記することもある (厳密にはこれは <b>ルベーグ積分</b> だが, 適切な被積分関数に対しリーマン積分とルベーグ積分は一致するため, 区別することなく上の表記が用いられているように思われる). 
+                    \] と略記することもある. 
                     この表記は簡単であり, また $n$ に依らず成立する性質を説明する際に便利であるという利点はあるが, この資料では使用しないことにする. 
                 </p>
             </div>
@@ -774,58 +791,36 @@
 
         <section id="section3-3"><h2>3.3: 重積分の置換積分</h2>
             <p>ここでは, 重積分に対する置換積分について説明しよう. 
+                まず, $1$ 変数の場合の置換積分を思い出しておく, ただし, 以降の議論と関連付けるために, 以前とは異なる記号を用いる.
             </p>
-            <p>まず, $1$ 変数の場合の置換積分を思い出しておこう, ただし, 以降の議論と関連付けるために, 以前とは異なる記号を用いる. 
-                関数 $f(x)$ について, $x$ がパラメータ $u$ を変数とする $C^1$ 級関数であり (つまり $x = x(u)$ と表すことができ), $x$ の値と $u$ の値が $1$ 対 $1$ に対応しているとする. 
+            <p>関数 $f(x)$ について, $x$ がパラメータ $u$ を変数とする $C^1$ 級関数であり, $x'(u)\gt 0$ を満たす (つまり $x(u)$ は狭義単調増加である) とする. 
                 このとき, $u$ についての区間 $\widehat{I} = [a, b]$ と, 対応する $x$ についての区間 $I=[x(a), x(b)]$ について, 置換積分は
                 \[
-                    \int_I f(x)~dx = \int_{\widehat{I}}f(x(u)) \dfrac{dx}{du}~du
-                \] と表される. 
-                ここで $dx$ は $x$ に関する微小長さ, $du$ は $u$ に関する微小長さであり, それぞれリーマン和を考える際の区間分割幅 $\Delta x_k$, $\Delta u_k$ に相当するものである. 
-                そして $dx/du$ は微小長さの間のスケールの違いを表すものであり, リーマン和においては $\Delta x_k$ と $\Delta u_k$ を適切に対応させた際の長さの比であると解釈することができる.  
+                    \int_I f(x)~dx = \int_{\widehat{I}}f(x(u)) \dfrac{dx}{du}~du = \int_{\widehat{I}}f(x(u))|x'(u)|~du \quad(\because x'(u)\gt 0)
+                \] である. 
+                ここで $dx/du$ は, $2$ つの微小長さ $dx$, $du$ のスケールの違いを表すものであり, 置換積分はこの影響を被積分関数のスケール調整により埋め合わせることで, 等号を成立させていると解釈できる. 
             </p>
 
             <div class="example">
                 <p>例えば $x(u)=2u$ である場合を考えてみよう. 
-                    このとき, $dx/du=2$ であり, 置換積分により 
+                    このとき, $x'(u)=2$ であり, 置換積分により 
                     \[
-                        \int_{2a}^{2b} f(x)~dx = \int_a^b f(x(u))\dfrac{dx}{du}~du = \int_a^b 2f(2u)~du
-                    \] が成立するが, ここでは上の等号をリーマン和に基づいて解釈してみよう. 
-                </p>
-                <p>まず, $u$ に関する積分をリーマン和の極限として表すと, 区間 $[a, b]$ の分割 
+                        \int_{2a}^{2b} f(x)~dx = \int_a^b f(x(u))|x'(u)|~du = \int_a^b 2f(2u)~du
+                    \] が成立するが, これは 
                     \[
-                        a = u_0 \lt u_1 \lt \dots\lt u_{N-1} \lt u_N = b 
-                    \] に基づき
-                    \[
-                        \int_a^b f(x(u))\dfrac{dx}{du}~du = \lim_{\Delta u\to0} \sum_{k=0}^{N-1}f(x(s_k))\dfrac{dx}{du}\Delta u_k
-                    \] のように表すことができる, ただし $s_k$ は $u_k\le s_k\le u_{k+1}$ を満たすような点である. 
-                    次に, $x$ に関する積分をリーマン和の極限として表したいが, ここでは $\Delta x_k = dx/du \Delta u_k = 2\Delta u_k$ を満たすような区間分割を考えたとしよう. 
-                    このとき, 
-                    \[
-                        2a = x_0 \lt x_1 \lt \dots \lt x_{N-1} \lt x_N = 2b 
-                    \] であり, また $\Delta u\to 0$ という極限と $\Delta x\to0$ という極限は等しい. 
-                    さらに, $x(s_k) = 2s_k$ を $t_k$ と表すことにすると, $x_k\le t_k\le x_{k+1}$ が満たされるため
-                    \[
-                        \begin{array}{rl} 
-                            \displaystyle\int_a^b f(x(u))\dfrac{dx}{du}~du &= \displaystyle\lim_{\Delta u\to 0}\sum_{k=0}^{N-1}f(x(s_k))\dfrac{dx}{du}\Delta u_k \cr 
-                            &= \displaystyle\lim_{\Delta x\to 0}\sum_{k=0}^{N-1}f(t_k)\Delta x_k \cr 
-                            &= \displaystyle\int_{2a}^{2b} f(x)~dx
-                        \end{array}
-                    \] と式変形できることがわかる. 
-                </p>
-                <p>つまり, $1$ 変数関数についての置換積分は, 
-                    \[
-                        \Delta x_k = \dfrac{dx}{du}\Delta u_k
-                    \] が満たされるような $2$ つのリーマン和を考えると, それらの極限が等しくなる, ということを意味している. 
+                        \Delta x_k = 2\Delta u_k
+                    \] を満たす, 区間 $I$ および $\widehat{I}$ それぞれの分割に基づく $2$ つのリーマン和を一致させるために, 被積分関数のスケールを調整していると解釈できる: 
+                    この例では, 横幅が半分になった影響を埋め合わせるために, 高さを倍にするスケール調整をしている (下図).
                 </p>
                 <div class="resize"><img src='./images/substitution1-1.png'></div>
             </div>
 
-            <p>さて, 実は二重積分についても同様のことが成立する: 関数 $f(x, y)$ について, $x$, $y$ がパラメータ $u, v$ を変数とする $C^1$ 級関数であり (つまり $x=x(u, v)$, $y=y(u,v)$ と表すことができ), $xy$ 平面上の点 $(x, y)$ と $uv$ 平面上の点 $(u,v)$ が $1$ 対 $1$ に対応しているとする.
-                このとき, $(u, v)$ についての領域 $\widehat{D}$ と, 対応する $(x, y)$ についての領域 $D$ について, スケールを調整する $S$ を適切に定めることで, 二重積分に対する置換積分を
+            <p>さて, 実は二重積分についても同様のことが成立する: 関数 $f(x, y)$ について, $x, y$ をパラメータ $u, v$ で表す適切な変数変換を考える (詳しくは説明しないが, 少なくとも $x=x(u, v)$, $y=y(u,v)$ が十分滑らかであることは仮定する必要がある).
+                このとき, $(u, v)$ についての領域 $\widehat{D}$ と, 対応する $(x, y)$ についての領域 $D$ について, スケールを調整する $S$ を適切に定めることで, 
                 \[
                     \iint_D f(x, y)~dxdy = \iint_{\widehat{D}} f(x(u, v), y(u, v)) S~dudv
-                \] と表すことができる. 
+                \] という等号が成立するようにできる. 
+                これが二重積分に対する置換積分である. 
             </p>
 
             <div class="example">
@@ -837,12 +832,13 @@
                             &= \displaystyle\int_{a/2}^{b/2}\left(\int_{3c/2}^{3d/2} f(x(u), y(v))\dfrac{dy}{dv}~dv\right)\underbrace{\dfrac{dx}{du}}_{=2}~du \cr 
                             &= \displaystyle\iint_{[a/2, b/2]\times [3c/2, 3d/2]} f(x(u), y(v)) \underbrace{\dfrac{dx}{du}\dfrac{dy}{dv}}_{=4/3} ~ dudv
                         \end{array}
-                    \] となるため, $S = dx/du \cdot dy/dv = 4/3$ と定めてスケールを調整すれば置換積分の等号が成立する.  
+                    \] となる. 
+                    これは, 積分領域の広さ (底面積) が $3/4$ 倍になった影響を埋め合わせるために, 被積分関数 (高さ) を $4/3$ 倍することで, 二つの積分を一致させていることを意味している (下図).
                 </p>
                 <div class="resize"><img src='./images/substitution_2D_example1-1.png'></div>
             </div>
 
-            <p>上の例は非常に簡単な場合を考えたため, 逐次積分を利用することで $1$ 変数関数の積分に対する置換積分に帰着させて式変形することができたが, 一般にはここまで単純では無い. 
+            <p>上の例は非常に簡単な場合を考えたため, 逐次積分を利用して式変形することができたが, 一般にはここまで単純では無い. 
                 ここから $x$, $y$ がどちらも $u$, $v$ の両方に依存している場合を含む, 一般的な状況を考えたい. 
                 ただし, ここでは厳密な説明の代わりに, 直感的かつ図形的な説明に終始することにする. 
             </p>
@@ -851,40 +847,40 @@
 
             <p>まず, $u$, $v$ に関する二重積分をリーマン和の極限として表すことで, 
                 \[
-                    \iint_{\widehat{D}} f(x(u, v), y(u, v))S~dudv = \lim_{\Delta\widehat{D}_{ij}\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(x(r_{ij}, s_{ij}), y(r_{ij}, s_{ij}))S\Delta\widehat{D}_{ij}
-                \] のように表すことができる, ここで $\Delta \widehat{D}_{ij} = \Delta u_i\Delta v_j$ は長方形領域 $\widehat{D}_{ij} = [u_i, u_{i+1}]\times [v_j, v_{j+1}]$ の面積であり, $(r_{ij}, s_{ij})$ は長方形領域 $\widehat{D}_{ij}$ 内の点である.  
+                    \iint_{\widehat{D}} f(x(u, v), y(u, v))S~dudv = \lim_{\Delta\widehat{D}\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(x(r_{ij}, s_{ij}), y(r_{ij}, s_{ij}))S |\widehat{D}_{ij}|
+                \] のように表すことができる, ここで $|\widehat{D}_{ij}| = \Delta u_i\Delta v_j$ は長方形領域 $\widehat{D}_{ij} = [u_i, u_{i+1}]\times [v_j, v_{j+1}]$ の面積であり, $(r_{ij}, s_{ij})$ は長方形領域 $\widehat{D}_{ij}$ 内の点である.  
                 さて, $p_{ij} = x(r_{ij}, s_{ij})$, $q_{ij} = y(r_{ij}, s_{ij})$ とおくことで, 上のリーマン和の極限を $xy$ 平面上の二重積分に対するリーマン和と対応付けたい. 
                 そのために, 
                 \[
                     D_{ij} = \{(x(u, v), y(u, v))\in\mathbb{R}^2 : (u,v) \in \widehat{D}_{ij}\}
-                \] とおくと, $(p_{ij}, q_{ij})$ は領域 $D_{ij}$ 内の点となるため, その面積 $\Delta D_{ij}$ を用いて 
+                \] とおくと, $(p_{ij}, q_{ij})$ は領域 $D_{ij}$ 内の点となるため, その面積 $|D_{ij}|$ を用いて 
                 \[
-                    \iint_{D} f(x, y)~dxdy = \lim_{\Delta D_{ij}\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta D_{ij}
-                \] とできるだろう. 
+                    \iint_{D} f(x, y)~dxdy = \lim_{\Delta D\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})|D_{ij}|
+                \] とできる. 
                 以上より, $S$ を各 $i, j$ に対して 
                 \[
-                    \Delta D_{ij} = S\Delta \widehat{D}_{ij}
+                    |D_{ij}| = S |\widehat{D}_{ij}|
                 \] が満たされるように設定すれば, 
                 \[
                     \begin{array}{rl} 
-                        \displaystyle \iint_{D} f(x, y)~dxdy &= \displaystyle\lim_{\Delta D_{ij}\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij})\Delta D_{ij} \cr 
-                        &= \displaystyle \lim_{\Delta\widehat{D}_{ij}\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(x(r_{ij}, s_{ij}), y(r_{ij}, s_{ij}))S\Delta\widehat{D}_{ij} \cr 
+                        \displaystyle \iint_{D} f(x, y)~dxdy &= \displaystyle\lim_{\Delta D\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(p_{ij}, q_{ij}) |D_{ij}| \cr 
+                        &= \displaystyle \lim_{\Delta\widehat{D}\to 0}\sum_{i=0}^{N-1}\sum_{j=0}^{M-1}f(x(r_{ij}, s_{ij}), y(r_{ij}, s_{ij}))S |\widehat{D}_{ij}| \cr 
                         &= \displaystyle \iint_{\widehat{D}} f(x(u, v), y(u, v))S~dudv
                     \end{array}
                 \] という置換積分が得られると期待される. 
             </p>
             <p>あとは 
                 \[
-                    S = \dfrac{\Delta D_{ij}}{\Delta \widehat{D}_{ij}}
-                \] を求めれば重積分に対する置換積分の公式が得られそうだが, その前に注意しておくと上のように構成した $D_{ij}$ は一般には長方形領域にはならない (下図). 
-                そのため上の式変形には粗があるのだが, ここでは気にせず話を進めてしまうことにする. 
+                    S = \dfrac{|D_{ij}|}{|\widehat{D}_{ij}|}
+                \] を求めれば重積分に対する置換積分の公式が得られそうである. 
+                実際には, 上のように構成した $D_{ij}$ は一般には長方形領域にはならない (下図) ため, 以下に述べるものは厳密な証明ではないが, 直感的な説明として妥当なものである. 
                 記号の簡単のために, 
                 \[
                     x(u_i, v_j) = x_{ij}, \quad y(u_i, v_j) = y_{ij}
-                \] などと表記することにすると, もしも $\Delta u_i$, $\Delta v_j$ が十分小さければ, 領域 $D_{ij}$ はおおよそ
+                \] などと表記すると, もしも $\Delta u_i$, $\Delta v_j$ が十分小さければ, 領域 $D_{ij}$ はおおよそ
                 \[
                     A: (x_{ij}, y_{ij}),\quad B: (x_{i+1, j}, y_{i+1, j}),\quad C: (x_{i+1, j+1}, y_{i+1, j+1}),\quad D: (x_{i, j+1}, y_{i, j+1})
-                \] を頂点とする $xy$ 平面上の四角形領域と思えるだろう. 
+                \] を頂点とする $xy$ 平面上の四角形領域と思える. 
             </p>
 
             <div class="resize"><img src='./images/substitution2-1.png'></div>
@@ -897,17 +893,17 @@
                         &= x(u_i + \Delta u_i, v_j) - x(u_i, v_j) \cr 
                         &\approx \dfrac{\partial x}{\partial u}(u_i, v_j)\Delta u_i
                     \end{array}
-                \] などの近似が可能である. 
+                \] などと近似できる. 
                 さらなる記号の簡単のために, これらを 
                 \[
                     x_{i+1, j} - x_{i, j} \approx x_u\Delta u_i
-                \] などと表記することにすると, 
+                \] などと表記すると, 
                 \[
                     \begin{array}{rl} 
-                        \Delta D_{ij} &\approx \sqrt{|\vec{AB}|^2|\vec{AC}|^2 - (\vec{AB}\cdot\vec{AC})^2} \cr 
+                        |D_{ij}| &\approx \sqrt{|\vec{AB}|^2|\vec{AD}|^2 - (\vec{AB}\cdot\vec{AD})^2} \cr 
                         &\approx \sqrt{\left(\left(x_u\Delta u_i\right)^2+\left(y_u\Delta u_i\right)^2\right)\left(\left(x_v\Delta v_j\right)^2+\left(y_v\Delta v_j\right)^2\right) - \left(x_ux_v\Delta u_i\Delta v_j + y_uy_v\Delta u_i\Delta v_j\right)^2} \cr 
                         &= \sqrt{(x_vy_u - x_uy_v)^2(\Delta u_i\Delta v_j)^2} \cr 
-                        &= |x_vy_u - x_uy_v| \Delta \widehat{D}_{ij}
+                        &= |x_vy_u - x_uy_v| |\widehat{D}_{ij}|
                     \end{array} 
                 \] が得られる. 
                 これに基づき, $S = |x_vy_u - x_uy_v|$ とすることで, 実は二重積分に対する置換積分の公式が得られる: 
@@ -934,10 +930,10 @@
                     \iint_D f(x, y)~dxdy = \iint_{\widehat{D}} f(x(u, v), y(u, v)) |\det J(u, v)|~dudv
                 \] と表すことができる. 
             </p>
-            <p>詳細は説明しないが, 実は $n$ 重積分に対する置換積分において, このヤコビ行列式によるスケール調整が本質的に重要となる: </p>
+            <p>詳細は説明しないが, 実は $n$ 重積分に対する置換積分においても同様である: </p>
 
             <div class="theorem" data-name="置換積分">
-                <p>$n$ 変数関数 $f(\mathbf{x})$ について, $\mathbf{x}\in\mathbb{R}^n$ が パラメータ $\mathbf{u}\in\mathbb{R}^n$ を変数とする $C^1$ 級関数であり, $n$ 次元空間上の点 $\mathbf{x}(\mathbf{u})$ と 点 $\mathbf{u}$ が $1$ 対 $1$ に対応しているとする.
+                <p>$n$ 変数関数 $f(\mathbf{x})$ について, $\mathbf{x}\in\mathbb{R}^n$ が パラメータ $\mathbf{u}\in\mathbb{R}^n$ を変数とする十分滑らかかつ適切な条件を満たす関数であるとする. 
                 このとき, $\mathbf{u}$ についての領域 $\widehat{D}$ と, 対応する $\mathbf{x}$ についての領域 $D$ について, 
                     \[
                         \int\dots\int_D f(\mathbf{x})~dx_1\dots dx_n = \int\dots\int_{\widehat{D}} f(\mathbf{x}(\mathbf{u})) |\det J(\mathbf{u})|~du_1\dots du_n
@@ -959,6 +955,21 @@
                             \dfrac{\partial x_n}{\partial u_1} & \dfrac{\partial x_n}{\partial u_2} &\dots & \dfrac{\partial x_n}{\partial u_n} 
                         \end{pmatrix} \in\mathbb{R}^{n\times n}.
                     \] 
+                </p>
+            </div>
+
+            <div class="remark">
+                <p>置換積分について, 上の説明における $1$ 変数の場合と $2$ 変数の場合とを比較してみよう: 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int_I f(x)~dx &= \displaystyle\int_{\widehat{I}}f(x)|x'(u)|~du, \cr 
+                            \displaystyle\int_D f(x, y)~dxdy &= \displaystyle\int_{\widehat{D}}f(x(u, v), y(u, v))|\det J(\mathbf{x})|~dudv.
+                        \end{array}
+                    \] このように, $1$ 変数の場合に $|x'|$ であった部分が, $2$ 変数の場合は 
+                    \[
+                        |\det J(\mathbf{x})| = |x_uy_v - x_vy_u|
+                    \] となる. 
+                    なお, $1$ 変数関数 $x(u)$ の &quot;ヤコビ行列&quot; が $x'\in \mathbb{R}^{1\times 1}$ であると思えば (&quot;ヤコビ行列式&quot; は $x'$ であり), 他変数の場合ときちんと対応している. 
                 </p>
             </div>
 
@@ -1097,9 +1108,10 @@
 
             <div class="example">
                 <p>もう一つの典型的なパターンは, 曲線をある直線の周りに回転させて得られる曲面である. 
-                    例えば $xy$ 平面上の関数 $y=f(x)$ を, $x$ 軸周りに $1$ 回転させて得られる曲面 $S$ は
+                    例えば $xy$ 平面上の関数 $y=f(x)$ を考える (簡単のために $f(x)\ge0$ とする).
+                    この関数を $x$ 軸周りに $1$ 回転させて得られる曲面 $S$ は
                     \[
-                        S = \{(x, y, z) \in\mathbb{R}^3: a\le x\le b,\ y^2+z^2 = f(x)\}
+                        S = \{(x, y, z) \in\mathbb{R}^3: a\le x\le b,\ y^2+z^2 = f(x)^2\}
                     \] のように表すことができるが, これは
                     \[
                         \mathbf{x}(u, v) = \begin{pmatrix} 
@@ -1203,7 +1215,7 @@
             </div>
 
             <div class="proof">
-                <p>該当の平行四辺形の面積 $A$ は, $\mathbf{a}$ と $\mathbf{b}$ の面積の $2$ 倍であり, またベクトルで辺が表される三角形の面積は (実は $2$ 次元平面上の三角形と同様に) $2$ つのベクトルのなす角 $\theta$ を用いて表すことができる: 
+                <p>該当の平行四辺形の面積 $A$ は, $\mathbf{a}$ と $\mathbf{b}$ の張る三角形の面積の $2$ 倍であり, またベクトルで辺が表される三角形の面積は (実は $2$ 次元平面上の三角形と同様に) $2$ つのベクトルのなす角 $\theta$ を用いて表すことができる: 
                     \[
                         \begin{array}{rl} 
                             A &= 2\cdot \dfrac{1}{2}|\mathbf{a}||\mathbf{b}|\sin\theta \cr 
@@ -1262,7 +1274,7 @@
             <div class="example">
                 <p>曲面 $S$ が $xy$ 平面上の関数 $y=f(x)$ を $x$ 軸周りに $1$ 回転させて得られる場合, つまり
                     \[
-                        S = \{(x, y, z) \in\mathbb{R}^3: a\le x\le b,\ y^2+z^2 = f(x)\}
+                        S = \{(x, y, z) \in\mathbb{R}^3: a\le x\le b,\ y^2+z^2 = f(x)^2\}
                     \] である場合は, 
                     \[
                         \mathbf{x}(u, v) = \begin{pmatrix} 
@@ -1318,7 +1330,7 @@
                     </li>
                     <li>曲面 $S$ が $xy$ 平面上の関数 $y=f(x)$ を $x$ 軸周りに $1$ 回転させて得られる場合, つまり 
                         \[
-                            S = \{(x, y, z) \in\mathbb{R}^3: a\le x\le b,\ y^2+z^2 = f(x)\}
+                            S = \{(x, y, z) \in\mathbb{R}^3: a\le x\le b,\ y^2+z^2 = f(x)^2\}
                         \] と表される場合は, 
                         \[
                             A = 2\pi \int_a^b |f(x)|\sqrt{1+f'(x)^2}~dx
@@ -1366,12 +1378,24 @@
 
             <div class="remark">
                 <ul>
-                    <li>スカラー値関数の線積分は, 曲面の面積と対応付けることができたが, 面積分を何かの立体の体積と対応付けることは一般には困難である. 
-                        つまりこの積分は &quot;累積量, 蓄積量としての積分&quot; と解釈する他ない. 
+                    <li>スカラー値関数の線積分は, 曲面の面積と対応付けることができたが, 面積分を立体の体積と対応付けることは一般には困難である. 
+                        この積分は &quot;累積量, 蓄積量としての積分&quot; と解釈する方が自然だろう. 
                     </li>
                     <li>曲面全体を (単独の) パラメータ表示により表すことができない場合, 曲面をいくつかの曲面たちに分割し, それぞれの上で面積分を計算したものを足し合わせれば良い.</li> 
                     <li>スカラー値関数の面積分は (線積分の場合と同様に) 曲面のパラメータ表示の方法にも &quot;曲面の向き&quot; にも依存しないが, ここではこれ以上の説明は控える.</li>
                 </ul>
+            </div>
+
+            <div class="example">
+                <p>形状が滑らかな曲面 
+                    \[
+                        S = \{\mathbf{x}(u, v) : (u, v)\in D\}
+                    \] により表される曲がった板を考える. 
+                    この板の密度が位置 $\mathbf{x}$ を変数とする関数 $f(\mathbf{x})$ として表されているとき, 板の質量は 
+                    \[
+                        \iint_S f(\mathbf{x})~dS = \iint_D f(\mathbf{x}(u, v))|\mathbf{x}_u\times \mathbf{x}_v|~dudv
+                    \] と表される. 
+                </p>
             </div>
 
             <div class="example">

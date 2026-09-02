@@ -31,15 +31,15 @@
         <section id="sectionA-1"><h2>A.1: 広義重積分</h2> 
             <p>$1$ 変数関数に対する広義積分は片側極限を用いることで定義することができたが, 多変数関数に対する広義積分では同様に定義することはできない. 
                 例えば二重積分に限って無限に広い領域上での広義積分を考えようとしても, どの方向に &quot;無限に広い&quot; のか, によってどのような &quot;極限&quot; を考えれば良いか, 状況によって様々であり扱いづらい. 
-                ここでは, 厳密な定義を述べる代わりに, 大雑把な説明と応用例について重点的に解説することにする. 
+                ここでは, 厳密な定義を述べる代わりに, 具体例を通じて広義重積分の計算について解説することにする. 
             </p>
 
             <p>まず, この資料では簡単のために広義二重積分のみを考えることにする (実際には $n$ 重積分でも同様ではあるが, ここでは説明は省略する). 
-                広義二重積分とは何か, 大雑把に説明する前に準備として以下のアイデアを (やはり大雑把にではあるが) 導入しておく: 
+                広義二重積分の準備として, 以下のアイデアを導入しておく: 
             </p>
 
             <div class="definition" data-name="領域の近似増加列">
-                <p>領域 $D\subset\mathbb{R}^2$ に対し, 以下を満たす $D_n\subset\mathbb{R}^n$ を並べた $\{D_n\} = \{D_1, D_2, \dots\}$ を <b>近似増加列</b> (もしくは単に <b>近似列</b>) という: 
+                <p>領域 $D\subset\mathbb{R}^2$ に対し, 以下を満たす $D_n\subset\mathbb{R}^2$ を並べた $\{D_n\} = \{D_1, D_2, \dots\}$ を <b>近似増加列</b> (もしくは単に <b>近似列</b>) という: 
                 </p>
                 <ul>
                     <li>$D_1\subset D_2\subset \dots \subset D_n\subset D_{n+1}\subset\dots\subset D$, </li>
@@ -70,7 +70,11 @@
                             \iint_D f(x, y)~dxdy = \lim_{n\to\infty} \iint_{D_n}f(x, y)~dxdy
                         \] である. 
                     </li>
-                    <li>関数 $f(x, y)$ は領域 $D$ 上で広義積分可能ならば, 領域 $D$ の任意の近似列 $\{D_n\}$ に対し 
+                    <li>領域 $D$ 上で広義積分可能な関数 $f(x, y)$ について, 
+                        \[
+                            f\ge 0 \quad\text{または}\quad \iint_D|f|\lt \infty
+                        \]
+                        ならば, 領域 $D$ の任意の近似列 $\{D_n\}$ に対し 
                         \[
                             \iint_D f(x, y)~dxdy = \lim_{n\to\infty} \iint_{D_n}f(x, y)~dxdy
                         \] が成立する. 
@@ -78,19 +82,19 @@
                 </ul>
             </div>
 
-            <p>つまり, 領域 $D$ 上での広義二重積分を考えたいならば, 
+            <p>つまり, 適切な関数 $f$ に対して, 領域 $D$ 上での広義二重積分を考えたいならば, 
                 \[
                     \lim_{n\to\infty}\iint_{D_n}f(x, y)~dxdy 
-                \] が収束するような増加近似列 $\{D_n\}$ をなんでも良いので $1$ つ見つければ良い. 
-                また, 広義二重積分が収束することがわかっているならば, その値を計算する際に増加近似列 $\{D_n\}$ はどのように構成しても良いし, 計算の都合で取り替えても構わない.
+                \] が収束するような近似増加列 $\{D_n\}$ をなんでも良いので $1$ つ見つければ良い. 
+                また, 広義二重積分が収束することがわかっているならば, その値を計算する際に近似増加列 $\{D_n\}$ はどのように構成しても良いし, 計算の都合で取り替えても構わない.
             </p>
 
             <div class="example">
                 <p>$a\gt2$ に対し, 広義二重積分 
                     \[
-                        \iint_{\mathbb{R}^2}\dfrac{1}{(1+x+y)^a}~dxdy 
+                        \iint_{[0, \infty)\times[0, \infty)}\dfrac{1}{(1+x+y)^a}~dxdy 
                     \] を計算してみよう. 
-                    領域 $\mathbb{R}^n$ の増加近似列として, 例えば 
+                    近似増加列として, 例えば 
                     \[
                         D_n = \{(x, y)\in\mathbb{R}^n : 0\le x\le n, 0\le y\le n\}
                     \] を考えてみる. 
@@ -104,7 +108,7 @@
                         \end{array}
                     \] となり収束するため, 
                     \[
-                        \iint_{\mathbb{R}^2}\dfrac{1}{(1+x+y)^a}~dxdy = \displaystyle\lim_{n\to\infty}\iint_{D_n}\dfrac{1}{(1+x+y)^a}~dxdy = \dfrac{1}{(a-1)(a-2)}
+                        \iint_{[0, \infty)\times[0, \infty)}\dfrac{1}{(1+x+y)^a}~dxdy = \displaystyle\lim_{n\to\infty}\iint_{D_n}\dfrac{1}{(1+x+y)^a}~dxdy = \dfrac{1}{(a-1)(a-2)}
                     \] である. 
                 </p>
             </div>
@@ -150,7 +154,7 @@
                     \[
                         \int_{-\infty}^{\infty} e^{-x^2}~dx = \sqrt{\pi}
                     \] を証明しよう. 
-                    まず, (唐突ではあるが) $\mathbb{R}^2$ に対する増加近似列
+                    まず, (唐突ではあるが) $\mathbb{R}^2$ に対する近似増加列
                     \[
                         \widetilde{D}_n = \{(x, y)\in\mathbb{R}^2: x^2+y^2\le n^2\}
                     \] を考えると, 
@@ -163,7 +167,7 @@
                     \] が収束することから, 広義積分 
                     \[
                         \iint_{\mathbb{R}^2}e^{-(x^2+y^2)}~dxdy 
-                    \] は収束し, 従って $\mathbb{R}^2$ の任意の増加近似列 $\{D_n\}$ に対し, 
+                    \] は収束し, 従って $\mathbb{R}^2$ の任意の近似増加列 $\{D_n\}$ に対し, 
                     \[
                         \pi = \iint_{\mathbb{R}^2}e^{-(x^2+y^2)}~dxdy = \lim_{n\to\infty}\iint_{D_n}e^{-(x^2+y^2)}~dxdy
                     \] が成立する. 
@@ -176,8 +180,8 @@
                         \end{array}
                     \] であることに注目する, ただし 
                     \[
-                        D_n = \{(x, y)\in\mathbb{R}^2 : -n\le n\le n,\quad -n\le y\le n\}.
-                    \] であり, $\{D_n\}$ は $\mathbb{R}^2$ の増加近似列になっている. 
+                        D_n = \{(x, y)\in\mathbb{R}^2 : -n\le x\le n,\quad -n\le y\le n\}.
+                    \] であり, $\{D_n\}$ は $\mathbb{R}^2$ の近似増加列になっている. 
                     従って, 
                     \[
                         \int_{-\infty}^{\infty} e^{-x^2}~dx = \sqrt{\lim_{n\to\infty}\iint_{D_n}e^{-(x^2+y^2)}~dxdy} = \sqrt{\iint_{\mathbb{R}^2}e^{-(x^2+y^2)}~dxdy} = \sqrt{\pi}
@@ -220,9 +224,9 @@
                     \[
                         \Gamma(p)\Gamma(q) = 4\lim_{n\to\infty}\iint_{D_n}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy = 4\iint_{[0,\infty)\times[0,\infty)}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy
                     \]
-                    従って, 領域 $D = [0,\infty)\times[0,\infty)$ に対する異なる増加近似列として, 例えば 
+                    従って, 領域 $D = [0,\infty)\times[0,\infty)$ に対する異なる近似増加列として, 例えば 
                     \[
-                        \widetilde{D}_n = \{(x, y)\in\mathbb{R}^2 : x\ge0,\quad y\ge0,\quad x^2+y^2\le n\}
+                        \widetilde{D}_n = \{(x, y)\in\mathbb{R}^2 : x\ge0,\quad y\ge0,\quad x^2+y^2\le n^2\}
                     \] を考えると, 
                     \[
                         4\lim_{n\to\infty}\iint_{D_n}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy = 4\iint_{[0,\infty)\times[0,\infty)}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy = 4\lim_{n\to\infty}\iint_{\widetilde{D}_n}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy
@@ -301,15 +305,15 @@
                                 &= \dfrac{4}{ab}r^{\frac{2}{a}+\frac{2}{b}-1}\cos^{\frac{2}{a}-1}\theta\sin^{\frac{2}{b}-1}\theta
                             \end{array}
                         \] が得られる. 
-                        従って, $D$ の増加近似列 
+                        従って, $D$ の近似増加列 
                         \[
-                            D_n = \{(x, y)\in\mathbb{R}^2 : x\ge0,\ y\ge0,\ x^2+y^2\le n^2\}
+                            D_n = \{(x, y)\in\mathbb{R}^2 : x\ge0,\ y\ge0,\ x^a+y^b\le n^2\}
                         \] に対し, 
                         \[
                             \begin{array}{rl} 
                                 \displaystyle\iint_D\dfrac{1}{1+x^a+y^b}~dxdy &= \displaystyle\lim_{n\to\infty}\iint_{D_n}\dfrac{1}{1+x^a+y^b}~dxdy \cr 
-                                &= \displaystyle\lim_{n\to\infty}\iint_{[0,n^2]\times[0,\pi/2]}\dfrac{1}{1+r^2}\dfrac{4}{ab}r^{\frac{2}{a}+\frac{2}{b}-1}\cos^{\frac{2}{a}-1}\theta\sin^{\frac{2}{b}-1}\theta~drd\theta \cr 
-                                &= \dfrac{4}{ab}\displaystyle\lim_{n\to\infty}\int_0^{n^2} \dfrac{r^{\frac{2}{a}+\frac{2}{b}-1}}{1+r^2}\dfrac{1}{2}B(1/a, 1/b)~dr \cr
+                                &= \displaystyle\lim_{n\to\infty}\iint_{[0,n]\times[0,\pi/2]}\dfrac{1}{1+r^2}\dfrac{4}{ab}r^{\frac{2}{a}+\frac{2}{b}-1}\cos^{\frac{2}{a}-1}\theta\sin^{\frac{2}{b}-1}\theta~drd\theta \cr 
+                                &= \dfrac{4}{ab}\displaystyle\lim_{n\to\infty}\int_0^{n} \dfrac{r^{\frac{2}{a}+\frac{2}{b}-1}}{1+r^2}\dfrac{1}{2}B(1/a, 1/b)~dr \cr
                                 &= \dfrac{2}{ab}B(1/a, 1/b)\displaystyle\int_0^{\infty}\dfrac{r^{\frac{2}{a}+\frac{2}{b}-1}}{1+r^2}~dr \cr 
                                 &= \dfrac{2}{ab}\dfrac{\Gamma(1/a)\Gamma(1/b)}{\Gamma(1/a+1/b)}\dfrac{1}{2}\Gamma(1/a+1/b)\Gamma(1-1/a-1/b) \cr 
                                 &= \dfrac{1}{ab}\Gamma(1/a)\Gamma(1/b)\Gamma(1-1/a-1/b). 
@@ -323,7 +327,7 @@
 
         <section id="sectionA-2"><h2>A.2: フーリエ変換</h2>
             <p>ここでは $1$ 変数関数に対する積分の応用として <b>フーリエ級数展開</b> と <b>フーリエ変換</b> について取り上げる. 
-                ただし, 数学的に厳密な議論よりも簡潔さを優先して説明するために, 以下の説明には十分に説明していない点や粗があることをあらかじめご了承いただきたい. 
+                ただし, 以下の説明では関数の条件など詳細には立ち入らず, フーリエ級数からフーリエ変換が現れるアイデアの概要を述べるに留める. 
             </p>
 
             <p>電波や音波など, 波として捉えられる現象や, コンピュータや生体内で情報をやり取りする電気信号などは, しばしば関数として扱うことでその性質を説明することになる. 
@@ -338,15 +342,15 @@
                     f(x) = \dfrac{a_0}{2} + \sum_{n=1}^{\infty}\left(a_n\cos(2\pi nx/L) + b_n\sin(2\pi nx/L)\right)
                 \] を考える. 
                 関数 $f(x)$ が上のような式で表されるとき, 右辺の級数を <b>フーリエ級数</b> (<b>Fourier series</b>) と呼び, また関数 $f(x)$ をフーリエ級数で表現することを <b>フーリエ級数展開</b> (<b>Fourier expansion</b>) という. 
-                また, フーリエ級数内の各 $a_n\cos(2\pi nx/L)$, $b_n\sin(2\pi nx/L)$ は, 各周波数に関する <b>周波数成分</b> と呼ばれることがある. 
-                さらに, 各 $a_n$, $b_n$ は (振幅に相当する量であり) <b>フーリエ係数</b> (<b>Fourier coefficient</b>) と呼ばれ, 各 $\cos$, $\sin$ 関数は <b>フーリエモード</b> (<b>Fourier mode</b>) と呼ばれる. 
+                また, フーリエ級数内の各 各 $\cos$, $\sin$ 関数は <b>フーリエモード</b> (<b>Fourier mode</b>) と呼ばれる. 
+                さらに, 各フーリエモードの係数 $a_n$, $b_n$ は <b>フーリエ係数</b> (<b>Fourier coefficient</b>) と呼ばれる. 
             </p>
             <p>与えられた関数 $f(x)$ に対し, 各フーリエ係数を計算したい. 
                 その際には, 以下の性質を利用することになる: 
             </p>
 
             <div class="lemma" data-name="三角関数の直交性">
-                <p>自然数 $m$, $n$ に対し, 
+                <p>自然数 $m\ge 1$, $n\ge 1$ に対し, 
                     \[
                         \int_0^L\cos(2\pi mx/L)\cos(2\pi nx/L) ~dx = \left\{\begin{array}{rl} 
                             \dfrac{L}{2} & \text{if }m=n, \cr 
@@ -429,6 +433,13 @@
                 \] が得られる. 
             </div>
 
+            <div class="remark">
+                <p>上は &quot;適切な&quot; 関数に対して成立するが, 例えば不連続な関数に対してフーリエ級数が収束するとは限らない. 
+                    不連続な関数のフーリエ級数に関連して, <b>ディリクレ条件</b> や <b>ギブスの現象</b> などの議論が知られている. 
+                    興味があれば, 各自で調べてみると良いだろう. 
+                </p>
+            </div>
+
             <p>さて, 実際には表記や計算の簡単のために <b>複素フーリエ級数</b> が利用される. 
                 その際, 以下が重要となる: 
             </p>
@@ -484,8 +495,7 @@
             </div>
 
             <p>最後に, 周期を持たない関数 $f(x)$ に対して, フーリエ級数展開に相当するものである <b>フーリエ変換</b> について, (数学的に厳密では無いが) おおよそのアイデアを紹介しよう. 
-                まず, 関数 $f(x)$ は $[-L/2, L/2]$ の外では $0$ となるような滑らかな関数であるとする. 
-                この関数を, $[-L/2, L/2]$ の外で周期的に拡張した関数を $\widetilde{f}$ とおく. 
+                まず, 適切な関数 $f(x)$ の区間 $[-L/2, L/2]$ 上への制限を, $[-L/2, L/2]$ の外で周期的に拡張した関数を $\widetilde{f}$ とおく. 
                 いま, $\widetilde{f}$ は周期 $L$ を持つため, ($x$ を $L/2$ だけずらした) フーリエ級数展開が可能である: 
                 \[
                     \begin{array}{c} 
@@ -575,10 +585,11 @@
                 </p>
             </div>
 
-            <p>さて, ここでは与えられた連続関数 $f(x)$ に対するポアソン方程式の解を求める方法を考えてみる. 
+            <p>さて, ここでは与えられた関数 $f(x)$ に対するポアソン方程式の解を求める方法を考えてみる. 
+                ここでは, $f$ は連続であり, ある有界区間の外では $0$ となるような関数であるとする. 
                 準備として, 微積分学の基本定理より, 微分可能な関数 $g(x)$ に対して 
                 \[
-                    \dfrac{d}{dx}\int_a^x g(y)~dy = g(x) = \int_a^x g'(y)~dy
+                    \dfrac{d}{dx}\int_a^x g(y)~dy = g(x) = \int_a^x g'(y)~dy + g(a)
                 \] であることを思い出しておく. 
                 また, 
                 \[
@@ -587,7 +598,7 @@
                         1 & \text{if }x\gt 0
                     \end{array}\right.
                 \] という関数を用意しておく (関数 $H(x)$ は <b>ヘヴィサイド関数</b> と呼ばれる). 
-                関数 $H(x)$ は, $x=0$ での値が定義されていないが, ここでは気にしないことにする. 
+                以降の式変形について, <b>弱微分</b> や <b>超関数微分</b> を用いて数学的に厳密に述べることも可能ではあるものの, ここでは形式的なものとして話を進めることにする (例えば関数 $H(x)$ は $x=0$ での値が定義されていないが形式的な式変形では気にする必要はない).
             </p>
             <p>ここで唐突ではあるが 
                 \[
@@ -602,7 +613,6 @@
                         &= -\displaystyle\int_{-\infty}^{\infty}\dfrac{1}{2}(1-2H(y-x))f(y)~dy
                     \end{array}
                 \] と式変形できる. 
-                この式変形について, $G(x)$ は $x=0$ で微分不可能であり, また $H(0)$ の値は定義されていないが, $H(0)$ が有限でありさえすれば上の等号は成立するため気にしない (このような考え方は <b>弱微分</b> と呼ばれるアイデアに近いものである). 
                 上の式をもう一度微分することで, 
                 \[
                     \begin{array}{rl} 
@@ -611,16 +621,17 @@
                         &= -\left(\dfrac{1}{2}f(x) - \left(-\dfrac{1}{2}f(x)\right)\right) \cr 
                         &= -f(x)
                     \end{array}
-                \] が得られるため, (積分定数に相当する部分を無視すれば) 
+                \] が得られるため, 
                 \[
                     u(x) = \int_{-\infty}^{\infty}G(x-y)f(y)~dy 
-                \] は与えられた連続関数 $f(x)$ に対する $1$ 次元ポアソン方程式の解である. 
+                \] は与えられた連続関数 $f(x)$ に対する $1$ 次元ポアソン方程式の解の一つである. 
                 このように, 関数 $G(x)$ をうまく設計することで, 
                 \[
                     -\dfrac{d^2}{dx^2}u(x) = f(x) \leftrightsquigarrow u(x) = \int_{-\infty}^{\infty}G(x-y)f(y)~dy 
                 \] という対応関係が得られることがわかった. 
-                このような関数 $G(x)$ は <b>基本解</b> (もしくは <b>グリーン関数</b>) と呼ばれる. 
+                このような関数 $G(x)$ は <b>基本解</b> と呼ばれる. 
                 今回は $G(x) = -1/2|x|$ という関数を考えたが, これは $1$ 次元のラプラシアン $-d^2/dx^2$ に対する基本解である, と言及される. 
+                ちなみに, 領域や境界条件を考慮して上と同様に構成される関数は <b>グリーン関数</b> と呼ばれ, 基本解と同様に重要なアイデアである. 
             </p>
 
             <hr>
@@ -633,9 +644,9 @@
                         &= -\displaystyle\int_{-\infty}^{\infty} \delta(y-x)f(y) ~dy \cr 
                         &= -f(x)
                     \end{array}
-                \] という式変形ができそうな気がする. 
-                ただし, この式変形についての厳密な説明は, ここまでの微積分の解説の範疇を超えている (<b>超関数微分</b> という, 微分を拡張したアイデアが必要になる). 
-                上のような $\delta(x)$ は <b>ディラックのデルタ関数</b> と呼ばれるものであるが, ここではこの $\delta(x)$ の直感的な理解のみを紹介しよう. 
+                \] という式変形ができる. 
+                上のような $\delta(x)$ は <b>ディラックのデルタ関数</b> と呼ばれるものである. 
+                ここではデルタ関数 $\delta(x)$ の直感的な解釈を紹介しよう. 
             </p>
             <p>まず, 与えられた $x$ に対して $\widetilde{f}(y) = f(y+x)$ とおくと, 上の式より 
                 \[
@@ -657,20 +668,20 @@
             </p>
 
             <div class="definition" data-name="ディラックのデルタ関数">
-                <p>全ての連続関数 $f(x)$ に対し,  
+                <p>全ての連続関数 $f(x)$ に対し, 形式的に 
                     \[
                         \int_{-\infty}^{\infty}\delta(x)f(x) ~dx = f(0)
-                    \] を満たす $\delta(x)$ を <b>ディラックのデルタ関数</b> (<b>Dirac delta function</b>) もしくは単に <b>デルタ関数</b> という. 
-                    直感的には,
+                    \] が成立する $\delta(x)$ を <b>ディラックのデルタ関数</b> (<b>Dirac delta function</b>) もしくは単に <b>デルタ関数</b> という. 
+                    デルタ関数は, しばしば
                 </p>
                 <ul>
-                    <li>$\delta(x) = 0 \quad (x\neq 0)$, 特に $\delta(-x) = \delta(x)$</li>
+                    <li>$\delta(x) = 0 \quad (x\neq 0)$, </li>
                     <li>$\delta(0) = \infty$, </li>
                     <li>$\displaystyle\int_{-\infty}^{\infty}\delta(x)~dx = 1$</li>
                 </ul>
-                <p>を満たすようなものである, と説明される.
+                <p>を満たすようなものであると説明されるが, これはあくまで直感的な説明であり数学的に厳密なものではない.
+                    そもそも, デルタ関数は (名前に &quot;関数&quot; とあるものの) 関数ではないことに注意.
                 </p>
-                <p>デルタ関数は (名前に &quot;関数&quot; とあるものの) 関数ではないことに注意. </p>
             </div>
 
             <p>次に, デルタ関数 $\delta(x)$ と ($1$ 次元のラプラシアンに対する) 基本解 $G(x)$ の関係を見てみよう. 
@@ -682,7 +693,7 @@
                         &= -\displaystyle\int_{-\infty}^{\infty} \delta(y-x)f(y) ~dy \cr 
                         &= -f(x)
                     \end{array}
-                \] と式変形したことを思い出すと, 直感的には
+                \] と式変形したことを思い出すと, 
                 \[
                     -\dfrac{d^2}{dx^2}G(x) = \delta(x)
                 \] という対応関係があることがわかる. 
@@ -746,10 +757,10 @@
             <p>このことも, やはり数学的に厳密な解説はしないが, いくつかの点について直感的な説明を補足しておこう: </p>
 
             <ul>
-                <li>まず, $2$ 次元の場合もデルタ関数 $\delta(\mathbf{x})$ は 
+                <li>まず, $2$ 次元の場合もデルタ関数 $\delta(\mathbf{x})$ は形式的に 
                     \[
                         \iint_{\mathbb{R}^2} \delta(\mathbf{x})f(\mathbf{x}) ~dx_1dx_2 = f(\mathbf{0})
-                    \] を満たすものであり, やはり直感的には 
+                    \] を満たすものであり, しばしば
                     <ul>
                         <li>$\delta(\mathbf{x}) = 0\quad (\mathbf{x}\neq 0)$, </li>
                         <li>$\delta(\mathbf{0}) = \infty$, </li>
@@ -760,7 +771,7 @@
                     \[
                         G(\mathbf{x}) = \dfrac{1}{2\pi}\log|\mathbf{x}| 
                     \] である. 
-                    このことを (直感的に) 説明するために, 
+                    このことを説明するために, 
                     \[
                         G_{\varepsilon}(\mathbf{x}) = \dfrac{1}{4\pi}\log(|\mathbf{x}|^2 + \varepsilon^2)  
                     \] という関数を導入すると, この関数は 
@@ -776,7 +787,7 @@
                             -\Delta G_{\varepsilon}(\mathbf{x}) = \dfrac{\partial}{\partial x_1}\dfrac{x_1}{2\pi(x_1^2 + x_2^2 + \varepsilon^2)} + \dfrac{\partial}{\partial x_2}\dfrac{x_2}{2\pi(x_1^2 + x_2^2 + \varepsilon^2)} = \dfrac{\varepsilon^2}{\pi(|\mathbf{x}|^2 + \varepsilon^2)^2}
                         \end{array}
                     \] を確かめることができる. 
-                    従って, 直感的には 
+                    従って, 形式的には 
                     \[
                         -\Delta G(\mathbf{x}) = \lim_{\varepsilon\to0}\left(-\Delta G_{\varepsilon}(\mathbf{x})\right) = \lim_{\varepsilon\to0}\dfrac{\varepsilon^2}{\pi(|\mathbf{x}|^2 + \varepsilon^2)^2} = \left\{\begin{array}{cl} 
                             0 &\text{if }\mathbf{x}\neq \mathbf{0}, \cr 
@@ -790,7 +801,7 @@
                             &= \displaystyle\lim_{\varepsilon\to0}\lim_{n\to\infty}\int_0^n \dfrac{2r\varepsilon^2}{(r^2+\varepsilon^2)^2}~dr \cr 
                             &= 1
                         \end{array}
-                    \] のように式変形できそうなので, 確かに $-\Delta G(\mathbf{x}) = \delta(\mathbf{x})$ となっていそうである. 
+                    \] のように式変形できるので, 確かに $-\Delta G(\mathbf{x}) = \delta(\mathbf{x})$ である. 
                 </li>
                 <li>以上より, 
                     \[
@@ -807,9 +818,7 @@
             </ul>
 
             <p>実際には, 関数 $f(\mathbf{x})$ はある程度良い性質を持っていなければ, 上のような式変形は不可能である. 
-                とはいえ, 物理や工学分野への応用に関しては, そこまで厳密さを意識することなく上のような議論が利用されているように思われる. 
-                反面, より理論的, 数学的な内容について勉強しようとすると, 関数 $f$ にはどのような条件が求められるのか, 本当に上のような式変形が可能なのか, といった点について詳しく調べることになる (上の説明では『直感的』という言葉を多用しているが, 通常はこのような議論は認められない). 
-                その際には, この資料の内容のような概念を基盤として, 微積分のアイデアをさらに拡張した高度な内容について学ぶことになる. 
+                関数 $f$ にはどのような条件が求められるのか, 本当に上のような式変形が可能なのか, といった点について厳密に調べるには, この資料の内容のような概念を基盤として, 微積分のアイデアをさらに拡張した高度な内容について学ぶ必要があるだろう.  
             </p>
 
 

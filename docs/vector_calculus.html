@@ -28,9 +28,9 @@
     
     <!-- main -->
     <main role="main"><article id="section4"><h1>4. ベクトル解析への応用</h1>
-        <p>ここまでの説明では実数値関数を被積分関数として考えてきたが, ここでは <b>ベクトル値関数</b> に対する積分を扱う. 
+        <p>ここまでの説明では <b>スカラー値関数</b> (<b>スカラー場</b>) を被積分関数として考えてきたが, ここでは <b>ベクトル値関数</b> (<b>ベクトル場</b>) に対する積分を扱う. 
             例えば物理や工学では, $3$ 次元空間 (もしくは簡略化して $2$ 次元平面) 内の物理量をベクトルとして表すことがある. 
-            物体や流体の速度や加速度のように向きと大きさを持つ量はもちろん, 電場や磁場もしくは重力場 (重力ポテンシャルの <b>勾配</b>) などの <b>ベクトル場</b> も, ベクトル値関数として積分することでさまざまな現象の解析に利用される. 
+            物体や流体の速度や加速度のように向きと大きさを持つ量はもちろん, 電場や磁場もしくは重力場 (重力ポテンシャルの <b>勾配</b>) などのベクトル場も, 積分することでさまざまな現象の解析に利用される. 
         </p>
         <p>ここでは話の簡単のために, $2$ 次元平面 $\mathbb{R}^2$ 内のベクトル値関数に限定して, その積分について解説する. 
             ただし, ここで説明する内容のほぼ全ては $3$ 次元空間内のベクトル値関数の積分でも通用するものである. 
@@ -129,7 +129,7 @@
                 パラメータ $t$ を用いて 
                 \[
                     C = \{\mathbf{r}(t)\in\mathbb{R}^2: a\le t\le b\}
-                \] と表される曲線 $C$ を考える (この $\mathbf{r}(t)$ もベクトル値関数であることに注意). 
+                \] と表される曲線 $C$ を考える. 
                 スカラー値関数 $f(\mathbf{x})$ の線積分は 
                 \[
                     \int_C f(\mathbf{x})~ds = \int_a^bf(\mathbf{r}(t))|\mathbf{r}'(t)|~dt 
@@ -138,12 +138,12 @@
                 \[
                     \int_C \mathbf{f}(\mathbf{x})\cdot d\mathbf{r} = \int_a^b \mathbf{f}(\mathbf{r}(t))\cdot \mathbf{r}'(t)~dt
                 \] と定義される, ここで $d\mathbf{r}$ は <b>線素ベクトル</b> と呼ばれ, 曲線 $C$ の一部を表す微小なベクトルであると解釈される. 
-                ベクトル値関数の線積分には, 右辺と左辺のどちらの表現においても $2$ つのベクトルの内積が現れている. 
-                これは被積分関数として与えられたベクトル $\mathbf{f}$ の, 曲線 $C$ に沿う方向 (曲線 $C$ の接線方向) への正射影の大きさの累積量を表す積分であると解釈でき, これにより得られる積分値はスカラーである (ベクトルではない). 
+                この積分は, 特に右辺に接ベクトル $\mathbf{r}'(t)$ との内積が現れているため, ベクトル $\mathbf{f}$ の接線方向の (符号付き) 成分の累積量と解釈できる. 
+                なお, ベクトル値関数の線積分により得られる積分値はスカラーである (ベクトルではない). 
             </p>
             <p>下にベクトル値関数の線積分のイメージ図を示す. 
-                黒い曲線が曲線 $C$, 黒い矢印が曲線 $C$ 上のいくつかの点 $\mathbf{x}$ におけるベクトル値関数 $\mathbf{f}(\mathbf{x})$ の値を表し, 赤い矢印が曲線 $C$ の接線方向への正射影を表すベクトルである. 
-                このとき, ベクトル値関数の線積分は, 赤い矢印の大きさの累積量と説明される. 
+                黒い曲線が曲線 $C$, 黒い矢印が曲線 $C$ 上のいくつかの点 $\mathbf{x}$ におけるベクトル値関数 $\mathbf{f}(\mathbf{x})$ の値を表し, 赤い矢印が曲線 $C$ の接線方向の成分を表すベクトルである. 
+                このとき, ベクトル値関数の線積分は, 赤い矢印の (符号付き) 大きさの累積量と説明される. 
             </p>
             <div class="resize"><img src='./images/line_integral_of_vector-1.png'></div> 
 
@@ -169,16 +169,12 @@
                 \[
                     \int_C \mathbf{f}(\mathbf{x})\cdot d\mathbf{r} = \int_C f_1(x, y)~dx + f_2(x, y)~dy
                 \] と表記することがある. 
-                この右辺の表記は, 点 $(x, y)$ が曲線 $C$ 上にあるという条件を用いて $x$ もしくは $y$ を消去することで, 
+                また, 
                 \[
-                    \int_C \mathbf{f}(\mathbf{x})\cdot d\mathbf{r} = \int_C f_1(x, y(x))~dx + \int_C f_2(x(y), y)~dy
-                \] が成立することを意味している. 
-                さらに, この表記に対する置換積分として 
+                    dx = x'(t)~dt,\quad dy = y'(t)~dt
+                \] として
                 \[
-                    \int_C f_1(x, y)~dx + f_2(x, y)~dy = \int_a^b f_1(\mathbf{r}(t))\dfrac{dx}{dt}~dt + \int_a^b f_2(\mathbf{r}(t))\dfrac{dy}{dt}~dt
-                \] が得られるが, この右辺は 
-                \[
-                    \int_a^b f_1(\mathbf{r}(t))\dfrac{dx}{dt}~dt + \int_a^b f_2(\mathbf{r}(t))\dfrac{dy}{dt}~dt = \int_a^b \mathbf{f}(\mathbf{r}(t))\cdot\mathbf{r}'(t)~dt
+                    \int_a^b f_1(\mathbf{r}(t))x'(t)~dt + \int_a^b f_2(\mathbf{r}(t))y'(t)~dt = \int_a^b \mathbf{f}(\mathbf{r}(t))\cdot\mathbf{r}'(t)~dt
                 \] と書き直すことができ, 確かに上で定義として述べた式と一致する. 
             </p>
 
@@ -200,9 +196,8 @@
 
             <div class="remark">
                 <ul>
-                    <li>ベクトル値関数の線積分は曲線 $C$ のパラメータ表示に依存しない (これはスカラー値関数の線積分と同様である). 
-                        一方で, ベクトル値関数の線積分は (スカラー値関数の線積分とは異なり) 曲線の向きに依存する. 
-                        具体的には, 曲線 
+                    <li>ベクトル値関数の線積分は (向きを保つ限り) 曲線 $C$ のパラメータ表示に依存しない (これはスカラー値関数の線積分と同様である). 
+                        一方で, ベクトル値関数の線積分は (スカラー値関数の線積分とは異なり) 曲線の向きに依存する: 曲線 
                         \[
                             C = \{\mathbf{r}(t) : a\le t\le b\}
                         \] に対し, 向きを反転した曲線 $-C$ に沿ったベクトル値関数の線積分は
@@ -249,7 +244,7 @@
                     \] と計算できる. 
                     なお, この例ではベクトル $\mathbf{f}(\mathbf{x})$ は曲線 $C$ に接するため, 上の計算のように
                     \[
-                        \mathbf{f}(\mathbf{x}(\theta))\cdot \mathbf{r}'(\theta) = |\mathbf{f}(\mathbf{x}(\theta))|^2 = R^2
+                        \mathbf{f}(\mathbf{r}(\theta))\cdot \mathbf{r}'(\theta) = |\mathbf{f}(\mathbf{x}(\theta))|^2 = R^2
                     \] となっている. 
                 </p>
                 <div class="resize"><img src='./images/line_integral_of_vector2-1.png'></div> 
@@ -306,10 +301,10 @@
                                 -R\sin\theta \cr 
                                 R\cos\theta 
                             \end{pmatrix} ~d\theta \cr 
-                            &= R^3\displaystyle\int_0^{\pi/2}\cos^3\theta+\sin^3\theta~d\theta \cr 
-                            &= R^3\displaystyle\int_0^{\pi/2}\dfrac{3\cos\theta + \cos3\theta}{4} + \dfrac{3\sin\theta - \sin3\theta}{4}~d\theta \cr 
-                            &= R^3 \left(\dfrac{3}{4} - \dfrac{1}{12} + \dfrac{3}{4} - \dfrac{1}{12}\right) \cr 
-                            &= \dfrac{4}{3}R^3. 
+                            &= R^3\displaystyle\int_0^{\pi/2}\cos^3\theta-\sin^3\theta~d\theta \cr 
+                            &= R^3\displaystyle\int_0^{\pi/2}\dfrac{3\cos\theta + \cos3\theta}{4} - \dfrac{3\sin\theta - \sin3\theta}{4}~d\theta \cr 
+                            &= R^3 \left(\dfrac{3}{4} - \dfrac{1}{12} - \dfrac{3}{4} + \dfrac{1}{12}\right) \cr 
+                            &= 0. 
                         \end{array}
                     \]
                 </p>
@@ -399,7 +394,7 @@
                 証明については簡単な場合に限り述べることにする: </p>
 
             <div class="theorem" data-name="グリーンの定理">
-                <p>$xy$ 平面内の反時計回りの閉曲線 $C$ と $C$ で囲まれる領域 $D$, および $D$ 上の微分可能なベクトル値関数 
+                <p>$xy$ 平面内の反時計回りの区分的滑らかな単純閉曲線 $C$ と $C$ で囲まれる領域 $D$, および $D$ 上の $C^1$ 級ベクトル値関数 
                     \[
                         \mathbf{f}(\mathbf{x}) = \begin{pmatrix} 
                             f_1(x, y) \cr 
@@ -425,14 +420,7 @@
                                 \dfrac{\partial}{\partial x} & f_1 \cr 
                                 \dfrac{\partial}{\partial y} & f_2 
                             \end{pmatrix} 
-                        \] であると思うことができるものである. 
-                        また, これは $\mathbf{f}\in\mathbb{R}^2$ に対するベクトル外積 
-                        \[
-                            \nabla \times \mathbf{f}
-                        \] と解釈できるものであり, 形式的に
-                        \[
-                            \operatorname{rot}\mathbf{f} = \nabla\times \mathbf{f} \quad(\text{もしくは}\ \operatorname{curl}\mathbf{f})
-                        \] と表記されるものでもある. 
+                        \] であると思うことができるものであり, これを $\operatorname{rot}\mathbf{f}$ と表記することがある. 
                     </li>
                     <li>
                         実際には領域 $D$ に穴が空いているような場合にも成立するが, ここでは簡単のために考えないことにする.
@@ -459,34 +447,18 @@
                     一方で, 左辺の線積分は 
                     \[
                         \oint_C\mathbf{f}(\mathbf{x})\cdot d\mathbf{r} = \underbrace{\oint_C f_1(x, y(x))~dx}_{=I_1} + \underbrace{\oint_C f_2(x(y), y)~dy}_{=I_2}
-                    \] であるが, $I_1$ を計算する際は曲線 $C$ を (向きに注意して)
-                    \[
-                        \begin{array}{l} 
-                            C_1 = \{\mathbf{r}_1(t) = (t, \varphi_1(t)) : a\le t\le b\}, \cr 
-                            C_2 = \{\mathbf{r}_2(t) = (-t+a+b, \varphi_2(-t+a+b)): a\le t\le b\}
-                        \end{array}
-                    \] の二つに分割することで, 
+                    \] であるが, $I_1$ を計算する際は曲線 $C$ を $\varphi_1$, $\varphi_2$ それぞれに対応する $C_1$, $C_2$ の二つに (向きに注意して) 分割することで, 
                     \[
                         \begin{array}{rl} 
                             I_1 &= \displaystyle\int_{C_1} f_1(x, y(x))~dx + \int_{C_2} f_1(x, y(x))~dx \cr 
-                            &= \displaystyle\int_a^b f_1(t, \varphi_1(t))~dt + \int_a^b f_2(-t+a+b, \varphi_2(-t+a+b)) (-1)~dt \cr 
-                            &= \displaystyle\int_a^b f_1(t, \varphi_1(t))~dt + \int_b^a f_2(\widetilde{t}, \varphi_2(\widetilde{t})) (-1)^2~d\widetilde{t} \quad (\because \widetilde{t} = -t+a+b) \cr 
-                            &= \displaystyle\int_a^b f_1(t, \varphi_1(t))~dt - \int_a^b f_2(t, \varphi_2(t)) ~dt \quad (\because \ \text{積分区間の反転}) \cr 
+                            &= \displaystyle\int_a^b f_1(t, \varphi_1(t))~dt - \int_a^b f_1(t, \varphi_2(t)) ~dt 
                         \end{array}
-                    \] となる. 
-                    また, $I_2$ を計算する際は曲線 $C$ を 
-                    \[
-                        \begin{array}{l} 
-                            C_3 = \{\mathbf{r}_3(t) = (\psi_2(t), t) : c\le t\le d\}, \cr 
-                            C_4 = \{\mathbf{r}_4(t) = (\psi_2(-t+c+d), -t+c+d): c\le t\le d\}
-                        \end{array}
-                    \] の二つに分割することで, 
+                    \] となる ($C_2$ の向きより第 $2$ 項はマイナスになることに注意). 
+                    また, $I_2$ を計算する際は曲線 $C$ を $\psi_1$, $\psi_2$ それぞれに対応する $C_3$, $C_4$ の二つに分割することで, 同様に
                     \[
                         \begin{array}{rl} 
-                            I_2 &= \displaystyle\int_{C_3} f_2(x(y), y)~dx + \int_{C_4} f_2(x(y), y)~dx \cr 
-                            &= \displaystyle\int_c^d f_2(\psi_2(t), t)~dt + \int_c^d f_2(\psi_1(-t+a+b), -t+a+b) (-1)~dt \cr 
-                            &= \displaystyle\int_c^d f_2(\psi_2(t), t)~dt + \int_d^c f_2(\psi_1(\widetilde{t}), \widetilde{t}) (-1)^2~d\widetilde{t} \quad (\because \widetilde{t} = -t+a+b) \cr 
-                            &= \displaystyle\int_c^d f_2(\psi_2(t), t)~dt - \int_c^d f_2(\psi_1(t), t) ~dt \quad (\because \ \text{積分区間の反転}) \cr 
+                            I_2 &= \displaystyle\int_{C_3} f_2(x(y), y)~dy + \int_{C_4} f_2(x(y), y)~dy \cr 
+                            &= \displaystyle\int_c^d f_2(\psi_2(t), t)~dt - \int_c^d f_2(\psi_1(t), t) ~dt 
                         \end{array}
                     \] となる. 
                     以上より, 
@@ -574,10 +546,10 @@
                             \vdots \cr 
                             f_n(x_1, x_2, \dots, x_n) 
                         \end{pmatrix} \in\mathbb{R}^n
-                    \] に対して, スカラー値関数
+                    \] に対して, 
                     \[
-                        \operatorname{div}\mathbf{f} = \dfrac{\partial f_1}{\partial x_1} + \dfrac{\partial f_2}{\partial x_2} + \dots + \dfrac{\partial f_n}{\partial x_n} 
-                    \] を $\mathbf{x}$ における $\mathbf{f}: D\to\mathbb{R}^d$ の <b>発散</b> (<b>divergence</b>) という. 
+                        \operatorname{div}\mathbf{f} = \dfrac{\partial f_1}{\partial x_1}(\mathbf{x}) + \dfrac{\partial f_2}{\partial x_2}(\mathbf{x}) + \dots + \dfrac{\partial f_n}{\partial x_n}(\mathbf{x})
+                    \] を $\mathbf{f}$ の $\mathbf{x}$ における <b>発散</b> (<b>divergence</b>) という. 
                 </p>
             </div>
 
@@ -590,7 +562,7 @@
             </div>
 
             <div class="theorem" data-name="発散定理">
-                <p>$xy$ 平面内の反時計回りの閉曲線 $C$ と $C$ で囲まれる領域 $D$, および $D$ 上の微分可能なベクトル値関数 $\mathbf{f}(\mathbf{x})$ に対して, 
+                <p>$xy$ 平面内の反時計回りの区分的滑らかな単純閉曲線 $C$ と $C$ で囲まれる領域 $D$, および $D$ 上の $C^1$ 級ベクトル値関数 $\mathbf{f}(\mathbf{x})$ に対して, 
                     \[
                         \iint_D \nabla\cdot\mathbf{f}~dxdy = \oint_{C}\mathbf{f}\cdot \mathbf{n}~ds
                     \] が成立する, ただし $\mathbf{n}$ は境界 $C$ の外向き単位法線ベクトルである. 
@@ -618,27 +590,31 @@
                 </p>
             </div>
 
-            <p>直観的には, 発散 $\nabla\cdot \mathbf{f}(\mathbf{x})$ は点 $\mathbf{x}$ における湧出量を表すと説明される. 
-                例えば水が湧き出ると水の流れが生じ, ある領域から溢れて流出する, という状況をイメージすることができるが, この説明において水の流れが $\mathbf{f}$, 水の湧き出る量が $\nabla\cdot\mathbf{f}$ で表される. 
-                さらに, 領域 $D$ 内で湧き出した水の総量と, 領域 $D$ から溢れて流出する水の総量 (領域境界 $C$ を通過する水の総量) が, それぞれ発散定理の両辺 
-                \[
-                    \underbrace{\iint_D \nabla\cdot\mathbf{f}~dxdy}_{=\text{湧出量の総和}} = \underbrace{\oint_{C}\mathbf{f}\cdot \mathbf{n}~ds}_{=\text{流出量の総和}}
-                \] により表され, 湧き出た量と同じだけ溢れて流出する, というように説明される. 
-            </p>
+            <div class="remark">
+                <p>直観的には, 発散 $\nabla\cdot \mathbf{f}(\mathbf{x})$ は点 $\mathbf{x}$ における湧出量を表すと説明される. 
+                    また, $\mathbf{f}\cdot\mathbf{n}$ は境界を直交する向きに横切る成分であると説明される. 
+                    従って, 発散定理は
+                    \[
+                        \underbrace{\iint_D \nabla\cdot\mathbf{f}~dxdy}_{=\text{湧出量の総和}} = \underbrace{\oint_{C}\mathbf{f}\cdot \mathbf{n}~ds}_{=\text{流出量の総和}}, 
+                    \] つまり領域 $D$ 内部での総湧出量と境界を通過する総流出量が等しい, ということを表している. 
+                </p>
+            </div>
 
-            <p>さらに直観的な説明をすると, 発散定理 
-                \[
-                    \iint_D \nabla\cdot\mathbf{f}~dxdy = \oint_{C}\mathbf{f}\cdot \mathbf{n}~ds 
-                \] は微積分学の基本定理 
-                \[
-                    \int_a^b f'(x) ~dx = \left[f(x)\right]_a^b
-                \] に相当するものであると解釈できる. 
-                つまり微積分学の基本定理と同様の式変形を二重積分に対して行う際には, 関数の微分 $f'(x)$ が発散 $\nabla\cdot\mathbf{f}$ に, 関数の区間端点での値の計算が領域境界上での外向き単位法線ベクトル $\mathbf{n}$ を用いた線積分に変化する, と解釈することができる. 
-                発散定理で外向き単位法線ベクトル $\mathbf{n}$ が現れることに違和感を感じるかもしれないが, 実際には $1$ 変数の積分でも 
-                \[
-                    \left[f(x)\right]_a^b = f(b) - f(a) = (-1)\cdot f(a) + 1\cdot f(b) 
-                \] であることに注意すると, 一次元区間 $[a, b]$ の左端点における &quot;外向き単位法線ベクトル&quot; が $-1$, 右端点での &quot;外向き単位法線ベクトル&quot; が $1$ と思うことできちんと対応している. 
-            </p>
+            <div class="remark">
+                <p>さらに直観的な説明をすると, 発散定理 
+                    \[
+                        \iint_D \nabla\cdot\mathbf{f}~dxdy = \oint_{C}\mathbf{f}\cdot \mathbf{n}~ds 
+                    \] は微積分学の基本定理 
+                    \[
+                        \int_a^b f'(x) ~dx = \left[f(x)\right]_a^b
+                    \] に相当するものであると解釈できる. 
+                    つまり微積分学の基本定理と同様の式変形を二重積分に対して行う際には, 関数の微分 $f'(x)$ が発散 $\nabla\cdot\mathbf{f}$ に, 関数の区間端点での値の計算が領域境界上での外向き単位法線ベクトル $\mathbf{n}$ を用いた線積分に変化する, と解釈することができる. 
+                    発散定理で外向き単位法線ベクトル $\mathbf{n}$ が現れることに違和感を感じるかもしれないが, 実際には $1$ 変数の積分でも 
+                    \[
+                        \left[f(x)\right]_a^b = f(b) - f(a) = (-1)\cdot f(a) + 1\cdot f(b) 
+                    \] であることに注意すると, 一次元区間 $[a, b]$ の左端点における &quot;外向き単位法線ベクトル&quot; が $-1$, 右端点での &quot;外向き単位法線ベクトル&quot; が $1$ と思うことできちんと対応している. 
+                </p>
+            </div>
 
             <div class="example">
                 <p>曲線 $C$ が 
@@ -661,7 +637,7 @@
                     \[
                         \begin{array}{rl} 
                             \displaystyle\oint_C\mathbf{f}\cdot\mathbf{n}~ds &= \displaystyle\iint_D \nabla\cdot\mathbf{f}~dxdy \cr 
-                            &= \displaystyle\int_D 5~dxdy \cr 
+                            &= \displaystyle\iint_D 5~dxdy \cr 
                             &= 5|D| = 5\pi R^2
                         \end{array}
                     \] のように計算できる. 
@@ -780,13 +756,13 @@
                                 f_2g 
                             \end{pmatrix} \cr
                             &= \dfrac{\partial (f_1g)}{\partial x} + \dfrac{\partial (f_2g)}{\partial y} \cr 
-                            &= \left(\dfrac{\partial f_1}{\partial x}+\dfrac{\partial f_2}{\partial y}\right)g + (f_1+f_2)\left(\dfrac{\partial g}{\partial x} + \dfrac{\partial g}{\partial y}\right) \cr 
+                            &= \left(\dfrac{\partial f_1}{\partial x}+\dfrac{\partial f_2}{\partial y}\right)g + f_1\dfrac{\partial g}{\partial x} + f_2\dfrac{\partial g}{\partial y} \cr 
                             &= (\nabla\cdot\mathbf{f})g + \mathbf{f}\cdot(\nabla g)
                         \end{array}
                     \] であることに注意すると, 発散定理より 
                     \[
                         \begin{array}{rl} 
-                            \displaystyle\oint_C (\mathbf{f}\cdot\mathbf{n})g~dx &= \displaystyle\oint_C (\mathbf{f}g)\cdot\mathbf{n}~dx \cr 
+                            \displaystyle\oint_C (\mathbf{f}\cdot\mathbf{n})g~ds &= \displaystyle\oint_C (\mathbf{f}g)\cdot\mathbf{n}~ds \cr 
                             &= \displaystyle\iint_D \nabla\cdot(\mathbf{f}g)~dxdy \cr 
                             &= \displaystyle\iint_D \left((\nabla\cdot\mathbf{f})g + \mathbf{f}\cdot(\nabla g)\right)~dxdy. 
                         \end{array}
@@ -803,7 +779,7 @@
                         -\Delta u(\mathbf{x}) = f(\mathbf{x}) \qquad (\mathbf{x}\in D)
                     \] を満たす $u$ を求めよ, という問題を考えてみる. 
                     なお, これは <b>ポアソン方程式</b> と呼ばれるものであり, 電磁気学や流体力学など物理分野で頻繁に現れるものである. 
-                    この式の両辺に適当な関数 $v$ を掛けて積分すると, 領域 $D$ の境界 $C$ について
+                    この式の両辺に適当な条件を満たす関数 $v$ を掛けて積分すると, 領域 $D$ の境界 $C$ について
                     \[
                         \begin{array}{rl} 
                             \displaystyle\iint_D fv~dxdy &= \displaystyle\iint_D -\nabla\cdot(\nabla u)v~dxdy \cr 
@@ -814,10 +790,10 @@
                 <p>つまり, 元々の問題
                     \[
                         -\Delta u(\mathbf{x}) = f(\mathbf{x}) 
-                    \] では, $u$ に対する $2$ 階微分に相当する $\Delta u$ が現れているが, 適当な関数 $v$ (これを <b>テスト関数</b> と呼ぶことがある) を用いることで 
+                    \] では, $u$ に対する $2$ 階微分に相当する $\Delta u$ が現れているが, これに対応する問題として, 適当な条件を満たす <span class="wave">全ての</span> 関数 $v$ (これを <b>テスト関数</b> と呼ぶことがある) に対し 
                     \[
                         \iint_D (\nabla u)\cdot(\nabla v)~dxdy - \oint_C\dfrac{\partial u}{\partial\mathbf{n}}v~ds = \iint_D fv~dxdy 
-                    \] という, $u$ の $1$ 階微分しか現れない問題を考えることができる. 
+                    \] を満たす $u$ を求める, という $u$ の $1$ 階微分しか現れない問題を考えることができる. 
                     このような式は <b>弱形式</b> と呼ばれ, 部分積分を利用することで問題に現れる微分の階数を減らすことができる, 重要なテクニックである. 
                 </p>
             </div>
