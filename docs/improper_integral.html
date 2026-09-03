@@ -79,7 +79,7 @@
                 </ul>
             </div>
 
-            <p>なお, 通常の意味でリーマン積分可能な関数の広義積分は, そのリーマン積分に一致する. 
+            <p>なお, 通常の意味でリーマン積分と広義積分がどちらも定義される関数に対し, それらの値は一致する. 
                 <!-- 従って, 広義積分は確かに通常のリーマン積分を拡張したものであるとみなせるものである.  -->
                 以下では, 広義積分も含めて単に積分と呼ぶことがある.  
             </p>
@@ -90,7 +90,7 @@
                         \[
                             \int_0^1 \dfrac{1}{\sqrt{x}}~dx
                         \] を計算してみよう. 
-                        被積分関数は区間 $[0, 1]$ 上で連続ではない ($x\searrow 0$ としたとき非有界である) ため, この積分は通常のリーマン積分ではなく広義積分であり,  
+                        被積分関数は区間 $[0, 1]$ 上で連続ではない ($x = 0$ で非有界である) ため, この積分は広義積分であり,  
                         \[
                             \begin{array}{rl} 
                                 \displaystyle\int_0^1\dfrac{1}{\sqrt{x}}~dx &= \displaystyle\lim_{\varepsilon\searrow 0}\int_{\varepsilon}^1 \dfrac{1}{\sqrt{x}}~dx \cr 
@@ -147,7 +147,7 @@
                         \] であり, $-1\lt\alpha\lt0$ ならば収束する. 
                         一方, $\alpha\lt -1$ のときは極限が発散し, また $\alpha=-1$ のときは 
                         \[
-                            \int_0^1 x^{-1}~dx = \lim_{t\searrow 0}\log t \to \infty
+                            \int_0^1 x^{-1}~dx = \lim_{t\searrow 0} \left[\log x\right]_t^1 = -\lim_{t\searrow 0}\log t \to \infty
                         \] より発散するため, 広義積分は収束しない. 
                     </li>
                     <li>下の広義積分は 
@@ -192,11 +192,11 @@
                     \] を計算してみよう. 
                     もしも 
                     \[
-                        \int_{-1}^1 \dfrac{1}{x}~dx = \lim_{t\nearrow 1} \left(\int_{-t}^0 \dfrac{1}{x}~dx + \int_0^t \dfrac{1}{x}~dx\right)
-                    \] のようにしてしまうと, 積分区間の反転より $0$ になりそうな気がするが <b>これは誤りである</b>. 
+                        \int_{-1}^1 \dfrac{1}{x}~dx = \lim_{t\searrow 0} \left(\int_{-1}^{-t} \dfrac{1}{x}~dx + \int_t^1 \dfrac{1}{x}~dx\right)
+                    \] のようにしてしまうと, 積分区間のに反転より $0$ になる (これは <b>コーシーの主値</b> と呼ばれる) が, これは <b>(通常の) 広義積分としては誤りである</b>. 
                     正しくは, 積分区間を分割した上で, $2$ つの片側極限は独立に考える必要があり, 
                     \[
-                        \int_{-1}^1 \dfrac{1}{x}~dx = \lim_{t_1\nearrow 1} \int_{-t_1}^0 \dfrac{1}{x}~dx + \lim_{t_2\nearrow 1}\int_0^t_2 \dfrac{1}{x}~dx
+                        \int_{-1}^1 \dfrac{1}{x}~dx = \lim_{t_1\nearrow 0} \int_{-1}^{t_1} \dfrac{1}{x}~dx + \lim_{t_2\searrow 0}\int_{t_2}^1 \dfrac{1}{x}~dx
                     \] である. 
                     右辺の $2$ つの広義積分はどちらも発散するため, 左辺の広義積分も発散する. 
                 </p>
@@ -242,31 +242,7 @@
                 </p>    
             </div>
 
-            <div class="exercise">
-                <p>$a\gt 0$, $b\neq 0$ とする. 
-                    このとき, 積分 
-                    \[
-                        \int_0^{\infty} e^{-ax}\cos bx~dx 
-                    \] を求めよ. 
-                </p>
-            </div>
-
-            <div class="answer">
-                <p>部分積分も通常の積分と同様に計算すれば良い: 真面目に書くと
-                    \[
-                        \begin{array}{rl} 
-                            I = \displaystyle\int_0^{\infty} e^{-ax}\cos bx~dx &= \displaystyle \lim_{t\to\infty}\left(\left[\dfrac{1}{b}e^{-ax}\sin bx\right]_0^{t} + \int_0^{t}\dfrac{a}{b}e^{-ax}\sin bx~dx\right) \cr 
-                            &= \dfrac{a}{b}\displaystyle \lim_{t\to\infty}\left(\left[-\dfrac{1}{b}e^{-ax}\cos bx\right]_0^{t} - \int_0^{t}\dfrac{a}{b}e^{-ax}\cos bx~dx\right) \cr 
-                            &= \dfrac{a}{b}\left(\dfrac{1}{b} - \dfrac{a}{b}I\right).
-                        \end{array}
-                    \] 従って 
-                    \[
-                        I = \dfrac{a/b^2}{1+a^2/b^2} = \dfrac{a}{a^2+b^2}.
-                    \]
-                </p>
-            </div>
-
-            <p>さらに, リーマン積分の単調性も広義積分において同様に利用可能であり, 従って広義積分の値を大雑把に見積もり, 収束するか否かを判定することが可能である. 
+            <p>リーマン積分の単調性も広義積分において同様に利用可能であり, 従って広義積分の値を大雑把に見積もり, 収束するか否かを判定することが可能である. 
             </p>
 
             <div class="theorem">
@@ -320,22 +296,6 @@
                 <div class="resize"><img src='./images/sin_xinv-1.png'></div> 
             </div>
 
-            <div class="example">
-                <p>上の定理の対偶を考えることで, $f(x)$ の広義積分が収束しないとき, $g(x)$ の広義積分も収束しないこともわかる. 
-                    例えば, 
-                    \[
-                        \int_1^{\infty}g(x)~dx = \int_1^{\infty}\dfrac{1}{x-\log x}~dx 
-                    \] という広義積分は, 被積分関数が 
-                    \[
-                        f(x) = \dfrac{1}{x} \le \dfrac{1}{x-\log x} = g(x) \qquad (x\ge 1)
-                    \] であることと, 広義積分 
-                    \[
-                        \int_1^{\infty} f(x)~dx = \int_1^{\infty} \dfrac{1}{x}~dx 
-                    \] が収束しないことから, やはり収束しないと判定することができる. 
-
-                </p>
-            </div>
-
             <div class="exercise">
                 <p>広義積分 
                     \[
@@ -367,13 +327,57 @@
                 </p>
             </div>
 
+            <div class="exercise">
+                <p>$a\gt 0$, $b\neq 0$ とする. 
+                    このとき, 広義積分 
+                    \[
+                        \int_0^{\infty} e^{-ax}\cos bx~dx 
+                    \] が収束することを証明し, その値を求めよ. 
+                </p>
+            </div>
+
+            <div class="answer">
+                <p>まず $|e^{-ax}\cos bx| \le e^{-ax}$ であり, また 
+                    \[
+                        \int_0^{\infty} e^{-ax}~dx = \dfrac{1}{a}
+                    \] が収束しているため, 求める広義積分も収束することが確かめられる. 
+                </p>
+                <p>実際に積分値を求めるには, 部分積分を通常の積分と同様に計算すれば良い: 真面目に書くと
+                    \[
+                        \begin{array}{rl} 
+                            I = \displaystyle\int_0^{\infty} e^{-ax}\cos bx~dx &= \displaystyle \lim_{t\to\infty}\left(\left[\dfrac{1}{b}e^{-ax}\sin bx\right]_0^{t} + \int_0^{t}\dfrac{a}{b}e^{-ax}\sin bx~dx\right) \cr 
+                            &= \dfrac{a}{b}\displaystyle \lim_{t\to\infty}\left(\left[-\dfrac{1}{b}e^{-ax}\cos bx\right]_0^{t} - \int_0^{t}\dfrac{a}{b}e^{-ax}\cos bx~dx\right) \cr 
+                            &= \dfrac{a}{b}\left(\dfrac{1}{b} - \dfrac{a}{b}I\right).
+                        \end{array}
+                    \] 従って 
+                    \[
+                        I = \dfrac{a/b^2}{1+a^2/b^2} = \dfrac{a}{a^2+b^2}.
+                    \]
+                </p>
+            </div>
+
+            <div class="example">
+                <p>上の定理の対偶を考えることで, $f(x)$ の広義積分が収束しないとき, $g(x)$ の広義積分も収束しないこともわかる. 
+                    例えば, 
+                    \[
+                        \int_1^{\infty}g(x)~dx = \int_1^{\infty}\dfrac{1}{x-\log x}~dx 
+                    \] という広義積分は, 被積分関数が 
+                    \[
+                        f(x) = \dfrac{1}{x} \le \dfrac{1}{x-\log x} = g(x) \qquad (x\ge 1)
+                    \] であることと, 広義積分 
+                    \[
+                        \int_1^{\infty} f(x)~dx = \int_1^{\infty} \dfrac{1}{x}~dx 
+                    \] が収束しないことから, やはり収束しないと判定することができる. 
+
+                </p>
+            </div>
+
         </section>
 
         <hr>
 
         <section id="section2-2"><h2>2.2: 特殊関数</h2>
             <p>先ほども言及したように, 頻繁に利用されるために特別な名前が付けられている関数を <b>特殊関数</b> と呼ぶ. 
-                例えば三角関数 $\sin x$ なども特殊関数であり, その利便性および重要性は明らかだろう. 
                 ここでは, 特に広義積分として表すことができる特殊関数をいくつか紹介しよう. 
                 例えば  
                 \[
@@ -479,29 +483,29 @@
             </p>
 
             <ul>
-                <li>$0\lt t\le 1/2$ のとき, 
+                <li>$0\lt t\le 1/2$ のとき, $q\gt 0$ であることに注意すると 
                     \[
-                        \lim_{t\searrow 0}t^{1-p}f(t) = \lim_{t\searrow 0}(1-t)^{q-1} = 1
-                    \] より, ある $T_1\gt 0$ が存在して, 例えば 
+                        (1-t)^{q-1} \le 2
+                    \] であり, 従って 
                     \[
-                        f(t) \le 2t^{p-1} \quad (0\lt t\le T_1)
-                    \] とできることから, $p\gt 0$ ならば 
+                        f(t) \lt 2t^{p-1}
+                    \] が成立する. 
+                    あとは $p\gt 0$ より, 広義積分 
                     \[
-                        I_1 = \int_0^{T_1}f(t) ~dt + \underbrace{\int_{T_1}^{1/2}f(t)~dt}_{=\text{通常の積分}}
-                    \] の第 $1$ 項は収束する. 
-                    従って, (広義) 積分 $I_1$ も収束する. 
+                        \int_0^{1/2}2t^{p-1} ~dt = \dfrac{2^{1-p}}{p}
+                    \] が収束することから $I_1$ も収束する. 
                 </li>
-                <li>$1/2\le t\lt 1$ のとき, 
+                <li>$1/2\le t\lt 1$ のとき, $p\gt 0$ であることに注意すると 
                     \[
-                        \lim_{t\nearrow 1}(1-t)^{1-q}f(t) = \lim_{t\nearrow 1}t^{p-1} = 1
-                    \] より, ある $T_2\gt 0$ が存在して, 例えば 
+                        t^{p-1} \le 2
+                    \] であり, 従って
                     \[
-                        f(t) \le 2(1-t)^{q-1} \quad (T_2\le t\lt 1)
-                    \] とできることから, $q\gt 0$ ならば 
+                        f(t) \le 2(1-t)^{q-1} 
+                    \] が成立する. 
+                    あとは $q\gt 0$ より, 広義積分 
                     \[
-                        I_2 = \underbrace{\int_{1/2}^{T_2}f(t) ~dt}_{=\text{通常の積分}} + \int_{T_2}^{1}f(t)~dt 
-                    \] の第 $2$ 項は収束する. 
-                    従って, (広義) 積分 $I_2$ も収束する. </li>
+                        \int_{1/2}^1 2(1-t)^{q-1}~dt = \dfrac{2^{1-q}}{q}
+                    \] が収束することから $I_2$ も収束する. </li>
             </ul>
 
             <p>ベータ関数も, ガンマ関数と同様にさまざまな応用を持つ特殊関数であるが, ここではガンマ関数との関連と, 三角関数の積分への応用について言及しておこう. 
@@ -572,7 +576,7 @@
             </div>
 
             <div class="answer">
-                <p>置換積分と部分積分により計算することも不可能ではないが, 面倒なのでベータ関数とガンマ関数の関係を用いると良いだろう: 
+                <p>直接計算することもできるが, ベータ関数とガンマ関数の関係を用いると良いだろう: 
                     \[
                         \begin{array}{rl} 
                             \displaystyle\int_0^{\pi/2}\sin^6 x\cos^4 x~dx &= \dfrac{1}{2}B(7/2, 5/2) \cr 

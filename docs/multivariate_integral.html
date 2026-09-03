@@ -47,7 +47,7 @@
                         y(t) 
                     \end{pmatrix} \quad(a\le t\le b) 
                 \] と表されているとする. 
-                ここで $C$ が滑らかであることから $x(t)$, $y(t)$ は微分可能である. 
+                以降, $x(t)$, $y(t)$ は $C^1$ 級であるとする (このとき, $C$ を $C^1$ 級曲線と呼ぶ). 
                 このとき, 区間 $[a, b]$ の分割 
                 \[
                     a = t_0 \lt t_1 \lt \dots \lt t_{N-1} \lt t_N = b  
@@ -89,13 +89,14 @@
             <p>曲線 $C$ が 
                 \[
                     C = \{\mathbf{r}(t)\in\mathbb{R}^2: a\le t\le b\}
-                \] と表されるとき, $\mathbf{r}'(t)$ は曲線 $C$ の ($t$ における) <b>接ベクトル</b>, $|\mathbf{r}'(t)|$ は <b>局所長</b> と呼ばれることがある. 
-                上の説明は, 曲線 $C$ の全長 $L$ は局所長の累積量であることを意味している:  
+                \] と表されるとき, $\mathbf{r}'(t)$ は曲線 $C$ の ($t$ における) <b>接ベクトル</b> という. 
+                また, 接ベクトルの長さ $|\mathbf{r}'(t)|$ はパラメータ $t$ に対する弧長の増加率を表すものである. 
+                上の説明は, 曲線 $C$ の全長 $L$ は弧長の増加の累積量であることを意味している:  
                 \[
                     L = \int_a^b |\mathbf{r}'(t)|~dt. 
                 \] さらにここで, 
                 \[
-                    \dfrac{ds}{dt} = \mathbf{r}'(t) 
+                    \dfrac{ds}{dt} = |\mathbf{r}'(t)| 
                 \] を満たす関数 $s(t)$ を考えると, 上は
                 \[
                     L = \int_{??} 1~ds 
@@ -118,7 +119,7 @@
             </p>
 
             <div class="theorem" data-name="曲線の長さ">
-                <p>滑らかな曲線 $C = \{\mathbf{r}(t)\in\mathbb{R}^2 : a\le t\le b\}$ の長さ $L$ は 
+                <p>$C^1$ 級曲線 $C = \{\mathbf{r}(t)\in\mathbb{R}^2 : a\le t\le b\}$ の長さ $L$ は 
                     \[
                         L = \int_C~ds = \int_a^b |\mathbf{r}'(t)|~dt 
                     \] である. 
@@ -212,7 +213,7 @@
             </p>
 
             <div class="definition" data-name="スカラー値関数の線積分">
-                <p>滑らかな曲線 $C = \{\mathbf{r}(t) : a\le t\le b\}$ 上で定義された関数 $f(\mathbf{x})$ について, 
+                <p>$C^1$ 級曲線 $C = \{\mathbf{r}(t) : a\le t\le b\}$ 上で定義された関数 $f(\mathbf{x})$ について, 
                     \[
                         \int_C f(\mathbf{x})~ds = \int_a^b f(\mathbf{r}(t))|\mathbf{r}'(t)|~dt 
                     \] を曲線 $C$ に沿った (スカラー値関数 $f(\mathbf{x})$ の) <b>線積分</b> (<b>line integral</b>) という.
@@ -223,7 +224,7 @@
                 <ul>
                     <li>スカラー値関数の線積分において, $ds$ は (曲線の長さの計算と同様に) 曲線の微小長さであると解釈される. 
                         これに高さ $f(\mathbf{x})$ をかけて得られる ($xyz$ 空間上の) 長方形の符号付き面積の足し合わせが線積分のリーマン和に相当する近似を与える (下図左). 
-                        ただし, 線積分を符号付き面積と対応付ける解釈は実用的ではない. 
+                        ただし, 線積分を符号付き面積と対応付ける解釈は実用的ではないだろう. 
                     </li>
                     <li>$xy$ 平面上で, $a\le x\le b$, $y=0$ により与えられる曲線 ($x$ 軸上の線分) に沿った線積分は, $1$ 変数関数に対する通常の積分と一致する (下図右). 
                         この意味で, スカラー値関数の線積分と $1$ 変数関数の積分には共通性がある. 
@@ -242,10 +243,10 @@
             </div>
 
             <div class="example">
-                <p>形状が滑らかな曲線 
+                <p>$C^1$ 級曲線 
                     \[
                         C = \{\mathbf{r}(t) : a\le t\le b\}
-                    \] により表される曲がった棒を考える. 
+                    \] により形状が表される曲がった棒を考える. 
                     この棒の密度が位置 $\mathbf{x}$ を変数とする関数 $f(\mathbf{x})$ として表されているとき, 棒の質量は 
                     \[
                         \int_C f(\mathbf{x})~ds = \int_a^b f(\mathbf{r}(t))|\mathbf{r}'(t)|~dt
@@ -261,7 +262,7 @@
                 このとき $C$, $-C$ 上でのスカラー値関数の線積分は, 上の注意で述べたように通常の積分と対応付けることができる. 
                 以下, $C$, $-C$ 上でのスカラー値関数 $f(x, y)$ に対し, $f$ の値が $y$ に依存しないことから 
                 \[
-                    f(\mathbf{x}) = f(x, y) = f(x)
+                    f(\mathbf{x}) = f(x, 0) = f(x)
                 \] のように表すことにしよう.  
             </p>
             <p>さて, ここでは 
@@ -283,7 +284,7 @@
             <p>の $3$ つのパラメータ表示を考えてみよう. 
                 まず, 1. のパラメータ表示は直線 $C$ を表し, $|\mathbf{r}_1'(t)| = 1$ より 
                 \[
-                    \int_C f(\mathbf{x})~ds = \int_a^b f(\mathbf{x}(\mathbf{r}_1)) |\mathbf{r}_1'|~dt = \int_a^b f(\mathbf{r}_1(t)) ~ dt = \int_a^b f(t)~dt
+                    \int_C f(\mathbf{x})~ds = \int_a^b f(\mathbf{r}_1(t)) ~ dt = \int_a^b f(t)~dt
                 \] となり, 確かに通常の積分と同じ式が得られる. 
                 次に, 2. のパラメータ表示も直線 $C$ を表し, $|\mathbf{r}_2'(t)| = 2t$ より 
                 \[
@@ -902,13 +903,13 @@
                     \begin{array}{rl} 
                         |D_{ij}| &\approx \sqrt{|\vec{AB}|^2|\vec{AD}|^2 - (\vec{AB}\cdot\vec{AD})^2} \cr 
                         &\approx \sqrt{\left(\left(x_u\Delta u_i\right)^2+\left(y_u\Delta u_i\right)^2\right)\left(\left(x_v\Delta v_j\right)^2+\left(y_v\Delta v_j\right)^2\right) - \left(x_ux_v\Delta u_i\Delta v_j + y_uy_v\Delta u_i\Delta v_j\right)^2} \cr 
-                        &= \sqrt{(x_vy_u - x_uy_v)^2(\Delta u_i\Delta v_j)^2} \cr 
-                        &= |x_vy_u - x_uy_v| |\widehat{D}_{ij}|
+                        &= \sqrt{(x_uy_v - x_vy_u)^2(\Delta u_i\Delta v_j)^2} \cr 
+                        &= |x_uy_v - x_vy_u| |\widehat{D}_{ij}|
                     \end{array} 
                 \] が得られる. 
-                これに基づき, $S = |x_vy_u - x_uy_v|$ とすることで, 実は二重積分に対する置換積分の公式が得られる: 
+                これに基づき, $S = |x_uy_v - x_vy_u|$ とすることで, 実は二重積分に対する置換積分の公式が得られる: 
                 \[
-                    \iint_D f(x, y)~dxdy = \iint_{\widehat{D}} f(x(u, v), y(u, v)) |x_vy_u - x_uy_v|~dudv.
+                    \iint_D f(x, y)~dxdy = \iint_{\widehat{D}} f(x(u, v), y(u, v)) |x_uy_v - x_vy_u|~dudv.
                 \]
             </p>
 
@@ -933,7 +934,7 @@
             <p>詳細は説明しないが, 実は $n$ 重積分に対する置換積分においても同様である: </p>
 
             <div class="theorem" data-name="置換積分">
-                <p>$n$ 変数関数 $f(\mathbf{x})$ について, $\mathbf{x}\in\mathbb{R}^n$ が パラメータ $\mathbf{u}\in\mathbb{R}^n$ を変数とする十分滑らかかつ適切な条件を満たす関数であるとする. 
+                <p>$n$ 変数関数 $f(\mathbf{x})$ について, $\mathbf{x}\in\mathbb{R}^n$ が パラメータ $\mathbf{u}\in\mathbb{R}^n$ を変数とする $C^1$ 級かつ $1$ 対 $1$ で逆写像が適切に定義される関数とする. 
                 このとき, $\mathbf{u}$ についての領域 $\widehat{D}$ と, 対応する $\mathbf{x}$ についての領域 $D$ について, 
                     \[
                         \int\dots\int_D f(\mathbf{x})~dx_1\dots dx_n = \int\dots\int_{\widehat{D}} f(\mathbf{x}(\mathbf{u})) |\det J(\mathbf{u})|~du_1\dots du_n
@@ -1130,8 +1131,8 @@
                 \] の長さを 
                 \[
                     L = \int_C ds = \int_a^b|\mathbf{r}'(t)|~dt
-                \] という積分として表していた, ここで $|\mathbf{r}'(t)|$ は (パラメータ $t$ に対する) 局所長であり, 微小な曲線の長さに相当するものであった. 
-                これと同様のアイデアに基づき, 曲面の微小面積を表す <b>面素</b> $dS$ を用いて, 曲面 
+                \] という積分として表していた, ここで $|\mathbf{r}'(t)|$ は弧長の増加率であり, 微小なパラメータ変化あたりの曲線の長さに相当するものであった. 
+                これと同様のアイデアに基づき, 微小なパラメータ変化による曲面の面積の増加率を表す <b>面素</b> $dS$ を用いて, 曲面 
                 \[
                     S = \{\mathbf{x}(u, v) : (u, v)\in D\}
                 \] の面積を 
@@ -1146,7 +1147,7 @@
                 \[
                     f_u = \dfrac{\partial f}{\partial u}(u, v)
                 \] などと表記することにする. 
-                曲面 $C = \{\mathbf{r}(t): a\le t\le b\}$ に対して $\mathbf{r}'(t)$ を接ベクトルと呼ぶことは以前にも説明したことがあるが, パラメータ表示された曲面に対しては 
+                曲線 $C = \{\mathbf{r}(t): a\le t\le b\}$ に対して $\mathbf{r}'(t)$ を接ベクトルと呼ぶことは以前にも説明したことがあるが, パラメータ表示された曲面に対しては 
                 \[
                     \mathbf{x}_u = \begin{pmatrix} 
                         x_u \cr 
@@ -1157,7 +1158,7 @@
                         y_v \cr 
                         z_v
                     \end{pmatrix}
-                \] の $2$ つが $u$, $v$ で表される曲面 $S$ 上における接線の向きを表すベクトルになっている. 
+                \] の $2$ つが $u$, $v$ で表される曲面 $S$ の接平面を張る接ベクトルになっている. 
                 そこで, これらのベクトルで表される平行四辺形の面積を微小面積として利用することで, 面積を求める積分を求めたい. 
                 その際に, 以下を利用すればよい: 
             </p>
@@ -1296,9 +1297,7 @@
                             f'(u)f(u) \cr 
                             -f(u)\cos v \cr 
                             -f(u)\sin v
-                        \end{pmatrix},\quad |\mathbf{x}_u\times \mathbf{x}_v| = \begin{pmatrix} 
-                            |f(u)|\sqrt{1+f'(u)^2}
-                        \end{pmatrix}
+                        \end{pmatrix},\quad |\mathbf{x}_u\times \mathbf{x}_v| = |f(u)|\sqrt{1+f'(u)^2}
                     \] である. 
                     適当に記号を取り替えると, 結果的に 
                     \[
@@ -1357,7 +1356,7 @@
                             &= 2\pi \displaystyle\int_{-R}^R \sqrt{R^2 - x^2 + x^2}~dx \cr 
                             &= 2\pi R\displaystyle\int_{-R}^R~dx = 4\pi R^2. 
                         \end{array}
-                    \]
+                    \] 
                 </p>
             </div>
 
