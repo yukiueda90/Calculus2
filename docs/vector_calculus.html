@@ -30,7 +30,7 @@
     <main role="main"><article id="section4"><h1>4. ベクトル解析への応用</h1>
         <p>ここまでの説明では <b>スカラー値関数</b> (<b>スカラー場</b>) を被積分関数として考えてきたが, ここでは <b>ベクトル値関数</b> (<b>ベクトル場</b>) に対する積分を扱う. 
             例えば物理や工学では, $3$ 次元空間 (もしくは簡略化して $2$ 次元平面) 内の物理量をベクトルとして表すことがある. 
-            物体や流体の速度や加速度のように向きと大きさを持つ量はもちろん, 電場や磁場もしくは重力場 (重力ポテンシャルの <b>勾配</b>) などのベクトル場も, 積分することでさまざまな現象の解析に利用される. 
+            物体や流体の速度や加速度のように向きと大きさを持つ量はもちろん, 電場, 磁場, 重力場などのベクトル場も, 積分することでさまざまな現象の解析に利用される. 
         </p>
         <p>ここでは話の簡単のために, $2$ 次元平面 $\mathbb{R}^2$ 内のベクトル値関数に限定して, その積分について解説する. 
             ただし, ここで説明する内容のほぼ全ては $3$ 次元空間内のベクトル値関数の積分でも通用するものである. 
@@ -143,7 +143,7 @@
             </p>
             <p>下にベクトル値関数の線積分のイメージ図を示す. 
                 黒い曲線が曲線 $C$, 黒い矢印が曲線 $C$ 上のいくつかの点 $\mathbf{x}$ におけるベクトル値関数 $\mathbf{f}(\mathbf{x})$ の値を表し, 赤い矢印が曲線 $C$ の接線方向の成分を表すベクトルである. 
-                このとき, ベクトル値関数の線積分は, 赤い矢印の (符号付き) 大きさの累積量と説明される. 
+                このとき, ベクトル値関数の線積分は, 赤い矢印の (符号付き) 成分の累積量と説明される. 
             </p>
             <div class="resize"><img src='./images/line_integral_of_vector-1.png'></div> 
 
@@ -167,7 +167,7 @@
                     \end{pmatrix} 
                 \] と表すことで 
                 \[
-                    \int_C \mathbf{f}(\mathbf{x})\cdot d\mathbf{r} = \int_C f_1(x, y)~dx + f_2(x, y)~dy
+                    \int_C \mathbf{f}(\mathbf{x})\cdot d\mathbf{r} = \int_C f_1~dx + f_2~dy
                 \] と表記することがある. 
                 また, 
                 \[
@@ -189,7 +189,7 @@
                         \end{pmatrix}
                     \] について, 
                     \[
-                        \int_C f_1(x, y)~dx + f_2(x, y)~dy = \int_C \mathbf{f}(\mathbf{x})\cdot d\mathbf{r} = \int_a^b \mathbf{f}(\mathbf{r}(t))\cdot\mathbf{r}'(t)~dt
+                        \int_C f_1~dx + f_2~dy = \int_C \mathbf{f}(\mathbf{x})\cdot d\mathbf{r} = \int_a^b \mathbf{f}(\mathbf{r}(t))\cdot\mathbf{r}'(t)~dt
                     \] を曲線 $C$ に沿った線積分という. 
                 </p>
             </div>
@@ -316,7 +316,7 @@
                 まず, 曲線 
                 \[
                     C = \{\mathbf{r}(t)\in\mathbb{R}^2: a\le t\le b\}
-                \] に対し, $\mathbf{r}'(t)$ を接ベクトル, $|\mathbf{r}'(t)|$ を局所長と呼んでいたが, さらに 
+                \] に対し, $\mathbf{r}'(t)$ を接ベクトルと呼んでいたが, さらに 
                 \[
                     \mathbf{t}(\mathbf{r}(t)) = \dfrac{\mathbf{r}'(t)}{|\mathbf{r}'(t)|}
                 \] を <b>単位接ベクトル</b> (<b>unit tangent vector</b>) という (この &quot;単位&quot; という名前は大きさが $1$ のベクトルであることを意味する). 
@@ -394,7 +394,7 @@
                 証明については簡単な場合に限り述べることにする: </p>
 
             <div class="theorem" data-name="グリーンの定理">
-                <p>$xy$ 平面内の反時計回りの区分的滑らかな単純閉曲線 $C$ と $C$ で囲まれる領域 $D$, および $D$ 上の $C^1$ 級ベクトル値関数 
+                <p>$xy$ 平面内の反時計回りの区分的滑らかな単純閉曲線 $C$ と $C$ で囲まれる領域 $D$, および $D$ とその境界 $C$ を含む領域上で $C^1$ 級のベクトル値関数 
                     \[
                         \mathbf{f}(\mathbf{x}) = \begin{pmatrix} 
                             f_1(x, y) \cr 
@@ -562,7 +562,7 @@
             </div>
 
             <div class="theorem" data-name="発散定理">
-                <p>$xy$ 平面内の反時計回りの区分的滑らかな単純閉曲線 $C$ と $C$ で囲まれる領域 $D$, および $D$ 上の $C^1$ 級ベクトル値関数 $\mathbf{f}(\mathbf{x})$ に対して, 
+                <p>$xy$ 平面内の反時計回りの区分的滑らかな単純閉曲線 $C$ と $C$ で囲まれる領域 $D$, および $D$ とその境界 $C$ を含む領域上で $C^1$ 級のベクトル値関数 $\mathbf{f}(\mathbf{x})$ に対して, 
                     \[
                         \iint_D \nabla\cdot\mathbf{f}~dxdy = \oint_{C}\mathbf{f}\cdot \mathbf{n}~ds
                     \] が成立する, ただし $\mathbf{n}$ は境界 $C$ の外向き単位法線ベクトルである. 
@@ -726,7 +726,7 @@
             <p>さて, $1$ 変数関数の積分では, 微積分学の基本定理から部分積分の公式を導出することができていたが, 二重積分でも同様に発散定理から部分積分の公式 (<b>グリーンの公式</b> と呼ばれることもある) を導出することができる: </p>
 
             <div class="theorem" data-name="部分積分">
-                <p>$xy$ 平面内の反時計回りの閉曲線 $C$ と $C$ で囲まれる領域 $D$, および $D$ 上の微分可能なベクトル値関数 $\mathbf{f}(\mathbf{x})$ およびスカラー値関数 $g(\mathbf{x})$ に対して, 
+                <p>$xy$ 平面内の反時計回りの閉曲線 $C$ と $C$ で囲まれる領域 $D$, および $D$ とその境界 $C$ を含む領域上で $C^1$ 級のベクトル値関数 $\mathbf{f}(\mathbf{x})$ とスカラー値関数 $g(\mathbf{x})$ に対して, 
                     \[
                         \iint_D \mathbf{f}\cdot (\nabla g)~dxdy = \oint_{C} (\mathbf{f}\cdot \mathbf{n})g~ds - \iint_D (\nabla\cdot\mathbf{f})g~dxdy
                     \] が成立する. 
@@ -776,23 +776,27 @@
                         \Delta u = \nabla\cdot (\nabla u)
                     \] により定められる <b>ラプラシアン</b> $\Delta$ を用いて, 領域 $D$ 上で与えられた関数 $f$ に対し 
                     \[
-                        -\Delta u(\mathbf{x}) = f(\mathbf{x}) \qquad (\mathbf{x}\in D)
-                    \] を満たす $u$ を求めよ, という問題を考えてみる. 
+                        \left\{\begin{array}{rll} 
+                            -\Delta u(\mathbf{x}) &= f(\mathbf{x}) & (\mathbf{x}\in D), \cr 
+                            u(\mathbf{x}) &= 0 & (\mathbf{x}\in C)
+                        \end{array}\right.
+                    \] を満たす $u$ を求めよ, という問題を考えてみる, ただし $C$ は領域 $D$ の境界とする. 
                     なお, これは <b>ポアソン方程式</b> と呼ばれるものであり, 電磁気学や流体力学など物理分野で頻繁に現れるものである. 
-                    この式の両辺に適当な条件を満たす関数 $v$ を掛けて積分すると, 領域 $D$ の境界 $C$ について
+                    この式の両辺に, やはり境界 $C$ 上で $0$ となる適切な関数 $v$ を掛けて積分すると, 
                     \[
                         \begin{array}{rl} 
                             \displaystyle\iint_D fv~dxdy &= \displaystyle\iint_D -\nabla\cdot(\nabla u)v~dxdy \cr 
-                            &= -\displaystyle\oint_C \dfrac{\partial u}{\partial\mathbf{n}} v~ds + \iint_D(\nabla u)\cdot(\nabla v)~dxdy
+                            &= -\displaystyle\oint_C \dfrac{\partial u}{\partial\mathbf{n}} \underbrace{v}_{=0}~ds + \iint_D(\nabla u)\cdot(\nabla v)~dxdy \cr 
+                            &= \displaystyle\iint_D(\nabla u)\cdot(\nabla v)~dxdy
                         \end{array}
                     \] という式を得ることができる. 
                 </p>
                 <p>つまり, 元々の問題
                     \[
                         -\Delta u(\mathbf{x}) = f(\mathbf{x}) 
-                    \] では, $u$ に対する $2$ 階微分に相当する $\Delta u$ が現れているが, これに対応する問題として, 適当な条件を満たす <span class="wave">全ての</span> 関数 $v$ (これを <b>テスト関数</b> と呼ぶことがある) に対し 
+                    \] では, $u$ に対する $2$ 階微分に相当する $\Delta u$ が現れているが, これに対応する問題として, 適切な条件を満たす <span class="wave">全ての</span> 関数 $v$ (これを <b>テスト関数</b> と呼ぶことがある) に対し 
                     \[
-                        \iint_D (\nabla u)\cdot(\nabla v)~dxdy - \oint_C\dfrac{\partial u}{\partial\mathbf{n}}v~ds = \iint_D fv~dxdy 
+                        \iint_D (\nabla u)\cdot(\nabla v)~dxdy = \iint_D fv~dxdy 
                     \] を満たす $u$ を求める, という $u$ の $1$ 階微分しか現れない問題を考えることができる. 
                     このような式は <b>弱形式</b> と呼ばれ, 部分積分を利用することで問題に現れる微分の階数を減らすことができる, 重要なテクニックである. 
                 </p>
@@ -800,7 +804,7 @@
 
             <div class="exercise">
                 <p>$xy$ 平面内の反時計回りの閉曲線 $C$ に対し, $C$ で囲まれる領域を $D$ する. 
-                    また, $C\cup D$ 上で定義される関数 $u$ が 
+                    また, $C\cup D$ 上で定義される十分滑らかな関数 $u$ が 
                     \[
                         u(\mathbf{x}) = 0 \quad\text{もしくは}\quad\dfrac{\partial u}{\partial\mathbf{n}}(\mathbf{x})=0\qquad (\mathbf{x}\in C)
                     \] を満たすとする. 
