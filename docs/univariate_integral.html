@@ -369,7 +369,7 @@
             <p>まず, 原始関数とは何だったかを復習しておく: </p>
 
             <div class="definition" data-name="原始関数, 不定積分">
-                <p>区間 $[a, b]\subset\mathbb{R}$ 上の関数 $f(x)$ に対し, もしも $[a. b]$ で連続かつ $(a, b)$ で微分可能な関数 $F(x)$ であって, 
+                <p>区間 $[a, b]\subset\mathbb{R}$ 上の関数 $f(x)$ に対し, もしも $[a, b]$ で連続かつ $(a, b)$ で微分可能な関数 $F(x)$ であって, 
                     \[
                         F'(x) = f(x) \quad (a\lt x\lt b)
                     \] を満たすものが存在するならば, $F(x)$ を関数 $f(x)$ の (区間 $I$ における) <b>原始関数</b> (<b>primitive function</b>) という. 
@@ -1047,33 +1047,33 @@
             <p>より複雑な具体例を見る前に, まずはこのような分解を積分計算に応用可能であることを確認しておこう. 
                 有理関数を上のように部分分数分解することができたならば, 有理関数の積分は 
                 \[
-                    \int \dfrac{A_{ij}}{(x+a_i)^{j}}~dx = \left\{\begin{array}{cl} 
-                        -\dfrac{A_{ij}}{(j-1)(x+a_i)^{j-1}} & (j\neq 1) \cr 
-                        A_{ij}\log|x+a_i| & (j=1) 
+                    \int \dfrac{A}{(x+a)^{j}}~dx = \left\{\begin{array}{cl} 
+                        -\dfrac{A}{(j-1)(x+a)^{j-1}} & (j\neq 1) \cr 
+                        A\log|x+a| & (j=1) 
                     \end{array}\right.
-                \] と 
+                \] のような積分と,  
                 \[
-                    \int \dfrac{B_{ij}x + C_{ij}}{((x-b_i)^2+c_i^2)^{j}}~dx = \int \dfrac{B_{ij}t + (B_{ij}b_i+C_{ij})}{(t^2+c_i^2)^{j}}~dt
-                \] の和により計算することができる ($t = x-b_i$ と変数変換した). 
+                    \int \dfrac{Bx + C}{((x-b)^2+c^2)^{j}}~dx = \int \dfrac{Bt + (Bb+C)}{(t^2+c^2)^{j}}~dt \qquad (t=x-b\text{ と変数変換した})
+                \] のような積分の和により計算することができる. 
                 後者は, 
                 \[
-                    \int \dfrac{B_{ij}t}{(t^2+c_i^2)^{j}}~dt = \left\{\begin{array}{cl} 
-                        -\dfrac{B_{ij}}{2(j-1)(t^2+c_i^2)^{j-1}} & (j\neq 1) \cr 
-                        \dfrac{B_{ij}}{2}\log(t^2+c_i^2) & (j=1) 
+                    \int \dfrac{Bt}{(t^2+c^2)^{j}}~dt = \left\{\begin{array}{cl} 
+                        -\dfrac{B}{2(j-1)(t^2+c^2)^{j-1}} & (j\neq 1) \cr 
+                        \dfrac{B}{2}\log(t^2+c^2) & (j=1) 
                     \end{array}\right.
                 \] および 
                 \[
                     \begin{array}{rl} 
-                        I_{j} &= \displaystyle\int \dfrac{B_{ij}b_i+C_{ij}}{(t^2+c_i^2)^{j}}~dt \cr 
-                        &= \dfrac{(B_{ij}b_i+C_{ij})t}{(t^2+c_i^2)^{j}} + \displaystyle\int \dfrac{(B_{ij}b_i+C_{ij})2j t^2}{(t^2+c_i^2)^{j+1}}~dt \cr 
-                        &= \dfrac{(B_{ij}b_i+C_{ij})t}{(t^2+c_i^2)^{j}} + 2j (I_{j} - c_i^2I_{j+1})
+                        I_{j} &= \displaystyle\int \dfrac{Bb+C}{(t^2+c^2)^{j}}~dt \cr 
+                        &= \dfrac{(Bb+C)t}{(t^2+c^2)^{j}} + \displaystyle\int \dfrac{(Bb+C)2j t^2}{(t^2+c^2)^{j+1}}~dt \cr 
+                        &= \dfrac{(Bb+C)t}{(t^2+c^2)^{j}} + 2j (I_{j} - c^2I_{j+1})
                     \end{array} 
                 \] から得られる漸化式 
                 \[ 
-                    I_{j+1} = \dfrac{1}{2jc_i^2}\left((2j-1)I_{j} + \dfrac{(B_{ij}b_i+C_{ij})t}{(t^2+c_i^2)^{j}}\right)
+                    I_{j+1} = \dfrac{1}{2jc^2}\left((2j-1)I_{j} + \dfrac{(Bb+C)t}{(t^2+c^2)^{j}}\right)
                 \] から (面倒ではあるが, 理屈としては) 計算可能である, なお 
                 \[
-                    I_1 = \int\dfrac{B_{ij}b_i+C_{ij}}{t^2+c_i^2}~dt = \dfrac{B_{ij}b_i+C_{ij}}{c_i}\tan^{-1}\dfrac{t}{c_i}
+                    I_1 = \int\dfrac{Bb+C}{t^2+c^2}~dt = \dfrac{Bb+C}{c}\tan^{-1}\dfrac{t}{c}
                 \] である. 
             </p>
 
