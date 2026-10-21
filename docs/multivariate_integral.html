@@ -1004,7 +1004,7 @@
                             y &= r\sin\theta
                         \end{array}\right.
                     \] を利用すると計算しやすいだろう. 
-                    このとき $xy$ 平面上の領域 $D$ に対応する $r\theta$ 平面上の領域 $\widetilde{D}$ は 
+                    このとき $xy$ 平面上の領域 $D$ に対応する $r\theta$ 平面上の領域 $\widehat{D}$ は 
                     \[
                         0\le r\le R, \quad 0\le \theta\le 2\pi
                     \] により表されることと, ヤコビ行列が 
@@ -1022,7 +1022,7 @@
                     \] であることに注意すると, 置換積分の公式より
                     \[
                         \begin{array}{rl} 
-                            \displaystyle\iint_D x^2y^2~dxdy &= \displaystyle\iint_{\widetilde{D}} (r\cos\theta)^2(r\sin\theta)^2 |\det J(r, \theta)| ~drd\theta \cr 
+                            \displaystyle\iint_D x^2y^2~dxdy &= \displaystyle\iint_{\widehat{D}} (r\cos\theta)^2(r\sin\theta)^2 |\det J(r, \theta)| ~drd\theta \cr 
                             &= \displaystyle\iint_{[0, R]\times[0, 2\pi]} \dfrac{r^5}{4}\sin^2 2\theta~drd\theta \cr 
                             &= \displaystyle\int_0^R\left(\int_0^{2\pi} \dfrac{r^5}{8}(1-\cos4\theta)~d\theta\right)dr \cr 
                             &= \displaystyle\int_0^R\dfrac{\pi}{4}r^5~dr \cr 
