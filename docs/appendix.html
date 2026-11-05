@@ -48,9 +48,9 @@
             </div>
 
             <div class="example">
-                <p>例えば領域 $D\subset\mathbb{R}^2$ として, 半径 $R\gt 0$ の円盤から原点だけを取り除いたものを考えてみよう: 
+                <p>例えば領域 $D\subset\mathbb{R}^2$ として, 半径 $R\gt 0$ の円盤を考えてみよう: 
                     \[
-                        D = \{(x, y)\in\mathbb{R}^2 : 0\lt x^2+y^2\le R^2\}. 
+                        D = \{(x, y)\in\mathbb{R}^2 : x^2+y^2\le R^2\}. 
                     \] この領域 $D$ に対する近似増加列として, 例えば 
                     \[
                         D_n = \{(x, y)\in\mathbb{R}^2 : 1/n^2 \le x^2+y^2\le R^2\}
@@ -172,8 +172,11 @@
                     \] が成立する. 
                     さて, ここまで準備した上で
                     \[
+                        I_n = \int_{-n}^n e^{-x^2}~dx
+                    \] とおき, 
+                    \[
                         \begin{array}{rl} 
-                            \displaystyle\left(\int_{-n}^n e^{-x^2}~dx\right)^2 &= \displaystyle\int_{-n}^ne^{-x^2}~dx\int_{-n}^n e^{-y^2}~dy \cr 
+                            I_n^2 &= \displaystyle\int_{-n}^ne^{-x^2}~dx\int_{-n}^n e^{-y^2}~dy \cr 
                             &= \displaystyle\int_{-n}^n\left(\int_{-n}^n e^{-x^2}e^{-y^2}~dy\right)dx \cr 
                             &= \displaystyle \iint_{D_n}e^{-(x^2+y^2)}~dxdy 
                         \end{array}
@@ -183,8 +186,12 @@
                     \] であり, $\{D_n\}$ は $\mathbb{R}^2$ の近似増加列になっている. 
                     従って, 
                     \[
-                        \int_{-\infty}^{\infty} e^{-x^2}~dx = \sqrt{\lim_{n\to\infty}\iint_{D_n}e^{-(x^2+y^2)}~dxdy} = \sqrt{\iint_{\mathbb{R}^2}e^{-(x^2+y^2)}~dxdy} = \sqrt{\pi}
+                        \lim_{n\to\infty}I_n^2 = \lim_{n\to\infty}\iint_{D_n}e^{-(x^2+y^2)}~dxdy = \iint_{\mathbb{R}^2}e^{-(x^2+y^2)}~dxdy = \pi
                     \] が得られる. 
+                    あとは積分の単調性より $I_n\ge 0$ であることから 
+                    \[
+                        \displaystyle\int_{-\infty}^{\infty}e^{-x^2}~dx = \displaystyle\lim_{n\to\infty}I_n = \displaystyle\lim_{n\to\infty}\sqrt{I_n^2} = \sqrt{\pi} 
+                    \] となり, ガウス積分の収束が示され値も得られる. 
                 </p>
             </div>
 
@@ -210,16 +217,17 @@
                             B(p, q) = 2\displaystyle\int_0^{\pi/2} \cos^{2p-1}\theta\sin^{2q-1}\theta~d\theta 
                         \end{array}
                     \] と表すことができる. 
-                    ガンマ関数に注目すると 
+                    ガンマ関数が収束することから,  
                     \[
                         \begin{array}{rl} 
-                            \Gamma(p)\Gamma(q) &= 4\displaystyle\lim_{n\to\infty}\int_0^nx^{2p-1}e^{-x^2}~dx \int_0^ny^{2q-1}e^{-y^2}~dy \cr 
+                            \Gamma(p)\Gamma(q) &= 4\displaystyle\left(\lim_{n\to\infty}\int_0^nx^{2p-1}e^{-x^2}~dx\right) \left(\lim_{m\to\infty}\int_0^my^{2q-1}e^{-y^2}~dy\right) \cr 
+                            &= 4\displaystyle\lim_{n\to\infty}\int_0^nx^{2p-1}e^{-x^2}~dx \int_0^ny^{2q-1}e^{-y^2}~dy \cr 
                             &= 4\displaystyle\lim_{n\to\infty}\iint_{D_n}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy 
                         \end{array}
-                    \] である, ただし 
+                    \] であり, この広義二重積分も収束する, ただし 
                     \[
-                        D_n = \{(x, y)\in\mathbb{R}^2: 0\le x\le n,\quad 0\le y\le n\}.
-                    \] いま, ガンマ関数が収束することから, 上の広義二重積分も収束する: 
+                        D_n = \{(x, y)\in\mathbb{R}^2: 0\le x\le n,\quad 0\le y\le n\}
+                    \] である:  
                     \[
                         \Gamma(p)\Gamma(q) = 4\lim_{n\to\infty}\iint_{D_n}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy = 4\iint_{[0,\infty)\times[0,\infty)}x^{2p-1}y^{2q-1}e^{-(x^2+y^2)}~dxdy
                     \]
