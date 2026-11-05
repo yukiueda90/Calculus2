@@ -687,6 +687,33 @@
 
             <div class="lemma">
                 <p>$-1\le x\le 1$ に対し, 
+                </p>
+                <ul>
+                    <li>$\sin^{-1}x = \pi/2 - \cos^{-1}x, \quad \cos^{-1}x = \pi/2 - \sin^{-1}x$,</li> 
+                    <li>$\sin^{-1}(-x) = -\sin^{-1}x$,</li> 
+                    <li>$\cos^{-1}(-x) = \pi - \cos^{-1}x$</li>
+                </ul>
+                <p>が成立する. 
+                </p>
+            </div>
+
+            <div class="proof">
+                <p>$x=\sin^{-1}y$ や $x=\cos^{-1}y$ のグラフのプロットからも明らかではあるが, きちんと計算するなら例えば 
+                    \[
+                        \theta = \sin^{-1}x \qquad (-\pi/2\le \theta\le \pi/2)
+                    \] とおくと 
+                    \[
+                        x = \sin \theta = \cos\left(\dfrac{\pi}{2}-\theta\right), \qquad 0\le \pi/2-\theta \le \pi
+                    \] となるため
+                    \[
+                        \cos^{-1}x = \pi/2 - \underbrace{\theta}_{=\sin^{-1}x} 
+                    \] が得られる. 
+                    他も同様. 
+                </p>
+            </div>
+
+            <div class="lemma">
+                <p>$-1\le x\le 1$ に対し, 
                     \[
                         \sin\cos^{-1} x = \cos\sin^{-1}x = \sqrt{1-x^2}
                     \] が成立する. 
@@ -1177,7 +1204,7 @@
             </p>
             <ul>
                 <li>被積分関数の分母に三角関数が現れるとき, $t=\tan(x/2)$ や $t=\tan x$ と変数変換するとうまく計算できることがある, </li> 
-                <li>被積分関数の分母に $n$ 乗根 ($(ax+b)^{1/n}$, 特に $\sqrt{ax+b}$ など) が現れるときに, これを $t$ と変数変換するとうまく計算できることがある</li>
+                <li>被積分関数に $\displaystyle\left(\dfrac{ax+b}{cx+d}\right)^{1/n}$ という形の $n$ 乗根が現れるときに, これを $t$ と変数変換するとうまく計算できることがある</li>
             </ul>
             <p>が, こうした置換積分は有理関数の積分に帰着されることになる. 
                 実際には, 有理関数の積分 (というより部分分数分解) は現実的な労力で手計算できるとは限らないが, うまく利用すれば様々な関数の積分計算に応用可能な, 非常に強力なテクニックである. 
@@ -1262,7 +1289,62 @@
             </div>
 
             <div class="answer">
-                <p>分母にある $\sqrt{1+x}$ に注目し, $t=\sqrt{1+x}$ とする変数変換に基づき置換積分をすると 
+                <p>最も簡単なのは 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int\sqrt{\dfrac{1-x}{1+x}}~dx &= \displaystyle\int\left(\dfrac{1}{\sqrt{1-x^2}} - \dfrac{x}{\sqrt{1-x^2}}\right)~dx \cr
+                            &= \sin^{-1}x + \sqrt{1-x^2} + C
+                        \end{array}
+                    \] と計算することだろう. 
+                    ただし, もしもこのような式変形に気付かなかったとしても, 有理関数の積分に帰着させれば確実に積分を計算することができる. 
+                </p>
+                <p>ここでは 
+                    \[
+                        t = \sqrt{\dfrac{1-x}{1+x}}
+                    \] という変数変換を考えてみよう. 
+                    このとき 
+                    \[
+                        x = \dfrac{1-t^2}{1+t^2}, \qquad \dfrac{dx}{dt} = -\dfrac{4t}{(1+t^2)^2}
+                    \] であり, 従って 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int\sqrt{\dfrac{1-x}{1+x}}~dx &= \displaystyle\int t\left(-\dfrac{4t}{(1+t^2)^2}\right)~dt \cr
+                            &= -4\displaystyle\int \dfrac{t^2}{(1+t^2)^2}~dt \cr 
+                            &= -4\displaystyle\int \left(\dfrac{1}{1+t^2} - \dfrac{1}{(1+t^2)^2}\right)~dt 
+                        \end{array}
+                    \] である. 
+                    ここで 
+                    \[
+                        I_j = \displaystyle\int \dfrac{1}{(1+t^2)^j} ~dt 
+                    \] とおくと, 以前の例と同様に 
+                    \[
+                        I_1 = \tan^{-1}t,\qquad I_2 = \dfrac{1}{2}\left(I_1 + \dfrac{t}{t^2+1}\right)
+                    \] となるので 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int\sqrt{\dfrac{1-x}{1+x}}~dx &= -2\tan^{-1}t + \dfrac{2t}{1+t^2} + C \cr 
+                            &= -2\tan^{-1}\sqrt{\dfrac{1-x}{1+x}} + \sqrt{1-x^2} + C
+                        \end{array}
+                    \] が得られる. 
+                </p>
+
+                <p>なお, 
+                    \[
+                        \theta = \tan^{-1}\sqrt{\dfrac{1-x}{1+x}} 
+                    \] とおくと 
+                    \[
+                        \dfrac{1-x}{1+x} = \tan^2\theta,\qquad x = \dfrac{1-\tan^2\theta}{1+\tan^2\theta} = \cos^2\theta - \sin^2\theta = \cos2\theta
+                    \] より 
+                    \[
+                        2\tan^{-1}\sqrt{\dfrac{1-x}{1+x}} = 2\theta = \cos^{-1}x
+                    \] である. 従って 
+                    \[
+                        \displaystyle\int\sqrt{\dfrac{1-x}{1+x}}~dx = -\cos^{-1}x + \sqrt{1-x^2} + C
+                    \] と表すこともできる. 
+                </p>
+
+                <p>さらに, この問題については異なる変数変換を用いて (有理関数の積分に帰着させることなく) 計算することもできる. 
+                    例えば分母にある $\sqrt{1+x}$ に注目し, $t=\sqrt{1+x}$ とする変数変換に基づき置換積分をすると 
                     \[
                         \begin{array}{rl} 
                             \displaystyle\int\sqrt{\dfrac{1-x}{1+x}}~dx &= \displaystyle\int\dfrac{\sqrt{2-t^2}}{t}2t~dt \cr
@@ -1272,21 +1354,19 @@
                         \end{array}
                     \] のように計算できる. 
                 </p>
-                <p>なお, 
+                <p>この表記も, 
                     \[
-                        \theta = \sin^{-1}\sqrt{\dfrac{1+x}{2}} 
+                        \varphi = \sin^{-1}\sqrt{\dfrac{1+x}{2}} 
                     \] とおくと 
                     \[
-                        x = -1+2\sin^2\theta = -\cos2\theta 
+                        x = -1+2\sin^2\varphi = -\cos2\varphi 
                     \] であることから 
                     \[
-                        2\sin^{-1}\sqrt{\dfrac{1+x}{2}} = 2\theta = \cos^{-1}(-x) = \pi - \cos^{-1}x = \dfrac{\pi}{2} + \sin^{-1}x
-                    \] が得られる. 
-                    従って ($\pi$ などを積分定数に含めて) 
+                        2\sin^{-1}\sqrt{\dfrac{1+x}{2}} = 2\varphi = \cos^{-1}(-x) = \pi - \cos^{-1}x = \dfrac{\pi}{2} + \sin^{-1}x
+                    \] となることに注意すると ($\pi$ などを積分定数に含めて) 
                     \[
                         \int\sqrt{\dfrac{1-x}{1+x}}~dx = -\cos^{-1}x + \sqrt{1-x^2} + C\quad\text{または}\quad \sin^{-1}x + \sqrt{1-x^2} + C
                     \] と表すこともできる. 
-                    実際, 別の解法として $t = \sqrt{\dfrac{1-x}{1+x}}$ と変数変換したり, $x=\cos\theta$ と変数変換して計算すると, 上の形の結果が自然と得られる. 
                 </p>
             </div>
 
