@@ -616,7 +616,8 @@
                 \[
                     u(x) = \int_{-\infty}^{\infty}G(x-y)f(y)~dy 
                 \] という関数を考える. 
-                すると, 
+                すると, この $u(x)$ は与えられた関数 $f(x)$ に対する $1$ 次元ポアソン方程式 $-u_{xx} = f(x)$ の解の一つである. 
+                実際, 
                 \[
                     \begin{array}{rl} 
                         \dfrac{d}{dx}u(x) &= \dfrac{d}{dx}\displaystyle\int_{-\infty}^{\infty}G(x-y)f(y)~dy \cr 
@@ -624,8 +625,7 @@
                         &= -\left(\displaystyle\int_{-\infty}^x \dfrac{1}{2}f(y) ~dy + \int_x^{\infty}-\dfrac{1}{2}f(y)~dy\right) \cr 
                         &= -\displaystyle\int_{-\infty}^{\infty}\dfrac{1}{2}(1-2H(y-x))f(y)~dy
                     \end{array}
-                \] と式変形できる. 
-                上の式をもう一度微分することで, 
+                \] と式変形でき, これをもう一度微分することで, 
                 \[
                     \begin{array}{rl} 
                         \dfrac{d^2}{dx^2}u(x) &= -\dfrac{d}{dx}\displaystyle\int_{-\infty}^{\infty}\dfrac{1}{2}(1-2H(y-x))f(y)~dy \cr 
@@ -633,10 +633,7 @@
                         &= -\left(\dfrac{1}{2}f(x) - \left(-\dfrac{1}{2}f(x)\right)\right) \cr 
                         &= -f(x)
                     \end{array}
-                \] が得られるため, 
-                \[
-                    u(x) = \int_{-\infty}^{\infty}G(x-y)f(y)~dy 
-                \] は与えられた関数 $f(x)$ に対する $1$ 次元ポアソン方程式の解の一つである. 
+                \] が得られる. 
                 このように, 関数 $G(x)$ をうまく設計することで, 
                 \[
                     -\dfrac{d^2}{dx^2}u(x) = f(x) \leftrightsquigarrow u(x) = \int_{-\infty}^{\infty}G(x-y)f(y)~dy 

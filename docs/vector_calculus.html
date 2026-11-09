@@ -451,20 +451,21 @@
                     \[
                         \begin{array}{rl} 
                             I_1 &= \displaystyle\int_{C_1} f_1(x, y(x))~dx + \int_{C_2} f_1(x, y(x))~dx \cr 
-                            &= \displaystyle\int_a^b f_1(t, \varphi_1(t))~dt - \int_a^b f_1(t, \varphi_2(t)) ~dt 
+                            &= \displaystyle\int_a^b f_1(x, \varphi_1(x))~dx - \int_a^b f_1(x, \varphi_2(x)) ~dx 
                         \end{array}
                     \] となる ($C_2$ の向きより第 $2$ 項はマイナスになることに注意). 
                     また, $I_2$ を計算する際は曲線 $C$ を $\psi_1$, $\psi_2$ それぞれに対応する $C_3$, $C_4$ の二つに分割することで, 同様に
                     \[
                         \begin{array}{rl} 
                             I_2 &= \displaystyle\int_{C_3} f_2(x(y), y)~dy + \int_{C_4} f_2(x(y), y)~dy \cr 
-                            &= \displaystyle\int_c^d f_2(\psi_2(t), t)~dt - \int_c^d f_2(\psi_1(t), t) ~dt 
+                            &= \displaystyle\int_c^d f_2(\psi_2(y), y)~dy - \int_c^d f_2(\psi_1(y), y) ~dy 
                         \end{array}
                     \] となる. 
                     以上より, 
                     \[
                         \begin{array}{rl} 
                             \text{(左辺)} &= I_1 + I_2 \cr 
+                            &= I_2 - (-I_1) \cr
                             &= \displaystyle\int_c^d \left(f_2(\psi_2(y), y) - f_2(\psi_1(y), y)\right)~dy \cr 
                             &\qquad - \displaystyle\int_a^b \left(f_1(x, \varphi_2(x)) - f_1(x, \varphi_1(x))\right)~dx \cr
                             &= \text{(右辺)}
@@ -474,7 +475,7 @@
             </div>
 
             <p>グリーンの定理には様々な応用が存在するが, そのうちの一つが領域の面積の計算を線積分, さらに置換積分により $1$ 変数関数の積分の計算に置き換えることである. 
-                パラメータ表示が与えられた曲線 $C = \{\mathbf{r}(t) : a\le t\le b\}$ 内部の領域 $D$ の面積は, グリーンの公式により例えば 
+                パラメータ表示が与えられた閉曲線 $C = \{\mathbf{r}(t) : a\le t\le b\}$ 内部の領域 $D$ の面積は, グリーンの公式により例えば 
                 \[
                     \begin{array}{rl} 
                         |D| &= \displaystyle\iint_D ~dxdy \cr 
@@ -493,7 +494,7 @@
                             y &= R\sin^3\theta 
                         \end{array}\right.\quad (0\le \theta\le 2\pi)
                     \] により与えられているとする. 
-                    このとき, 曲線 $C$ 内部の領域 $D$ の面積 $|D|$ を求めよ. 
+                    このとき, 閉曲線 $C$ 内部の領域 $D$ の面積 $|D|$ を求めよ. 
                 </p>
             </div>
 
