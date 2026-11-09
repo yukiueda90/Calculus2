@@ -58,7 +58,22 @@
                 </p>
             </div>
 
-            <p>これを用いると, 広義二重積分は以下を満たすようなものであると説明できる: </p>
+            <p>また, これに関連して積分の (自明な) 性質を一つ追加しておく: </p> 
+
+            <div class="theorem" data-name="積分領域に関する単調性">
+                <p>領域 $D\subset \widetilde{D}\subset\mathbb{R}^2$ とする. 
+                    また, $\widetilde{D}$ 上の積分可能な関数 $f$ が $f(x, y)\ge 0$ を満たすとする. 
+                    このとき, 
+                    \[
+                        \iint_D f(x, y)~dxdy \le \iint_{\widetilde{D}} f(x, y)~dxdy
+                    \] が成立する. 
+                </p>
+            </div>
+
+            <p>この性質を利用すると, $f\ge 0$ を満たす関数 $f$ に対して, 領域 $D$ の近似増加列に基づき積分領域を少しずつ広げることで積分値の単調増加列を構成でき, その極限として $D$ 上での広義積分を定義できそうである. 
+                実際には広義積分は $f\ge0$ を満たさない関数に対しても定めることが可能である. 
+                ここでは詳細は説明しないが, 広義二重積分は以下のような性質を満たすものと言及される: 
+            </p>
 
             <div class="theorem" data-name="広義二重積分">
                 <ul>
@@ -72,7 +87,7 @@
                     </li>
                     <li>領域 $D$ 上で広義積分可能な関数 $f(x, y)$ について, 
                         \[
-                            f\ge 0 \quad\text{または}\quad \iint_D|f|\lt \infty
+                            f\ge 0 \quad\text{または}\quad \iint_D|f|~dxdy\lt \infty
                         \]
                         ならば, 領域 $D$ の任意の近似列 $\{D_n\}$ に対し 
                         \[
@@ -142,6 +157,32 @@
                     \[
                         \iint_D \dfrac{1}{(x^2+y^2)^a}~dxdy = \lim_{n\to\infty} \iint_{D_n}\dfrac{1}{(x^2+y^2)^a}~dxdy = \dfrac{\pi}{1-a}R^{2(1-a)}
                     \] である. 
+                </p>
+            </div>
+
+            <p>上のように, 適切に構成した近似増加列に対する積分値の収束を調べることで広義二重積分可能性を判定できる. 
+                一方で, 一変数の場合と同様に重積分の単調性を利用して広義積分可能性を判定することも可能である: 
+            </p> 
+
+            <div class="theorem">
+                <p>領域 $D\subset\mathbb{R}^2$ 上の関数 $f(x)$, $g(x)$ が 
+                    \[
+                        0\le f(x, y) \le g(x, y) \qquad ((x, y)\in D) 
+                    \] を満たすとする. 
+                    このとき, 
+                    \[
+                        \text{広義積分 }\iint_D g(x, y)~dxdy \text{ が収束する} \implies \text{広義積分 }\iint_D f(x, y)~dxdy \text{ が収束する}
+                    \] が成立する. 
+                </p>
+            </div>
+
+            <div class="proof">
+                <p>領域 $D\subset\mathbb{R}^2$ 上で $g$ が広義積分可能であるとする. 
+                    いま, $D$ の近似増加列 $D_n$ に対して, $0\le f\le g$ より
+                    \[
+                        0\le \underbrace{\iint_{D_n}f(x, y)~dxdy}_{=I_n} \le \iint_{D_n} g(x, y)~dxdy\le \iint_D g(x, y)~dxdy \lt \infty
+                    \] が成立する. 
+                    また, $f\ge 0$ より $I_n\le I_{n+1}$ となるため, $\{I_n\}$ は有界な単調増加列であり収束する. 
                 </p>
             </div>
 
@@ -342,10 +383,11 @@
             <p>電波や音波など, 波として捉えられる現象や, コンピュータや生体内で情報をやり取りする電気信号などは, しばしば関数として扱うことでその性質を説明することになる. 
                 例えば波形 $f$ が三角関数を用いて
                 \[
-                    f(x) = A\sin (2\pi kx)
+                    f(x) = A\sin (2\pi kx) \qquad (k\gt 0)
                 \] と表されるとき, $A$ を <b>振幅</b> (<b>amplitude</b>), $k$ を <b>周波数</b> (<b>frequency</b>), $1/k$ を <b>周期</b> (<b>period</b>) と呼ぶ. 
             </p>
-            <p>さて, より複雑な形状の波を考えるために, まずは異なる周波数を持つ波の重ね合わせにより表される, 周期が $L$ であるような波について考えよう. 
+            
+            <p>より複雑な形状の波を考えるために, まずは異なる周波数を持つ波の重ね合わせにより表される, $L$ を周期に持つ波について考えよう. 
                 具体的には, 自然数 $n$ に対して $\sin (2\pi nx/L)$ や $\cos(2\pi nx/L)$ の足し合わせとして表される 
                 \[
                     f(x) = \dfrac{a_0}{2} + \sum_{n=1}^{\infty}\left(a_n\cos(2\pi nx/L) + b_n\sin(2\pi nx/L)\right)
@@ -354,7 +396,25 @@
                 また, フーリエ級数内の各 $\cos$, $\sin$ 関数は <b>フーリエモード</b> (<b>Fourier mode</b>) と呼ばれる. 
                 さらに, 各フーリエモードの係数 $a_n$, $b_n$ は <b>フーリエ係数</b> (<b>Fourier coefficient</b>) と呼ばれる. 
             </p>
-            <p>与えられた関数 $f(x)$ に対し, 各フーリエ係数を計算したい. 
+
+            <p>フーリエ級数の部分和 
+                \[
+                    \dfrac{a_0}{2} + \sum_{n=1}^{N}\left(a_n\cos(2\pi nx/L) + b_n\sin(2\pi nx/L)\right)
+                \] は無限階微分可能な関数であるが, その極限であるフーリエ級数展開は区分的連続な関数など, 滑らかでない関数も表現可能である (無限に滑らかな関数たちの極限として, 滑らかでない関数も現れる).  
+                このことを利用すると, 複雑な関数も滑らかな形状の波の重ね合わせとして容易に扱うことができ, また各周波数成分に注目して関数の特徴を説明できる. 
+                これがフーリエ級数展開の利点の一つである. 
+            </p>
+
+            <div class="example">
+                <p>フーリエ級数の部分和 
+                    \[
+                        \dfrac{1}{2} + \sum_{n=1}^N \dfrac{1}{n^2}\cos (2\pi nx)
+                    \] について, $N$ を大きくすると以下のようなプロットが得られる. 
+                </p>
+                <div class="resize"><img src='./images/fourier_expansion.png'></div>
+            </div>
+
+            <p>さて, 与えられた関数 $f(x)$ に対し, 各フーリエ係数を計算したい. 
                 その際には, 以下の性質を利用することになる: 
             </p>
 
@@ -409,7 +469,7 @@
                         \displaystyle\int_0^L f(x)g(x)~dx &= \displaystyle\int_0^L \left(\dfrac{a_0}{2} + \sum_{n=1}^{\infty}(a_n\cos(2\pi nx/L) + b_n\sin(2\pi nx/L))\right)g(x)~dx \cr 
                         &= \displaystyle\int_0^L\dfrac{a_0}{2}g(x)~dx + \sum_{n=1}^{\infty}\int_0^L a_n\cos(2\pi nx/L)g(x)~dx + \sum_{n=1}^{\infty}\int_0^L b_n\sin(2\pi nx/L)g(x)~dx 
                     \end{array}
-                \] と式変形できることを事実として認める (実際には, 無限和を各項ごとに積分する <b>項別積分</b> はいつでもできるわけではないが, ここでは上のように式変形できる状況のみ想定する).
+                \] と式変形できることを事実として認める (実際には, 無限和を各項ごとに積分する <b>項別積分</b> はいつでもできるわけではないが, ここでは $g(x)$ として $1$ もしくは三角関数のみを想定しており, このとき実は項別積分可能である).
                 特に $g(x) = 1 = \cos(2\pi\cdot 0\cdot x/L)$ のときは, 
                 \[
                     \int_0^L f(x)~dx = \int_0^L \dfrac{a_0}{2} ~dx = \dfrac{L}{2}a_0
@@ -443,13 +503,63 @@
             </div>
 
             <div class="remark">
+                <p>上では周期 $L$ の関数 $f$ として $[0, L]$ において与えられているものを考えているが, 例えば $[-L/2, L/2]$ で与えられる関数を考えることも可能である. 
+                    その場合でもフーリエ係数を求めるアイデアは同様であるが, フーリエ係数を求める際の積分区間は $[-L/2, L/2]$ とするとわかりやすいだろう.
+                </p>
+            </div>
+
+            <div class="remark">
                 <p>上は &quot;適切な&quot; 関数に対して成立するが, フーリエ級数がどのような意味で $f$ に収束するかは, 関数 $f$ の性質に依る. 
                     例えば, 不連続な関数のフーリエ級数に関連して, <b>ディリクレ条件</b> や <b>ギブスの現象</b> などの議論が知られている. 
                     興味があれば, 各自で調べてみると良いだろう. 
                 </p>
             </div>
 
-            <p>さて, 実際には表記や計算の簡単のために <b>複素フーリエ級数</b> が利用される. 
+            <div class="exercise">
+                <ul>
+                    <li>周期 $2\pi$ の関数として 
+                        \[
+                            f(x) = \dfrac{x^2}{\pi} \qquad (-\pi\le x\le \pi)
+                        \] を考える. 
+                        この関数 $f$ のフーリエ級数展開を求めよ. 
+                    </li>
+                    <li>$\displaystyle\sum_{n=1}^{\infty}\dfrac{1}{n^2}$ を求めよ. </li>
+                </ul>
+            </div>
+
+            <div class="answer">
+                <ul>
+                    <li>$L=2\pi$ として上の定理と同様のアイデアに基づき計算すると 
+                        \[
+                            \begin{array}{rl} 
+                                a_0 &= \dfrac{1}{\pi}\displaystyle\int_{-\pi}^{\pi}f(x)~dx = \dfrac{2}{3}\pi, \cr 
+                                a_n &= \dfrac{1}{\pi}\displaystyle\int_{-\pi}^{\pi}f(x)\cos(nx)~dx \cr 
+                                &= \underbrace{\left[\dfrac{x^2}{n\pi^2}\sin (nx)\right]_{-\pi}^{\pi}}_{=0} -\displaystyle\int_{-\pi}^{\pi}\dfrac{2x}{n\pi^2}\sin(nx)~dx \cr 
+                                &= \left[\dfrac{2x}{n^2\pi^2}\cos(nx)\right]_{-\pi}^{\pi} - \underbrace{\displaystyle\int_{-\pi}^{\pi}\dfrac{2}{n^2\pi^2}\cos(nx)~dx}_{=0} \cr 
+                                &= \dfrac{4}{n^2\pi}(-1)^n, \cr
+                                b_n &= \dfrac{1}{\pi}\displaystyle\int_{-\pi}^{\pi}f(x)\sin(nx)~dx = 0\qquad (\because \text{$f$ は偶関数})
+                            \end{array}
+                        \] に基づき 
+                        \[
+                            \begin{array}{rl} 
+                                f(x) &= \dfrac{a_0}{2} + \displaystyle\sum_{n=1}^\infty (a_n\cos(nx) + b_n\sin(nx)) \cr 
+                                &= \dfrac{\pi}{3} + \displaystyle\sum_{n=1}^\infty \dfrac{4}{n^2\pi}(-1)^n\cos(nx)
+                            \end{array}
+                        \] が得られる. 
+                    </li>
+                    <li>上のフーリエ級数展開を利用すると
+                        \[
+                            \begin{array}{rl} 
+                                \displaystyle\sum_{n=1}^\infty\dfrac{1}{n^2} &= \displaystyle\sum_{n=1}^\infty\dfrac{1}{n^2}(-1)^n\cos(n\pi) \cr 
+                                &= \left(f(\pi)-\dfrac{\pi}{3}\right)\dfrac{\pi}{4} \cr 
+                                &= \dfrac{\pi^2}{6}. 
+                            \end{array}
+                        \]
+                    </li>
+                </ul>
+            </div>
+
+            <p>さて, 多くの場合には表記や計算の簡単のために <b>複素フーリエ級数</b> も利用される. 
                 その際, 以下が重要となる: 
             </p>
 
@@ -503,7 +613,28 @@
                 </p>
             </div>
 
-            <p>最後に, 周期を持たない関数 $f(x)$ に対して, フーリエ級数展開に相当するものである <b>フーリエ変換</b> についてアイデアを紹介しよう. 
+            <p>複素フーリエ級数展開の応用例として, 微分などの演算が挙げられる. 
+                例えば周期が $L$ である適切な関数 $f(x)$ に対して, 
+                \[
+                    \begin{array}{rl} 
+                        f'(x) &= \dfrac{d}{dx}\displaystyle\sum_{n=-\infty}^{\infty}\widehat{f}_ne^{2\pi inx/L} \cr 
+                        &= \displaystyle\sum_{n=-\infty}^{\infty}\dfrac{2\pi in}{L}\widehat{f}_ne^{2\pi inx/L} \cr 
+                    \end{array}
+                \] のように式変形できる (この <b>項別微分</b> が可能となるように, $f$ の良い性質を仮定する必要がある). 
+                また, 周期が $L$ である適切な関数 $f(x)$, $g(x)$ に対して
+                \[
+                    \begin{array}{rl} 
+                        \dfrac{1}{L}\displaystyle\int_0^L f(x-y)~g(y)~dy &= \dfrac{1}{L}\displaystyle\int_0^L \sum_{n=-\infty}^{\infty}\widehat{f}_ne^{2\pi in(x-y)/L}g(y)~dy \cr 
+                        &= \displaystyle\sum_{n=-\infty}^{\infty} \widehat{f}_ne^{2\pi inx/L}\dfrac{1}{L}\int_0^L g(y)e^{-2\pi iny/L}~dy \cr 
+                        &= \displaystyle\sum_{n=-\infty}^{\infty} \widehat{f}_n\widehat{g}_ne^{2\pi inx/L} \cr 
+                    \end{array}
+                \] と式変形できるが, これは周期関数に対する <b>畳み込み積</b> に相当している. 
+            </p>
+
+            <p>最後に, 周期を持たない関数 $f(x)$ に対して, フーリエ級数展開に相当するものである <b>フーリエ変換</b> を紹介しよう. 
+                これにより, 上で挙げた (複素) フーリエ級数展開と同様の利点やテクニックは, 周期関数でない関数にも利用可能となる. 
+            </p>
+            <p>
                 まず, 適切な関数 $f(x)$ は区間 $[-L/2, L/2]$ の外では $0$ であるとし, $f$ の値を $[-L/2, L/2]$ の外で周期的に拡張した関数を $\widetilde{f}$ とおく. 
                 いま, $\widetilde{f}$ は周期 $L$ を持つため, ($x$ を $L/2$ だけずらした) フーリエ級数展開が可能である: 
                 \[
@@ -550,6 +681,79 @@
                     \[
                         f(x) = \int_{-\infty}^{\infty}\widehat{f}(\xi)e^{2\pi ix\xi}~d\xi
                     \] を <b>フーリエ逆変換</b> (<b>Fourier inverse transform</b>) と呼ぶ.
+                </p>
+            </div>
+
+            <div class="exercise">
+                <ul>
+                    <li>$\mathbb{R}$ 上の適切な関数 $f(x)$ に対して, 形式的に 
+                        \[
+                            \widehat{f'}(\xi) = 2\pi i\xi\widehat{f}(\xi)  
+                        \] となることを確かめよ. 
+                    </li>
+                    <li>$\mathbb{R}$ 上の適切な関数 $f(x)$, $g(x)$ に対して, 
+                        \[
+                            (f*g)(x) = \int_{-\infty}^{\infty}f(x-y)g(y)~dy 
+                        \] を <b>畳み込み積</b> (<b>convolution</b>) という. 
+                        このとき, 形式的に 
+                        \[
+                            \widehat{f*g}(\xi) = \widehat{f}(\xi)\widehat{g}(\xi)
+                        \] となることを確かめよ. 
+                    </li>
+                </ul>
+            </div>
+
+            <div class="answer">
+                <ul>
+                    <li>フーリエ変換と部分積分を利用すると
+                        \[
+                            \begin{array}{rl} 
+                                \widehat{f'}(\xi) &= \displaystyle\int_{-\infty}^{\infty}f'(x)e^{-2\pi ix\xi}~dx \cr 
+                                &= \left[f(x)e^{-2\pi ix\xi}\right]_{-\infty}^{\infty} - \displaystyle\int_{-\infty}^{\infty}-2\pi i\xi f(x)e^{-2\pi ix\xi}~dx \cr 
+                                &= 2\pi i\xi \widehat{f}(\xi). 
+                            \end{array}
+                        \]
+                    </li>
+                    <li>フーリエ変換とフビニの定理 (積分順序の交換) を利用すると 
+                        \[
+                            \begin{array}{rl} 
+                                \widehat{f*g}(\xi) &= \displaystyle\int_{-\infty}^{\infty}\left(\int_{-\infty}^{\infty}f(x-y)g(y)~dy\right)~e^{-2\pi ix\xi}~dx \cr 
+                                &= \displaystyle\int_{-\infty}^{\infty}\left(\int_{-\infty}^{\infty}f(x-y)e^{-2\pi i(x-y)\xi}~dx\right)~g(y)e^{-2\pi iy\xi}~dy \cr 
+                                &= \displaystyle\int_{-\infty}^{\infty}\left(\int_{-\infty}^{\infty}f(\widetilde{x})e^{-2\pi i\widetilde{x}\xi}~d\widetilde{x}\right)~g(y)e^{-2\pi iy\xi}~dy \qquad (\text{$\widetilde{x} = x-y$ と変数変換}) \cr 
+                                &= \widehat{f}(\xi)\widehat{g}(\xi). 
+                            \end{array}
+                        \]
+                    </li>
+                </ul>
+            </div>
+
+            <p>この性質を利用すると, 例えば与えられた関数 $f(x)$ の微分を計算する際に, </p>
+
+            <ol>
+                <li>関数 $f(x)$ をフーリエ変換して $\widehat{f}(\xi)$ を得る, </li>
+                <li>$\widehat{f}(\xi)$ に $2\pi i\xi$ を掛けることで $\widehat{f'}(\xi)$ が得られる, </li>
+                <li>$\widehat{f'}(\xi)$ をフーリエ逆変換することで $f'(x)$ が得られる</li>
+            </ol>
+
+            <p>というように計算することも可能となる. 
+                畳み込み積についても同様である. 
+            </p>
+            
+            <div class="remark">
+                <p>上の式における $2\pi \xi$ を代わりに $\xi$ と表記する流儀もある. 
+                    この表記を採用する場合, フーリエ変換とフーリエ逆変換はそれぞれ 
+                    \[
+                        \begin{array}{rl} 
+                            \widehat{f}(\xi) &= \displaystyle\int_{-\infty}^{\infty}f(x) e^{-ix\xi}~dx, \cr 
+                            f(x) &= \dfrac{1}{2\pi}\displaystyle\int_{-\infty}^{\infty}\widehat{f}(\xi)e^{ix\xi}~d\xi 
+                        \end{array}
+                    \] と表され, また 
+                    \[
+                        \begin{array}{rl} 
+                            \widehat{f'}(\xi) &= i\xi\widehat{f}(\xi), \cr 
+                            \widehat{f*g}(\xi) &= \widehat{f}(\xi)\widehat{g}(\xi)
+                        \end{array}
+                    \] となる. 
                 </p>
             </div>
 
@@ -614,9 +818,12 @@
             </p>
             <p>ここで唐突ではあるが 
                 \[
-                    u(x) = \int_{-\infty}^{\infty}G(x-y)f(y)~dy 
+                    u(x) = (G*f)(x) = \int_{-\infty}^{\infty}G(x-y)f(y)~dy 
                 \] という関数を考える. 
-                すると, この $u(x)$ は与えられた関数 $f(x)$ に対する $1$ 次元ポアソン方程式 $-u_{xx} = f(x)$ の解の一つである. 
+                すると, この $u(x)$ は与えられた関数 $f(x)$ に対する $1$ 次元ポアソン方程式 $-u_{xx} = f(x)$ の解の一つである (一般解は 
+                \[
+                    u(x) = (G*f)(x) + C_1x + C_2 
+                \] となる).  
                 実際, 
                 \[
                     \begin{array}{rl} 
@@ -693,6 +900,29 @@
                 </p>
             </div>
 
+            <div class="example">
+                <p>ここではデルタ関数の近似となる関数の例として 
+                    \[
+                        \rho_{\varepsilon}(x) = \left\{\begin{array}{rl}
+                            \dfrac{1}{2\varepsilon} & |x|\le \varepsilon, \cr 
+                            0 & |x|\gt \varepsilon
+                        \end{array}\right.
+                    \] を考えてみよう. 
+                    この関数は 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\lim_{\varepsilon\to 0}\int_{-\infty}^{\infty}\rho_{\varepsilon}(x)f(x)~dx &= \displaystyle\lim_{\varepsilon\to0}\dfrac{1}{2\varepsilon}\int_{-\varepsilon}^{\varepsilon}f(x)~dx \cr 
+                            &= f(0) \qquad (\because\text{積分の平均値の定理}) 
+                        \end{array}
+                    \] を満たすため, $\rho_{\varepsilon}(x)$ は十分小さい $\varepsilon\gt0$ に対しデルタ関数の近似となっている. 
+                    なお, $\rho_{\varepsilon}(x)$ は常に 
+                    \[
+                        \int_{-\infty}^{\infty}\rho_{\varepsilon}(x)~dx = 1 
+                    \] を満たし, また $\varepsilon$ を小さくすると値が原点に集中する, という特徴を持つが, このような性質を持つ関数はデルタ関数の近似の典型例である. 
+                    実際, $\varepsilon\to0$ とすることで, 形式的にデルタ関数の直感的な説明を確かめることもできる. 
+                </p>
+            </div>
+
             <p>次に, デルタ関数 $\delta(x)$ と ($1$ 次元のラプラシアンに対する) 基本解 $G(x)$ の関係を見てみよう. 
                 上で, 
                 \[
@@ -708,6 +938,32 @@
                 \] という対応関係があることがわかる. 
             </p>
 
+            <p>ついでにフーリエ変換との関連についても述べておこう. 
+                基本解が満たす式 $-G''(x) = \delta (x)$ に対するフーリエ変換から, 形式的には 
+                \[
+                    \begin{array}{rl} 
+                        4\pi^2\xi^2\widehat{G}(\xi) &= -\widehat{G''}(\xi) \cr 
+                        &= \widehat{\delta}(\xi) \cr 
+                        &= \displaystyle\int_{-\infty}^{\infty}\delta(x)e^{-2\pi ix\xi}~dx \cr 
+                        &= e^{-2\pi i\cdot 0\cdot \xi} = 1,
+                    \end{array}
+                \] つまり 
+                \[
+                    \widehat{G}(\xi) = \dfrac{1}{4\pi^2\xi^2} 
+                \] となる. 
+                これを利用すると (やはり形式的にではあるが) $1$ 次元ポアソン方程式 $-u'' = f$ に対して 
+                \[
+                    4\pi^2\xi^2\widehat{u}(\xi) = -\widehat{u''}(\xi) = \widehat{f}(\xi) 
+                \] と式変形できるため, 整理して 
+                \[
+                    \widehat{u}(\xi) = \widehat{G}(\xi)\widehat{f}(\xi) = \widehat{G*f}(\xi)
+                \] が得られ, これをフーリエ逆変換することで 
+                \[
+                    u(x) = (G*f)(x)
+                \] という対応関係が確認できる. 
+                上では説明の都合上 &quot;唐突に&quot; $u(x) = (G*f)(x)$ を考えたが, フーリエ変換を利用することで (形式的には) 自然なアイデアであることがわかる. 
+            </p>
+
             <p>繰り返すが, ここまでの説明はあくまで直感的, 形式的なものであり, 数学的に厳密ではない. 
                 ただし, 非常に有用な考え方であることは確かであり, 改めて <b>注意</b> としてまとめておこう: 
             </p>
@@ -717,7 +973,7 @@
                     このとき, $1$ 次元のポアソン方程式 
                     \[
                         -\dfrac{d^2}{dx^2}u(x) = f(x) = \int_{-\infty}^{\infty}\delta(x-y)f(y)~dy
-                    \] の解は, <b>ディラックのデルタ関数</b> $\delta(x)$ に対して
+                    \] の解の一つは, <b>ディラックのデルタ関数</b> $\delta(x)$ に対して
                     \[
                         -\dfrac{d^2}{dx^2}G(x) = \delta(x)
                     \] を満たす ($-d^2/dx^2$ に対する) <b>基本解</b> 
@@ -753,7 +1009,7 @@
                 $2$ 次元ポアソン方程式 
                 \[
                     -\Delta u(\mathbf{x}) = f(\mathbf{x})
-                \] の解 $u(\mathbf{x})$ は, 
+                \] の解の一つ $u(\mathbf{x})$ は, 
                 \[
                     -\Delta G(\mathbf{x}) = \delta(\mathbf{x}) 
                 \] を満たす ($-\Delta$ に対する) 基本解 $G(\mathbf{x})$ を用いて
@@ -795,21 +1051,29 @@
                             -\Delta G_{\varepsilon}(\mathbf{x}) = \dfrac{\partial}{\partial x_1}\dfrac{x_1}{2\pi(x_1^2 + x_2^2 + \varepsilon^2)} + \dfrac{\partial}{\partial x_2}\dfrac{x_2}{2\pi(x_1^2 + x_2^2 + \varepsilon^2)} = \dfrac{\varepsilon^2}{\pi(|\mathbf{x}|^2 + \varepsilon^2)^2}
                         \end{array}
                     \] を確かめることができる. 
-                    従って, 形式的には 
+                    これに基づき, 
                     \[
-                        -\Delta G(\mathbf{x}) = \lim_{\varepsilon\to0}\left(-\Delta G_{\varepsilon}(\mathbf{x})\right) = \lim_{\varepsilon\to0}\dfrac{\varepsilon^2}{\pi(|\mathbf{x}|^2 + \varepsilon^2)^2} = \left\{\begin{array}{cl} 
+                        \rho_{\varepsilon}(\mathbf{x}) = -\Delta G_{\varepsilon}(\mathbf{x}) = \dfrac{\varepsilon^2}{\pi(|\mathbf{x}|^2 + \varepsilon^2)^2}
+                    \] とおくと, 近似増加列 $D_n = \{(x_1, x_2)\in\mathbb{R}^2: x_1^2+x_2^2 \le n^2\}$ に対し $\rho_{\varepsilon}(\mathbf{x})$ は常に 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\iint_{\mathbb{R}^2} \rho_{\varepsilon}(\mathbf{x})~dx_1dx_2 &= \displaystyle\lim_{n\to\infty}\iint_{D_n} \dfrac{\varepsilon^2}{\pi(|\mathbf{x}|^2 + \varepsilon^2)^2}~dx_1dx_2 \cr 
+                            &= \displaystyle\lim_{n\to\infty}\iint_{[0, n]\times[0, 2\pi]} \dfrac{\varepsilon^2}{\pi(r^2+\varepsilon^2)^2}r~drd\theta \cr 
+                            &= \displaystyle\lim_{n\to\infty}\int_0^n \dfrac{2r\varepsilon^2}{(r^2+\varepsilon^2)^2}~dr \cr 
+                            &= \displaystyle\lim_{n\to\infty}\left(1-\dfrac{\varepsilon^2}{n^2+\varepsilon^2}\right) \cr
+                            &= 1
+                        \end{array}
+                    \] を満たし, また $\varepsilon\gt 0$ を小さくすると値が原点に集中していく: 
+                    \[
+                        \lim_{\varepsilon\to 0}\rho_{\varepsilon}(\mathbf{x}) = \lim_{\varepsilon\to0}\dfrac{\varepsilon^2}{\pi(|\mathbf{x}|^2 + \varepsilon^2)^2} = \left\{\begin{array}{cl} 
                             0 &\text{if }\mathbf{x}\neq \mathbf{0}, \cr 
                             \infty &\text{if }\mathbf{x}=\mathbf{0} 
                         \end{array}\right.
-                    \] であり, また近似増加列 $D_n = \{(x_1, x_2)\in\mathbb{R}^2: x_1^2+x_2^2 \le n^2\}$ を考えると
+                    \] これは $1$ 次元の場合と同様にデルタ関数の近似となる関数の典型例であり, 従って 
                     \[
-                        \begin{array}{rl} 
-                            \displaystyle\iint_{\mathbb{R}^2} -\Delta G(\mathbf{x})~dx_1dx_2 &= \displaystyle\lim_{\varepsilon\to0}\lim_{n\to\infty}\iint_{D_n} \dfrac{\varepsilon^2}{\pi(|\mathbf{x}|^2 + \varepsilon^2)^2}~dx_1dx_2 \cr 
-                            &= \displaystyle\lim_{\varepsilon\to0}\lim_{n\to\infty}\iint_{[0, n]\times[0, 2\pi]} \dfrac{\varepsilon^2}{\pi(r^2+\varepsilon^2)^2}r~drd\theta \cr 
-                            &= \displaystyle\lim_{\varepsilon\to0}\lim_{n\to\infty}\int_0^n \dfrac{2r\varepsilon^2}{(r^2+\varepsilon^2)^2}~dr \cr 
-                            &= 1
-                        \end{array}
-                    \] のように式変形できるので, 確かに $-\Delta G(\mathbf{x})$ は $\delta(\mathbf{x})$ の直感的な説明における性質を満たしている. 
+                        -\Delta G(\mathbf{x}) = \lim_{\varepsilon\to0}\left(-\Delta G_{\varepsilon}(\mathbf{x})\right) = \lim_{\varepsilon\to 0}\rho_{\varepsilon}(\mathbf{x}) = \delta(\mathbf{x})
+                    \] であると期待される. 
+                    実際 $-\Delta G(\mathbf{x}) = \displaystyle\lim_{\varepsilon\to 0}\rho_{\varepsilon}(\mathbf{x})$ は $\delta(\mathbf{x})$ の直感的な説明における性質を満たしている. 
                 </li>
                 <li>以上より, 
                     \[
@@ -822,7 +1086,7 @@
                             &= f(\mathbf{x})
                         \end{array}
                     \] のように式変形できることが期待される. 
-                    このようにして, $2$ 次元ポアソン方程式の解の表現が得られる. 
+                    このようにして, $2$ 次元ポアソン方程式の解の一つが得られる. 
                 </li>
             </ul>
 
