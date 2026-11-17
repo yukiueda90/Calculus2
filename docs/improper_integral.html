@@ -207,6 +207,7 @@
                     \[
                         \int_{-\infty}^{\infty} e^{-x^2}~dx = \sqrt{\pi}
                     \] は <b>ガウス積分</b> (<b>Gaussian integral</b>) と呼ばれ, 応用上極めて重要である. 
+                    証明には <a href="./appendix.html#sectionA-1">広義二重積分</a> を利用する必要があるためここでは説明しない. 
                 </p>
                 <div class="resize"><img src='./images/gaussian_integral-1.png'></div> 
             </div>
@@ -471,11 +472,11 @@
                 </ul>
             </div>
 
-            <p>また, ガンマ関数については以下の性質も知られている, ただし証明はこの広義の範囲を超えているので, ここでは結果を紹介するにとどめる. 
+            <p>また, ガンマ関数については以下の性質も知られている, ただし証明はこの資料で扱う範囲を超えているので, ここでは結果を紹介するにとどめる. 
             </p>
 
             <div class="lemma" data-name="ガンマ関数の相反公式">
-                <p>$z\not\in\mathbb{Z}$ に対して, 
+                <p>$0\lt z\lt 1$ に対して, 
                     \[
                         \Gamma(z)\Gamma(1-z) = \dfrac{\pi}{\sin (\pi z)} 
                     \] が成立する. 
@@ -511,11 +512,15 @@
             <div class="answer">
                 <p>まず, $t=x^2$ と変数変換すると 
                     \[
-                        I = \int_0^{\infty} t^2e^{-t}\dfrac{t^{-1/2}}{2}~dt = \dfrac{1}{2}\int_0^{\infty}t^{3/2}e^{-t}~dt
-                    \] と式変形できる. 
-                    これはガンマ関数を用いて表すことができるため, ガンマ関数の性質を利用して
+                        I = \int_0^{\infty} t^2e^{-t}\dfrac{t^{-1/2}}{2}~dt = \dfrac{1}{2}\int_0^{\infty}t^{3/2}e^{-t}~dt = \dfrac{1}{2}\Gamma(5/2)
+                    \] と式変形でき, ガンマ関数を用いて表すことができるため, あとはガンマ関数の性質を利用して
                     \[
-                        I = \dfrac{1}{2}\Gamma(5/2) = \dfrac{1}{2}\cdot \dfrac{3}{2}\Gamma(3/2) = \dfrac{1}{2}\cdot \dfrac{3}{2}\cdot\dfrac{1}{2}\Gamma(1/2) = \dfrac{3}{8}\sqrt{\pi}
+                        \begin{array}{rl} 
+                            I &= \dfrac{1}{2}\Gamma(5/2) \cr 
+                            &= \dfrac{1}{2}\cdot \dfrac{3}{2}\Gamma(3/2) \cr 
+                            &= \dfrac{1}{2}\cdot \dfrac{3}{2}\cdot\dfrac{1}{2}\Gamma(1/2) \cr 
+                            &= \dfrac{3}{8}\sqrt{\pi}
+                        \end{array}
                     \] と計算することができる. 
                 </p>
             </div>
@@ -544,7 +549,7 @@
                         (1-t)^{q-1} \le 2
                     \] であり, 従って 
                     \[
-                        f(t) \lt 2t^{p-1}
+                        f(t) \le 2t^{p-1}
                     \] が成立する. 
                     あとは $p\gt 0$ より, 広義積分 
                     \[
@@ -566,7 +571,7 @@
 
             <p>なお, ベータ関数の定義において 
                 \[
-                    x = \dfrac{t}{1-t}
+                    t = \dfrac{x}{1+x}
                 \] と変数変換すると, 
                 \[
                     B(p, q) = \int_0^{\infty} \left(\dfrac{x}{1+x}\right)^{p-1}\left(\dfrac{1}{1+x}\right)^{q-1}\dfrac{1}{(1+x)^2}~dx = \int_0^{\infty}\dfrac{x^{p-1}}{(1+x)^{p+q}}~dx 
@@ -585,7 +590,7 @@
                 </p>
             </div>
 
-            <p>証明には <b>広義二重積分</b> を利用する必要があるためここでは説明しない. 
+            <p>証明には <a href="./appendix.html#sectionA-1">広義二重積分</a> を利用する必要があるためここでは説明しない. 
                 ともかく, 上の関係式とガンマ関数の性質を使えば, いくつかの $p$, $q$ の組み合わせに対してベータ関数の値を計算することが可能である. 
             </p>
 
@@ -600,9 +605,16 @@
             <div class="answer">
                 <p>まず, $t=x^3$ と変数変換すると 
                     \[
-                        I = \int_0^{\infty}\dfrac{1}{1+t}\dfrac{t^{-2/3}}{3}~dt = \dfrac{1}{3}\int_0^{\infty}\dfrac{t^{5/3-1}}{1+t}~dt
-                    \] となる. 
-                    これをベータ関数として表し, さらにガンマ関数の相反公式を用いて計算すれば良い. 
+                        I = \int_0^{\infty}\dfrac{1}{1+t}\dfrac{t^{-2/3}}{3}~dt = \dfrac{1}{3}\int_0^{\infty}\dfrac{t^{1/3-1}}{1+t}~dt = \dfrac{1}{3}B\left(\dfrac{1}{3}, \dfrac{2}{3}\right)
+                    \] と式変形でき, ベータ関数を用いて表すことができるため, あとはガンマ関数の相反公式を用いて計算すれば良い: 
+                    \[
+                        \begin{array}{rl} 
+                            I &= \dfrac{1}{3}B\left(\dfrac{1}{3}, \dfrac{2}{3}\right) \cr 
+                            &= \dfrac{1}{3}\dfrac{\Gamma(1/3)\Gamma(2/3)}{\Gamma(1)} \cr 
+                            &= \dfrac{\pi}{3\sin(\pi/3)} \cr 
+                            &= \dfrac{2\pi}{3\sqrt{3}}. 
+                        \end{array}
+                    \] 
                 </p>
             </div>
             
@@ -667,6 +679,87 @@
                             &= \dfrac{45}{2^6\cdot 5!}\Gamma(1/2)^2= \dfrac{3}{2^9}\pi = \dfrac{3}{512}\pi
                         \end{array}
                     \]
+                </p>
+            </div>
+
+            <hr>
+
+            <p>ガンマ関数やベータ関数を利用した積分計算について, 典型的な問題について具体的な値を求めるだけならば, ここまでで説明した内容でもある程度可能ではあるが, より複雑な計算にも用いられる性質を追加で紹介しておこう: 
+            </p>
+
+            <div class="lemma">
+                <p>$p\gt 0$ に対して
+                    \[
+                        B(p, p) = 2^{1-2p}B\left(p, \dfrac{1}{2}\right)
+                    \] が成立する. 
+                </p>
+            </div>
+            
+            <div class="proof">
+                <p>ベータ関数の定義において $t=\sin^2 x$ と変数変換することで三角関数の積分に置き換えることができるのだった. 
+                    このことを利用すると 
+                    \[
+                        \begin{array}{rl} 
+                            B(p, p) &= 2\displaystyle\int_0^{\pi/2}\sin^{2p-1}x\cos^{2p-1}x~dx \cr 
+                            &= 2\displaystyle\int_0^{\pi/2}\left(\dfrac{1}{2}\sin 2x\right)^{2p-1}~dx \quad (\because\text{$\sin$ の倍角の公式})\cr 
+                            &= 2^{1-2p}\displaystyle\int_0^{\pi}\sin^{2p-1}\theta~d\theta \quad(x = \theta/2 \text{ と変数変換}) \cr 
+                            &= 2^{1-2p}\cdot 2\displaystyle\int_0^{\pi/2}\sin^{2p-1}\theta~d\theta \qquad (\because \text{$\sin$ の対称性}) \cr 
+                            &= 2^{1-2p}B\left(p, \dfrac{1}{2}\right). 
+                        \end{array}
+                    \]
+                </p>
+            </div>
+
+            <div class="theorem" data-name="ルジャンドル倍数公式">
+                <p>$z\gt 0$ に対して 
+                    \[
+                        \Gamma(z)\Gamma\left(z+\dfrac{1}{2}\right) = 2^{1-2z}\sqrt{\pi}\ \Gamma(2z)
+                    \] が成立する. 
+                </p>
+            </div>
+
+            <div class="proof">
+                <p>上の補題と, ベータ関数とガンマ関数の関係より
+                    \[
+                        \dfrac{\Gamma(z)^2}{\Gamma(2z)} = 2^{1-2z}\dfrac{\Gamma(z)\Gamma(1/2)}{\Gamma(z+1/2)}
+                    \] となる.  
+                    これを整理することで 
+                    \[
+                        \Gamma(z)\Gamma\left(z+\dfrac{1}{2}\right) = 2^{1-2z}\ \underbrace{\Gamma(1/2)}_{=\sqrt{\pi}}\ \Gamma(2z)
+                    \] が得られる. 
+                </p>
+            </div>
+
+            <div class="example">
+                <p>広義積分 
+                    \[
+                        I = \int_0^{\infty}\dfrac{x^2}{(1+x^4)^2}~dx 
+                    \] を計算してみよう. 
+                    まず, $t=x^4$ と変数変換すると 
+                    \[
+                        I = \int_0^{\infty}\dfrac{t^{1/2}}{(1+t)^2}\dfrac{t^{-3/4}}{4}~dt = \dfrac{1}{4}\int_0^{\infty}\dfrac{t^{3/4-1}}{(1+t)^2}~dt = \dfrac{1}{4}B\left(\dfrac{3}{4}, \dfrac{5}{4}\right)
+                    \] と式変形でき, ベータ関数とガンマ関数の関係を用いて 
+                    \[
+                        I = \dfrac{1}{4}B\left(\dfrac{3}{4}, \dfrac{5}{4}\right) = \dfrac{1}{4}\dfrac{\Gamma(3/4)\Gamma(5/4)}{\Gamma(2)} = \dfrac{1}{4}\Gamma(3/4)\Gamma(5/4)
+                    \] となる. 
+                    ここで現れたガンマ関数については, 相反公式を用いて
+                    \[
+                        \begin{array}{rl} 
+                            I &= \dfrac{1}{4}\Gamma(3/4)\Gamma(5/4) \cr 
+                            &= \dfrac{1}{16}\Gamma(3/4)\Gamma(1/4) \cr 
+                            &= \dfrac{1}{16}\dfrac{\pi}{\sin(\pi/4)} \cr 
+                            &= \dfrac{\pi}{8\sqrt{2}}
+                        \end{array}
+                    \] と計算しても良いが, ルジャンドル倍数公式を用いて 
+                    \[
+                        \begin{array}{rl} 
+                            I &= \dfrac{1}{4}\Gamma(3/4)\Gamma(5/4) \cr 
+                            &= \dfrac{1}{4}2^{1-2\cdot 3/4}\sqrt{\pi}\ \Gamma(2\cdot 3/4) \cr 
+                            &= \dfrac{1}{4\sqrt{2}}\sqrt{\pi}\ \Gamma(3/2) \cr 
+                            &= \dfrac{1}{4\sqrt{2}}\sqrt{\pi}\ \dfrac{1}{2}\ \underbrace{\Gamma(1/2)}_{=\sqrt{\pi}} \cr 
+                            &= \dfrac{\pi}{8\sqrt{2}} 
+                        \end{array}
+                    \] と計算しても良い. 
                 </p>
             </div>
 
