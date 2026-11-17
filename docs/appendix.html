@@ -189,12 +189,15 @@
             <p>さて, ここまでの話の応用例として, ガウス積分およびガンマ関数, ベータ関数について以下に再掲し, スキップしていた証明をここで説明しよう: 
             </p>
 
-            <div class="example">
-                <p>ガウス積分 
+            <div class="lemma" data-name="ガウス積分">
+                <p>
                     \[
-                        \int_{-\infty}^{\infty} e^{-x^2}~dx = \sqrt{\pi}
-                    \] を証明しよう. 
-                    まず, (唐突ではあるが) $\mathbb{R}^2$ に対する近似増加列
+                        \int_{-\infty}^{\infty} e^{-x^2}~dx = \sqrt{\pi}.
+                    \] 
+                </p>
+            </div>
+            <div class="proof">
+                <p>まず, (唐突ではあるが) $\mathbb{R}^2$ に対する近似増加列
                     \[
                         \widetilde{D}_n = \{(x, y)\in\mathbb{R}^2: x^2+y^2\le n^2\}
                     \] を考えると, 
@@ -392,7 +395,7 @@
                 \[
                     f(x) = \dfrac{a_0}{2} + \sum_{n=1}^{\infty}\left(a_n\cos(2\pi nx/L) + b_n\sin(2\pi nx/L)\right)
                 \] を考える. 
-                関数 $f(x)$ が上のような式で表されるとき, 右辺の級数を <b>フーリエ級数</b> (<b>Fourier series</b>) と呼び, また関数 $f(x)$ をフーリエ級数で表現することを <b>フーリエ級数展開</b> (<b>Fourier expansion</b>) という. 
+                関数 $f(x)$ が上のような式で表されるとき, 右辺の級数を <b>フーリエ級数</b> (<b>Fourier series</b>) と呼び, また周期関数 $f(x)$ をフーリエ級数で表現することを <b>フーリエ級数展開</b> (<b>Fourier expansion</b>) という. 
                 また, フーリエ級数内の各 $\cos$, $\sin$ 関数は <b>フーリエモード</b> (<b>Fourier mode</b>) と呼ばれる. 
                 さらに, 各フーリエモードの係数 $a_n$, $b_n$ は <b>フーリエ係数</b> (<b>Fourier coefficient</b>) と呼ばれる. 
             </p>
@@ -677,12 +680,76 @@
                 <p>$\mathbb{R}$ 上の適切な関数 $f(x)$ に対して, 
                     \[
                         \widehat{f}(\xi) = \int_{-\infty}^{\infty}f(x) e^{-2\pi ix\xi}~dx
-                    \] を <b>フーリエ変換</b> (<b>Fourier transform</b>) と呼び, 
+                    \] を <b>フーリエ変換</b> (<b>Fourier transform</b>) と呼ぶ (ただし $\xi$ は任意の実数). 
+                    また,  
                     \[
                         f(x) = \int_{-\infty}^{\infty}\widehat{f}(\xi)e^{2\pi ix\xi}~d\xi
                     \] を <b>フーリエ逆変換</b> (<b>Fourier inverse transform</b>) と呼ぶ.
                 </p>
             </div>
+
+            <div class="remark">
+                <p>フーリエ変換 $\widehat{f}$ は $\mathcal{F}(f)$, $(\mathcal{F}f)$ などと表記されることもある. 
+                    また, フーリエ逆変換は $\mathcal{F}^{-1}(g)$, $\mathcal{F}^{-1}g$ などと表記されることもある. 
+                    さらに, 適切な関数 $f$ に対して $\mathcal{F}^{-1}(\mathcal{F} f) = f$ が成立し, これを用いると適切な関数 $f$, $g$ に対し 
+                    \[
+                        \widehat{f} = \widehat{g} \iff f = g 
+                    \] が成立することもわかる.  
+                </p>
+            </div>
+
+            <div class="exercise" id="fourier_transform_exercise">
+                <p>$k\gt 0$ とする. このとき, 関数 $f(x) = e^{-k|x|}$ に対し, 
+                    \[
+                        \widehat{f}(\xi) = \dfrac{2k}{k^2+4\pi^2\xi^2} 
+                    \] を証明せよ. 
+                </p>
+            </div>
+
+            <div class="answer">
+                <p>実際に計算すると, 
+                    \[
+                        \begin{array}{rl} 
+                            \widehat{f}(\xi) &= \displaystyle\int_{-\infty}^{\infty}f(x)e^{-2\pi ix\xi}~dx \cr 
+                            &= \displaystyle\int_{-\infty}^0 e^{(k-2\pi i\xi)x}~dx + \int_0^{\infty} e^{-(k+2\pi i\xi)x}~dx 
+                        \end{array}
+                    \] となる. 
+                    ここで $k$, $\xi$ が実数であることに注意すると, 例えば
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int_{-\infty}^0 e^{(k-2\pi i\xi)x}~dx &= \displaystyle\lim_{t\to\infty}\int_{-t}^0 e^{(k-2\pi i\xi)x}~dx \cr 
+                            &= \displaystyle\lim_{t\to\infty}\left[\dfrac{e^{(k-2\pi i\xi)x}}{k-2\pi i\xi}\right]_{-t}^0 \quad (\because k-2\pi i\xi\neq0 )\cr 
+                            &= \dfrac{1}{k-2\pi i\xi}\left(1 - \displaystyle\lim_{t\to\infty}e^{-(k-2\pi i\xi)t}\right)
+                        \end{array}
+                    \] であり, また 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\lim_{t\to\infty}\left|e^{-(k-2\pi i\xi)t}\right| &= \displaystyle\lim_{t\to\infty}e^{-kt}\left|\cos(2\pi\xi t) + i\sin(2\pi\xi t)\right| \quad(\because\text{オイラーの公式})\cr 
+                            &= \displaystyle\lim_{t\to\infty}e^{-kt} = 0
+                        \end{array}
+                    \] に注意すると 
+                    \[
+                        \displaystyle\lim_{t\to\infty}e^{-(k-2\pi i\xi)t} = 0 
+                    \] であることがわかるため, 
+                    \[
+                        \int_{-\infty}^0 e^{(k-2\pi i\xi)x}~dx = \dfrac{1}{k-2\pi i\xi}
+                    \] が得られる. 
+                    同様に 
+                    \[
+                        \int_{0}^{\infty} e^{-(k+2\pi i\xi)x}~dx = \dfrac{1}{k+2\pi i\xi}
+                    \] も得られるため, 
+                    \[
+                        \widehat{f}(\xi) = \dfrac{1}{k-2\pi i\xi} + \dfrac{1}{k+2\pi i\xi} = \dfrac{2k}{k^2+4\pi^2\xi^2}. 
+                    \]
+                </p>
+            </div>
+
+            <p>さて, フーリエ変換は広義積分により定められるため, (広義積分が収束するならば) 線形性
+                \[
+                    \mathcal{F}(c_1f + c_2g) = c_1\widehat{f} + c_2\widehat{g}.
+                \] を満たす. 
+                また, フーリエ変換は微分や畳み込み積に関しても有用な性質を持つ:
+            </p>
 
             <div class="exercise">
                 <ul>
@@ -731,7 +798,7 @@
 
             <ol>
                 <li>関数 $f(x)$ をフーリエ変換して $\widehat{f}(\xi)$ を得る, </li>
-                <li>$\widehat{f}(\xi)$ に $2\pi i\xi$ を掛けることで $\widehat{f'}(\xi)$ が得られる, </li>
+                <li>$\widehat{f}(\xi)$ に $2\pi i\xi$ を掛けることで $\widehat{f'}(\xi) = 2\pi i\xi\widehat{f}(\xi)$ が得られる, </li>
                 <li>$\widehat{f'}(\xi)$ をフーリエ逆変換することで $f'(x)$ が得られる</li>
             </ol>
 
@@ -939,30 +1006,86 @@
             </p>
 
             <p>ついでにフーリエ変換との関連についても述べておこう. 
-                基本解が満たす式 $-G''(x) = \delta (x)$ に対するフーリエ変換から, 形式的には 
+                $1$ 次元ポアソン方程式 $-u'' = f$ に対するフーリエ変換により, 形式的には 
+                \[
+                    4\pi^2\xi^2\widehat{u}(\xi) = -\widehat{u''}(\xi) = \widehat{f}(\xi) 
+                \] と式変形できる. 
+                ここで, $-d^2/dx^2$ に対する基本解 $G(x)$ は 
+                \[
+                    \widehat{G}(\xi) = \dfrac{1}{4\pi^2\xi^2} 
+                \] を満たし, 結果的に $\widehat{u}(\xi) = \widehat{G}(\xi)\widehat{f}(\xi) = \widehat{G*f}(\xi)$ が得られる. 
+                実際, 基本解が満たす式 $-G''(x) = \delta (x)$ に対するフーリエ変換から, 形式的に 
                 \[
                     \begin{array}{rl} 
                         4\pi^2\xi^2\widehat{G}(\xi) &= -\widehat{G''}(\xi) \cr 
                         &= \widehat{\delta}(\xi) \cr 
                         &= \displaystyle\int_{-\infty}^{\infty}\delta(x)e^{-2\pi ix\xi}~dx \cr 
-                        &= e^{-2\pi i\cdot 0\cdot \xi} = 1,
+                        &= e^{-2\pi i\cdot 0\cdot \xi} = 1
                     \end{array}
-                \] つまり 
-                \[
-                    \widehat{G}(\xi) = \dfrac{1}{4\pi^2\xi^2} 
-                \] となる. 
-                同様に (やはり形式的にではあるが) $1$ 次元ポアソン方程式 $-u'' = f$ に対して 
-                \[
-                    4\pi^2\xi^2\widehat{u}(\xi) = -\widehat{u''}(\xi) = \widehat{f}(\xi) 
-                \] と式変形できるため, 上を用いて整理すると 
+                \] となることが確かめられる.  
+                上で得られた
                 \[
                     \widehat{u}(\xi) = \widehat{G}(\xi)\widehat{f}(\xi) = \widehat{G*f}(\xi)
-                \] が得られ, これをフーリエ逆変換することで 
+                \] をフーリエ逆変換することで 
                 \[
                     u(x) = (G*f)(x)
                 \] という対応関係が確認できる. 
                 上では説明の都合上 &quot;唐突に&quot; $u(x) = (G*f)(x)$ を考えたが, フーリエ変換を利用することで (形式的には) 自然なアイデアであることがわかる. 
             </p>
+
+            <div class="exercise">
+                <p>$k\gt 0$ とする. このとき, 微分方程式
+                    \[
+                        -\dfrac{d^2}{dx^2}u + k^2u = f
+                    \] を考え, また 
+                    \[
+                        G(x) = \dfrac{1}{2k}e^{-k|x|}
+                    \] とおく 
+                </p>
+                <ul>
+                    <li>微分方程式の解 $u(x)$ であり, 適切な性質を満たすもの (具体的には十分滑らかかつ無限遠で急速に減衰するもの) に対し, 
+                        \[
+                            \widehat{u}(\xi) = \widehat{G*f}(\xi)
+                        \] が成立することを証明せよ.
+                    </li>
+                    <li>関数
+                        \[
+                            u(x) = \dfrac{1}{2k}\int_{-\infty}^{\infty}e^{-k|x-y|}f(y)~dy 
+                        \] は与えられた微分方程式の解の一つであることを証明せよ. 
+                    </li>
+                </ul>
+            </div>
+
+            <div class="answer">
+                <p>微分方程式の両辺をフーリエ変換することで 
+                    \[
+                        \begin{array}{rl} 
+                            \widehat{f}(\xi) &= -\widehat{u''}(\xi) + k^2\widehat{u}(\xi) \cr 
+                            &= (k^2 + 4\pi^2\xi^2)\widehat{u}(\xi)
+                        \end{array}
+                    \] である. 
+                    ここで, <a href="fourier_transform_exercise">以前の例題</a> より 
+                    \[
+                        G(x) = \dfrac{1}{2k}e^{-k|x|}
+                    \] とおくと 
+                    \[
+                        \widehat{G}(\xi) = \dfrac{1}{2k}\dfrac{2k}{k^2+4\pi^2\xi^2} = \dfrac{1}{{k^2+4\pi^2\xi^2}}
+                    \] となるため 
+                    \[
+                        \widehat{u}(\xi) = \widehat{G}(\xi)\widehat{f}(\xi) = \widehat{G*f}(\xi)
+                    \] が得られる (このことは上の $G(x)$ が $-d^2/dx^2 + k^2I$ の基本解であることを意味している). 
+                    逆に, 関数 
+                    \[
+                        u(x) = \dfrac{1}{2k}\int_{-\infty}^{\infty}e^{-k|x-y|}f(y)~dy = (G*f)(x)
+                    \] をフーリエ変換することで 
+                    \[
+                        \widehat{u}(\xi) = \widehat{G*f}(\xi) = \dfrac{1}{{k^2+4\pi^2\xi^2}}\widehat{f}, 
+                    \] つまり 
+                    \[
+                        -\widehat{u''}(\xi) + k^2\widehat{u}(\xi) = \widehat{f}
+                    \] が得られるため, これをフーリエ逆変換することで与えられた関数 $u(x)$ が微分方程式の解であることが確かめられる. 
+                </p>
+            </div>
 
             <p>繰り返すが, ここまでの説明はあくまで直感的, 形式的なものであり, 数学的に厳密ではない. 
                 ただし, 非常に有用な考え方であることは確かであり, 改めて <b>注意</b> としてまとめておこう: 
