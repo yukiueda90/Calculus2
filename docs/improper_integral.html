@@ -90,14 +90,15 @@
                         \[
                             \int_0^1 \dfrac{1}{\sqrt{x}}~dx
                         \] を計算してみよう. 
-                        被積分関数は区間 $[0, 1]$ 上で連続ではない ($x = 0$ で非有界である) ため, この積分は広義積分であり,  
+                        <a href="./univariate_integral.html#not_integrable_example">以前の例</a> で確認したように, この被積分関数は (たとえ $x=0$ での値を適当に取り替えたとしても) 通常の意味でのリーマン積分は不可能である. 
+                        一方で, 広義積分としては  
                         \[
                             \begin{array}{rl} 
                                 \displaystyle\int_0^1\dfrac{1}{\sqrt{x}}~dx &= \displaystyle\lim_{\varepsilon\searrow 0}\int_{\varepsilon}^1 \dfrac{1}{\sqrt{x}}~dx \cr 
                                 &= \displaystyle\lim_{\varepsilon\searrow 0} \left[2\sqrt{x}\right]_{\varepsilon}^1 \cr 
-                                &= 2.
+                                &= 2
                             \end{array}
-                        \] 
+                        \] と収束することがわかる. 
                     </li>
                     <li>広義積分 
                         \[
@@ -117,7 +118,7 @@
                         \] はどちらも発散する. 
                     </li>
                     <li>広義積分の値も, やはり直感的には関数で表される領域の面積に対応している. 
-                        下の図のように, 関数の値が無限大に発散していたり, もしくは積分区間が無限に広いとしても, 広義積分に対応する領域の面積が無限大に発散するとは限らない. 
+                        下の図のように, 関数の値が無限大に発散していたり, もしくは積分区間が無限に広いとしても, 広義積分に対応する領域の面積は有限になり得る (広義積分によって非有界な領域の面積を定めることができる). 
                     </li>
                 </ul>
                 <div class="resize"><img src='./images/improper_integral1-1.png'></div>
@@ -154,6 +155,46 @@
                         \[
                             \int_1^{\infty} x^{\alpha}~dx = \lim_{t\to \infty} \left[\dfrac{1}{\alpha+1}x^{\alpha+1}\right]_1^t = \dfrac{1}{\alpha+1}\lim_{t\to\infty}(t^{\alpha+1}-1)
                         \] であり, $\alpha\lt -1$ なら収束, そうでなければ発散する. 
+                    </li>
+                </ul>
+            </div>
+
+            <p>広義積分でも, 通常のリーマン積分と同様に線形性, 積分区間の分割および単調性のような性質が成立する. 
+                ただし, 線形性を用いて広義積分を $2$ つに分離できるのは, 分離した $2$ つの各広義積分が収束する場合に限られることに注意. 
+            </p>
+
+            <div class="example">
+                <ul>
+                    <li>広義積分 
+                        \[
+                            \int_0^{\infty}\left(\dfrac{1}{(1+x)^2} - \dfrac{1}{(2+x)^2}\right)~dx
+                        \] は, $2$ つの広義積分 
+                        \[
+                            \int_0^{\infty}\dfrac{1}{(1+x)^2}~dx = \lim_{t\to\infty}\left[-\dfrac{1}{1+x}\right]_0^t = 1,\qquad  \int_0^{\infty}\dfrac{1}{(2+x)^2}~dx = \lim_{t\to\infty}\left[-\dfrac{1}{2+x}\right]_0^t = \dfrac{1}{2} 
+                        \] がどちらも収束するため, 線形性を用いて 
+                        \[
+                            \int_0^{\infty}\left(\dfrac{1}{(1+x)^2} - \dfrac{1}{(2+x)^2}\right)~dx = \int_0^{\infty}\dfrac{1}{(1+x)^2}~dx - \int_0^{\infty}\dfrac{1}{(2+x)^2}~dx = \dfrac{1}{2}
+                        \] と計算することができる. 
+                    </li>
+                    <li>広義積分 
+                        \[
+                            \int_0^{\infty}\left(\dfrac{1}{1+x} - \dfrac{1}{2+x}\right)~dx
+                        \] は, $2$ つの広義積分 
+                        \[
+                            \int_0^{\infty}\dfrac{1}{1+x}~dx,\qquad  \int_0^{\infty}\dfrac{1}{2+x}~dx
+                        \] が収束しない (どちらも発散する) ため, 
+                        \[
+                            \int_0^{\infty}\left(\dfrac{1}{1+x} - \dfrac{1}{2+x}\right) = \int_0^{\infty}\dfrac{1}{1+x}~dx - \int_0^{\infty}\dfrac{1}{2+x}~dx = \infty - \infty
+                        \] のように線形性を用いて式変形することが <b>できない</b>. 
+                        なお, 実際に広義積分を計算すると, 
+                        \[
+                            \begin{array}{rl} 
+                                \displaystyle\int_0^{\infty}\left(\dfrac{1}{1+x} - \dfrac{1}{2+x}\right)~dx &= \displaystyle\lim_{t\to\infty}\int_0^t\left(\dfrac{1}{1+x} - \dfrac{1}{2+x}\right)~dx \cr 
+                                &= \displaystyle\lim_{t\to\infty}\left(\int_0^t\dfrac{1}{1+x}~dx - \int_0^t\dfrac{1}{2+x}~dx\right) \quad (\because\text{通常の積分の線形性})\cr 
+                                &= \displaystyle\lim_{t\to\infty}\left[\log\dfrac{1+x}{2+x}\right]_0^t \cr 
+                                &= \log2
+                            \end{array}
+                        \] となる. 
                     </li>
                 </ul>
             </div>
@@ -212,38 +253,60 @@
                 <div class="resize"><img src='./images/gaussian_integral-1.png'></div> 
             </div>
 
-            <p>広義積分についても, 通常のリーマン積分と同様の性質や計算テクニックを利用した式変形が可能である. 
-                特に積分区間の分割と組み合わせて, 区間の内部で無限大に発散する関数の広義積分を考えることも可能である. </p>
+            <p>積分区間の内部に被積分関数の特異点が存在する場合は, その点で積分区間を分割し, 上と同様にそれぞれの片側極限によって広義積分を定義する.
+                例えば区間 $[a, b]$ 上の関数 $f$ が点 $c$ において発散する場合, 
+                \[
+                    \int_a^b f(x)~dx = \lim_{t_1\nearrow c}\int_a^{t_1}f(x)~dx + \lim_{t_2\searrow c}\int_{t_2}^b f(x)~dx
+                \] と定義する.     
+            </p>
 
             <div class="example">
                 <p>積分 
                     \[
                         \int_{-1}^1\log|x| ~ dx
                     \] を計算してみよう. 
-                    この積分は 
+                    被積分関数は $x=0$ で発散するため, この広義積分はきちんと書くならば 
+                    \[
+                        \begin{array}{rl} 
+                            \displaystyle\int_{-1}^1 \log|x|~dx &= \displaystyle\lim_{t_1\nearrow 0}\int_{-1}^{t_1}\log|x|~dx + \lim_{t_2\searrow 0}\int_{t_2}^1\log|x|~dx \quad (\text{積分区間の分割}) \cr 
+                            &= \displaystyle\lim_{t_1\nearrow 0}\int_{-1}^{t_1}\log(-x)~dx + \lim_{t_2\searrow 0}\int_{t_2}^1\log x~dx \cr 
+                            &= -\displaystyle\lim_{t_1\nearrow 0}\int_{1}^{-t_1}\log y~dy + \lim_{t_2\searrow 0}\int_{t_2}^1\log x~dx \quad(\text{第 $1$ 項で $y=-x$ と変数変換})\cr 
+                            &= \displaystyle\lim_{s\searrow 0}\int_{s}^1\log y~dy + \lim_{t_2\searrow 0}\int_{t_2}^1\log x~dx \quad (\text{積分区間の反転, $s=-t_1$ を導入}) \cr 
+                            &= \displaystyle\lim_{s\searrow 0}\left[x\log x - x\right]_{s}^1 + \displaystyle\lim_{t_2\searrow 0}\left[x\log x - x\right]_{t_2}^1 \cr 
+                            &= \displaystyle\lim_{t_1\searrow 0}(-s\log s - 1 + s) + \displaystyle\lim_{t_2\searrow 0}(-t_2\log t_2 - 1 + t_2) 
+                        \end{array}
+                    \] となる. 
+                    ここで, ロピタルの定理より
+                    \[
+                        \lim_{x\searrow 0}(x\log x) = 0
+                    \] であることに注意して上の極限を計算することで 
+                    \[
+                        \int_{-1}^1\log|x| ~ dx = -2
+                    \] が得られる. 
+                    ただし, 実際には 
+                    \[
+                        \lim_{t\nearrow 0}\int_{-1}^{t}\log|x|~dx = \int_{-1}^0\log|x|~dx,\quad \lim_{t\searrow 0}\int_{t}^1\log|x|~dx = \int_0^1\log|x|~dx
+                    \] という表記に基づき
                     \[
                         \begin{array}{rl} 
                             \displaystyle\int_{-1}^1 \log|x|~dx &= \displaystyle\int_{-1}^0\log|x|~dx + \int_0^1\log|x|~dx \quad (\text{積分区間の分割}) \cr 
                             &= \displaystyle\int_{-1}^0\log(-x)~dx + \int_0^1\log x~dx \cr 
                             &= -\displaystyle\int_1^0\log y~dy + \int_0^1\log x~dx \quad(\text{第 $1$ 項で $y=-x$ と変数変換})\cr 
-                            &= \displaystyle\int_0^1\log y~dy + \int_0^1\log x~dx \quad (\text{積分区間の反転}) \cr 
-                            &= 2\displaystyle\int_0^1\log x~dx \cr 
-                            &=2 \displaystyle\lim_{t\searrow 0}\int_t^1 \log x~dx \cr 
-                            &= 2\displaystyle\lim_{t\searrow 0}\left[x\log x - x\right]_t^1 \cr 
-                            &= 2\displaystyle\lim_{t\searrow 0}(-t\log t - 1 + t)
+                            &= \displaystyle\int_0^1\log y~dy + \int_0^1\log x~dx \quad (\text{積分区間の反転}) 
                         \end{array}
-                    \] と変形できる. 
-                    ここで (ロピタルの定理より)
+                    \] と変形した上で, もしも広義積分 
                     \[
-                        \lim_{x\searrow 0}(x\log x) = 0
-                    \] であることに注意すれば, 上の極限を計算することで 
+                        I = \int_0^1 \log x~dx 
+                    \] が収束するならば (上の式における二つの広義積分の収束先が同じであるため)
                     \[
-                        \int_{-1}^1\log|x| ~ dx = -2
-                    \] が得られる. 
+                        \int_{-1}^1 \log|x|~dx = 2I
+                    \] である, とした方が記述は楽である. 
                 </p>    
             </div>
 
-            <p>リーマン積分の単調性も広義積分において同様に利用可能であり, 従って広義積分の値を大雑把に見積もり, 収束するか否かを判定することが可能である. 
+            <p>上の例からも予想できるが, 実は広義積分が収束することさえ確認できれば, あとは通常のリーマン積分と同様の式変形が可能である (線形性についてもそうであった). 
+                そこで, 一般には積分値を求めることが難しい状況も含めて, 広義積分が収束するか否かを判定したい.  
+                その際に有用となるものが以下の定理である. 
             </p>
 
             <div class="theorem">

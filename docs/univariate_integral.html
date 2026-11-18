@@ -103,12 +103,12 @@
                 </p>
             </div>
 
-            <div class="example">
+            <div class="example" id="not_integrable_example">
                 <p>リーマン積分 <b>不可能</b> な関数の例として, 
                     \[
                         f(x) = \left\{\begin{array}{cl} 
                             0 & (x=0), \cr 
-                            \dfrac{1}{x} & (0\lt x\le 1) 
+                            \dfrac{1}{\sqrt{x}} & (0\lt x\le 1) 
                         \end{array}\right.
                     \] を考える. 
                     この関数は ($x=0$ でも実数の値が定められており) 確かに区間 $[0, 1]$ 上の関数である. 
@@ -119,18 +119,18 @@
                 <p>ここでは区間 $[0, 1]$ を $N$ 等分することで 
                     \[
                         \Delta x = \dfrac{1}{N}, \quad x_k = k\Delta x
-                    \] と定め, また小区間 $[x_k, x_{k+1}]$ 内の点 $t_k$ として 
+                    \] と定め, また小区間 $[x_k, x_{k+1}]$ 内の点 $t_k$ の選び方として, 特に 
                     \[
-                        t_k = x_{k+1} = (k+1)\Delta x
-                    \] と選ぶことにする. 
+                        t_0 = (\Delta x)^4 = \dfrac{1}{N^4} 
+                    \] となるものを考える. 
                     このとき, リーマン和は
                     \[
-                        \sum_{k=0}^{N-1}f(t_k)\Delta x_k = \sum_{k=0}^{N-1}\dfrac{\Delta x}{(k+1)\Delta x} = \sum_{k=1}^N\dfrac{1}{k}
+                        \sum_{k=0}^{N-1}f(t_k)\Delta x_k \ge f(t_0)\Delta x = N
                     \] となるため, 
                     \[
-                        \lim_{\Delta x\to 0}\sum_{k=0}^{N-1}f(t_k)\Delta x_k = \lim_{N\to\infty}\sum_{k=1}^N\dfrac{1}{k} = \infty
-                    \] となり, 上のような分割や点 $t_k$ の選び方をしてしまうと, リーマン和が収束しないことが確認できた. 
-                    直感的には積分値が $\infty$ になってしまう, ということに相当しているが, このような関数 $f(x)$ はリーマン積分不可能な関数の典型例である. 
+                        \lim_{\Delta x\to 0}\sum_{k=0}^{N-1}f(t_k)\Delta x_k \ge \lim_{N\to\infty}N = \infty
+                    \] となり, 上のような分割や点 $t_k$ の選び方をしてしまうと, リーマン和が収束しないことが確認できる. 
+                    一般に, 非有界な関数 $f(x)$ はリーマン積分不可能である. 
                 </p>
             </div>
 
@@ -248,7 +248,8 @@
                             &= \displaystyle c_1 \lim_{\Delta x\to 0}\sum_{k=0}^{N-1}f(t_k) \Delta x_k + c_2 \lim_{\Delta x\to 0}\sum_{k=0}^{N-1}g(t_k) \Delta x_k \cr 
                             &= \displaystyle c_1\int_a^b f(x)~dx + c_2\int_a^b g(x)~dx.
                         \end{array}
-                    \] このように, 有限和の性質の中で極限により壊れないものがリーマン積分にも引き継がれる. 
+                    \] 上の式変形では, 関数 $f$, $g$ がリーマン積分可能であるため, それぞれに対応するリーマン和の極限が存在していることを用いている. 
+                    このように, 有限和が満たす性質の中で極限操作により壊れないものがリーマン積分にも引き継がれる. 
                 </p>
             </div>
 
