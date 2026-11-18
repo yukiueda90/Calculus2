@@ -689,7 +689,7 @@
             </div>
 
             <div class="remark">
-                <p>フーリエ変換 $\widehat{f}$ は $\mathcal{F}(f)$, $(\mathcal{F}f)$ などと表記されることもある. 
+                <p>フーリエ変換 $\widehat{f}$ は $\mathcal{F}(f)$, $\mathcal{F}f$ などと表記されることもある. 
                     また, フーリエ逆変換は $\mathcal{F}^{-1}(g)$, $\mathcal{F}^{-1}g$ などと表記されることもある. 
                     さらに, 適切な関数 $f$ に対して $\mathcal{F}^{-1}(\mathcal{F} f) = f$ が成立し, これを用いると適切な関数 $f$, $g$ に対し 
                     \[
@@ -794,7 +794,7 @@
                 </ul>
             </div>
 
-            <p>この性質を利用すると, 例えば与えられた関数 $f(x)$ の微分を計算する際に, </p>
+            <p>この性質を利用すると, 例えば与えられた関数 $f(x)$ の微分に関して, </p>
 
             <ol>
                 <li>関数 $f(x)$ をフーリエ変換して $\widehat{f}(\xi)$ を得る, </li>
@@ -802,12 +802,12 @@
                 <li>$\widehat{f'}(\xi)$ をフーリエ逆変換することで $f'(x)$ が得られる</li>
             </ol>
 
-            <p>というように計算することも可能となる. 
+            <p>というように計算もしくは式変形することも可能となる. 
                 畳み込み積についても同様である. 
             </p>
             
             <div class="remark">
-                <p>上の式における $2\pi \xi$ を代わりに $\xi$ と表記する流儀もある. 
+                <p>フーリエ変換や逆変換における $2\pi \xi$ を代わりに $\xi$ とする流儀もある. 
                     この表記を採用する場合, フーリエ変換とフーリエ逆変換はそれぞれ 
                     \[
                         \begin{array}{rl} 
@@ -1001,20 +1001,19 @@
                     \end{array}
                 \] と式変形したことを思い出すと, 
                 \[
+                    -\int_{-\infty}^{\infty}\dfrac{d^2}{dx^2}G(x-y)f(y)~dy = -\dfrac{d^2}{dx^2}u(x) = f(x) = \int_{-\infty}^{\infty}\delta(y-x)f(y)~dy,
+                \] つまり
+                \[
                     -\dfrac{d^2}{dx^2}G(x) = \delta(x)
                 \] という対応関係があることがわかる. 
             </p>
 
             <p>ついでにフーリエ変換との関連についても述べておこう. 
-                $1$ 次元ポアソン方程式 $-u'' = f$ に対するフーリエ変換により, 形式的には 
+                適切な関数 $f$ に対し, $1$ 次元ポアソン方程式 $-u'' = f$ に対するフーリエ変換により
                 \[
                     4\pi^2\xi^2\widehat{u}(\xi) = -\widehat{u''}(\xi) = \widehat{f}(\xi) 
-                \] と式変形できる. 
-                ここで, $-d^2/dx^2$ に対する基本解 $G(x)$ は 
-                \[
-                    \widehat{G}(\xi) = \dfrac{1}{4\pi^2\xi^2} 
-                \] を満たし, 結果的に $\widehat{u}(\xi) = \widehat{G}(\xi)\widehat{f}(\xi) = \widehat{G*f}(\xi)$ が得られる. 
-                実際, 基本解が満たす式 $-G''(x) = \delta (x)$ に対するフーリエ変換から, 形式的に 
+                \] が得られる. 
+                ところで, 基本解が満たす式 $-G''(x) = \delta (x)$ に対するフーリエ変換から, 形式的に 
                 \[
                     \begin{array}{rl} 
                         4\pi^2\xi^2\widehat{G}(\xi) &= -\widehat{G''}(\xi) \cr 
@@ -1022,15 +1021,15 @@
                         &= \displaystyle\int_{-\infty}^{\infty}\delta(x)e^{-2\pi ix\xi}~dx \cr 
                         &= e^{-2\pi i\cdot 0\cdot \xi} = 1
                     \end{array}
-                \] となることが確かめられる.  
-                上で得られた
+                \] が得られる. 
+                以上より ($\xi=0$ での特異性を無視すれば, 形式的には) 
                 \[
-                    \widehat{u}(\xi) = \widehat{G}(\xi)\widehat{f}(\xi) = \widehat{G*f}(\xi)
-                \] をフーリエ逆変換することで 
+                    \widehat{u}(\xi) = \dfrac{1}{4\pi^2\xi^2}\widehat{f}(\xi) = \widehat{G}(\xi)\widehat{f}(\xi) = \widehat{G*f}(\xi)
+                \] となり, これをフーリエ逆変換することで
                 \[
                     u(x) = (G*f)(x)
-                \] という対応関係が確認できる. 
-                上では説明の都合上 &quot;唐突に&quot; $u(x) = (G*f)(x)$ を考えたが, フーリエ変換を利用することで (形式的には) 自然なアイデアであることがわかる. 
+                \] という解の表示が得られる. 
+                上では説明の都合上 &quot;唐突に&quot; $u(x) = (G*f)(x)$ を考えたが, フーリエ変換を利用することで自然なアイデアであることがわかる. 
             </p>
 
             <div class="exercise">
@@ -1040,54 +1039,37 @@
                     \] を考え, また 
                     \[
                         G(x) = \dfrac{1}{2k}e^{-k|x|}
-                    \] とおく 
+                    \] とおく. 
+                    このとき, フーリエ変換を利用することで, この微分方程式の解の一つが 
+                    \[
+                        u(x) = (G*f)(x) = \dfrac{1}{2k}\int_{-\infty}^{\infty}e^{-k|x-y|}f(y)~dy 
+                    \] として与えられることを証明せよ. 
                 </p>
-                <ul>
-                    <li>微分方程式の解 $u(x)$ であり, 適切な性質を満たすもの (具体的には十分滑らかかつ無限遠で急速に減衰するもの) に対し, 
-                        \[
-                            \widehat{u}(\xi) = \widehat{G*f}(\xi)
-                        \] が成立することを証明せよ.
-                    </li>
-                    <li>関数
-                        \[
-                            u(x) = \dfrac{1}{2k}\int_{-\infty}^{\infty}e^{-k|x-y|}f(y)~dy 
-                        \] は与えられた微分方程式の解の一つであることを証明せよ. 
-                    </li>
-                </ul>
             </div>
 
             <div class="answer">
-                <p>微分方程式の両辺をフーリエ変換することで 
-                    \[
-                        \begin{array}{rl} 
-                            \widehat{f}(\xi) &= -\widehat{u''}(\xi) + k^2\widehat{u}(\xi) \cr 
-                            &= (k^2 + 4\pi^2\xi^2)\widehat{u}(\xi)
-                        \end{array}
-                    \] である. 
-                    ここで, <a href="fourier_transform_exercise">以前の例題</a> より 
+                <p><a href="fourier_transform_exercise">以前の例題</a> より 
                     \[
                         G(x) = \dfrac{1}{2k}e^{-k|x|}
                     \] とおくと 
                     \[
                         \widehat{G}(\xi) = \dfrac{1}{2k}\dfrac{2k}{k^2+4\pi^2\xi^2} = \dfrac{1}{{k^2+4\pi^2\xi^2}}
-                    \] となるため 
+                    \] となる. 
+                    このことを利用すると, 
                     \[
-                        \widehat{u}(\xi) = \widehat{G}(\xi)\widehat{f}(\xi) = \widehat{G*f}(\xi)
-                    \] が得られる (このことは上の $G(x)$ が $-d^2/dx^2 + k^2I$ の基本解であることを意味している). 
-                    逆に, 関数 
-                    \[
-                        u(x) = \dfrac{1}{2k}\int_{-\infty}^{\infty}e^{-k|x-y|}f(y)~dy = (G*f)(x)
-                    \] をフーリエ変換することで 
-                    \[
-                        \widehat{u}(\xi) = \widehat{G*f}(\xi) = \dfrac{1}{{k^2+4\pi^2\xi^2}}\widehat{f}, 
-                    \] つまり 
-                    \[
-                        -\widehat{u''}(\xi) + k^2\widehat{u}(\xi) = \widehat{f}
-                    \] が得られるため, これをフーリエ逆変換することで与えられた関数 $u(x)$ が微分方程式の解であることが確かめられる. 
+                        \begin{array}{rl} 
+                            -\dfrac{d^2}{dx^2}u + k^2u = f &\iff \widehat{f}(\xi) = -\widehat{u''}(\xi) + k^2\widehat{u}(\xi) = (k^2 + 4\pi^2\xi^2)\widehat{u}(\xi) \quad (\because\text{フーリエ変換}) \cr 
+                            &\iff \widehat{u}(\xi) = \widehat{G}(\xi)\widehat{f}(\xi) = \widehat{G*f}(\xi) \cr 
+                            &\iff u(x) = (G*f)(x) = \dfrac{1}{2k}\displaystyle\int_{-\infty}^{\infty}e^{-k|x-y|}f(y)~dy \quad (\because\text{フーリエ逆変換}) 
+                        \end{array}
+                    \] が得られる. 
+                </p>
+                <p>なお, このことは与えられた $G(x)$ が $-d^2/dx^2 + k^2I$ の基本解であることを意味している. 
+                    ただし, 上の議論ではデルタ関数を明示的に用いておらず, また ($1$ 次元ポアソン方程式の場合と異なり) $\xi=0$ の場合の特異性も存在しないため, 適切な関数 $f$ に対して上は通常のフーリエ変換の性質のみを用いて正当化される. 
                 </p>
             </div>
 
-            <p>繰り返すが, ここまでの説明はあくまで直感的, 形式的なものであり, 数学的に厳密ではない. 
+            <p>繰り返すが, $1$ 次元ポアソン方程式に対する説明はあくまで直感的, 形式的なものであり, 数学的に厳密ではない. 
                 ただし, 非常に有用な考え方であることは確かであり, 改めて <b>注意</b> としてまとめておこう: 
             </p>
 
