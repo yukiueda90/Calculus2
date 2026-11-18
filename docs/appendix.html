@@ -252,7 +252,7 @@
                     \[
                         \begin{array}{c} 
                             \Gamma(z) = \displaystyle\int_0^{\infty}t^{z-1}e^{-t}~dt, \cr 
-                            B(p, q) = \displaystyle\int_0^1 t^{p-1}(1-t)^{q-1}~dt 
+                            B(p, q) = \displaystyle\int_0^1 t^{p-1}(1-t)^{q-1}~dt \quad \left(\text{もしくは} \int_0^{\infty}\dfrac{x^{p-1}}{(1+x)^{p+q}}~dx \right). 
                         \end{array}
                     \] 特に, ガンマ関数において $t=x^2$, ベータ関数において $t=\cos^2\theta$ と変数変換すると, 
                     \[
@@ -298,13 +298,10 @@
             <div class="exercise">
                 <ul>
                     <li>$0\lt m+1\lt n$ とする. 
-                        このとき積分 
+                        このとき 
                         \[
-                            \int_0^{\infty}\dfrac{x^m}{1+x^n}~dx
-                        \] をガンマ関数を用いて表せ (ヒント: $0\le x\lt \infty$ に対して
-                        \[
-                            t = \dfrac{x^n}{1+x^n} \quad (0\le t\lt 1)
-                        \] と変数変換すると良い). 
+                            \int_0^{\infty}\dfrac{x^m}{1+x^n}~dx 
+                        \] をガンマ関数を用いて表せ (ヒント：例えば $t=x^n$ などと変数変換すると良い). 
                     </li>
                     <li>$a\gt0$, $b\gt 0$, $1/a + 1/b\lt 1$ とする. 
                         また, 
@@ -322,25 +319,23 @@
                 </ul>
             </div>
 
-            <div class="answer">
+            <div class="remark">
                 <ul>
-                    <li>上のヒントの変数変換を利用すると 
-                        \[
-                            x = \left(\dfrac{t}{1-t}\right)^{\frac{1}{n}}
-                        \] および 
-                        \[
-                            \dfrac{dx}{dt} = \dfrac{1}{n}\left(\dfrac{t}{1-t}\right)^{\frac{1}{n}-1}\left(\dfrac{1}{1-t} + \dfrac{t}{(1-t)^2}\right) = \dfrac{1}{n}t^{\frac{1}{n}-1}(1-t)^{-\frac{1}{n}-1}
-                        \] が得られる. 
-                        従って 
+                    <li>適切に変数変換すればベータ関数で表すことが可能である. 
+                        例えばヒントの変数変換 $t = x^n$ を用いて
                         \[
                             \begin{array}{rl} 
-                                \displaystyle\int_0^{\infty}\dfrac{x^m}{1+x^n}~dx &= \displaystyle\int_0^1 t x^{m-n}\dfrac{1}{n}t^{\frac{1}{n}-1}(1-t)^{-\frac{1}{n}-1}~dt \cr 
-                                &= \dfrac{1}{n}\displaystyle\int_0^1 t^{\frac{m+1}{n}-1}(1-t)^{-\frac{m+1}{n}}~dt \cr 
+                                \displaystyle\int_0^{\infty}\dfrac{x^m}{1+x^n}~dx &= \displaystyle\int_0^{\infty} \dfrac{t^{m/n}}{1+t}\dfrac{t^{1/n-1}}{n}~dt \cr 
+                                &= \dfrac{1}{n}\displaystyle\int_0^{\infty} \dfrac{t^{(m+1)/n-1}}{1+t}~dt \cr 
                                 &= \dfrac{1}{n}B\left(\dfrac{m+1}{n}, 1-\dfrac{m+1}{n}\right) \cr 
                                 &= \dfrac{1}{n}\dfrac{\Gamma\left(\dfrac{m+1}{n}\right)\Gamma\left(1-\dfrac{m+1}{n}\right)}{\Gamma(1)} \cr 
-                                &= \dfrac{1}{n}\Gamma\left(\dfrac{m+1}{n}\right)\Gamma\left(1-\dfrac{m+1}{n}\right). 
+                                &= \dfrac{1}{n}\Gamma\left(\dfrac{m+1}{n}\right)\Gamma\left(1-\dfrac{m+1}{n}\right)
                             \end{array}
-                        \]
+                        \] となる. 
+                        なお, さらにガンマ関数の相反公式を利用すれば 
+                        \[
+                            \int_0^{\infty}\dfrac{x^m}{1+x^n}~dx = \dfrac{1}{n}\Gamma\left(\dfrac{m+1}{n}\right)\Gamma\left(1-\dfrac{m+1}{n}\right) = \dfrac{\pi}{n\sin\left(\dfrac{m+1}{n}\pi\right)}
+                        \] という表示を得ることもできる. 
                     </li>
                     <li>上のヒントの変数変換を利用すると 
                         \[
@@ -364,12 +359,15 @@
                             \begin{array}{rl} 
                                 \displaystyle\iint_D\dfrac{1}{1+x^a+y^b}~dxdy &= \displaystyle\lim_{n\to\infty}\iint_{D_n}\dfrac{1}{1+x^a+y^b}~dxdy \cr 
                                 &= \displaystyle\lim_{n\to\infty}\iint_{[0,n]\times[0,\pi/2]}\dfrac{1}{1+r^2}\dfrac{4}{ab}r^{\frac{2}{a}+\frac{2}{b}-1}\cos^{\frac{2}{a}-1}\theta\sin^{\frac{2}{b}-1}\theta~drd\theta \cr 
-                                &= \dfrac{4}{ab}\displaystyle\lim_{n\to\infty}\int_0^{n} \dfrac{r^{\frac{2}{a}+\frac{2}{b}-1}}{1+r^2}\dfrac{1}{2}B(1/a, 1/b)~dr \cr
-                                &= \dfrac{2}{ab}B(1/a, 1/b)\displaystyle\int_0^{\infty}\dfrac{r^{\frac{2}{a}+\frac{2}{b}-1}}{1+r^2}~dr \cr 
+                                &= \dfrac{4}{ab}\displaystyle\lim_{n\to\infty}\int_0^n\dfrac{r^{\frac{2}{a}+\frac{2}{b}-1}}{1+r^2}\underbrace{\left(\int_0^{\pi/2}\cos^{\frac{2}{a}-1}\theta\sin^{\frac{2}{b}-1}\theta~d\theta\right)}_{=\frac{1}{2}B(1/a, 1/b)}~dr \cr 
+                                &= \dfrac{2}{ab}B(1/a, 1/b)\underbrace{\displaystyle\int_0^{\infty}\dfrac{r^{\frac{2}{a}+\frac{2}{b}-1}}{1+r^2}~dr}_{=\frac{1}{2}\Gamma(1/a+1/b)\Gamma(1-1/a-1/b)} \cr 
                                 &= \dfrac{2}{ab}\dfrac{\Gamma(1/a)\Gamma(1/b)}{\Gamma(1/a+1/b)}\dfrac{1}{2}\Gamma(1/a+1/b)\Gamma(1-1/a-1/b) \cr 
                                 &= \dfrac{1}{ab}\Gamma(1/a)\Gamma(1/b)\Gamma(1-1/a-1/b). 
                             \end{array}
-                        \]
+                        \] なお, ガンマ関数の相反公式を利用すれば 
+                        \[
+                            \iint_D\dfrac{1}{1+x^a+y^b}~dxdy = \dfrac{2}{ab}B(1/a, 1/b)\underbrace{\displaystyle\int_0^{\infty}\dfrac{r^{\frac{2}{a}+\frac{2}{b}-1}}{1+r^2}~dr}_{=\frac{\pi}{2\sin\left((1/a+1/b)\pi\right)}} = \dfrac{\pi B(1/a, 1/b)}{ab\sin(\pi/a+\pi/b)}
+                        \] という表示を得ることもできる. 
                     </li>
                 </ul>
             </div>
