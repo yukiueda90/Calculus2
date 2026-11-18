@@ -698,6 +698,34 @@
                 </p>
             </div>
 
+            <div class="example">
+                <p>$a\gt 0$ とし, 関数 
+                    \[
+                        f(x) = \left\{\begin{array}{rl} 
+                            1 & |x|\le a \cr 
+                            0 & |x|\gt a 
+                        \end{array}\right.
+                    \] のフーリエ変換を計算してみよう. 
+                    まず, $\xi\neq0$ の場合は 
+                    \[
+                        \begin{array}{rl} 
+                            \widehat{f}(\xi) &= \displaystyle\int_{-\infty}^{\infty}f(x)e^{-2\pi ix\xi}~dx \cr 
+                            &= \displaystyle\int_{-a}^a e^{-2\pi ix\xi}~dx \cr 
+                            &= \left[-\dfrac{e^{-2\pi ix\xi}}{2\pi i\xi}\right]_{-a}^a \cr 
+                            &= -\dfrac{e^{-2\pi ia\xi} - e^{2\pi ia\xi}}{2\pi i\xi} \cr 
+                            &= \dfrac{\sin(2\pi a\xi)}{\pi \xi} \quad(\because\text{オイラーの公式})
+                        \end{array}
+                    \] となり, 一方で $\xi=0$ の場合は 
+                    \[
+                        \widehat{f}(0) = \int_{-\infty}^{\infty}f(x)e^{2\pi ix\cdot 0}~dx = 2a
+                    \] となる. 
+                    なお, 
+                    \[
+                        \lim_{\xi\to0}\widehat{f}(\xi) = \lim_{\xi\to0}2a\dfrac{\sin(2\pi a\xi)}{2\pi a\xi} = 2a
+                    \] より, $\widehat{f}(\xi)$ は $\xi=0$ でも連続である. 
+                </p>
+            </div>
+
             <div class="exercise" id="fourier_transform_exercise">
                 <p>$k\gt 0$ とする. このとき, 関数 $f(x) = e^{-k|x|}$ に対し, 
                     \[
