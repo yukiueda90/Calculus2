@@ -368,7 +368,7 @@
                             \end{array}
                         \] なお, ガンマ関数の相反公式を利用すれば 
                         \[
-                            \iint_D\dfrac{1}{1+x^a+y^b}~dxdy = \dfrac{2}{ab}B(1/a, 1/b)\underbrace{\displaystyle\int_0^{\infty}\dfrac{r^{\frac{2}{a}+\frac{2}{b}-1}}{1+r^2}~dr}_{=\frac{\pi}{2\sin\left((1/a+1/b)\pi\right)}} = \dfrac{\pi B(1/a, 1/b)}{ab\sin(\pi/a+\pi/b)}
+                            \iint_D\dfrac{1}{1+x^a+y^b}~dxdy = \dfrac{2}{ab}B(1/a, 1/b)\dfrac{1}{2}\underbrace{\Gamma(1/a+1/b)\Gamma(1-1/a-1/b)}_{=\frac{\pi}{\sin\left((1/a+1/b)\pi\right)}} = \dfrac{\pi B(1/a, 1/b)}{ab\sin(\pi/a+\pi/b)}
                         \] という表示を得ることもできる. 
                     </li>
                 </ul>

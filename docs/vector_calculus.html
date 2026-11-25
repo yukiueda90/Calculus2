@@ -388,6 +388,24 @@
 
             <div class="resize"><img src='./images/outer_unit_normal_vector-1.png'></div> 
 
+            <p>なお, 上の補題は
+                \[
+                    \int_C\begin{pmatrix} 
+                        f_1(\mathbf{x}) \cr 
+                        f_2(\mathbf{x}) 
+                    \end{pmatrix}\cdot\mathbf{n}~ds = \int_C\begin{pmatrix} 
+                        -f_2(\mathbf{x}) \cr 
+                        f_1(\mathbf{x}) 
+                    \end{pmatrix}\cdot d\mathbf{r} = \int_C -f_2~dx + f_1~dy
+                \] ということを意味しているが, 直感的には 
+                \[
+                    \mathbf{n}~ds = \begin{pmatrix} 
+                        dy \cr  
+                        -dx
+                    \end{pmatrix}
+                \] であると思うことができる. 
+            </p>
+
             <hr>
 
             <p>次に述べる <b>グリーンの定理</b> は, 領域境界上でのベクトル値関数の線積分と領域内部での重積分との対応関係を与えるものである. 
@@ -475,11 +493,11 @@
             </div>
 
             <p>グリーンの定理には様々な応用が存在するが, そのうちの一つが領域の面積の計算を線積分, さらに置換積分により $1$ 変数関数の積分の計算に置き換えることである. 
-                パラメータ表示が与えられた閉曲線 $C = \{\mathbf{r}(t) : a\le t\le b\}$ 内部の領域 $D$ の面積は, グリーンの公式により例えば 
+                パラメータ表示が与えられた閉曲線 $C = \{\mathbf{r}(t) : a\le t\le b\}$ 内部の領域 $D$ の面積は, グリーンの定理より例えば 
                 \[
                     \begin{array}{rl} 
                         |D| &= \displaystyle\iint_D ~dxdy \cr 
-                        &= \dfrac{1}{2}\displaystyle\oint_C -y~dx + x~dy \quad (\because f_2=x/2,\ f_1=-y/2\ \text{としてグリーンの公式}) \cr 
+                        &= \dfrac{1}{2}\displaystyle\oint_C -y~dx + x~dy \quad (\because f_2=x/2,\ f_1=-y/2\ \text{としてグリーンの定理}) \cr 
                         &= \dfrac{1}{2}\displaystyle\int_a^b \left(-y(t)\dfrac{dx}{dt} + x(t)\dfrac{dy}{dt}\right)~dt \quad(\because \ \text{置換積分})
                     \end{array}
                 \] のように計算することが可能である. 
@@ -487,7 +505,7 @@
 
             <div class="exercise">
                 <p>$R\gt0$ とする. 
-                    また曲線 $C$ が 
+                    また閉曲線 $C$ が 
                     \[
                         \left\{\begin{array}{rl}
                             x &= R\cos^3\theta, \cr 
@@ -499,7 +517,7 @@
             </div>
 
             <div class="answer">
-                <p>グリーンの公式を利用するならば, 例えば
+                <p>グリーンの定理を利用するならば, 例えば
                     \[
                         \begin{array}{rl} 
                             |D| &= \displaystyle\iint_D ~dxdy \cr 
@@ -510,7 +528,7 @@
                             &= \dfrac{3}{8}R^2\displaystyle\int_0^{2\pi} \dfrac{1}{2}(1-\cos4\theta)~d\theta \cr 
                             &= \dfrac{3}{8}\pi R^2.
                         \end{array}
-                    \] もしもグリーンの公式を利用しないならば, 例えば 
+                    \] もしもグリーンの定理を利用しないならば, 例えば 
                     \[
                         \begin{array}{rl} 
                             |D| &= 4\displaystyle\int_0^R y~dx \cr 
@@ -531,12 +549,12 @@
         <hr>
 
         <section id="section4-2"><h2>4.2: 発散定理と部分積分</h2>
-            <p>グリーンの公式は, 領域内部での二重積分と領域境界上での線積分とを対応させる定理であった. 
+            <p>グリーンの定理は, 領域内部での二重積分と領域境界上での線積分とを対応させる定理であった. 
                 ここでは, 同様に二重積分と線積分を用いて記述される公式について紹介していこう. 
                 特に二重積分 (より一般に重積分) に対する <b>部分積分</b> の公式は, 様々な分野で重要となるものである. 
             </p>
 
-            <p>まずは <a href="#Lemma_rot">4.1 において紹介した補題</a> とグリーンの公式を用いることで, <b>発散定理</b> (<b>ガウスの発散定理</b>) を証明することができる (ついでに <b>発散</b> とは何だったか簡単に振り返っておく):</p> 
+            <p>まずは <a href="#Lemma_rot">4.1 において紹介した補題</a> とグリーンの定理を用いることで, <b>発散定理</b> (<b>ガウスの発散定理</b>) を証明することができる (ついでに <b>発散</b> とは何だったか簡単に振り返っておく):</p> 
 
             <div class="definition" data-name="発散">
                 <p>$D\subset\mathbb{R}^n$ 上の $C^1$ 級ベクトル値関数 
@@ -592,7 +610,7 @@
             </div>
 
             <div class="remark">
-                <p>直観的には, 発散 $\nabla\cdot \mathbf{f}(\mathbf{x})$ は点 $\mathbf{x}$ における湧出量を表すと説明される. 
+                <p>直観的には, 発散 $\nabla\cdot \mathbf{f}(\mathbf{x})$ は (点 $\mathbf{x}$ における) 単位面積あたりの湧出量を表すと説明される. 
                     また, $\mathbf{f}\cdot\mathbf{n}$ は境界を直交する向きに横切る成分であると説明される. 
                     従って, 発散定理は
                     \[
@@ -615,6 +633,129 @@
                         \left[f(x)\right]_a^b = f(b) - f(a) = (-1)\cdot f(a) + 1\cdot f(b) 
                     \] であることに注意すると, 一次元区間 $[a, b]$ の左端点における &quot;外向き単位法線ベクトル&quot; が $-1$, 右端点での &quot;外向き単位法線ベクトル&quot; が $1$ と思うことできちんと対応している. 
                 </p>
+            </div>
+
+            <p>発散定理は (グリーンの定理と比較して) 具体的な計算への応用よりも式変形に用いられることが多いように思われる. 
+                とはいえ, グリーンの定理と同様に積分計算に応用することも不可能ではない. 
+            </p>
+
+            <div class="example">
+                <p>閉曲線 $C$ 内部の領域 $D$ の面積は 
+                    \[
+                        |D| = \dfrac{1}{2}\oint_C \mathbf{x}\cdot\mathbf{n}~ds 
+                    \] と計算することもできる, ただし 
+                    \[
+                        \mathbf{x} = \begin{pmatrix} 
+                            x \cr 
+                            y 
+                        \end{pmatrix}
+                    \] である. 
+                    実際, 発散定理より 
+                    \[
+                        \dfrac{1}{2}\oint_C \mathbf{x}\cdot\mathbf{n}~ds = \dfrac{1}{2}\iint_D \underbrace{\nabla\cdot\mathbf{x}}_{=2}~dxdy = \iint_D~dxdy = |D| 
+                    \] を確かめることもできるし, また <a href="#Lemma_rot">4.1 の補題</a> や
+                    \[
+                        \mathbf{n}~ds = \begin{pmatrix} 
+                            dy \cr 
+                            -dx 
+                        \end{pmatrix}
+                    \] という解釈を利用して
+                    \[
+                        \begin{array}{rl} 
+                            \dfrac{1}{2}\displaystyle\oint_C \mathbf{x}\cdot\mathbf{n}~ds &= \dfrac{1}{2}\displaystyle\oint_C -y~dx + x~dy \cr 
+                            &= \displaystyle\iint_D~dxdy \quad(\because\text{グリーンの定理}) \cr 
+                            &= |D|
+                        \end{array}
+                    \] と計算しても同じことである. 
+                </p>
+            </div>
+
+            <div class="exercise">
+                <p>$R\gt0$ とする. 
+                    また閉曲線 $C$ が 
+                    \[
+                        \left\{\begin{array}{rl}
+                            x &= R\cos^3\theta, \cr 
+                            y &= R\sin^3\theta 
+                        \end{array}\right.\quad (0\le \theta\le 2\pi)
+                    \] により与えられているとする. 
+                </p>
+                <ul>
+                    <li>閉曲線 $C$ の外向き単位法線ベクトル $\mathbf{n}$ を $\theta$ を用いて表せ. </li>
+                    <li>閉曲線 $C$ 内部の領域 $D$ の面積 $|D|$ を求めよ. </li>
+                </ul>
+            </div>
+
+            <div class="answer">
+                <ul>
+                    <li>まず, 曲線 $C$ の接ベクトルが 
+                        \[
+                            \mathbf{r}'(\theta) = \begin{pmatrix} 
+                                dx/d\theta \cr 
+                                dy/d\theta 
+                            \end{pmatrix} = \begin{pmatrix} 
+                                -3R\cos^2\theta\sin\theta \cr 
+                                3R\sin^2\theta\cos\theta 
+                            \end{pmatrix}
+                        \] であり, $|\mathbf{r}'(\theta)| = 3R|\sin\theta\cos\theta|$ である. 
+                        従って単位接ベクトルは 
+                        \[
+                            \begin{pmatrix} 
+                                t_1 \cr 
+                                t_2    
+                            \end{pmatrix} = \mathbf{t} = \dfrac{\mathbf{r}'(\theta)}{|\mathbf{r}'(\theta)|} = \dfrac{1}{3R|\sin\theta\cos\theta|}\begin{pmatrix} 
+                                -3R\cos^2\theta\sin\theta \cr 
+                                3R\sin^2\theta\cos\theta 
+                            \end{pmatrix} = \begin{pmatrix} 
+                                -|\cos\theta|\dfrac{\sin\theta}{|\sin\theta|} \cr 
+                                |\sin\theta|\dfrac{\cos\theta}{|\cos\theta|} 
+                            \end{pmatrix}
+                        \] である. 
+                        あとは外向き単位法線ベクトル $\mathbf{n}$ の定義より
+                        \[
+                            \mathbf{n} = \begin{pmatrix} 
+                                t_2 \cr 
+                                -t_1 
+                            \end{pmatrix} = \begin{pmatrix} 
+                                |\sin\theta|\dfrac{\cos\theta}{|\cos\theta|} \cr 
+                                |\cos\theta|\dfrac{\sin\theta}{|\sin\theta|} 
+                            \end{pmatrix}.
+                        \]
+                    </li>
+                    <li>実は普通に計算したりグリーンの定理を利用した方が楽なのだが, ここではせっかくなので発散定理を利用してみよう: 
+                        \[
+                            \begin{array}{rl} 
+                                |D| &= \displaystyle\iint_D ~dxdy \cr 
+                                &= \dfrac{1}{2}\displaystyle\oint_C \mathbf{x}\cdot\mathbf{n}~ds \cr 
+                                &= \dfrac{1}{2}\displaystyle\int_0^{2\pi} \mathbf{x}(\theta)\cdot\mathbf{n}(\theta)|\mathbf{r}'(\theta)|~d\theta \cr 
+                                &= \dfrac{1}{2}\displaystyle\int_0^{2\pi} \begin{pmatrix} 
+                                    R\cos^3\theta \cr 
+                                    R\sin^3\theta 
+                                \end{pmatrix}\cdot\begin{pmatrix} 
+                                    |\sin\theta|\dfrac{\cos\theta}{|\cos\theta|} \cr 
+                                    |\cos\theta|\dfrac{\sin\theta}{|\sin\theta|} 
+                                \end{pmatrix}3R|\sin\theta\cos\theta|~d\theta \cr 
+                                &= \dfrac{3}{2}R^2\displaystyle\int_0^{2\pi}(\sin^2\theta\cos^4\theta + \sin^4\theta\cos^2\theta)~d\theta \cr 
+                                &= \dfrac{3}{8}R^2\displaystyle\int_0^{2\pi}\sin^2 2\theta~d\theta \cr 
+                                &= \dfrac{3}{8}R^2\displaystyle\int_0^{2\pi} \dfrac{1}{2}(1-\cos4\theta)~d\theta \cr 
+                                &= \dfrac{3}{8}\pi R^2.
+                            \end{array}
+                        \] もしくは, 
+                        \[
+                            \mathbf{n}~ds = \begin{pmatrix} 
+                                dy \cr 
+                                -dx 
+                            \end{pmatrix}
+                        \] と思って 
+                        \[
+                            \begin{array}{rl} 
+                                |D| &= \displaystyle\iint_D ~dxdy \cr 
+                                &= \dfrac{1}{2}\displaystyle\oint_C \mathbf{x}\cdot\mathbf{n}~ds \cr 
+                                &= \dfrac{1}{2}\displaystyle\oint_C -y~dx + x~dy 
+                            \end{array}
+                        \] と式変形すれば, あとはグリーンの公式を利用した場合と同様に計算できる.
+                    </li>
+                </ul>
             </div>
 
             <div class="example">
@@ -667,7 +808,8 @@
                                 \sin\theta
                             \end{pmatrix}R~d\theta \cr 
                             &= R^2\displaystyle\int_0^{2\pi}\cos^2\theta + 2R\sin^2\theta\cos\theta + 3R\sin\theta\cos^2\theta + 4\sin^2\theta~d\theta \cr 
-                            &= R^2\displaystyle\int_0^{2\pi} 1 + \dfrac{3}{2}(1-\cos2\theta) + 2R\left(\cos\theta - \dfrac{1}{4}(3\cos\theta+\cos3\theta)\right) + 3R\left(\sin\theta-\dfrac{1}{4}(3\sin\theta-\sin3\theta)\right) ~d\theta \cr 
+                            &= R^2\displaystyle\int_0^{2\pi}(1+3\sin^2\theta)~d\theta + \dfrac{2R^3}{3}\underbrace{\left[\sin^3\theta\right]_0^{2\pi}}_{=0} - R^3\underbrace{\left[\cos^3\theta\right]_0^{2\pi}}_{=0} \cr
+                            &= R^2\left(2\pi + \displaystyle\int_0^{2\pi} \dfrac{3}{2}(1-\cos2\theta) ~d\theta\right) \cr 
                             &= 5\pi R^2
                         \end{array}
                     \] のように計算することも可能である. 
@@ -771,6 +913,10 @@
                 </p>
             </div>
 
+            <p>二重積分における部分積分も, 具体的な計算への応用というよりは式変形に用いられることが多いように思われる. 
+                この資料でも計算問題などは扱わず, 部分積分による式変形の典型例を紹介することにする: 
+            </p>
+
             <div class="example">
                 <p>ここでは
                     \[
@@ -798,8 +944,8 @@
                     \] では, $u$ に対する $2$ 階微分に相当する $\Delta u$ が現れているが, これに対応する問題として, 適切な条件を満たす <span class="wave">全ての</span> 関数 $v$ (これを <b>テスト関数</b> と呼ぶことがある) に対し 
                     \[
                         \iint_D (\nabla u)\cdot(\nabla v)~dxdy = \iint_D fv~dxdy 
-                    \] を満たす $u$ を求める, という $u$ の $1$ 階微分しか現れない問題を考えることができる. 
-                    このような式は <b>弱形式</b> と呼ばれ, 部分積分を利用することで問題に現れる微分の階数を減らすことができる, 重要なテクニックである. 
+                    \] を満たす, 境界 $C$ 上で $0$ となる関数 $u$ を求める, という $u$ の $1$ 階微分しか現れない問題を考えることができる. 
+                    このような式は <b>弱形式</b> と呼ばれ, 部分積分を利用することで問題に現れる微分の階数を減らし, 通常の意味で $2$ 階微分できない関数も解の候補として扱う, 重要なテクニックである. 
                 </p>
             </div>
 
@@ -834,7 +980,12 @@
                     \] が得られる. 
                 </p>
             </div>
-        
+
+            <p>微分を含む方程式は <b>微分方程式</b> と総称され, 物理や生物などに観察される様々な現象のメカニズムを数学的に表現する有用なアイデアである. 
+                ただし, 多変数の場合や複雑な領域形状まで考慮すると, 微分方程式の解を手計算で具体的に求めることは現実的ではない. 
+                一方で, 上のように積分を用いた式変形を適切に用いることで, 解の持つ性質を調べることは可能であり, このことは数学に限らず様々な分野において利用される. 
+            </p>
+
         </section>
 
     </article>
